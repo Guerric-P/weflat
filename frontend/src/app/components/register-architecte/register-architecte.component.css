@@ -1,0 +1,42 @@
+.login-box.center-box {
+    position: static;
+    margin: 50px auto;
+}
+.login-box {
+    position: relative;
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+    background-color: #fff;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
+    width: 500px;
+    right: 0;
+    min-height: 550px;
+    z-index: 1;
+    padding: 35px 5px 0;
+    border-top: 1px solid #f1f1f5;
+}
+
+#account-attributes-challenge {
+    margin: 0 auto;
+}
+
+.mat-control {
+    flex: 0 0 50%;
+    max-width: 50%;
+    text-align: center;
+}
+
+.row-container {
+    flex-direction: row;
+    display: flex;
+}
+
+.title {
+    text-align: center;
+}
+
+.submit-button {
+    width: 100%;
+    margin: 20px;
+}

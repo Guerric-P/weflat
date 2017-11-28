@@ -1,0 +1,47 @@
+<div id="wrapper">
+  <div id="maincontent">
+    <!--Navbar-->
+    <header>
+      <nav class="navbar navbar-right">
+        Bonjour
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            {{displayName}}
+          </button>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" (click)="logout()">Se deconnecter</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <router-outlet></router-outlet>
+    <!-- Footer -->
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>&copy; Weflat 2017</p>
+        <p>Made with &hearts; a Paris</p>
+      </div>
+    </footer>
+
+  </div>
+  <div id="leftmenu">
+    <a id="logo" routerLink="/">
+      <img src="assets/weflat_blanc.png" alt="">
+    </a>
+    <nav class="nav flex-column mt-5">
+      <a class="nav-link" routerLink="/architecte/dashboard" routerLinkActive="active">Mon tableau de bord</a>
+      <a class="nav-link" routerLinkActive="active">Mon profil</a>
+      <a class="nav-link" href="#" routerLink="/architecte/visits" routerLinkActive="active">Mes visites
+        <span class="badge badge-light">4</span>
+      </a>
+      <a class="nav-link" routerLink="/architecte/dispo" routerLinkActive="active">Mes disponibilites</a>
+      <a class="nav-link disabled" routerLink="/architecte/messages" routerLinkActive="active">Ma messagerie</a>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<!-- 3 chiffres -->
+<div class="container">
+  <h2>Ma zone d'action</h2>
+  <div class="d-flex flex-row">
+    <div style="flex: 0.3" class="left-container">
+      <label>Saisissez les codes postaux correspondant à votre zone d'action</label>
+      <mat-form-field>
+        <mat-chip-list style="width: 100%" #zipCodesList>
+          <mat-chip *ngFor="let zipCode of zipCodes" [selectable]="selectable" [removable]="removable" (remove)="remove(zipCode)">
+            {{zipCode[0]}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input id="zip-code-input" placeholder="Nouveau code postal..." [matChipInputFor]="zipCodesList" />
+
+        </mat-chip-list>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="submitZipCodes()">Valider</button>
+    </div>
+    <div id="googleMap" style="flex: 0.7"></div>
+  </div>
+  <h2>Mon calendrier</h2>
+  Calendrier Raccourci: je suis disponible tout le temps, tous les weekends, tous les jours sauf weekends
+</div>

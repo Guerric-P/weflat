@@ -1,0 +1,7 @@
+::ng-deep .mat-tab-labels{
+    justify-content: center;
+}
+
+.mat-form-field {
+    width: 100%;
+}
