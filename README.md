@@ -1,3 +1,20 @@
 # Weflat
 
-"# talfew" 
+Créer un compte sur GitHub.com
+
+Installer [Node.js](https://nodejs.org/download/release/v6.12.0/node-v6.12.0-x64.msi)
+
+Installer [GitHub Desktop](https://central.github.com/deployments/desktop/desktop/latest/win32) en utilisant le compte créé au préalable.
+
+Installer [Visual Studio Code](https://code.visualstudio.com/docs/?dv=win)
+
+Ouvrir `GitHub Desktop` et cliquer sur `Clone a repository`, dans l'onglet `URL` copier l'URL suivante : https://github.com/GuerricPhalippou/talfew
+
+Lorsque `GitHub Desktop` a terminé de récupérer les fichiers, lancer Visual Studio Code et cliquer sur `Fichier` `Ouvrir le dossier` puis sélectionner le dossier  `frontend` dans le dossier créé par GitHub (par défaut `Mes Documents\GitHub\talfew`)
+
+Se placer dans le dossier `frontend` avec l'explorateur Windows puis ouvrir une invite de commande via shift + clic droit dans une zone vide `Ouvrir la fenêtre Powershell ici`
+
+Exécuter successivement les commandes suivantes :
+> npm install -g ng
+> 
+> npm install
