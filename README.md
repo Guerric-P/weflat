@@ -24,3 +24,5 @@ Exécuter successivement les commandes suivantes :
 > npm run start
 
 Lorsque le message `webpack: Compiled successfully` apparait, laisser l'invite de commandes ouverte en arrière-plan puis lancer l'URL http://localhost:4200
+
+Les fois suivantes, seule la commande `npm run start` est nécessaire pour démarrer le frontend
