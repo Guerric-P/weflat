@@ -1,4 +1,4 @@
-# Procédure d'installation poste développeur
+# Procédure d'installation poste développeur frontend
 
 Créer un compte sur GitHub.com
 
