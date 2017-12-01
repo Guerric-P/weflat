@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, } from 'rxjs/Observable';
 
 @Injectable()
 export class ArchitecteService {
@@ -10,8 +11,8 @@ export class ArchitecteService {
     return this.http.post('/backend/architecte/' + id + '/zipcodes', zipCodes);
   }
 
-  getZipCodes(id: number) {
-    return this.http.get('/backend/architecte/' + id + '/zipcodes');
+  getZipCodes(id: number): Observable<string[]> {
+    return this.http.get<string[]>('/backend/architecte/' + id + '/zipcodes');
   }
 
 }

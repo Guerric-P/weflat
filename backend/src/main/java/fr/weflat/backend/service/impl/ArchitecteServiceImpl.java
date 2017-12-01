@@ -1,5 +1,6 @@
 package fr.weflat.backend.service.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -17,10 +18,10 @@ import fr.weflat.backend.service.ArchitecteService;
 @Service
 @Transactional
 public class ArchitecteServiceImpl implements ArchitecteService {
-	
+
 	@Autowired
 	private ArchitecteDao architecteDao;
-	
+
 	@Autowired
 	private ZipCodeDao zipCodeDao;
 
@@ -37,7 +38,7 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 	@Override
 	public void saveZipCodesForArchitecte(List<String> zipCodes, long id) {
 		Architecte architecte = getById(id);
-		
+
 		//Ajout des nouveaux codes
 		for(String zipCode : zipCodes) {
 			if(!architecte.getZipCodes().stream().anyMatch(x -> x.getNumber().equals(zipCode))) {
@@ -48,19 +49,22 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 				else {
 					architecte.getZipCodes().add(new ZipCode(zipCode));
 				}
-				
+
 			}
 		}
-		
+
 		//Suppression des anciens codes
-		for(ZipCode zipCode : architecte.getZipCodes()) {
-			if(!zipCodes.contains(zipCode.getNumber())){
+		Iterator<ZipCode> it = architecte.getZipCodes().iterator();  
+		if (it.hasNext()) {
+			ZipCode zipCode = it.next();
+
+			if(!zipCodes.contains(zipCode.getNumber())) {
 				architecte.getZipCodes().remove(zipCode);
 			}
 		}
-		
+
 		save(architecte);
-		
+
 	}
 
 }
