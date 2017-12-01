@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 import { LoginComponent } from './components/login/login.component';
 import { AlertService } from 'app/services/alert.service';
@@ -40,6 +40,8 @@ import { VisitsComponent } from './components/architecte/visits/visits.component
 import { DispoComponent } from './components/architecte/dispo/dispo.component';
 import { MessagesComponent } from './components/architecte/messages/messages.component';
 import { DashboardComponent } from './components/architecte/dashboard/dashboard.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { ZipCodesResolver } from 'app/resolvers/zip-codes-resolver';
 
 
 const appRoutes: Routes = [
@@ -57,7 +59,7 @@ const appRoutes: Routes = [
       { path: 'dashboard', component: DashboardComponent, data: { authRequired: true } },
       { path: 'profile', component: ProfileComponent, data: { authRequired: true } },
       { path: 'visits', component: VisitsComponent, data: { authRequired: true } },
-      { path: 'dispo', component: DispoComponent, data: { authRequired: true } },
+      { path: 'dispo', component: DispoComponent, resolve:{zipCodes: ZipCodesResolver}, data: { authRequired: true } },
       { path: 'messages', component: MessagesComponent, data: { authRequired: true } }
     ]
   }, {
@@ -109,7 +111,8 @@ const appRoutes: Routes = [
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [AlertService,
     TestService,
@@ -123,7 +126,8 @@ const appRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true,
-    }
+    },
+    ZipCodesResolver
   ],
   bootstrap: [AppComponent]
 })
