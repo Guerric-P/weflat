@@ -55,11 +55,11 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 
 		//Suppression des anciens codes
 		Iterator<ZipCode> it = architecte.getZipCodes().iterator();  
-		if (it.hasNext()) {
+		while (it.hasNext()) {
 			ZipCode zipCode = it.next();
 
 			if(!zipCodes.contains(zipCode.getNumber())) {
-				architecte.getZipCodes().remove(zipCode);
+				it.remove();
 			}
 		}
 
