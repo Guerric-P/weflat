@@ -11,9 +11,6 @@ html {
     width: 100%;
 }*/
 
-.mat-tab-body {
-    height: calc(100vh - 124px);
-}
 
 body {
     padding: 0;

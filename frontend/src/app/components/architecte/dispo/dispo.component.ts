@@ -23,7 +23,7 @@ export class DispoComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   index: number = 0;
-  zipCodes: any[] = [];
+  zipCodes = [];
   visible: boolean = true;
   selectable: boolean = true;
   removable: boolean = true;
@@ -40,6 +40,8 @@ export class DispoComponent implements OnInit {
   };
 
   ngOnInit() {
+
+    this.zipCodes = this.route.snapshot.data['zipCodes'];
 
     if (!this.map) {
       this.map = new google.maps.Map(document.getElementById('googleMap'), {
@@ -67,13 +69,7 @@ export class DispoComponent implements OnInit {
             if (place.address_components[i].types[j] == "postal_code") {
               if ((place.address_components[i].long_name || '').trim()) {
                 if (!self.markers[place.address_components[i].long_name.trim()]) {
-                  self.zipCodes.push([
-                    place.address_components[i].long_name.trim(),
-                    place.geometry.location.lat,
-                    place.geometry.location.lng
-                  ]);
-
-                  self.placeMarker(place.address_components[i].long_name.trim(), place);
+                  self.setZipCode(place.address_components[i].long_name.trim(), place, self);
                 }
               }
 
@@ -90,15 +86,15 @@ export class DispoComponent implements OnInit {
     this.drawMap();
   }
 
-  placeMarker(zipCode: string, place: any) {
+  placeMarker(zipCode: string, place: any, self: any) {
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()),
-      map: this.map
+      map: self.map
     });
 
-    this.markers[zipCode] = marker;
+    self.markers[zipCode] = marker;
 
-    this.map.fitBounds(new google.maps.LatLngBounds(
+    self.map.fitBounds(new google.maps.LatLngBounds(
       {
         lat: place.geometry.viewport.getSouthWest().lat(),
         lng: place.geometry.viewport.getSouthWest().lng()
@@ -109,7 +105,7 @@ export class DispoComponent implements OnInit {
     )
     )
 
-    this.ref.detectChanges();
+    self.ref.detectChanges();
   }
 
   add(event: MatChipInputEvent): void {
@@ -134,13 +130,13 @@ export class DispoComponent implements OnInit {
       this.zipCodes.splice(index, 1);
     }
 
-    this.markers[zipCode[0]].setMap(null);
+    this.markers[zipCode].setMap(null);
 
     this.ref.detectChanges();
   }
 
   submitZipCodes() {
-    this.architecteService.postZipCodes(this.zipCodes.map(x => x[0]), this.localStorageService.tokenPayload.id).subscribe(x => { 
+    this.architecteService.postZipCodes(this.zipCodes, this.localStorageService.tokenPayload.id).subscribe(x => {
       this.notificationService.success('Succès', 'Vos codes postaux ont bien été enregistrés.');
     }, err => {
       this.notificationService.error('Aïe', 'Un problème est survenu pendant l\'enregistrement de vos codes postaux...');
@@ -159,28 +155,14 @@ export class DispoComponent implements OnInit {
   }
 
   getZipCodes() {
-    let zipCodes = this.route.snapshot.data['zipCodes'];
-    zipCodes.forEach(element => {
-      var place: any = this.getZipCodeLocation(element, this.getZipCode, this);
+    this.zipCodes.forEach(element => {
+      var place: any = this.getZipCodeLocation(element, this.placeMarker, this);
     });
   }
 
-  getZipCode(zipCode: string, place: any, self: any) {
-    var found = false;
-    for (var i = 0; i < self.zipCodes.length; i++) {
-      if (self.zipCodes[i][0] === zipCode) {
-        found = true;
-        break;
-      }
-    }
+  setZipCode(zipCode: string, place: any, self: any) {
 
-    if (!found) {
-      self.zipCodes.push([
-        zipCode,
-        place.geometry.location.lat,
-        place.geometry.location.lng
-      ]);
-      self.placeMarker(zipCode, place);
-    }
+    self.zipCodes.push(zipCode);
+    self.placeMarker(zipCode, place, self);
   }
 }
