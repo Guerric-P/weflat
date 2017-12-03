@@ -31,6 +31,8 @@ export class DispoComponent implements OnInit {
   separatorKeysCodes = [ENTER];
   map: any;
   markers: any = {};
+  northeast: any;
+  southwest: any;
   notificationOptions: any = {
     timeOut: 5000
   }
@@ -69,7 +71,7 @@ export class DispoComponent implements OnInit {
             if (place.address_components[i].types[j] == "postal_code") {
               if ((place.address_components[i].long_name || '').trim()) {
                 if (!self.markers[place.address_components[i].long_name.trim()]) {
-                  self.setZipCode(place.address_components[i].long_name.trim(), place, self);
+                  self.loadZipCode(place.address_components[i].long_name.trim(), place, self);
                 }
               }
 
@@ -86,7 +88,7 @@ export class DispoComponent implements OnInit {
     this.drawMap();
   }
 
-  placeMarker(zipCode: string, place: any, self: any) {
+  placeMarker(zipCode: string, place: any, self: any, cb?: any) {
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()),
       map: self.map
@@ -94,18 +96,44 @@ export class DispoComponent implements OnInit {
 
     self.markers[zipCode] = marker;
 
-    self.map.fitBounds(new google.maps.LatLngBounds(
-      {
-        lat: place.geometry.viewport.getSouthWest().lat(),
-        lng: place.geometry.viewport.getSouthWest().lng()
-      }, {
-        lat: place.geometry.viewport.getNorthEast().lat(),
-        lng: place.geometry.viewport.getNorthEast().lng()
+    self.fitBounds(place.geometry.viewport.getSouthWest().lat(),
+      place.geometry.viewport.getSouthWest().lng(),
+      place.geometry.viewport.getNorthEast().lat(),
+      place.geometry.viewport.getNorthEast().lng(),
+      self);
+
+    google.maps.event.addListenerOnce(self.map, 'idle', function () {
+      if (cb) {
+        cb();
       }
-    )
-    )
+    });
+
+    self.getBoundingRect(place.geometry.location.lat(), place.geometry.location.lng());
 
     self.ref.detectChanges();
+  }
+
+  fitBounds(southwestLat, southwestLng, northeastLat, northeastLng, self) {
+    if(arguments.length === 0){
+      southwestLat = this.southwest.lat;
+      southwestLng = this.southwest.lng;
+      northeastLat = this.northeast.lat;
+      northeastLng = this.northeast.lng;
+    }
+    
+    let map = self && self.map || this.map;
+    
+    map.fitBounds(
+      new google.maps.LatLngBounds(
+        {
+          lat: southwestLat,
+          lng: southwestLng
+        }, {
+          lat: northeastLat,
+          lng: northeastLng
+        }
+      )
+    )
   }
 
   add(event: MatChipInputEvent): void {
@@ -143,10 +171,10 @@ export class DispoComponent implements OnInit {
     });
   }
 
-  getZipCodeLocation(zipCode: string, callback: any, self: any) {
+  getZipCodeLocation(zipCode: string, self: any, cb: any) {
     new google.maps.Geocoder().geocode({ 'address': zipCode }, function (results, status) {
       if (status == 'OK') {
-        return callback(zipCode, results[0], self);
+        return self.placeMarker(zipCode, results[0], self, cb);
       }
       else {
         alert('Geocode was not successful for the following reason: ' + status);
@@ -155,14 +183,39 @@ export class DispoComponent implements OnInit {
   }
 
   getZipCodes() {
+    var self= this;
     this.zipCodes.forEach(element => {
-      var place: any = this.getZipCodeLocation(element, this.placeMarker, this);
+      var place: any = this.getZipCodeLocation(element, this, function(){
+        if (self.southwest && self.northeast && (self.southwest.lat !== self.northeast.lat || self.southwest.lng !== self.northeast.lng)) {
+          self.fitBounds(self.southwest.lat, self.southwest.lng, self.northeast.lat, self.northeast.lng, self);
+        }
+      });
     });
   }
 
-  setZipCode(zipCode: string, place: any, self: any) {
-
+  loadZipCode(zipCode: string, place: any, self: any) {
     self.zipCodes.push(zipCode);
     self.placeMarker(zipCode, place, self);
+  }
+
+  getBoundingRect(lat: any, lng: any) {
+    if (this.northeast === undefined) {
+      this.northeast = { lat: lat, lng: lng };
+    }
+    if (this.southwest === undefined) {
+      this.southwest = { lat: lat, lng: lng };
+    }
+    if (this.northeast.lat < lat) {
+      this.northeast.lat = lat;
+    }
+    if (this.northeast.lng < lng) {
+      this.northeast.lng = lng;
+    }
+    if (this.southwest.lat > lat) {
+      this.southwest.lat = lat;
+    }
+    if (this.southwest.lng > lng) {
+      this.southwest.lng = lng;
+    }
   }
 }
