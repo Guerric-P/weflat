@@ -1,4 +1,74 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+<header>
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 py-4">
+          <h5 class="text-white">A propos de Weflat</h5>
+          <p class="text-muted">Weflat met en relation les acheteurs et les architectes.</p>
+          <i class="fa fa-facebook-official fa-inverse fa-lg" aria-hidden="true"></i>
+          <i class="fa fa-twitter fa-inverse fa-lg" aria-hidden="true"></i>
+        </div>
+        <div class="col-sm-2 py-4">
+          <h5 class="text-white">Contact</h5>
+          <ul class="list-unstyled">
+            <li>
+              <a href="#" class="text-white">Nous contacter</a>
+            </li>
+            <li>
+              <p class="text-muted">82 rue truffaut
+                <br>75017 Paris</p>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-4 py-4">
+          <h5 class="text-white">Informations</h5>
+          <ul class="list-unstyled">
+            <li>
+              <a href="#" class="text-white">Blog</a>
+            </li>
+            <li>
+              <a href="#" class="text-white">Questions frequentes</a>
+            </li>
+            <li>
+              <a href="#" class="text-white">Conditions generales d'utilisation</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-light bg-faded">
+    <div class="container d-flex justify-content-between">
+      <a class="navbar-brand" routerLink="/">
+        <img src="assets/weflatlogo.png" width="70" height="70" alt="">
+      </a>
+      <form class="form-inline">
+        <li class="nav-item dropdown" *ngIf="token">
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            {{displayName}}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" (click)="redirectToPersonal()">Mon espace personnel</a>
+            <a class="dropdown-item" (click)="logout()">Déconnexion</a>
+          </div>
+        </li>
+        <!--<button class="btn btn-outline-primary my-2 mr-2 my-sm-0" (click)="open(content)">S'inscrire</button>-->
+        <button *ngIf="!token" type="button" class="btn btn-outline-success mr-2" (click)="openSignin(signinModal)">
+          Se connecter
+        </button>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </form>
+
+    </div>
+  </div>
+</header>
+
+<!--<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" routerLink="/">
     <img src="assets/weflat_noir.png">
   </a>
@@ -31,11 +101,50 @@
       </li>
     </ul>
   </div>
-</nav>
+</nav>-->
 
+<ng-template #signinModal let-c="close" let-d="dismiss">
+  <div class="modal-header" (loginSuccessful)="c('loginSuccessful')">
+    <h5 class="modal-title" id="exampleModalLabel"></h5>
+    <button type="button" class="close" (click)="d('Cross click')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage && errorMessage.length !== 0">
+        <strong>Erreur :</strong> {{errorMessage}}
+      </div>
+    <form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+        <label for="exampleInputEmail1">Identifiant</label>
+        <input type="email" class="form-control" placeholder="Adresse e-mail" name="username" [(ngModel)]="model.username" #username="ngModel" required>
+        <div *ngIf="f.submitted && !username.valid" class="help-block">L'e-mail est requis.</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+        <label for="exampleInputPassword1">Mot de passe</label>
+        <input type="password" class="form-control" placeholder="Mot de passe" name="password" [(ngModel)]="model.password" #password="ngModel" required>
+        <div *ngIf="f.submitted && !password.valid" class="help-block">Le mot de passe est requis.</div>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input"> Se souvenir de moi
+        </label>
+      </div>
+      <div class="float-right">
+          <button type="button" class="btn btn-link">Mot de passe oublie?</button>
+          <button [disabled]="loading" type="submit" class="btn btn-primary">Se connecter</button>
+        </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="row float-right">
+      <p>Vous n'avez pas de compte?</p>
+      <button type="button" class="btn btn-link" (click)="c(''); openSignup(signupMmodal);">S'inscrire</button>
+    </div>
+  </div>
+</ng-template>
 
-
-<ng-template #content let-c="close" let-d="dismiss">
+<ng-template #signupMmodal let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Êtes-vous</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -43,9 +152,7 @@
     </button>
   </div>
   <div class="modal-body d-flex flex-row justify-content-around">
-      <button type="button" class="btn btn-outline-primary" (click)="c('acheteur')">Un acheteur ?</button>
-      <button type="button" class="btn btn-outline-primary" (click)="c('architecte')">Un architecte ?</button>
+    <button type="button" class="btn btn-outline-primary" (click)="c('acheteur')">Un acheteur ?</button>
+    <button type="button" class="btn btn-outline-primary" (click)="c('architecte')">Un architecte ?</button>
   </div>
 </ng-template>
-  
-  

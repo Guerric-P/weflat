@@ -33,13 +33,6 @@ export class DispoComponent implements OnInit {
   markers: any = {};
   northeast: any;
   southwest: any;
-  notificationOptions: any = {
-    timeOut: 5000
-  }
-
-  drawMap() {
-
-  };
 
   ngOnInit() {
 
@@ -84,8 +77,6 @@ export class DispoComponent implements OnInit {
         }
       }
     })
-
-    this.drawMap();
   }
 
   placeMarker(zipCode: string, place: any, self: any, cb?: any) {
@@ -108,21 +99,21 @@ export class DispoComponent implements OnInit {
       }
     });
 
-    self.getBoundingRect(place.geometry.location.lat(), place.geometry.location.lng());
+    self.computeBoundingRect();
 
     self.ref.detectChanges();
   }
 
-  fitBounds(southwestLat, southwestLng, northeastLat, northeastLng, self) {
-    if(arguments.length === 0){
+  fitBounds(southwestLat?, southwestLng?, northeastLat?, northeastLng?, self?) {
+    if (arguments.length === 0) {
       southwestLat = this.southwest.lat;
       southwestLng = this.southwest.lng;
       northeastLat = this.northeast.lat;
       northeastLng = this.northeast.lng;
     }
-    
+
     let map = self && self.map || this.map;
-    
+
     map.fitBounds(
       new google.maps.LatLngBounds(
         {
@@ -159,6 +150,9 @@ export class DispoComponent implements OnInit {
     }
 
     this.markers[zipCode].setMap(null);
+    delete this.markers[zipCode];
+
+    this.computeBoundingRect();
 
     this.ref.detectChanges();
   }
@@ -172,7 +166,7 @@ export class DispoComponent implements OnInit {
   }
 
   getZipCodeLocation(zipCode: string, self: any, cb: any) {
-    new google.maps.Geocoder().geocode({ 'address': zipCode }, function (results, status) {
+    new google.maps.Geocoder().geocode({ 'address': zipCode, 'region': 'fr' }, function (results, status) {
       if (status == 'OK') {
         return self.placeMarker(zipCode, results[0], self, cb);
       }
@@ -183,9 +177,9 @@ export class DispoComponent implements OnInit {
   }
 
   getZipCodes() {
-    var self= this;
+    var self = this;
     this.zipCodes.forEach(element => {
-      var place: any = this.getZipCodeLocation(element, this, function(){
+      var place: any = this.getZipCodeLocation(element, this, function () {
         if (self.southwest && self.northeast && (self.southwest.lat !== self.northeast.lat || self.southwest.lng !== self.northeast.lng)) {
           self.fitBounds(self.southwest.lat, self.southwest.lng, self.northeast.lat, self.northeast.lng, self);
         }
@@ -198,24 +192,33 @@ export class DispoComponent implements OnInit {
     self.placeMarker(zipCode, place, self);
   }
 
-  getBoundingRect(lat: any, lng: any) {
-    if (this.northeast === undefined) {
-      this.northeast = { lat: lat, lng: lng };
-    }
-    if (this.southwest === undefined) {
-      this.southwest = { lat: lat, lng: lng };
-    }
-    if (this.northeast.lat < lat) {
-      this.northeast.lat = lat;
-    }
-    if (this.northeast.lng < lng) {
-      this.northeast.lng = lng;
-    }
-    if (this.southwest.lat > lat) {
-      this.southwest.lat = lat;
-    }
-    if (this.southwest.lng > lng) {
-      this.southwest.lng = lng;
+  computeBoundingRect() {
+    let keys = Object.keys(this.markers);
+    this.northeast = undefined;
+    this.southwest = undefined;
+
+    for (let key of keys) {
+      let lat = this.markers[key].position.lat();
+      let lng = this.markers[key].position.lng();
+
+      if (this.northeast === undefined) {
+        this.northeast = { lat: lat, lng: lng };
+      }
+      if (this.southwest === undefined) {
+        this.southwest = { lat: lat, lng: lng };
+      }
+      if (this.northeast.lat < lat) {
+        this.northeast.lat = lat;
+      }
+      if (this.northeast.lng < lng) {
+        this.northeast.lng = lng;
+      }
+      if (this.southwest.lat > lat) {
+        this.southwest.lat = lat;
+      }
+      if (this.southwest.lng > lng) {
+        this.southwest.lng = lng;
+      }
     }
   }
 }
