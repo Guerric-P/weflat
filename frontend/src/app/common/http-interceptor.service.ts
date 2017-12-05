@@ -13,26 +13,31 @@ export class ErrorInterceptor implements HttpInterceptor {
     const authHeader = this.localStorageService.token;
     let authReq: HttpRequest<any> = null;
 
-    if (authHeader) {
-      authReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + authHeader) });
-    }
-    else {
-      authReq = req;
-    }
+    if (req.url !== '/backend/login') {
+      if (authHeader) {
+        authReq = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + authHeader) });
+      }
+      else {
+        authReq = req;
+      }
 
-    return next.handle(authReq).pipe(
-      catchError(
-        err => {
-          if (err instanceof HttpErrorResponse) {
-            if (err.status === 401 || err.status === 403) {
-              let url = this.router.routerState.snapshot.url;
-              this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
+      return next.handle(authReq).pipe(
+        catchError(
+          err => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 401 || err.status === 403) {
+                let url = this.router.routerState.snapshot.url;
+                this.router.navigate(['/'], { queryParams: { returnUrl: url } });
+              }
+              return Observable.throw(err.message || 'Erreur du serveur');
             }
-            return Observable.throw(err.message || 'Erreur du serveur');
           }
-        }
-      )
-    );
+        )
+      );
+    }
+    else{
+      return next.handle(req);
+    }
   }
 
   constructor(private router: Router, private localStorageService: LocalStorageService) { }
