@@ -1,6 +1,6 @@
 # Procédure d'installation poste développeur frontend
 
-Créer un compte sur GitHub.com
+Créer un compte sur GitHub.com, puis me demander les droits sur le repository
 
 Installer [Node.js](https://nodejs.org/download/release/v6.12.0/node-v6.12.0-x64.msi)
 
