@@ -43,7 +43,7 @@
         <img src="assets/weflatlogo.png" width="70" height="70" alt="">
       </a>
       <form class="form-inline">
-        <li class="nav-item dropdown" *ngIf="token">
+        <div class="nav-item dropdown" *ngIf="token">
           <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             {{displayName}}
@@ -52,7 +52,7 @@
             <a class="dropdown-item" (click)="redirectToPersonal()">Mon espace personnel</a>
             <a class="dropdown-item" (click)="logout()">Déconnexion</a>
           </div>
-        </li>
+        </div>
         <!--<button class="btn btn-outline-primary my-2 mr-2 my-sm-0" (click)="open(content)">S'inscrire</button>-->
         <button *ngIf="!token" type="button" class="btn btn-outline-success mr-2" (click)="openSignin(signinModal)">
           Se connecter
