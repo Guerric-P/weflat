@@ -8,7 +8,7 @@ Installer [GitHub Desktop](https://central.github.com/deployments/desktop/deskto
 
 Installer [Visual Studio Code](https://code.visualstudio.com/docs/?dv=win)
 
-Ouvrir `GitHub Desktop` et cliquer sur `Clone a repository`, dans l'onglet `URL` copier l'URL suivante : https://github.com/GuerricPhalippou/talfew
+Ouvrir `GitHub Desktop` et cliquer sur `Clone a repository`, dans l'onglet `URL` copier l'URL suivante : https://github.com/youkouleley/talfew
 
 Lorsque `GitHub Desktop` a terminé de récupérer les fichiers, lancer Visual Studio Code et cliquer sur `Fichier` `Ouvrir le dossier` puis sélectionner le dossier  `frontend` dans le dossier créé par GitHub (par défaut `Mes Documents\GitHub\talfew`)
 
