@@ -2,6 +2,7 @@
     position: static;
     margin: 50px auto;
 }
+
 .login-box {
     position: relative;
     -webkit-box-sizing: inherit;
@@ -9,12 +10,19 @@
     background-color: #fff;
     -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
-    width: 500px;
+    width: auto;
     right: 0;
     min-height: 550px;
     z-index: 1;
     padding: 35px 5px 0;
     border-top: 1px solid #f1f1f5;
+}
+
+@media (min-width: 576px){
+    .login-box {
+        max-width: 500px;
+        margin: 30px auto;
+    }
 }
 
 #account-attributes-challenge {
