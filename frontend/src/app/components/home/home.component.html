@@ -1,15 +1,10 @@
 <!--jumbotron debut-->
 <section class="jumbotron text-center">
-  <div  class="container">
+  <div class="container">
     <h1 class="jumbotron-heading" style="font-size:3.2em;">Visiter avec un architecte avant d'acheter</h1>
     <h5 class="text-muted" style="font-size:1.6em;">Connaitre la qualite et le potentiel du bien immobilier pour 100€</h5>
     <div id="start" class="mt-4">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Adresse">
-        <span class="input-group-btn">
-        <button class="btn btn-primary btn-lg" type="button">Visiter</button>
-        </span>
-      </div>
+        <app-address-field></app-address-field>
     </div>
   </div>
 </section>
@@ -17,18 +12,18 @@
 <!--les references-->
 <div class="container mt-3">
   <div class="row justify-content-center">
-  <div class="col-sm-1">
-    <img src="assets/shopify.svg">
-  </div>
-  <div class="col-sm-1">
-    <img src="assets/slack.svg">
-  </div>
-  <div class="col-sm-1">
-    <img src="assets/kickstarter.svg">
-  </div>
-  <div class="col-sm-1">
-    <img src="assets/instacart.svg">
-  </div>
+    <div class="col-sm-1">
+      <img src="assets/shopify.svg">
+    </div>
+    <div class="col-sm-1">
+      <img src="assets/slack.svg">
+    </div>
+    <div class="col-sm-1">
+      <img src="assets/kickstarter.svg">
+    </div>
+    <div class="col-sm-1">
+      <img src="assets/instacart.svg">
+    </div>
   </div>
 </div>
 
@@ -36,68 +31,78 @@
 <div class="container mt-5">
   <div class="row justify-content-around">
     <div class="col-sm-5">
-      <h1>N'y allez plus seul.<span class="text-muted"> Mais bien accompagne.</span> </h1>
-      <h5 class="text-muted"> Le recours à un architecte est considéré à tort comme élitiste. Weflat démocratise le conseil d’architecte dans le cadre d’un achat immobilier avec un service simple et abordable. </h5>
+      <h1>N'y allez plus seul.
+        <span class="text-muted"> Mais bien accompagne.</span>
+      </h1>
+      <h5 class="text-muted"> Le recours à un architecte est considéré à tort comme élitiste. Weflat démocratise le conseil d’architecte dans le
+        cadre d’un achat immobilier avec un service simple et abordable. </h5>
     </div>
     <div class="col-sm-4">
       <div class="card border-light text-white">
         <img class="card-img" src="assets/livingroom.jpg" alt="Card image">
         <div class="card-img-overlay">
-        <h4 class="card-title">blatitle</h4>
-        <p class="card-text">blabblabla</p>
+          <h4 class="card-title">blatitle</h4>
+          <p class="card-text">blabblabla</p>
         </div>
       </div>
     </div>
   </div>
-</div>	
-<!--les arguments 2-->	
+</div>
+<!--les arguments 2-->
 <div class="container mt-5">
-    <div class="row justify-content-around">
-      <div class="col-sm-4">
-        <div class="card border-light text-white">
-            <img class="card-img" src="assets/cuisine.jpg" alt="Card image">
-            <div class="card-img-overlay">
-            <h4 class="card-title">blatitle</h4>
-            <p class="card-text">blabblabla</p>
-            </div>
+  <div class="row justify-content-around">
+    <div class="col-sm-4">
+      <div class="card border-light text-white">
+        <img class="card-img" src="assets/cuisine.jpg" alt="Card image">
+        <div class="card-img-overlay">
+          <h4 class="card-title">blatitle</h4>
+          <p class="card-text">blabblabla</p>
         </div>
       </div>
-        <div class="col-sm-7">
-        <h1>3 etapes.<span class="text-muted"> Seulement.</span> </h1>
-          <h4>Programmez la visite</h4>
-          <h5 class="text-muted">Des la reception de votre demande, nous faisons appel a notre communaute composee uniquement d'architectes talentueux, créatifs et rigoureux. Une confirmation d'attribution d'architecte vous sera envoyée en quelques heures. </h5>
-          <h4>Visitez avec l'architecte</h4> 
-          <h5 class="text-muted">L'architecte evalue la qualite et le potentiel du bien en accord avec vos attentes. Son experience, son regard exterieur et independent vous assurent de faire le bon choix.</h5>
-          <h4>Recevez le compte rendu detaille</h4> 
-          <h5 class="text-muted">La vision et les remarques de l'architecte vous sont transmises dans les 12 heures ouvrees sous forme d'un compte rendu construit par Weflat. Aucune de vos questions ne resterons sans reponses: atouts, contraintes, proposition d'amenagement sous plan 2D, estimation du budget des travaux de renovation...</h5>
-        </div>
     </div>
-</div>	
+    <div class="col-sm-7">
+      <h1>3 etapes.
+        <span class="text-muted"> Seulement.</span>
+      </h1>
+      <h4>Programmez la visite</h4>
+      <h5 class="text-muted">Des la reception de votre demande, nous faisons appel a notre communaute composee uniquement d'architectes talentueux,
+        créatifs et rigoureux. Une confirmation d'attribution d'architecte vous sera envoyée en quelques heures. </h5>
+      <h4>Visitez avec l'architecte</h4>
+      <h5 class="text-muted">L'architecte evalue la qualite et le potentiel du bien en accord avec vos attentes. Son experience, son regard exterieur
+        et independent vous assurent de faire le bon choix.</h5>
+      <h4>Recevez le compte rendu detaille</h4>
+      <h5 class="text-muted">La vision et les remarques de l'architecte vous sont transmises dans les 12 heures ouvrees sous forme d'un compte rendu
+        construit par Weflat. Aucune de vos questions ne resterons sans reponses: atouts, contraintes, proposition d'amenagement
+        sous plan 2D, estimation du budget des travaux de renovation...</h5>
+    </div>
+  </div>
+</div>
 
 
 <!--Chiffres-->
-<div  class="container text-center mt-5">
-  <h1>Weflat oeuvre pour de meilleurs <br> achats immobiliers</h1>
+<div class="container text-center mt-5">
+  <h1>Weflat oeuvre pour de meilleurs
+    <br> achats immobiliers</h1>
   <div class="container mt-3">
     <div class="row">
-    <div class="col-sm">
-      <h1 style="font-size:3.5em;">500+</h1>
-      <h5 class="text-muted">visites</h5>
-    </div>
-    <div class="col-sm">
-      <h1 style="font-size:3.5em;">150+</h1>
-      <h5 class="text-muted">architectes</h5>
-    </div>
-    <div class="col-sm">
-      <h1 style="font-size:3.5em;">6</h1>
-      <h5 class="text-muted">departements</h5>
-    </div>
+      <div class="col-sm">
+        <h1 style="font-size:3.5em;">500+</h1>
+        <h5 class="text-muted">visites</h5>
+      </div>
+      <div class="col-sm">
+        <h1 style="font-size:3.5em;">150+</h1>
+        <h5 class="text-muted">architectes</h5>
+      </div>
+      <div class="col-sm">
+        <h1 style="font-size:3.5em;">6</h1>
+        <h5 class="text-muted">departements</h5>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Architectes -->
-<div class="container text-right mt-5">		
+<div class="container text-right mt-5">
   <div id="cardclickable" class="card bg-dark text-white">
     <img class="card-img" src="assets/mainroom4.jpg">
     <div class="card-img-overlay">
@@ -105,69 +110,75 @@
       <h4 class="card-text">Rejoignez la communaute pour compléter vos revenus et développer votre réseau</h4>
     </div>
   </div>
-</div>	
+</div>
 
-<!-- Temoignages -->	
+<!-- Temoignages -->
 <div class="container mt-5">
   <div class="row justify-content-around">
-      <blockquote class="twitter-tweet" data-lang="en"><p lang="fr" dir="ltr"><a href="https://twitter.com/weflat?ref_src=twsrc%5Etfw">@weflat</a> Après cette visite, je n&#39;imagine plus acheter mon appartement sans les conseils de weflat! Le CONCEPT est TOP! 😀👌🏽</p>&mdash; Lambert Valentine (@ValLbt) <a href="https://twitter.com/ValLbt/status/827218845672865792?ref_src=twsrc%5Etfw">February 2, 2017</a></blockquote>
-      <blockquote class="twitter-tweet" data-lang="en"><p lang="fr" dir="ltr"><a href="https://twitter.com/weflat?ref_src=twsrc%5Etfw">@weflat</a> super application qui m&#39;a permis d&#39;être accompagné d&#39;un pro pour ma visite d&#39;appartement.</p>&mdash; nesrine (@NouiraNesrine) <a href="https://twitter.com/NouiraNesrine/status/844897780359409665?ref_src=twsrc%5Etfw">March 23, 2017</a></blockquote>
+    <blockquote class="twitter-tweet" data-lang="en">
+      <p lang="fr" dir="ltr">
+        <a href="https://twitter.com/weflat?ref_src=twsrc%5Etfw">@weflat</a> Après cette visite, je n&#39;imagine plus acheter mon appartement sans les conseils de weflat! Le CONCEPT
+        est TOP! 😀👌🏽</p>&mdash; Lambert Valentine (@ValLbt)
+      <a href="https://twitter.com/ValLbt/status/827218845672865792?ref_src=twsrc%5Etfw">February 2, 2017</a>
+    </blockquote>
+    <blockquote class="twitter-tweet" data-lang="en">
+      <p lang="fr" dir="ltr">
+        <a href="https://twitter.com/weflat?ref_src=twsrc%5Etfw">@weflat</a> super application qui m&#39;a permis d&#39;être accompagné d&#39;un pro pour ma visite d&#39;appartement.</p>&mdash;
+      nesrine (@NouiraNesrine)
+      <a href="https://twitter.com/NouiraNesrine/status/844897780359409665?ref_src=twsrc%5Etfw">March 23, 2017</a>
+    </blockquote>
   </div>
 </div>
 
 <!-- Arguments -->
 <div class="container mt-5 text-center">
-  <h1>Un coup de coeur merite toujours un<br>coup d'oeil d'architecte</h1>
+  <h1>Un coup de coeur merite toujours un
+    <br>coup d'oeil d'architecte</h1>
   <div class="row mt-4">
     <div class="col">
-    <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
-    <h5>Le tarif est fixe et transparent</h5>
+      <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
+      <h5>Le tarif est fixe et transparent</h5>
     </div>
     <div class="col">
-    <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
-    <h5>Nos architectes interviennent en moins de 6H</h5>
+      <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
+      <h5>Nos architectes interviennent en moins de 6H</h5>
     </div>
     <div class="col">
-    <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
-    <h5>Le compte rendu est transmis dans les 12H ouvrees</h5>
+      <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
+      <h5>Le compte rendu est transmis dans les 12H ouvrees</h5>
     </div>
   </div>
   <div class="row mt-4">
     <div class="col">
-    <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
-    <h5>L'estimation du budget des travaux detaille chaque poste de renovation</h5>
+      <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
+      <h5>L'estimation du budget des travaux detaille chaque poste de renovation</h5>
     </div>
     <div class="col">
-    <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
-    <h5>Blabla</h5>
+      <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
+      <h5>Blabla</h5>
     </div>
     <div class="col">
-    <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
-    <h5>Notre équipe d’assistance est à votre disposition 7j/7</h5>
+      <i class="fa fa-check-circle fa-lg" aria-hidden="true"></i>
+      <h5>Notre équipe d’assistance est à votre disposition 7j/7</h5>
     </div>
   </div>
 </div>
 
 
-      
+
 <!-- Call to action -->
 <section class="jumbotron">
-  <div  class="container">
-  <div class="row">
-    <div class="col-sm-7">
-      <h1 class="jumbotron-heading" style="font-size:3.2em;">Pret(e) a visiter?</h1>
-      <h5 class="text-muted" style="font-size:1.6em;">3 clics suffisent.</h5>
-    </div>	
-    <div class="col-sm-4">
-      <div class="mt-4">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Adresse">
-          <span class="input-group-btn">
-          <button class="btn btn-primary btn-lg" type="button">Visiter</button>
-          </span>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7">
+        <h1 class="jumbotron-heading" style="font-size:3.2em;">Pret(e) a visiter?</h1>
+        <h5 class="text-muted" style="font-size:1.6em;">3 clics suffisent.</h5>
+      </div>
+      <div class="col-sm-4">
+        <div class="mt-4">
+          <app-address-field></app-address-field>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </section>

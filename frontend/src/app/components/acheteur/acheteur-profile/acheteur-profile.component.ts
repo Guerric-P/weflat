@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionStorageService } from 'app/services/session-storage.service';
 
 @Component({
   selector: 'app-acheteur-profile',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AcheteurProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sessionStorageService: SessionStorageService) { }
+
+  profile: any;
 
   ngOnInit() {
+    this.profile = this.sessionStorageService.place;
   }
 
 }
