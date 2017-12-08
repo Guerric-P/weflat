@@ -10,7 +10,7 @@
             {{zipCode}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          <input id="zip-code-input" placeholder="Nouveau code postal..." [matChipInputFor]="zipCodesList" />
+          <input #zipCodeInput placeholder="Nouveau code postal..." [matChipInputFor]="zipCodesList" />
         </mat-chip-list>
       </mat-form-field>
       <button mat-raised-button color="primary" (click)="submitZipCodes()">Valider</button>

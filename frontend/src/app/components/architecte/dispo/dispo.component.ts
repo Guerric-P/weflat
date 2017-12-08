@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { ArchitecteService } from 'app/services/architecte.service';
 import { LocalStorageService } from 'app/services/local-storage.service';
 import { ENTER } from '@angular/cdk/keycodes';
@@ -22,6 +22,7 @@ export class DispoComponent implements OnInit {
     private notificationService: NotificationsService,
     private route: ActivatedRoute) { }
 
+  @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
   index: number = 0;
   zipCodes = [];
   visible: boolean = true;
@@ -47,7 +48,6 @@ export class DispoComponent implements OnInit {
 
     this.getZipCodes();
 
-    var input = document.getElementById('zip-code-input') as HTMLInputElement;
     var options = {
       types: ['(regions)'],
       componentRestrictions: {
@@ -55,7 +55,7 @@ export class DispoComponent implements OnInit {
       }
     };
     var self = this;
-    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    var autocomplete = new google.maps.places.Autocomplete(this.zipCodeInput.nativeElement, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       var place = autocomplete.getPlace();
       if (place && place.address_components) {
@@ -69,8 +69,8 @@ export class DispoComponent implements OnInit {
               }
 
               // Reset the input value
-              if (input) {
-                input.value = '';
+              if (self.zipCodeInput.nativeElement) {
+                self.zipCodeInput.nativeElement.value = '';
               }
             }
           }
