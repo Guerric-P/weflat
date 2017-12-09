@@ -48,7 +48,7 @@ export class RegisterArchitecteComponent implements OnInit {
     this.registerService.postArchitecte(this.data).subscribe(
       x => {
         this.authenticationService.login(this.data.email, this.data.password).subscribe( x => {
-          this.router.navigate(['profile', 'architecte']);
+          this.router.navigate(['architecte']);
         });
       });
   }
