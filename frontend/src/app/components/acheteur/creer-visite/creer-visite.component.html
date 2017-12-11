@@ -13,21 +13,33 @@
     </form>
   </mat-step>
   <mat-step [stepControl]="addressFormGroup">
-    <div class="d-flex flex-row" style="position: absolute; bottom: 0; width:100%; height: 100%">
-      <div style="flex: 0.3" class="left-container">
-        <form [formGroup]="addressFormGroup">
+    <form [formGroup]="addressFormGroup">
+      <div class="d-flex flex-row" style="width:100%; height: 600px">
+        <div style="flex: 0.3; display: flex; flex-direction: column;" class="left-container">
           <ng-template matStepLabel>Adresse du logement</ng-template>
           <mat-form-field>
-            <input matInput placeholder="Address" formControlName="secondCtrl" required>
+            <input matInput placeholder="Adresse" formControlName="addressInput" required #addressInput>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Numéro de voie" formControlName="streetNumber" required #streetNumber>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Voie" formControlName="route" required #route>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Code postal" formControlName="zipCode" required #zipCode>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Ville" formControlName="city" required #city>
           </mat-form-field>
           <div>
             <button mat-button matStepperPrevious>Précédent</button>
             <button mat-button matStepperNext>Suivant</button>
           </div>
-        </form>
+        </div>
+        <div #googleMap style="flex: 0.7"></div>
       </div>
-      <div id="googleMap" style="flex: 0.7"></div>
-    </div>
+    </form>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Terminé</ng-template>
@@ -37,4 +49,3 @@
     </div>
   </mat-step>
 </mat-horizontal-stepper>
-<p>{{place}}</p>

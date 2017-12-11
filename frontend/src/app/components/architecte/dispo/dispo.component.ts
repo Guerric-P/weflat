@@ -5,6 +5,7 @@ import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 declare var google: any;
 
@@ -13,7 +14,7 @@ declare var google: any;
   templateUrl: './dispo.component.html',
   styleUrls: ['./dispo.component.css']
 })
-export class DispoComponent implements OnInit {
+export class DispoComponent implements OnInit, AfterViewInit {
 
   constructor(
     private ref: ChangeDetectorRef,
@@ -23,6 +24,7 @@ export class DispoComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
+  @ViewChild('googleMap') googleMap: ElementRef;
   index: number = 0;
   zipCodes = [];
   visible: boolean = true;
@@ -39,22 +41,13 @@ export class DispoComponent implements OnInit {
 
     this.zipCodes = this.route.snapshot.data['zipCodes'];
 
-    if (!this.map) {
-      this.map = new google.maps.Map(document.getElementById('googleMap'), {
-        zoom: 10,
-        center: new google.maps.LatLng(45.767519, 4.832526)
-      });
-    }
-
-    this.getZipCodes();
-
     var options = {
       types: ['(regions)'],
       componentRestrictions: {
         country: 'fr'
       }
     };
-    var self = this;
+
     var autocomplete = new google.maps.places.Autocomplete(this.zipCodeInput.nativeElement, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       var place = autocomplete.getPlace();
@@ -63,48 +56,58 @@ export class DispoComponent implements OnInit {
           for (var j = 0; j < place.address_components[i].types.length; j++) {
             if (place.address_components[i].types[j] == "postal_code") {
               if ((place.address_components[i].long_name || '').trim()) {
-                if (!self.markers[place.address_components[i].long_name.trim()]) {
-                  self.loadZipCode(place.address_components[i].long_name.trim(), place, self);
+                if (!this.markers[place.address_components[i].long_name.trim()]) {
+                  this.loadZipCode(place.address_components[i].long_name.trim(), place);
                 }
               }
 
               // Reset the input value
-              if (self.zipCodeInput.nativeElement) {
-                self.zipCodeInput.nativeElement.value = '';
+              if (this.zipCodeInput.nativeElement) {
+                this.zipCodeInput.nativeElement.value = '';
               }
             }
           }
         }
       }
-    })
+    }.bind(this))
   }
 
-  placeMarker(zipCode: string, place: any, self: any, cb?: any) {
+  ngAfterViewInit(): void {
+    if (!this.map) {
+      this.map = new google.maps.Map(this.googleMap.nativeElement, {
+        zoom: 10,
+        center: new google.maps.LatLng(45.767519, 4.832526)
+      });
+    }
+
+    this.getZipCodes();
+  }
+
+  placeMarker(zipCode: string, place: any, cb?: any) {
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()),
-      map: self.map
+      map: this.map
     });
 
-    self.markers[zipCode] = marker;
+    this.markers[zipCode] = marker;
 
-    self.fitBounds(place.geometry.viewport.getSouthWest().lat(),
+    this.fitBounds(place.geometry.viewport.getSouthWest().lat(),
       place.geometry.viewport.getSouthWest().lng(),
       place.geometry.viewport.getNorthEast().lat(),
-      place.geometry.viewport.getNorthEast().lng(),
-      self);
+      place.geometry.viewport.getNorthEast().lng());
 
-    google.maps.event.addListenerOnce(self.map, 'idle', function () {
+    google.maps.event.addListenerOnce(this.map, 'idle', function () {
       if (cb) {
         cb();
       }
     });
 
-    self.computeBoundingRect();
+    this.computeBoundingRect();
 
-    self.ref.detectChanges();
+    this.ref.detectChanges();
   }
 
-  fitBounds(southwestLat?, southwestLng?, northeastLat?, northeastLng?, self?) {
+  fitBounds(southwestLat?, southwestLng?, northeastLat?, northeastLng?) {
     if (arguments.length === 0) {
       southwestLat = this.southwest.lat;
       southwestLng = this.southwest.lng;
@@ -112,7 +115,7 @@ export class DispoComponent implements OnInit {
       northeastLng = this.northeast.lng;
     }
 
-    let map = self && self.map || this.map;
+    let map = this && this.map || this.map;
 
     map.fitBounds(
       new google.maps.LatLngBounds(
@@ -165,31 +168,30 @@ export class DispoComponent implements OnInit {
     });
   }
 
-  getZipCodeLocation(zipCode: string, self: any, cb: any) {
+  getZipCodeLocation(zipCode: string, cb: any) {
     new google.maps.Geocoder().geocode({ 'address': zipCode, 'region': 'fr' }, function (results, status) {
       if (status == 'OK') {
-        return self.placeMarker(zipCode, results[0], self, cb);
+        return this.placeMarker(zipCode, results[0], cb);
       }
       else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
-    });
+    }.bind(this));
   }
 
   getZipCodes() {
-    var self = this;
     this.zipCodes.forEach(element => {
-      var place: any = this.getZipCodeLocation(element, this, function () {
-        if (self.southwest && self.northeast && (self.southwest.lat !== self.northeast.lat || self.southwest.lng !== self.northeast.lng)) {
-          self.fitBounds(self.southwest.lat, self.southwest.lng, self.northeast.lat, self.northeast.lng, self);
+      var place: any = this.getZipCodeLocation(element, function () {
+        if (this.southwest && this.northeast && (this.southwest.lat !== this.northeast.lat || this.southwest.lng !== this.northeast.lng)) {
+          this.fitBounds(this.southwest.lat, this.southwest.lng, this.northeast.lat, this.northeast.lng, this);
         }
-      });
+      }.bind(this));
     });
   }
 
-  loadZipCode(zipCode: string, place: any, self: any) {
-    self.zipCodes.push(zipCode);
-    self.placeMarker(zipCode, place, self);
+  loadZipCode(zipCode: string, place: any) {
+    this.zipCodes.push(zipCode);
+    this.placeMarker(zipCode, place);
   }
 
   computeBoundingRect() {
