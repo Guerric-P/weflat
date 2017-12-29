@@ -9,4 +9,6 @@ public interface ZipCodeService {
 	ZipCode getById(Long id);
 	
 	ZipCode getByCode(String code);
+	
+	ZipCode save(ZipCode zipCode);
 }
