@@ -20,4 +20,9 @@ public class AcheteurServiceImpl implements AcheteurService {
 		
 	}
 
+	@Override
+	public Acheteur findById(Long id) {
+		return acheteurDao.findOne(id);
+	}
+
 }

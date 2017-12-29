@@ -47,6 +47,7 @@ export class RegisterAcheteurComponent implements OnInit {
     this.registerService.postAcheteur(this.data).subscribe(
       x => {
         this.authenticationService.login(this.data.email, this.data.password).subscribe( x => {
+          this.authenticationService.returnUrl = null;
           this.router.navigate(['acheteur']);
         });
       });

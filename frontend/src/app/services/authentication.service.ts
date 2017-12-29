@@ -11,6 +11,8 @@ import { LocalStorageService } from 'app/services/local-storage.service';
 export class AuthenticationService {
     constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
+    returnUrl: string;
+
     login(username: string, password: string) {
         return this.http.post('/backend/login', JSON.stringify({ username: username, password: password }))
             .map((response: any) => {
@@ -27,9 +29,7 @@ export class AuthenticationService {
                 return user;
             }).pipe(catchError(x => {
                 return ErrorObservable.create(x);
-            }
-        )
-    );
+            }));
     }
 
     logout() {

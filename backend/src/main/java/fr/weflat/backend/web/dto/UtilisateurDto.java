@@ -1,6 +1,6 @@
 package fr.weflat.backend.web.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 import fr.weflat.backend.domaine.Utilisateur;
 
