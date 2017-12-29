@@ -52,6 +52,13 @@ public class VisiteController {
 		Visite visite = new Visite();
 		
 		ZipCode zipCode = zipCodeService.getByCode(input.getZipCode());
+		
+		if(zipCode == null) {
+			zipCode = new ZipCode();
+			zipCode.setNumber(input.getZipCode());
+			zipCode = zipCodeService.save(zipCode);
+		}
+		
 		Acheteur acheteur = acheteurService.findById((Long)details.get("id"));
 				
 		visite.setAcheteur(acheteur);

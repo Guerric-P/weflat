@@ -26,4 +26,9 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 		// TODO Auto-generated method stub
 		return zipCodeDao.findByNumber(code);
 	}
+
+	@Override
+	public ZipCode save(ZipCode zipCode) {
+		return zipCodeDao.save(zipCode);
+	}
 }
