@@ -54,10 +54,21 @@ class TokenAuthenticationService {
 	          .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
 	          .getBody()
 	          .getSubject();
-
-	      return user != null ?
-	          new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList()) :
-	          null;
+	      
+	      Long id = Jwts.parser()
+	          .setSigningKey(SECRET)
+	          .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+	          .getBody()
+	          .get("id", Long.class);
+	      
+	      Map<String, Object> details = new HashMap<String, Object>();
+	      details.put("id", id);
+	      
+	      if(user != null) {
+	    	  UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+	    	  auth.setDetails(details);
+	    	  return auth;
+	      }
 	    }
 	    return null;
 	  }

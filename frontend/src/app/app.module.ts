@@ -11,7 +11,6 @@ import { ErrorComponent } from './components/error/error.component';
 import { AlertService } from 'app/services/alert.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from 'app/common/http-interceptor.service';
-import { TestService } from 'app/services/test.service';
 import { AuthenticationService } from 'app/services/authentication.service';
 import { AuthGuard } from 'app/guards/auth.guard';
 import { ArchitecteGuard } from 'app/guards/architecte.guard';
@@ -55,7 +54,7 @@ const appRoutes: Routes = [
       { path: 'dashboard', component: DashboardComponent, data: { authRequired: true } },
       { path: 'profile', component: ArchitecteProfileComponent, data: { authRequired: true } },
       { path: 'visits', component: VisitsComponent, data: { authRequired: true } },
-      { path: 'dispo', component: DispoComponent, resolve:{zipCodes: ZipCodesResolver}, data: { authRequired: true } },
+      { path: 'dispo', component: DispoComponent, resolve: { zipCodes: ZipCodesResolver }, data: { authRequired: true } },
       { path: 'messages', component: MessagesComponent, data: { authRequired: true } }
     ]
   }, {
@@ -94,7 +93,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(appRoutes, { useHash: false/*, enableTracing: true */ }),
+    RouterModule.forRoot(appRoutes, { useHash: false/*, enableTracing: true */}),
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
@@ -108,7 +107,6 @@ const appRoutes: Routes = [
     SimpleNotificationsModule.forRoot()
   ],
   providers: [AlertService,
-    TestService,
     AuthenticationService,
     AuthGuard,
     ArchitecteGuard,

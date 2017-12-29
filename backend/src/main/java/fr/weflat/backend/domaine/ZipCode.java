@@ -5,12 +5,14 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -41,6 +43,15 @@ public class ZipCode {
     @JoinTable(name = "architecte_zip_code", joinColumns = @JoinColumn(name = "id_zip_code", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_architecte", referencedColumnName = "id"))
 	private Set<Architecte> architectes;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "zipCode")
+	private Set<Visite> visites;
+	
+	public Set<Visite> getVisites() {
+		return visites;
+	}
+	public void setVisites(Set<Visite> visites) {
+		this.visites = visites;
+	}
 	public Long getId() {
 		return id;
 	}

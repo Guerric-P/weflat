@@ -1,11 +1,11 @@
 package fr.weflat.backend.domaine;
 
-import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +26,17 @@ public class Acheteur extends Utilisateur {
 	
 	@Column(nullable = true, name = "budget_max")
     private int budgetMax;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "acheteur")
+	private Set<Visite> visites;
+
+	public Set<Visite> getVisites() {
+		return visites;
+	}
+
+	public void setVisites(Set<Visite> visites) {
+		this.visites = visites;
+	}
 
 	public String getHabitudes() {
 		return habitudes;

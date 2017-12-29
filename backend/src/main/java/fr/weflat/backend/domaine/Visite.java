@@ -1,0 +1,128 @@
+package fr.weflat.backend.domaine;
+
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "visite")
+public class Visite {
+	@Id
+	@Column(name = "id")
+	@SequenceGenerator(name = "visite_id_seq", sequenceName = "visite_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "visite_id_seq")
+	private Long id;
+
+	public Set<Architecte> getNearbyArchitectes() {
+		return nearbyArchitectes;
+	}
+
+	public void setNearbyArchitectes(Set<Architecte> nearbyArchitectes) {
+		this.nearbyArchitectes = nearbyArchitectes;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_architecte", nullable = true)
+	private Architecte architecte;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_acheteur", nullable = false)
+	private Acheteur acheteur;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_zip_code", nullable = false)
+	private ZipCode zipCode;
+	
+	@Column(nullable = true, name = "city")
+	private String city;
+	
+	@Column(nullable = true, name = "route")
+	private String route;
+	
+	@Column(nullable = true, name = "street_number")
+	private String streetNumber;
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "architecte_visite", joinColumns = @JoinColumn(name = "id_visite", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_architecte", referencedColumnName = "id"))
+	private Set<Architecte> nearbyArchitectes;
+	
+	public Architecte getArchitecte() {
+		return architecte;
+	}
+
+	public void setArchitecte(Architecte architecte) {
+		this.architecte = architecte;
+	}
+
+	public Acheteur getAcheteur() {
+		return acheteur;
+	}
+
+	public void setAcheteur(Acheteur acheteur) {
+		this.acheteur = acheteur;
+	}
+
+	public ZipCode getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(ZipCode zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getRoute() {
+		return route;
+	}
+
+	public void setRoute(String route) {
+		this.route = route;
+	}
+
+	public String getStreetNumber() {
+		return streetNumber;
+	}
+
+	public void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	private Date creationDate;
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+}

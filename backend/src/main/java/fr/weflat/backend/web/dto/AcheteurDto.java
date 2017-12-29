@@ -7,7 +7,6 @@ public class AcheteurDto extends UtilisateurDto {
 
     public AcheteurDto(Utilisateur utilisateur) {
 		super(utilisateur);
-		// TODO Auto-generated constructor stub
 	}
     
     public AcheteurDto(Acheteur acheteur) {

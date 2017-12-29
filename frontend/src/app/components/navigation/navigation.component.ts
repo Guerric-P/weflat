@@ -1,19 +1,20 @@
-import { Component, OnInit, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
 import { AuthenticationService } from 'app/services/authentication.service';
-import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
+import { Router, ActivatedRoute, RoutesRecognized, GuardsCheckEnd } from '@angular/router';
 import { AuthGuard } from 'app/guards/auth.guard';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'app/services/local-storage.service';
 import { Constantes } from 'app/common/Constantes';
 import { NotificationsService } from 'angular2-notifications';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthenticationService,
     private router: Router, private route: ActivatedRoute,
@@ -29,24 +30,33 @@ export class NavigationComponent implements OnInit {
   errorMessage: string;
   signinModal: NgbModalRef;
   signupModal: NgbModalRef;
+  subscription: Subscription;
   @ViewChild('signinModal') signinModalTemplate: TemplateRef<any>;
 
   ngOnInit() {
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-    if (this.returnUrl && this.returnUrl.length !== 1) {
-      var self = this;
-      setTimeout(function () {
-        self.openSignin(self.signinModalTemplate);
-      }, 1)
-
+    if (this.authService.returnUrl) {
+      this.router.navigate([this.returnUrl]);
     }
 
-    this.router.events.subscribe((data) => {
+    this.subscription = this.router.events.subscribe((data) => {
       if (data instanceof RoutesRecognized) {
         this.routeData = data.state.root.firstChild.data;
       }
+      if (data instanceof GuardsCheckEnd) {
+        if(!data.shouldActivate){
+          this.displaySigninPopup();
+        }
+      }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  displaySigninPopup(){
+    setTimeout.bind(this)(this.openSignin(this.signinModalTemplate), 1);
   }
 
   get token() {
@@ -83,7 +93,8 @@ export class NavigationComponent implements OnInit {
       .subscribe(
       data => {
         this.signinModal.close();
-        this.router.navigate([this.returnUrl]);
+        this.router.navigate([this.authService.returnUrl]);
+        this.authService.returnUrl = null;
       },
       error => {
         this.errorMessage = 'Erreur lors de l\'authentification';

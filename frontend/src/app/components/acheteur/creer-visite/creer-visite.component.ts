@@ -112,10 +112,7 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
       map: this.map
     });
 
-    var bounds = new google.maps.LatLngBounds();
-
-    bounds.extend(this.place.geometry.location);
-
-    this.map.fitBounds(bounds);
+    this.map.setCenter(this.place.geometry.location);
+    this.map.setZoom(16);
   }
 }
