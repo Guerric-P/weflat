@@ -11,14 +11,17 @@ public class VisiteDto extends BaseDto<Visite> {
 		super();
 	}
 
-	public VisiteDto(Visite type) {
-		super(type);
-	}
-
 	@Override
 	public void From(Visite type) {
-		// TODO Auto-generated method stub
-		
+		id = type.getId();
+		idAcheteur = type.getAcheteur() != null ? type.getAcheteur().getId() : null;
+		idArchitecte = type.getArchitecte() != null ? type.getArchitecte().getId() : null;
+		zipCode = type.getZipCode() != null ? type.getZipCode().getNumber() : null;
+		city = type.getCity();
+		route = type.getRoute();
+		streetNumber = type.getStreetNumber();
+		visiteDate = type.getVisiteDate();
+		creationDate = type.getCreationDate();
 	}
 	
 	private Long id;
@@ -28,6 +31,7 @@ public class VisiteDto extends BaseDto<Visite> {
 	private String city;
 	private String route;
 	private String streetNumber;
+	private Date visiteDate;
 	private Date creationDate;
 	
 	
@@ -37,6 +41,14 @@ public class VisiteDto extends BaseDto<Visite> {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	public Long getIdAcheteur() {
@@ -87,12 +99,12 @@ public class VisiteDto extends BaseDto<Visite> {
 		this.streetNumber = streetNumber;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
+	public Date getVisiteDate() {
+		return visiteDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+	public void setVisiteDate(Date visiteDate) {
+		this.visiteDate = visiteDate;
 	}
 
 	

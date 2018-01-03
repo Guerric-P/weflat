@@ -39,6 +39,15 @@ import { ZipCodesResolver } from 'app/resolvers/zip-codes-resolver';
 import { AddressFieldComponent } from './components/home/address-field/address-field.component';
 import { ArchitecteProfileComponent } from './components/architecte/architecte-profile/architecte-profile.component';
 import { AcheteurProfileComponent } from './components/acheteur/acheteur-profile/acheteur-profile.component';
+import { VisiteService } from 'app/services/visite.service';
+import { VisitComponent } from './components/architecte/visits/visit/visit.component';
+
+import { LOCALE_ID } from '@angular/core';
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
 
 
 const appRoutes: Routes = [
@@ -85,7 +94,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     AddressFieldComponent,
     ArchitecteProfileComponent,
-    AcheteurProfileComponent
+    AcheteurProfileComponent,
+    VisitComponent
   ],
   imports: [
     BrowserModule,
@@ -119,7 +129,12 @@ const appRoutes: Routes = [
       multi: true,
     },
     ZipCodesResolver,
-    SessionStorageService
+    SessionStorageService,
+    VisiteService,
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr-FR'
+    }
   ],
   bootstrap: [AppComponent]
 })

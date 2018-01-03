@@ -59,8 +59,22 @@ public class Visite {
     @JoinTable(name = "architecte_visite", joinColumns = @JoinColumn(name = "id_visite", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_architecte", referencedColumnName = "id"))
 	private Set<Architecte> nearbyArchitectes;
 	
+	@Column(nullable = false, name = "creation_date")
+	private Date creationDate;
+	
+	@Column(nullable = false, name = "visite_date")
+	private Date visiteDate;
+	
 	public Architecte getArchitecte() {
 		return architecte;
+	}
+
+	public Date getVisiteDate() {
+		return visiteDate;
+	}
+
+	public void setVisiteDate(Date visiteDate) {
+		this.visiteDate = visiteDate;
 	}
 
 	public void setArchitecte(Architecte architecte) {
@@ -113,10 +127,7 @@ public class Visite {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
-	}
-
-	private Date creationDate;
-	
+	}	
 
 	public Long getId() {
 		return id;
