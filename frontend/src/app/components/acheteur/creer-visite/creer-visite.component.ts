@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material';
 import { SessionStorageService } from 'app/services/session-storage.service';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { VisiteService } from 'app/services/visite.service';
+import { Visite } from 'app/models/visite';
 
 declare var google;
 
@@ -32,7 +34,8 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
     private _formBuilder: FormBuilder,
     private adapter: DateAdapter<any>,
     private sessionStorageService:
-      SessionStorageService) { }
+      SessionStorageService,
+    private visiteService: VisiteService) { }
 
   ngOnInit() {
     this.place = this.sessionStorageService.place;
@@ -114,5 +117,15 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
 
     this.map.setCenter(this.place.geometry.location);
     this.map.setZoom(16);
+  }
+
+  createVisit() {
+    let visite = new Visite();
+    visite.city = this.addressFormGroup.controls['city'].value;
+    visite.route = this.addressFormGroup.controls['route'].value;
+    visite.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
+    visite.zipCode = this.addressFormGroup.controls['zipCode'].value;
+    visite.visiteDate = this.dateFormGroup.controls['datePicker'].value;
+    this.visiteService.postVisite(visite).subscribe();
   }
 }

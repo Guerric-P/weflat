@@ -43,9 +43,10 @@
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Terminé</ng-template>
-    Votre demande a été transmise. Les architectes qui peuvent se déplacer sur le lieu de visite ont été notifiés.
+    En cliquant sur le bouton "Terminer", votre demande sera transmise aux architectes les plus proches.
     <div>
       <button mat-button matStepperPrevious>Précédent</button>
+      <button mat-raised-button color="primary" (click)="createVisit()">Terminer</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

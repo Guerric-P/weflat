@@ -6,9 +6,5 @@ public abstract class BaseDto<T> {
 		
 	}
 	
-	public BaseDto(T type) {
-		From(type);
-	}
-	
 	public abstract void From(T type);
 }

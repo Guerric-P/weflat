@@ -32,6 +32,18 @@ public class Architecte extends Utilisateur {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "architecte")
 	private Set<Visite> visites;
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "architecte_visite", joinColumns = @JoinColumn(name = "id_architecte", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_visite", referencedColumnName = "id"))
+	private Set<Visite> potentialVisites;
+
+	public Set<Visite> getPotentialVisites() {
+		return potentialVisites;
+	}
+
+	public void setPotentialVisites(Set<Visite> potentialVisites) {
+		this.potentialVisites = potentialVisites;
+	}
 
 	public Set<Visite> getVisites() {
 		return visites;
