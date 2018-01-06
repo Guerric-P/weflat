@@ -5,6 +5,7 @@ import { SessionStorageService } from 'app/services/session-storage.service';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { VisiteService } from 'app/services/visite.service';
 import { Visite } from 'app/models/visite';
+import { NotificationsService } from 'angular2-notifications';
 
 declare var google;
 
@@ -35,7 +36,8 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
     private adapter: DateAdapter<any>,
     private sessionStorageService:
       SessionStorageService,
-    private visiteService: VisiteService) { }
+    private visiteService: VisiteService,
+    private notificationService: NotificationsService) { }
 
   ngOnInit() {
     this.place = this.sessionStorageService.place;
@@ -49,8 +51,6 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
         country: 'fr'
       }
     };
-
-    var self = this;
 
     var autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -126,6 +126,10 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
     visite.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
     visite.zipCode = this.addressFormGroup.controls['zipCode'].value;
     visite.visiteDate = this.dateFormGroup.controls['datePicker'].value;
-    this.visiteService.postVisite(visite).subscribe();
+    this.visiteService.postVisite(visite).subscribe(res => {
+      this.notificationService.success('Succès', 'La visite a été créée');
+    }, err => {
+      this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');
+    });
   }
 }

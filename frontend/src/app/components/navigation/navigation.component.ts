@@ -36,7 +36,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     if (this.authService.returnUrl) {
-      this.router.navigate([this.returnUrl]);
+      this.router.navigate([this.authService.returnUrl]);
     }
 
     this.subscription = this.router.events.subscribe((data) => {
@@ -44,7 +44,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.routeData = data.state.root.firstChild.data;
       }
       if (data instanceof GuardsCheckEnd) {
-        if(!data.shouldActivate){
+        if (!data.shouldActivate) {
           this.displaySigninPopup();
         }
       }
@@ -55,7 +55,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  displaySigninPopup(){
+  displaySigninPopup() {
     setTimeout.bind(this)(this.openSignin(this.signinModalTemplate), 1);
   }
 
@@ -93,8 +93,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       .subscribe(
       data => {
         this.signinModal.close();
-        this.router.navigate([this.authService.returnUrl]);
-        this.authService.returnUrl = null;
+        if (this.authService.returnUrl) {
+          this.router.navigate([this.authService.returnUrl]);
+          this.authService.returnUrl = null;
+        }
       },
       error => {
         this.errorMessage = 'Erreur lors de l\'authentification';

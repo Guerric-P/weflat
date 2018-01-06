@@ -6,7 +6,7 @@
 	left: 0.15em;
 	position: relative;
 	top: 0.15em;
-	transform: rotate(-45deg);
+	transform: rotate(135deg);
 	vertical-align: top;
 	width: 0.8em;
     float: right;
@@ -14,5 +14,9 @@
     transition: all 0.5s;
 }
 .title.collapsed:after {
-    transform: rotate(-225deg);
+    transform: rotate(225deg);
+}
+
+.title {
+    color:#808080;
 }

@@ -12,6 +12,11 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    twttr.widgets.load();
+    try {
+      twttr.widgets.load();
+    }
+    catch (e) {
+      console.log('Erreur lors du chargement du widget twitter...');
+    }
   }
 }

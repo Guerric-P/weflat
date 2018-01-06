@@ -6,6 +6,10 @@
     width: 100%;
 }
 
-.zip-codes-container {
+.google-maps-container {
     height: 400px;
+}
+
+.zip-codes-container {
+    margin-bottom: 20px;
 }
