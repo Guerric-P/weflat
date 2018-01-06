@@ -1,8 +1,10 @@
 <!-- 3 chiffres -->
 <div class="container">
-  <h2>Ma zone d'action</h2>
-  <div class="zip-codes-container d-flex flex-row">
-    <div style="flex: 0.3" class="left-container">
+  <div class="row">
+    <h2>Ma zone d'action</h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 zip-codes-container">
       <label>Saisissez les codes postaux correspondant à votre zone d'action</label>
       <mat-form-field>
         <mat-chip-list #zipCodesList>
@@ -16,7 +18,8 @@
       <button mat-raised-button color="primary" (click)="submitZipCodes()">Valider</button>
       <button mat-button color="primary" (click)="fitBounds()">Recentrer la carte</button>
     </div>
-    <div #googleMap style="flex: 0.7"></div>
+    <div class="col-sm-8 google-maps-container" #googleMap>
+    </div>
   </div>
   <h2>Mon calendrier</h2>
   Calendrier Raccourci: je suis disponible tout le temps, tous les weekends, tous les jours sauf weekends

@@ -46,6 +46,7 @@ import { LOCALE_ID } from '@angular/core';
 
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { BaseLayoutComponent } from './layout/base-layout/base-layout.component';
 
 registerLocaleData(localeFr);
 
@@ -95,7 +96,8 @@ const appRoutes: Routes = [
     AddressFieldComponent,
     ArchitecteProfileComponent,
     AcheteurProfileComponent,
-    VisitComponent
+    VisitComponent,
+    BaseLayoutComponent
   ],
   imports: [
     BrowserModule,

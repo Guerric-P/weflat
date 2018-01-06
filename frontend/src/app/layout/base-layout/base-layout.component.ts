@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
-import { AuthGuard } from 'app/guards/auth.guard';
 import { AuthenticationService } from 'app/services/authentication.service';
+import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
+import { AuthGuard } from 'app/guards/auth.guard';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorageService } from 'app/services/local-storage.service';
 
 @Component({
-  selector: 'app-acheteur-layout',
-  templateUrl: './acheteur-layout.component.html',
-  styleUrls: ['./acheteur-layout.component.css']
+  selector: 'app-base-layout',
+  templateUrl: './base-layout.component.html',
+  styleUrls: ['./base-layout.component.css']
 })
-export class AcheteurLayoutComponent implements OnInit {
-  
-    constructor(private authService: AuthenticationService,
-      private router: Router, private route: ActivatedRoute,
-      private authGuard: AuthGuard,
-      private modalService: NgbModal,
-      private localStorageService: LocalStorageService) { }
-  
-    private authRequired;
+export class BaseLayoutComponent implements OnInit {
+
+  constructor(protected authService: AuthenticationService,
+    protected router: Router, protected route: ActivatedRoute,
+    protected authGuard: AuthGuard,
+    protected modalService: NgbModal,
+    protected localStorageService: LocalStorageService) { }
+
+    protected authRequired;
     leftMenuHidden: boolean = true;
   
     ngOnInit() {
@@ -59,7 +59,7 @@ export class AcheteurLayoutComponent implements OnInit {
         )
       }
     }
-
+  
     dismissLeftMenu(){
       this.leftMenuHidden = true;
     }
@@ -67,5 +67,9 @@ export class AcheteurLayoutComponent implements OnInit {
     showLeftMenu(){
       this.leftMenuHidden = false;
     }
-  }
-  
+
+    scrollToTop(){
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }
+
+}

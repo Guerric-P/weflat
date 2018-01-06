@@ -3,9 +3,7 @@
     <form [formGroup]="dateFormGroup">
       <ng-template matStepLabel>A quelle date est prévue votre visite ?</ng-template>
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" formControlName="datePicker" placeholder="Choisissez une date..." required>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <input matInput type="datetime-local" formControlName="datePicker" placeholder="Choisissez une date..." required>
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Suivant</button>
