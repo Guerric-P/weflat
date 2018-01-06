@@ -27,10 +27,10 @@
               <a href="#" class="text-white">Blog</a>
             </li>
             <li>
-              <a href="#" class="text-white">Questions frequentes</a>
+              <a href="#" class="text-white">Questions fréquentes</a>
             </li>
             <li>
-              <a href="#" class="text-white">Conditions generales d'utilisation</a>
+              <a href="#" class="text-white">Conditions générales d'utilisation</a>
             </li>
           </ul>
         </div>
@@ -76,17 +76,19 @@
   </div>
   <div class="modal-body">
     <div class="alert alert-danger" role="alert" *ngIf="errorMessage && errorMessage.length !== 0">
-        <strong>Erreur :</strong> {{errorMessage}}
-      </div>
+      <strong>Erreur :</strong> {{errorMessage}}
+    </div>
     <form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
         <label for="exampleInputEmail1">Identifiant</label>
-        <input type="email" class="form-control" placeholder="Adresse e-mail" name="username" [(ngModel)]="model.username" #username="ngModel" required>
+        <input type="email" class="form-control" placeholder="Adresse e-mail" name="username" [(ngModel)]="model.username" #username="ngModel"
+          required>
         <div *ngIf="f.submitted && !username.valid" class="help-block">L'e-mail est requis.</div>
       </div>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
         <label for="exampleInputPassword1">Mot de passe</label>
-        <input type="password" class="form-control" placeholder="Mot de passe" name="password" [(ngModel)]="model.password" #password="ngModel" required>
+        <input type="password" class="form-control" placeholder="Mot de passe" name="password" [(ngModel)]="model.password" #password="ngModel"
+          required>
         <div *ngIf="f.submitted && !password.valid" class="help-block">Le mot de passe est requis.</div>
       </div>
       <div class="form-check">
@@ -95,28 +97,30 @@
         </label>
       </div>
       <div class="float-right">
-          <button type="button" class="btn btn-link">Mot de passe oublie?</button>
-          <button [disabled]="loading" type="submit" class="btn btn-primary">Se connecter</button>
-        </div>
+        <button type="button" class="btn btn-link">Mot de passe oublié ?</button>
+        <button [disabled]="loading" type="submit" class="btn btn-primary">Se connecter</button>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
     <div class="row float-right">
-      <p>Vous n'avez pas de compte?</p>
-      <button type="button" class="btn btn-link" (click)="c(''); openSignup(signupMmodal);">S'inscrire</button>
+      <div class="col-8">Vous n'avez pas de compte ?</div>
+      <div class="col-4">
+        <button type="button" class="btn btn-link" (click)="c(''); openSignup(signupMmodal);">S'inscrire</button>
+      </div>
     </div>
   </div>
 </ng-template>
 
 <ng-template #signupMmodal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Êtes-vous</h4>
+    <h4 class="modal-title">Qui êtes-vous ?</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body d-flex flex-row justify-content-around">
-    <button type="button" class="btn btn-outline-primary" (click)="c('acheteur')">Un acheteur ?</button>
-    <button type="button" class="btn btn-outline-primary" (click)="c('architecte')">Un architecte ?</button>
+    <button type="button" class="btn btn-outline-primary" (click)="c('acheteur')">Un acheteur</button>
+    <button type="button" class="btn btn-outline-primary" (click)="c('architecte')">Un architecte</button>
   </div>
 </ng-template>
