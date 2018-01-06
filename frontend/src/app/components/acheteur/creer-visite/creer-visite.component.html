@@ -12,8 +12,8 @@
   </mat-step>
   <mat-step [stepControl]="addressFormGroup">
     <form [formGroup]="addressFormGroup">
-      <div class="d-flex flex-row" style="width:100%; height: 600px">
-        <div style="flex: 0.3; display: flex; flex-direction: column;" class="left-container">
+      <div class="row">
+        <div class="col-sm-4">
           <ng-template matStepLabel>Adresse du logement</ng-template>
           <mat-form-field>
             <input matInput placeholder="Adresse" formControlName="addressInput" required #addressInput>
@@ -30,12 +30,15 @@
           <mat-form-field>
             <input matInput placeholder="Ville" formControlName="city" required #city>
           </mat-form-field>
-          <div>
-            <button mat-button matStepperPrevious>Précédent</button>
-            <button mat-button matStepperNext>Suivant</button>
-          </div>
         </div>
-        <div #googleMap style="flex: 0.7"></div>
+        <div class="col-sm-8 google-maps-container" #googleMap>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button mat-button matStepperPrevious>Précédent</button>
+          <button mat-button matStepperNext>Suivant</button>
+        </div>
       </div>
     </form>
   </mat-step>
