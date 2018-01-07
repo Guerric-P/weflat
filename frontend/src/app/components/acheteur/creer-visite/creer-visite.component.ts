@@ -6,6 +6,7 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { VisiteService } from 'app/services/visite.service';
 import { Visite } from 'app/models/visite';
 import { NotificationsService } from 'angular2-notifications';
+import * as moment from 'moment';
 
 declare var google;
 
@@ -125,7 +126,7 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
     visite.route = this.addressFormGroup.controls['route'].value;
     visite.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
     visite.zipCode = this.addressFormGroup.controls['zipCode'].value;
-    visite.visiteDate = this.dateFormGroup.controls['datePicker'].value;
+    visite.visiteDate = moment(this.dateFormGroup.controls['datePicker'].value).toDate();
     this.visiteService.postVisite(visite).subscribe(res => {
       this.notificationService.success('Succès', 'La visite a été créée');
     }, err => {
