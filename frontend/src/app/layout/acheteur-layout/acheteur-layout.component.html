@@ -8,16 +8,15 @@
       </a>
       <a class="nav-link" routerLink="/architecte/dashboard" routerLinkActive="active">Mon tableau de bord</a>
       <a class="nav-link" routerLinkActive="active">Mon profil</a>
-      <a class="nav-link" href="#" routerLink="/architecte/visits" routerLinkActive="active">Mes visites
+      <a class="nav-link" routerLink="/architecte/visits" routerLinkActive="active">Mes visites
         <span class="badge badge-light">4</span>
       </a>
-      <a class="nav-link" routerLink="/architecte/dispo" routerLinkActive="active">Mes disponibilites</a>
+      <a class="nav-link" routerLink="/architecte/dispo" routerLinkActive="active">Mes disponibilités</a>
       <a class="nav-link disabled" routerLink="/architecte/messages" routerLinkActive="active">Ma messagerie</a>
     </nav>
   
-    <div id="maincontent">
-      <!--Navbar-->
-      <nav class="navbar navbar-right">
+    <!--Navbar-->
+    <nav class="navbar sticky-top navbar-right">
         <button type="button" id="sidebarCollapse" class="btn navbar-btn" (click)="showLeftMenu()">
           <i class="material-icons">menu</i>
         </button>
@@ -32,15 +31,17 @@
           </div>
         </div>
       </nav>
+  
+    <div id="maincontent">
       <router-outlet></router-outlet>
       <!-- Footer -->
       <footer class="text-muted">
         <div class="container">
           <p class="float-right">
-            <a href="#">Back to top</a>
+            <a (click)="scrollToTop()">Haut de la page</a>
           </p>
           <p>&copy; Weflat 2017</p>
-          <p>Made with &hearts; a Paris</p>
+          <p>Made with &hearts; in Paris</p>
         </div>
       </footer>
   
