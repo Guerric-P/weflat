@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Visite } from 'app/models/visite';
+import { VisiteClass } from 'app/models/visiteclass';
 
 @Component({
   selector: 'app-visit',
@@ -10,7 +10,7 @@ export class VisitComponent implements OnInit {
 
   constructor() { }
 
-  @Input() visite: Visite;
+  @Input() visite: VisiteClass;
 
   ngOnInit() {
   }

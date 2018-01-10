@@ -1,19 +1,8 @@
 package fr.weflat.backend.web.dto;
 
-import fr.weflat.backend.domaine.Architecte;
-import fr.weflat.backend.domaine.Utilisateur;
-
 public class ArchitecteDto extends UtilisateurDto {
     
-	public ArchitecteDto(Utilisateur utilisateur) {
-		super(utilisateur);
-		// TODO Auto-generated constructor stub
-	}
-	
-	public ArchitecteDto(Architecte architecte) {
-		super(architecte);
-		this.zoneAction = architecte.getZoneAction();
-		
+	public ArchitecteDto() {
 	}
 
 	private String zoneAction;

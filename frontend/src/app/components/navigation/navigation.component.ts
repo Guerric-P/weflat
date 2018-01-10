@@ -45,6 +45,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       }
       if (data instanceof GuardsCheckEnd) {
         if (!data.shouldActivate) {
+          this.errorMessage = 'Vous n\'avez pas accès à cette fonctionnalité, veuillez vous connecter avec un compte approprié';
           this.displaySigninPopup();
         }
       }
@@ -81,9 +82,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.signinModal = this.modalService.open(content);
 
     this.signinModal.result.then((result) => {
-
+      this.errorMessage = null;
+      this.authService.returnUrl = null;
     }, (reason) => {
-
+      this.errorMessage = null;
+      this.authService.returnUrl = null;
     });
   }
 

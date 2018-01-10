@@ -4,7 +4,7 @@ import { DateAdapter } from '@angular/material';
 import { SessionStorageService } from 'app/services/session-storage.service';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { VisiteService } from 'app/services/visite.service';
-import { Visite } from 'app/models/visite';
+import { VisiteClass } from 'app/models/visiteclass';
 import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
 
@@ -121,7 +121,7 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
   }
 
   createVisit() {
-    let visite = new Visite();
+    let visite = new VisiteClass();
     visite.city = this.addressFormGroup.controls['city'].value;
     visite.route = this.addressFormGroup.controls['route'].value;
     visite.streetNumber = this.addressFormGroup.controls['streetNumber'].value;

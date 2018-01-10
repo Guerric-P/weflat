@@ -2,19 +2,7 @@ package fr.weflat.backend.web.dto;
 
 import java.util.Date;
 
-import fr.weflat.backend.domaine.Utilisateur;
-
 public class UtilisateurDto {
-
-	public UtilisateurDto(Utilisateur utilisateur) {
-		this.id = utilisateur.getId();
-		this.lastName = utilisateur.getFirstName();
-		this.firstName = utilisateur.getLastName();
-		this.email = utilisateur.getEmail();
-		this.password = utilisateur.getPassword();
-		this.birthDate = utilisateur.getDateNaissance();
-		this.telephone = utilisateur.getTelephone();
-	}
 	
 	private Long id;
 	
@@ -23,6 +11,46 @@ public class UtilisateurDto {
     private String firstName;
 	
     private String email;
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	private String password;
+	
+    private Date birthDate;
+	
+    private String telephone;
+    
+	private String aConnuWeflatPar;
 	
     public String getEmail() {
 		return email;
@@ -31,13 +59,7 @@ public class UtilisateurDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	private String password;
-	
-    private Date birthDate;
-	
-    private String telephone;
-	
+    
     public Long getId() {
 		return id;
 	}
@@ -93,6 +115,4 @@ public class UtilisateurDto {
 	public void setaConnuWeflatPar(String aConnuWeflatPar) {
 		this.aConnuWeflatPar = aConnuWeflatPar;
 	}
-
-	private String aConnuWeflatPar;
 }

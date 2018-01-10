@@ -40,18 +40,18 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 	}
 
 	@Override
-	public void saveZipCodesForArchitecte(List<String> zipCodes, long id) {
+	public void saveZipCodesForArchitecte(List<ZipCode> zipCodes, long id) {
 		Architecte architecte = getById(id);
 
 		//Ajout des nouveaux codes
-		for(String zipCode : zipCodes) {
-			if(!architecte.getZipCodes().stream().anyMatch(x -> x.getNumber().equals(zipCode))) {
-				ZipCode existingZipCode = zipCodeDao.findByNumber(zipCode);
+		for(ZipCode zipCode : zipCodes) {
+			if(!architecte.getZipCodes().stream().anyMatch(x -> x.getNumber().equals(zipCode.getNumber()))) {
+				ZipCode existingZipCode = zipCodeDao.findByNumber(zipCode.getNumber());
 				if(null != existingZipCode) {
 					architecte.getZipCodes().add(existingZipCode);
 				}
 				else {
-					architecte.getZipCodes().add(new ZipCode(zipCode));
+					architecte.getZipCodes().add(zipCode);
 				}
 
 			}
@@ -62,7 +62,7 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 		while (it.hasNext()) {
 			ZipCode zipCode = it.next();
 
-			if(!zipCodes.contains(zipCode.getNumber())) {
+			if(!zipCodes.stream().anyMatch(x -> x.getNumber().equals(zipCode.getNumber()))) {
 				it.remove();
 			}
 		}
