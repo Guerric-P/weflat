@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Acheteur } from 'app/models/acheteur';
+import { AcheteurClass } from 'app/models/AcheteurClass';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { RegisterService } from 'app/services/register.service';
 import { AuthenticationService } from 'app/services/authentication.service';
@@ -20,7 +20,7 @@ export class RegisterAcheteurComponent implements OnInit {
     this.createForm();
   }
 
-  data: Acheteur = new Acheteur();
+  data: AcheteurClass = new AcheteurClass();
   registerForm: FormGroup;
 
   createForm() {

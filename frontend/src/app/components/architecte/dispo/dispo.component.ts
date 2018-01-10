@@ -6,6 +6,7 @@ import { MatChipInputEvent } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { ZipCodeClass } from 'app/models/ZipCodeClass';
 
 declare var google: any;
 
@@ -39,7 +40,7 @@ export class DispoComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
-    this.zipCodes = this.route.snapshot.data['zipCodes'];
+    this.zipCodes = this.route.snapshot.data['zipCodes'].map(x => x.number);
 
     var options = {
       types: ['(regions)'],
@@ -161,7 +162,13 @@ export class DispoComponent implements OnInit, AfterViewInit {
   }
 
   submitZipCodes() {
-    this.architecteService.postZipCodes(this.zipCodes, this.localStorageService.tokenPayload.id).subscribe(x => {
+    let zipCodes: ZipCodeClass[] = new Array<ZipCodeClass>();
+
+    for(let zipCode of this.zipCodes) {
+      zipCodes.push({number: zipCode});
+    }
+
+    this.architecteService.postZipCodes(zipCodes, this.localStorageService.tokenPayload.id).subscribe(x => {
       this.notificationService.success('Succès', 'Vos codes postaux ont bien été enregistrés.');
     }, err => {
       this.notificationService.error('Aïe', 'Un problème est survenu pendant l\'enregistrement de vos codes postaux...');

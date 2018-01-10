@@ -1,22 +1,10 @@
 package fr.weflat.backend.web.dto;
 
-import fr.weflat.backend.domaine.Acheteur;
-import fr.weflat.backend.domaine.Utilisateur;
-
 public class AcheteurDto extends UtilisateurDto {
 
-    public AcheteurDto(Utilisateur utilisateur) {
-		super(utilisateur);
+    public AcheteurDto() {
+
 	}
-    
-    public AcheteurDto(Acheteur acheteur) {
-    	super(acheteur);
-    	this.habitudes = acheteur.getHabitudes();
-    	this.envies = acheteur.getEnvies();
-    	this.zoneRecherche = acheteur.getZoneRecherche();
-    	this.budgetMin = acheteur.getBudgetMin();
-    	this.budgetMax = acheteur.getBudgetMax();
-    }
 
 	private String habitudes;
 	

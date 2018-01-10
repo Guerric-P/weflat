@@ -2,32 +2,16 @@ package fr.weflat.backend.web.dto;
 
 import java.util.Date;
 
-import fr.weflat.backend.domaine.Visite;
-import fr.weflat.backend.web.dto.base.BaseDto;
-
-public class VisiteDto extends BaseDto<Visite> {
+public class VisiteDto {
 
 	public VisiteDto() {
-		super();
-	}
-
-	@Override
-	public void From(Visite type) {
-		id = type.getId();
-		idAcheteur = type.getAcheteur() != null ? type.getAcheteur().getId() : null;
-		idArchitecte = type.getArchitecte() != null ? type.getArchitecte().getId() : null;
-		zipCode = type.getZipCode() != null ? type.getZipCode().getNumber() : null;
-		city = type.getCity();
-		route = type.getRoute();
-		streetNumber = type.getStreetNumber();
-		visiteDate = type.getVisiteDate();
-		creationDate = type.getCreationDate();
+		
 	}
 	
 	private Long id;
-	private Long idAcheteur;
-	private Long idArchitecte;
-	private String zipCode;
+	private AcheteurDto acheteur;
+	private ArchitecteDto architecte;
+	private ZipCodeDto zipCode;
 	private String city;
 	private String route;
 	private String streetNumber;
@@ -51,27 +35,27 @@ public class VisiteDto extends BaseDto<Visite> {
 		this.creationDate = creationDate;
 	}
 
-	public Long getIdAcheteur() {
-		return idAcheteur;
+	public AcheteurDto getAcheteur() {
+		return acheteur;
 	}
 
-	public void setIdAcheteur(Long idAcheteur) {
-		this.idAcheteur = idAcheteur;
+	public void setAcheteur(AcheteurDto acheteur) {
+		this.acheteur = acheteur;
 	}
 
-	public Long getIdArchitecte() {
-		return idArchitecte;
+	public ArchitecteDto getArchitecte() {
+		return architecte;
 	}
 
-	public void setIdArchitecte(Long idArchitecte) {
-		this.idArchitecte = idArchitecte;
+	public void setArchitecte(ArchitecteDto architecte) {
+		this.architecte = architecte;
 	}
 
-	public String getZipCode() {
+	public ZipCodeDto getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(String zipCode) {
+	public void setZipCode(ZipCodeDto zipCode) {
 		this.zipCode = zipCode;
 	}
 

@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.weflat.backend.domaine.Acheteur;
@@ -24,6 +25,7 @@ import fr.weflat.backend.service.UtilisateurService;
 import fr.weflat.backend.service.VisiteService;
 import fr.weflat.backend.service.ZipCodeService;
 import fr.weflat.backend.web.dto.VisiteDto;
+import ma.glasnost.orika.MapperFacade;
 
 @RestController
 @Produces("application/json")
@@ -45,8 +47,11 @@ public class VisiteController {
 	@Autowired
 	ZipCodeService zipCodeService;
 	
+	@Autowired
+	MapperFacade orikaMapperFacade;
+	
 	@RequestMapping(method=RequestMethod.GET)
-	public Set<VisiteDto> getVisite(Authentication authentication) {
+	public Set<VisiteDto> getVisites(Authentication authentication) {
 		
 		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
 		
@@ -55,8 +60,7 @@ public class VisiteController {
 		Set<VisiteDto> result = new HashSet<VisiteDto>();
 		
 		for(Visite visite : visites) {
-			VisiteDto visiteDto = new VisiteDto();
-			visiteDto.From(visite);
+			VisiteDto visiteDto = orikaMapperFacade.map(visite, VisiteDto.class);
 			result.add(visiteDto);
 		}
 		
@@ -70,30 +74,32 @@ public class VisiteController {
 		
 		Visite visite = new Visite();
 		
-		ZipCode zipCode = zipCodeService.getByCode(input.getZipCode());
+		visite = orikaMapperFacade.map(input, Visite.class);
+		
+		ZipCode zipCode = zipCodeService.getByCode(input.getZipCode().getNumber());
 		
 		if(zipCode == null) {
 			zipCode = new ZipCode();
-			zipCode.setNumber(input.getZipCode());
+			zipCode.setNumber(input.getZipCode().getNumber());
 			zipCode = zipCodeService.save(zipCode);
 		}
 		
 		Acheteur acheteur = acheteurService.findById((Long)details.get("id"));
 		
-		Set<Architecte> nearbyArchitectes = architecteService.findNearbyArchitectes(input.getZipCode());
+		Set<Architecte> nearbyArchitectes = architecteService.findNearbyArchitectes(input.getZipCode().getNumber());
 		
 		visite.setNearbyArchitectes(nearbyArchitectes);
-		
 		visite.setAcheteur(acheteur);
 		visite.setZipCode(zipCode);
-		visite.setCity(input.getCity());
 		visite.setCreationDate(new Date());
-		visite.setRoute(input.getRoute());
-		visite.setStreetNumber(input.getStreetNumber());
-		visite.setVisiteDate(input.getVisiteDate());
 		
 		visiteService.save(visite);
 		
 		return "";
     }
+	
+	@RequestMapping(path="/accept", method=RequestMethod.POST)
+	public void acceptVisite(@RequestParam("id") Long id) {
+		
+	}
 }

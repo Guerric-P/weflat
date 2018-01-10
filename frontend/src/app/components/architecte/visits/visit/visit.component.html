@@ -1,5 +1,5 @@
-L'acheteur avec l'ID {{visite.idAcheteur}} a prévu une visite le {{visite.visiteDate | date:'medium'}} au {{visite.streetNumber}},
-{{visite.route}} - {{visite.zipCode}} {{visite.city}}
+L'acheteur avec l'ID {{visite.acheteur.id}} a prévu une visite le {{visite.visiteDate | date:'medium'}} au {{visite.streetNumber}},
+{{visite.route}} - {{visite.zipCode.number}} {{visite.city}}
 <div class="buttons">
   <button mat-button>Accepter</button>
   <button mat-button>Refuser</button>

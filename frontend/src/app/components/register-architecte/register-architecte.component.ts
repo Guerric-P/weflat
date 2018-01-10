@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Constantes } from 'app/common/Constantes';
-import { Architecte } from 'app/models/architecte';
+import { ArchitecteClass } from 'app/models/architecteclass';
 import { RegisterService } from 'app/services/register.service';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from 'app/services/authentication.service';
@@ -21,7 +21,7 @@ export class RegisterArchitecteComponent implements OnInit {
     this.createForm();
   }
 
-  data: Architecte = new Architecte();
+  data: ArchitecteClass = new ArchitecteClass();
   registerForm: FormGroup;
 
   createForm() {

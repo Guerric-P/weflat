@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Visite } from 'app/models/visite';
+import { VisiteClass } from 'app/models/visiteclass';
 import { VisiteService } from 'app/services/visite.service';
 
 declare var $:any;
@@ -13,7 +13,7 @@ export class VisitsComponent implements OnInit {
 
   constructor(private visiteService: VisiteService) { }
 
-  potentialVisites: Visite[];
+  potentialVisites: VisiteClass[];
 
   ngOnInit() {
     this.visiteService.getVisites().subscribe(

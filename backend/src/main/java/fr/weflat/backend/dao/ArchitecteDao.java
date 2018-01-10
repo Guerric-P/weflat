@@ -1,7 +1,5 @@
 package fr.weflat.backend.dao;
 
-import java.util.Set;
-
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 

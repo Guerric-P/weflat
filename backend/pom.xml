@@ -78,6 +78,11 @@
 	        <groupId>com.querydsl</groupId>
 	        <artifactId>querydsl-jpa</artifactId> 
 	    </dependency>
+	    <dependency>
+		   <groupId>ma.glasnost.orika</groupId>
+		   <artifactId>orika-core</artifactId>
+		   <version>1.5.2</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -123,6 +128,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>

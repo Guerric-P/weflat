@@ -4,18 +4,16 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.querydsl.core.types.Predicate;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.weflat.backend.dao.ArchitecteDao;
 import fr.weflat.backend.dao.VisiteDao;
 import fr.weflat.backend.domaine.Architecte;
-import fr.weflat.backend.domaine.QArchitecte;
-import fr.weflat.backend.domaine.QVisite;
 import fr.weflat.backend.domaine.Visite;
 import fr.weflat.backend.service.VisiteService;
 
 @Service
+@Transactional
 public class VisiteServiceImpl implements VisiteService {
 	@Autowired
 	private VisiteDao visiteDao;
@@ -34,5 +32,11 @@ public class VisiteServiceImpl implements VisiteService {
 		Architecte architecte = architecteDao.findById(idArchitecte);
 
 		return architecte.getPotentialVisites();
+	}
+
+	@Override
+	public void accept(Long idVisite, Long idArchitecte) {
+		// TODO Auto-generated method stub
+		
 	}
 }

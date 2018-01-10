@@ -19,6 +19,7 @@ import fr.weflat.backend.service.UtilisateurService;
 import fr.weflat.backend.web.dto.AcheteurDto;
 import fr.weflat.backend.web.dto.ArchitecteDto;
 import fr.weflat.backend.web.dto.UtilisateurDto;
+import ma.glasnost.orika.MapperFacade;
 
 @RestController
 @Produces("application/json")
@@ -34,39 +35,42 @@ public class UtilisateurController {
 	@Autowired
 	AcheteurService acheteurService;
 	
+	@Autowired
+	MapperFacade orikaMapperFacade;
+	
 	@RequestMapping(path="/{id}", method=RequestMethod.GET)
     public @ResponseBody UtilisateurDto getUser(@PathVariable("id") long id) {
 		
 		Utilisateur utilisateur = utilisateurService.getById(id);
 		
 		if(utilisateur instanceof Architecte) {
-			return new ArchitecteDto(utilisateur);
+			return orikaMapperFacade.map(utilisateur, ArchitecteDto.class);
 		}
 		
 		if(utilisateur instanceof Acheteur) {
-			return new AcheteurDto(utilisateur);
+			return orikaMapperFacade.map(utilisateur, AcheteurDto.class);
 		}
 		
-        return new UtilisateurDto(utilisateurService.getById(id));
+        return orikaMapperFacade.map(utilisateurService.getById(id), UtilisateurDto.class);
     }
 	
 	@RequestMapping(path="/architecte/{id}", method=RequestMethod.GET)
     public @ResponseBody ArchitecteDto getArchitecte(@PathVariable("id") long id) {
-        return new ArchitecteDto(architecteService.getById(id));
+        return orikaMapperFacade.map(architecteService.getById(id), ArchitecteDto.class);
 	}
 	
 	@RequestMapping(path="/architecte", method=RequestMethod.POST)
-    public String postArchitecte(@RequestBody Architecte input) {
+    public String postArchitecte(@RequestBody ArchitecteDto input) {
 		
-		architecteService.save(input);
+		architecteService.save(orikaMapperFacade.map(input, Architecte.class));
 		
 		return "";
     }
 	
 	@RequestMapping(path="/acheteur", method=RequestMethod.POST)
-    public String postAcheteur(@RequestBody Acheteur input) {
+    public String postAcheteur(@RequestBody AcheteurDto input) {
 		
-		acheteurService.save(input);
+		acheteurService.save(orikaMapperFacade.map(input, Acheteur.class));
 		
 		return "";
     }

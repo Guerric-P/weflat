@@ -1,8 +1,5 @@
 package fr.weflat.backend.service;
 
-import java.util.Set;
-
-import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.domaine.ZipCode;
 
 public interface ZipCodeService {

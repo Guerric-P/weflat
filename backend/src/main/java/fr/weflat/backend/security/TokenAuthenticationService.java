@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-import fr.weflat.backend.constantes.Constantes;
-import fr.weflat.backend.domaine.Acheteur;
-import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.domaine.Utilisateur;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

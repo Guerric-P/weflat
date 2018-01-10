@@ -2,13 +2,14 @@ package fr.weflat.backend.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.weflat.backend.dao.AcheteurDao;
 import fr.weflat.backend.domaine.Acheteur;
-import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.service.AcheteurService;
 
 @Service
+@Transactional
 public class AcheteurServiceImpl implements AcheteurService {
 
 	@Autowired
