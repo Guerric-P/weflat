@@ -1,8 +1,9 @@
 import { ZipCodeClass } from 'app/models/ZipCodeClass'
+import { AcheteurClass } from 'app/models/AcheteurClass';
 
 export class VisiteClass {
     id: number;
-    idAcheteur: number;
+    acheteur: AcheteurClass;
     idArchitecte: number;
     zipCode: ZipCodeClass;
     city: string;

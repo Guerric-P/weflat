@@ -9,5 +9,9 @@ public interface VisiteService {
 	
 	Set<Visite> findNearbyVisites(Long idArchitecte);
 	
-	void accept(Long idVisite, Long idArchitecte);
+	void accept(Long idVisite, Long idArchitecte) throws Exception;
+	
+	void refuse(Long idVisite, Long idArchitecte) throws Exception;
+	
+	Set<Visite> findPlannedVisites(Long idArchitecte);
 }

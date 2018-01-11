@@ -29,7 +29,7 @@ import ma.glasnost.orika.MapperFacade;
 
 @RestController
 @Produces("application/json")
-@RequestMapping("/visit")
+@RequestMapping("/visits")
 public class VisiteController {
 	
 	@Autowired
@@ -56,6 +56,23 @@ public class VisiteController {
 		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
 		
 		Set<Visite> visites = visiteService.findNearbyVisites((Long)details.get("id"));
+		
+		Set<VisiteDto> result = new HashSet<VisiteDto>();
+		
+		for(Visite visite : visites) {
+			VisiteDto visiteDto = orikaMapperFacade.map(visite, VisiteDto.class);
+			result.add(visiteDto);
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping(path="/planned", method=RequestMethod.GET)
+	public Set<VisiteDto> getPlannedVisites(Authentication authentication) {
+		
+		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
+		
+		Set<Visite> visites = visiteService.findPlannedVisites((Long)details.get("id"));
 		
 		Set<VisiteDto> result = new HashSet<VisiteDto>();
 		
@@ -99,7 +116,14 @@ public class VisiteController {
     }
 	
 	@RequestMapping(path="/accept", method=RequestMethod.POST)
-	public void acceptVisite(@RequestParam("id") Long id) {
-		
+	public void acceptVisite(@RequestParam("id") Long id, Authentication authentication) throws Exception {
+		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
+		visiteService.accept(id, (Long)details.get("id"));
+	}
+	
+	@RequestMapping(path="/refuse", method=RequestMethod.POST)
+	public void refuseVisit(@RequestParam("id") Long id, Authentication authentication) throws Exception {
+		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
+		visiteService.refuse(id, (Long)details.get("id"));
 	}
 }
