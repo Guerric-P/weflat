@@ -81,7 +81,6 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 		
 		Set<Architecte> architectes = new HashSet<Architecte>();
 	
-		
 		Iterable<Architecte> result = architecteDao.findAll(predicate);
 		
 		for(Architecte row : result) {

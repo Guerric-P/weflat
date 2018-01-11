@@ -14,18 +14,46 @@ export class VisitsComponent implements OnInit {
   constructor(private visiteService: VisiteService) { }
 
   potentialVisites: VisiteClass[];
+  plannedVisites: VisiteClass[];
 
   ngOnInit() {
+   this.loadAllVisites();
+  }
+
+  loadAllVisites(){
+    this.loadPlannedVisites();
+    this.loadPotentialVisites();
+  }
+
+  loadPotentialVisites() {
     this.visiteService.getVisites().subscribe(
       res => {
         this.potentialVisites = res;
         if(this.potentialVisites && this.potentialVisites.length){
-          $('#potentialVisites').collapse();
+          $('#potentialVisites').collapse('show');
+        }
+        else {
+          $('#potentialVisites').collapse('hide');
         }
       }, err => {
 
       }
-    )
+    );
   }
 
+  loadPlannedVisites() {
+    this.visiteService.getPlannedVisites().subscribe(
+      res => {
+        this.plannedVisites = res;
+        if(this.plannedVisites && this.plannedVisites.length){
+          $('#plannedVisites').collapse('show');
+        }
+        else {
+          $('#plannedVisites').collapse('hide');
+        }
+      }, err => {
+
+      }
+    );
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
 import { AuthenticationService } from 'app/services/authentication.service';
 import { Router, ActivatedRoute, RoutesRecognized, GuardsCheckEnd } from '@angular/router';
 import { AuthGuard } from 'app/guards/auth.guard';
