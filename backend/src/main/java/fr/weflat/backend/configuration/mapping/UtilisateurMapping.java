@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 import fr.weflat.backend.configuration.orika.OrikaMapperFactoryConfigurer;
 import fr.weflat.backend.domaine.Utilisateur;
 import fr.weflat.backend.web.dto.UtilisateurDto;
-import ma.glasnost.orika.Converter;
-import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.converter.BidirectionalConverter;

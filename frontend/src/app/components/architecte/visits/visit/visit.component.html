@@ -1,6 +1,9 @@
-{{visite.acheteur.firstName}} {{visite.acheteur.lastName}} a prévu une visite le {{visite.visiteDate | date:'medium'}} au {{visite.streetNumber}},
-{{visite.route}} - {{visite.zipCode.number}} {{visite.city}}
-<div class="buttons">
-  <button mat-button (click)="accept()">Accepter</button>
-  <button mat-button (click)="refuse()">Refuser</button>
+<div class="row">
+  <div class="col">{{visite.acheteur.firstName}} {{visite.acheteur.lastName}} a prévu une visite le {{visite.visiteDate | date:'medium'}}
+    au {{visite.streetNumber}}, {{visite.route}} - {{visite.zipCode.number}} {{visite.city}}
+  </div>
+  <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end" *ngIf="enableButtons">
+    <button mat-raised-button color="primary" (click)="accept()">Accepter</button>
+    <button mat-raised-button (click)="refuse()">Refuser</button>
+  </div>
 </div>

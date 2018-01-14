@@ -12,10 +12,8 @@ import com.querydsl.core.types.Predicate;
 import fr.weflat.backend.dao.ArchitecteDao;
 import fr.weflat.backend.dao.VisiteDao;
 import fr.weflat.backend.domaine.Architecte;
-import fr.weflat.backend.domaine.QArchitecte;
 import fr.weflat.backend.domaine.QVisite;
 import fr.weflat.backend.domaine.Visite;
-import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.service.VisiteService;
 
 @Service
@@ -48,7 +46,7 @@ public class VisiteServiceImpl implements VisiteService {
 		if(visite.getNearbyArchitectes().stream().anyMatch(x -> x.getId().equals(idArchitecte))) {
 			if(visite.getArchitecte() == null) {
 				visite.setArchitecte(architecte);
-				visite.getNearbyArchitectes().removeIf(x -> x.getId().equals(idArchitecte));
+				visite.setNearbyArchitectes(null);
 				visiteDao.save(visite);
 			}
 			else {
@@ -71,7 +69,6 @@ public class VisiteServiceImpl implements VisiteService {
 
 	@Override
 	public Set<Visite> findPlannedVisites(Long idArchitecte) {
-		// TODO Auto-generated method stub
 		QVisite visite = QVisite.visite;
 		
 		Predicate predicate = visite.architecte.id.eq(idArchitecte);

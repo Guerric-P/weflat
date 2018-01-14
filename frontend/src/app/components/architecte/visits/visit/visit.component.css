@@ -1,3 +1,12 @@
-.buttons {
-    float: right;
+.row {
+    border-bottom: solid 1px rgb(223, 223, 233);
+    padding: 15px;
+}
+
+:host:nth-last-child(1) .row {
+    border-bottom: none;
+}
+
+button {
+    margin-left: 15px;
 }
