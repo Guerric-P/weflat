@@ -28,6 +28,7 @@ public class ArchitecteController {
 	@Autowired
 	MapperFacade orikaMapperFacade;
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path="/{id}/zipcodes", method=RequestMethod.POST)
     public void setZipCodes(Authentication authentication, @RequestBody Set<ZipCodeDto> input) {
 		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
@@ -35,6 +36,7 @@ public class ArchitecteController {
 		architecteService.saveZipCodesForArchitecte(orikaMapperFacade.mapAsList(input, ZipCode.class), (Long)details.get("id"));
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path="/{id}/zipcodes", method=RequestMethod.GET)
     public List<ZipCodeDto> getZipCodes(Authentication authentication) {	
 		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();

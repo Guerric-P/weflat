@@ -50,6 +50,7 @@ public class VisiteController {
 	@Autowired
 	MapperFacade orikaMapperFacade;
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(method=RequestMethod.GET)
 	public Set<VisiteDto> getVisites(Authentication authentication) {
 		
@@ -67,6 +68,7 @@ public class VisiteController {
 		return result;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path="/planned", method=RequestMethod.GET)
 	public Set<VisiteDto> getPlannedVisites(Authentication authentication) {
 		
@@ -84,6 +86,7 @@ public class VisiteController {
 		return result;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(method=RequestMethod.POST)
     public String postVisite(@RequestBody VisiteDto input, Authentication authentication) {
 		     
@@ -115,12 +118,14 @@ public class VisiteController {
 		return "";
     }
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path="/accept", method=RequestMethod.POST)
 	public void acceptVisite(@RequestParam("id") Long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
 		visiteService.accept(id, (Long)details.get("id"));
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path="/refuse", method=RequestMethod.POST)
 	public void refuseVisit(@RequestParam("id") Long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
