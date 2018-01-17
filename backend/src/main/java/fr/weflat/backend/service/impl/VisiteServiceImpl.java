@@ -14,6 +14,7 @@ import fr.weflat.backend.dao.VisiteDao;
 import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.domaine.QVisite;
 import fr.weflat.backend.domaine.Visite;
+import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.VisiteService;
 
 @Service
@@ -24,6 +25,9 @@ public class VisiteServiceImpl implements VisiteService {
 	
 	@Autowired
 	private ArchitecteDao architecteDao;
+	
+	@Autowired
+	private MailService mailService;
 
 	@Override
 	public void save(Visite visite) {
@@ -48,6 +52,25 @@ public class VisiteServiceImpl implements VisiteService {
 				visite.setArchitecte(architecte);
 				visite.setNearbyArchitectes(null);
 				visiteDao.save(visite);
+				
+				StringBuilder messageBuilder = new StringBuilder();
+				messageBuilder.append(architecte.getFirstName());
+				messageBuilder.append(" ");
+				messageBuilder.append(architecte.getLastName());
+				messageBuilder.append(" a accepté de vous accompagner lors de votre visite du ");
+				messageBuilder.append(visite.getVisiteDate());
+				messageBuilder.append(" au ");
+				messageBuilder.append(visite.getStreetNumber());
+				messageBuilder.append(", ");
+				messageBuilder.append(visite.getRoute());
+				messageBuilder.append(" - ");
+				messageBuilder.append(visite.getZipCode().getNumber());
+				messageBuilder.append(" ");
+				messageBuilder.append(visite.getCity());
+
+				mailService.sendSimpleMail(visite.getAcheteur().getEmail(),
+						"Un architecte a accepté votre visite !",
+						messageBuilder.toString());
 			}
 			else {
 				throw new Exception("Architect is already assigned");

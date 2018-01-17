@@ -131,4 +131,11 @@ public class VisiteController {
 		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
 		visiteService.refuse(id, (Long)details.get("id"));
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path="/count", method=RequestMethod.GET)
+	public int getCount(Authentication authentication) {
+		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
+		return architecteService.getById((Long)details.get("id")).getPotentialVisites().size();
+	}
 }
