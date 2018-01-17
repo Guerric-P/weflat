@@ -27,14 +27,15 @@
         left: 50%;
         margin-top: -16px;
         margin-left: -16px;
-        animation: spin 2s linear infinite;
+        animation: spin 2s infinite;
         height: 32px;
         width: 32px;
     }
 
     @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% { transform: scale(1) rotate(0deg); animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5); }
+        50% {transform: scale(2) rotate(360deg); animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1); }
+        100% { transform:scale(1) rotate(720deg); }
     }
   </style>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
