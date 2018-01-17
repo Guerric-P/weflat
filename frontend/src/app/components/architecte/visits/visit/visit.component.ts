@@ -18,27 +18,35 @@ export class VisitComponent implements OnInit {
   @Input() visite: VisiteClass;
   @Input() enableButtons: boolean;
   @Output() updated: EventEmitter<any> = new EventEmitter();
+  acceptButtonDisabled: boolean = false;
+  refuseButtonDisabled: boolean = false;
 
 
   ngOnInit() {
   }
 
   accept() {
+    this.acceptButtonDisabled = true;
     this.visiteService.acceptVisite(this.visite.id).subscribe(res => {
       this.notificationService.success('Succès', `Vous avez accepté de visiter le bien de ${this.visite.acheteur.firstName} ${this.visite.acheteur.lastName}`);
+      this.acceptButtonDisabled = false;
       this.visitesUpdated();
     }, err => {
       this.notificationService.error('Erreur', 'Une erreur a eu lieu');
+      this.acceptButtonDisabled = false;
       this.visitesUpdated();
     });
   }
 
   refuse() {
+    this.refuseButtonDisabled = false;
     this.visiteService.refuseVisite(this.visite.id).subscribe(res => {
       this.notificationService.success('Succès', `Vous avez refusé de visiter le bien de ${this.visite.acheteur.firstName} ${this.visite.acheteur.lastName}`);
+      this.refuseButtonDisabled = true;
       this.visitesUpdated();
     }, err => {
       this.notificationService.error('Erreur', 'Une erreur a eu lieu');
+      this.refuseButtonDisabled = true;
       this.visitesUpdated();
     });
   }
