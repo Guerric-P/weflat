@@ -27,7 +27,7 @@ public class WeflatAuthenticationProvider implements AuthenticationProvider {
 		String password = (String) authentication.getCredentials();
 		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 		
-		Utilisateur utilisateur = utilisateurService.getByEmailAndPassword(login, password);
+		Utilisateur utilisateur = utilisateurService.getByEmailAndPassword(login.toLowerCase(), password);
 		
 		if(utilisateur != null) {
 			if(utilisateur instanceof Acheteur) {

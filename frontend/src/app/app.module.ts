@@ -46,7 +46,7 @@ import { LOCALE_ID } from '@angular/core';
 
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { BaseLayoutComponent } from './layout/base-layout/base-layout.component';
+import { VisiteCounterService } from 'app/services/visite-counter.service';
 
 registerLocaleData(localeFr);
 
@@ -96,8 +96,7 @@ const appRoutes: Routes = [
     AddressFieldComponent,
     ArchitecteProfileComponent,
     AcheteurProfileComponent,
-    VisitComponent,
-    BaseLayoutComponent
+    VisitComponent
   ],
   imports: [
     BrowserModule,
@@ -136,7 +135,8 @@ const appRoutes: Routes = [
     {
       provide: LOCALE_ID,
       useValue: 'fr-FR'
-    }
+    },
+    VisiteCounterService
   ],
   bootstrap: [AppComponent]
 })

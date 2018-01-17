@@ -26,4 +26,8 @@ export class VisiteService {
     refuseVisite(id: number): Observable<any> {
         return this.http.post('backend/visits/refuse', null, {params: new HttpParams().set('id', id.toString())});
     }
+
+    getVisiteCounter(): Observable<number> {
+        return this.http.get<number>('backend/visits/count');
+    }
 }

@@ -36,9 +36,26 @@ public class UtilisateurMapping implements OrikaMapperFactoryConfigurer  {
 			
 		});
 		
+		converterFactory.registerConverter("emailConverter", new BidirectionalConverter<String, String>(){
+
+			@Override
+			public String convertFrom(String arg0, Type<String> arg1, MappingContext arg2) {
+				// TODO Auto-generated method stub
+				return arg0;
+			}
+
+			@Override
+			public String convertTo(String arg0, Type<String> arg1, MappingContext arg2) {
+				// TODO Auto-generated method stub
+				return arg0.toLowerCase();
+			}
+			
+		});
+		
 		orikaMapperFactory.classMap(Utilisateur.class, UtilisateurDto.class)
         .fieldMap("firstName", "firstName").converter("nameConverter").add()
         .fieldMap("lastName", "lastName").converter("nameConverter").add()
+        .fieldMap("email", "email").converter("emailConverter").add()
         .byDefault()
         .register();
 	}
