@@ -9,11 +9,11 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   postArchitecte(architecte: ArchitecteClass){
-    return this.http.post('/backend/user/architecte', architecte, { responseType: 'text'});
+    return this.http.post('/backend/architecte', architecte, { responseType: 'text'});
   }
 
   postAcheteur(acheteur: AcheteurClass){
-    return this.http.post('/backend/user/acheteur', acheteur, { responseType: 'text'});
+    return this.http.post('/backend/acheteur', acheteur, { responseType: 'text'});
   }
 
 }

@@ -6,13 +6,9 @@
       <a id="logo" routerLink="/">
         <img src="assets/weflat_blanc.png" alt="">
       </a>
-      <a class="nav-link" routerLink="/architecte/dashboard" routerLinkActive="active">Mon tableau de bord</a>
-      <a class="nav-link" routerLinkActive="active">Mon profil</a>
-      <a class="nav-link" routerLink="/architecte/visits" routerLinkActive="active">Mes visites
-        <span class="badge badge-light">4</span>
-      </a>
-      <a class="nav-link" routerLink="/architecte/dispo" routerLinkActive="active">Mes disponibilités</a>
-      <a class="nav-link disabled" routerLink="/architecte/messages" routerLinkActive="active">Ma messagerie</a>
+      <a class="nav-link" routerLink="/acheteur/visit" routerLinkActive="active">Visiter</a>
+      <a class="nav-link" routerLink="/acheteur/profile" routerLinkActive="active">Mon profil</a>
+      <a class="nav-link" routerLink="/acheteur/project" routerLinkActive="active">Mon projet d'achat</a>
     </nav>
   
     <!--Navbar-->
@@ -20,7 +16,9 @@
         <button type="button" id="sidebarCollapse" class="btn navbar-btn" (click)="showLeftMenu()">
           <i class="material-icons">menu</i>
         </button>
-  
+        <a routerLink="/">
+          <img src="assets/weflat_noir.png" alt="">
+        </a>
         <div class="dropdown ml-auto">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">

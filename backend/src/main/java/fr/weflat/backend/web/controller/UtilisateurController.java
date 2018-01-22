@@ -30,12 +30,6 @@ public class UtilisateurController {
 	UtilisateurService utilisateurService;
 	
 	@Autowired
-	ArchitecteService architecteService;
-	
-	@Autowired
-	AcheteurService acheteurService;
-	
-	@Autowired
 	MapperFacade orikaMapperFacade;
 	
 	@RequestMapping(path="/{id}", method=RequestMethod.GET)
@@ -54,24 +48,7 @@ public class UtilisateurController {
         return orikaMapperFacade.map(utilisateurService.getById(id), UtilisateurDto.class);
     }
 	
-	@RequestMapping(path="/architecte/{id}", method=RequestMethod.GET)
-    public @ResponseBody ArchitecteDto getArchitecte(@PathVariable("id") long id) {
-        return orikaMapperFacade.map(architecteService.getById(id), ArchitecteDto.class);
-	}
 	
-	@RequestMapping(path="/architecte", method=RequestMethod.POST)
-    public String postArchitecte(@RequestBody ArchitecteDto input) {
-		
-		architecteService.save(orikaMapperFacade.map(input, Architecte.class));
-		
-		return "";
-    }
 	
-	@RequestMapping(path="/acheteur", method=RequestMethod.POST)
-    public String postAcheteur(@RequestBody AcheteurDto input) {
-		
-		acheteurService.save(orikaMapperFacade.map(input, Acheteur.class));
-		
-		return "";
-    }
+	
 }
