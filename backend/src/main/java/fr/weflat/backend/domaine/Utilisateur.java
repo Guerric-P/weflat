@@ -24,26 +24,23 @@ public abstract class Utilisateur {
 		super();
 	}
 
-	@Column(nullable = true, name = "nom")
+	@Column(nullable = true, name = "last_name")
     private String lastName;
 	
-	@Column(nullable = true, name = "prenom")
+	@Column(nullable = true, name = "first_name")
     private String firstName;
 	
-	@Column(nullable = true, name = "email")
+	@Column(nullable = true, name = "email", unique = true)
     private String email;
 	
 	@Column(nullable = true, name = "password")
     private String password;
 	
-	@Column(nullable = true, name = "date_naissance")
-    private Date dateNaissance;
+	@Column(nullable = true, name = "birth_date")
+    private Date birthDate;
 	
-	@Column(nullable = true, name = "numero_telephone")
+	@Column(nullable = true, name = "telephone")
     private String telephone;
-	
-	@Column(nullable = true, name = "a_connu_weflat_par")
-    private String aConnuWeflatPar;
 
 	public Long getId() {
 		return id;
@@ -85,12 +82,12 @@ public abstract class Utilisateur {
 		this.password = password;
 	}
 
-	public Date getDateNaissance() {
-		return dateNaissance;
+	public Date getBirthDate() {
+		return birthDate;
 	}
 
-	public void setDateNaissance(Date dateNaissance) {
-		this.dateNaissance = dateNaissance;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	public String getTelephone() {
@@ -100,14 +97,5 @@ public abstract class Utilisateur {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-
-	public String getaConnuWeflatPar() {
-		return aConnuWeflatPar;
-	}
-
-	public void setaConnuWeflatPar(String aConnuWeflatPar) {
-		this.aConnuWeflatPar = aConnuWeflatPar;
-	}
-
 	
 }
