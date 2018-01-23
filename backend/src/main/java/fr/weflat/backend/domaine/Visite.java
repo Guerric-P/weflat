@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -41,6 +42,10 @@ public class Visite {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_acheteur", nullable = false)
 	private Acheteur acheteur;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_report")
+	private Report report;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_zip_code", nullable = false)
@@ -136,4 +141,13 @@ public class Visite {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public Report getReport() {
+		return report;
+	}
+
+	public void setReport(Report report) {
+		this.report = report;
+	}
+	
 }

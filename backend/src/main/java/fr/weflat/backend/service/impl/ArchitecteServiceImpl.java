@@ -31,7 +31,7 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 
 	@Override
 	public Architecte getById(long id) {
-		return architecteDao.findById(id);
+		return architecteDao.findOne(id);
 	}
 
 	@Override

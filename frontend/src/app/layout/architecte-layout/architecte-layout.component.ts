@@ -7,17 +7,21 @@ import { LocalStorageService } from 'app/services/local-storage.service';
 import { VisiteService } from 'app/services/visite.service';
 import { VisiteCounterService } from 'app/services/visite-counter.service';
 import { BaseBackendLayoutComponent } from 'app/layout/base-backend-layout/base-backend-layout.component';
+import { Subscription } from 'rxjs';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-architecte-layout',
   templateUrl: './architecte-layout.component.html',
   styleUrls: ['./architecte-layout.component.css']
 })
-export class ArchitecteLayoutComponent extends BaseBackendLayoutComponent implements OnInit {
+export class ArchitecteLayoutComponent extends BaseBackendLayoutComponent implements OnInit, OnDestroy {
+
+  subscription: Subscription;
 
   ngOnInit() {
     super.ngOnInit();
-    this.router.events.subscribe((data) => {
+    this.subscription = this.router.events.subscribe((data) => {
       if (data instanceof RoutesRecognized) {
         this.visiteCounterService.announceCount();
       }
@@ -29,4 +33,9 @@ export class ArchitecteLayoutComponent extends BaseBackendLayoutComponent implem
       this.visiteCounter = res;
     });
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 }
