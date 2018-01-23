@@ -21,7 +21,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 	@Override
 	public Utilisateur getById(long id) {
-		return utilisateurDao.findById(id);
+		return utilisateurDao.findOne(id);
 	}
 
 	@Override
