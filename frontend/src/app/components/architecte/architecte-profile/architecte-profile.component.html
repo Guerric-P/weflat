@@ -1,3 +1,235 @@
-<p>
-  architecte-profile works!
-</p>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div class="card">
+      <div class="card-header">
+        Mon statut
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+          <span class="badge badge-info">Créé</span>
+          <span class="badge badge-warning">En cours d'approbation</span>
+          <span class="badge badge-success">Validé</span>
+          <span class="badge badge-danger">Refusé</span> Votre demande est en cours de traitement par nos équipes.</p>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-header">
+        Mes informations personnelles
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Prénom</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [class.is-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
+              [class.is-valid]="!form.controls.firstName.invalid && form.controls.firstName.touched" placeholder="Prénom" formControlName="firstName">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Nom</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [class.is-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
+            [class.is-valid]="!form.controls.lastName.invalid && form.controls.lastName.touched" placeholder="Nom" formControlName="lastName">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Date de naissance</label>
+          <div class="col-sm-10">
+            <input type="date" class="form-control" [class.is-invalid]="form.controls.birthDate.invalid && form.controls.birthDate.touched"
+            [class.is-valid]="!form.controls.birthDate.invalid && form.controls.birthDate.touched" placeholder="Date de naissance" formControlName="birthDate">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Photo</label>
+          <div class="col-sm-10">
+            <input type="file" class="form-control-file" disabled="disabled">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">E-mail</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" [class.is-invalid]="form.controls.email.invalid && form.controls.email.touched"
+            [class.is-valid]="!form.controls.email.invalid && form.controls.email.touched" placeholder="Email" formControlName="email">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Portable</label>
+          <div class="col-sm-10">
+            <input type="tel" class="form-control" [class.is-invalid]="form.controls.telephone.invalid && form.controls.telephone.touched"
+            [class.is-valid]="!form.controls.telephone.invalid && form.controls.telephone.touched" placeholder="Numéro de téléphone portable" formControlName="telephone">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Mot de passe</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" placeholder="Réinitialiser le mot de passe">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-header">
+        Mon métier d'architecte
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Architecte</label>
+          <div class="col-sm-10">
+            <select class="form-control" [class.is-invalid]="form.controls.type.invalid && form.controls.type.touched"
+            [class.is-valid]="!form.controls.type.invalid && form.controls.type.touched" formControlName="type">
+              <option *ngFor="let architectType of architectTypes" [value]="architectType.id">{{architectType.label}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Situation</label>
+          <div class="col-sm-10">
+            <select class="form-control" [class.is-invalid]="form.controls.situation.invalid && form.controls.situation.touched"
+            [class.is-valid]="!form.controls.situation.invalid && form.controls.situation.touched" formControlName="situation">
+            <option *ngFor="let architectSituation of architectSituations" [value]="architectSituation.id">{{architectSituation.label}}</option>
+              <!--choix possible si l'architecte est architecte d'interieur-->
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Expérience</label>
+          <div class="col-sm-10">
+            <input type="month" class="form-control" [class.is-invalid]="form.controls.practicingSince.invalid && form.controls.practicingSince.touched"
+            [class.is-valid]="!form.controls.practicingSince.invalid && form.controls.practicingSince.touched" placeholder="Mee" formControlName="practicingSince">
+            <div>
+              <p class="text-muted">Depuis quand exercez-vous le métier d'architecte?</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Site internet</label>
+          <div class="col-sm-10">
+            <input type="url" class="form-control-file" formControlName="webSite">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Book</label>
+          <div class="col-sm-10">
+            <input type="file" class="form-control-file" disabled="disabled">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Ordre des architectes</label>
+          <div class="col-sm-9">
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" formControlName="architectsOrder" value="true"> Oui
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" formControlName="architectsOrder" value="false"> Non
+              </label>
+            </div>
+            <div>
+              <p class="text-muted">Êtes vous inscrit à l'Ordre des architectes?</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">CFAI</label>
+          <div class="col-sm-9">
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" formControlName="cfai" value="true"> Oui
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" formControlName="cfai" value="false"> Non
+              </label>
+            </div>
+            <div>
+              <p class="text-muted">Détenez-vous le certificat du Conseil Français des Architectes d'Intérieur (CFAI)?</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Responsabilité civile professionnelle</label>
+          <div class="col-sm-9">
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" formControlName="professionalResponsibility" value="true"> Oui
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" formControlName="professionalResponsibility" value="false"> Non
+              </label>
+            </div>
+            <div>
+              <p class="text-muted">Attestez-vous détenir une assurance responsabilité civile professionnelle?</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">Assurance décennale</label>
+          <div class="col-sm-9">
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" formControlName="decennialInsurance" value="true"> Oui
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" formControlName="decennialInsurance" value="false"> Non
+              </label>
+            </div>
+            <div>
+              <p class="text-muted">Attestez-vous détenir assurance décennale?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-header">
+        Weflat et moi
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Motivation</label>
+          <div class="col-md-10">
+            <textarea class="form-control" rows="3" placeholder="Pourquoi avoir rejoint Weflat?" formControlName="motivation"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Paiement</label>
+          <div class="col-sm-10">
+            <select class="form-control" disabled="disabled">
+              <option>Transfert bancaire</option>
+              <option>Lydia</option>
+            </select>
+            <div>
+              <p class="text-muted">Choisissez la méthode de paiement pour le versement de vos prestations</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">IBAN</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" disabled="disabled">
+          </div>
+        </div>
+        <div class="col-sm-12 form-group row">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" formControlName="cgu"> En cliquant sur cette case vous vous engagez à accepter et respecter les termes des CGU/CGV de weflat ainsi
+              que la charte de bonne conduite
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row mt-3">
+      <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+        <button type="button" class="btn btn-link float-right">Je souhaite clôturer mon compte d'architecte</button>
+      </div>
+    </div>
+  </form>
+</div>

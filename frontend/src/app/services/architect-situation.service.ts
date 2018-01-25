@@ -8,7 +8,7 @@ export class ArchitectSituationService {
 
   constructor(private http: HttpClient) { }
 
-  getOrders(): Observable<ArchitectSituationClass[]> {
-    return this.http.get<ArchitectSituationClass[]>('/architects/orders');
+  getSituations(): Observable<ArchitectSituationClass[]> {
+    return this.http.get<ArchitectSituationClass[]>('/backend/architecte/situations');
   }
 }

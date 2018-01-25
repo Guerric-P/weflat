@@ -9,7 +9,7 @@ export class ArchitectTypeService {
   constructor(private http: HttpClient) { }
 
   getTypes(): Observable<ArchitectTypeClass[]> {
-    return this.http.get<ArchitectTypeClass[]>('/architects/types');
+    return this.http.get<ArchitectTypeClass[]>('/backend/architecte/types');
   }
 
 }

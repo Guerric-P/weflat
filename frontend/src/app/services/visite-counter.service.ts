@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import 'rxjs/add/operator/first';
 import { VisiteService } from 'app/services/visite.service';
 
 @Injectable()
@@ -16,7 +17,7 @@ export class VisiteCounterService {
 
   // Service message commands
   announceCount() {
-    this.visiteService.getVisiteCounter().subscribe(res => {
+    this.visiteService.getVisiteCounter().first().subscribe(res => {
       this.counterChangedSource.next(res);
     });
   }

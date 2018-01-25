@@ -34,7 +34,7 @@ import { AcheteurGuard } from 'app/guards/acheteur.guard';
 
 //Services
 
-import { RegisterService } from 'app/services/register.service';
+import { AcheteurService } from 'app/services/acheteur.service';
 import { ArchitecteService } from 'app/services/architecte.service';
 import { LocalStorageService } from 'app/services/local-storage.service';
 import { SessionStorageService } from 'app/services/session-storage.service';
@@ -44,6 +44,7 @@ import { VisiteCounterService } from 'app/services/visite-counter.service';
 import { ErrorInterceptor } from 'app/common/http-interceptor.service';
 import { ArchitectSituationService } from 'app/services/architect-situation.service';
 import { ArchitectTypeService } from 'app/services/architect-type.service';
+import { ReportService } from 'app/services/report.service';
 
 //Components
 
@@ -154,7 +155,7 @@ const appRoutes: Routes = [
     AuthGuard,
     ArchitecteGuard,
     AcheteurGuard,
-    RegisterService,
+    AcheteurService,
     ArchitecteService,
     LocalStorageService, {
       provide: HTTP_INTERCEPTORS,
@@ -170,7 +171,8 @@ const appRoutes: Routes = [
     },
     VisiteCounterService,
     ArchitectSituationService,
-    ArchitectTypeService
+    ArchitectTypeService,
+    ReportService
   ],
   bootstrap: [AppComponent]
 })

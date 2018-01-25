@@ -60,4 +60,16 @@ public class ArchitecteController {
 		
 		return "";
     }
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path="", method=RequestMethod.PATCH)
+    public String patchArchitecte(@RequestBody ArchitecteDto input, Authentication authentication) {
+		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
+		
+		Architecte architecte = architecteService.getById((Long)details.get("id"));
+		orikaMapperFacade.map(input, architecte);
+		architecteService.save(architecte);
+		
+		return "";
+    }
 }

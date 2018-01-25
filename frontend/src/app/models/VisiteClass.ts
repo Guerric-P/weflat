@@ -2,12 +2,16 @@ import { ZipCodeClass } from 'app/models/ZipCodeClass'
 import { AcheteurClass } from 'app/models/AcheteurClass';
 
 export class VisiteClass {
-    id: number;
-    acheteur: AcheteurClass;
-    idArchitecte: number;
-    zipCode: ZipCodeClass;
-    city: string;
-    route: string;
-    streetNumber: string;
-    visiteDate: Date;
+    public id: number;
+    public acheteur: AcheteurClass;
+    public idArchitecte: number;
+    public zipCode: ZipCodeClass;
+    public city: string;
+    public route: string;
+    public streetNumber: string;
+    public visiteDate: Date;
+
+    constructor(obj?: any) {
+        Object.assign(this, obj);
+    }
 }
