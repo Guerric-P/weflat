@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Constantes } from 'app/common/Constantes';
 import { ArchitecteClass } from 'app/models/ArchitecteClass';
-import { RegisterService } from 'app/services/register.service';
+import { ArchitecteService } from 'app/services/architecte.service';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from 'app/services/authentication.service';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class RegisterArchitecteComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
-    private registerService: RegisterService,
+    private architecteService: ArchitecteService,
     private authenticationService: AuthenticationService,
     private router: Router) {
     this.createForm();
@@ -45,7 +45,7 @@ export class RegisterArchitecteComponent implements OnInit {
   }
 
   onSubmit(){
-    this.registerService.postArchitecte(this.data).subscribe(
+    this.architecteService.postArchitecte(this.data).subscribe(
       x => {
         this.authenticationService.login(this.data.email, this.data.password).subscribe( x => {
           this.authenticationService.returnUrl = null;

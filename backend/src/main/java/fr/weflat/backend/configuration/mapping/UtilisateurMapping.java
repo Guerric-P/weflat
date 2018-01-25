@@ -63,7 +63,7 @@ public class UtilisateurMapping implements OrikaMapperFactoryConfigurer  {
 	private final Pattern bound = Pattern.compile("\\b(?=\\w)", Pattern.UNICODE_CASE);
 
 	private final String ucFirst(String input) {
-	    return input.substring(0,  1).toUpperCase() + input.substring(1);
+	    return input.substring(0,  1).toUpperCase() + input.substring(1).toLowerCase();
 	};
 
 	public String titleize(final String input) {

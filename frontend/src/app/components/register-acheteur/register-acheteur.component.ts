@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AcheteurClass } from 'app/models/AcheteurClass';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { RegisterService } from 'app/services/register.service';
+import { AcheteurService } from 'app/services/acheteur.service';
 import { AuthenticationService } from 'app/services/authentication.service';
 import { Router } from '@angular/router';
 import { Constantes } from 'app/common/Constantes';
@@ -14,7 +14,7 @@ import { Constantes } from 'app/common/Constantes';
 export class RegisterAcheteurComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
-    private registerService: RegisterService,
+    private acheteurService: AcheteurService,
     private authenticationService: AuthenticationService,
     private router: Router) {
     this.createForm();
@@ -44,7 +44,7 @@ export class RegisterAcheteurComponent implements OnInit {
   }
 
   onSubmit(){
-    this.registerService.postAcheteur(this.data).subscribe(
+    this.acheteurService.postAcheteur(this.data).subscribe(
       x => {
         this.authenticationService.login(this.data.email, this.data.password).subscribe( x => {
           this.authenticationService.returnUrl = null;

@@ -43,11 +43,11 @@ public class Architecte extends Utilisateur {
 	@Column(nullable = true, name = "practicing_since")
 	private Date practicingSince;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
 	@JoinColumn(name = "id_architect_situation", nullable = true)
 	private ArchitectSituation situation;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
 	@JoinColumn(name = "id_architect_type", nullable = true)
 	private ArchitectType type;
 	

@@ -165,7 +165,7 @@ export class DispoComponent implements OnInit, AfterViewInit {
     let zipCodes: ZipCodeClass[] = new Array<ZipCodeClass>();
 
     for(let zipCode of this.zipCodes) {
-      zipCodes.push({number: zipCode});
+      zipCodes.push(new ZipCodeClass({number: zipCode}));
     }
 
     this.architecteService.postZipCodes(zipCodes, this.localStorageService.tokenPayload.id).subscribe(x => {

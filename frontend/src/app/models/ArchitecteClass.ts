@@ -5,16 +5,21 @@ import { ZipCodeClass } from "app/models/ZipCodeClass";
 import { VisiteClass } from "app/models/visiteclass";
 
 export class ArchitecteClass extends UserClass{
-    webSite : String;
-    architectsOrder : boolean;
-    cfai : boolean;
-    professionalResponsibility : boolean;
-    decennialInsurance : boolean;
-    motivation : String;
-    practicingSince : Date;
-    order : ArchitectSituationClass;
-    type : ArchitectTypeClass;
-    zipCodes : ZipCodeClass[];
-    visites : VisiteClass[];
-    potentialVisites : VisiteClass[];
+    public webSite : String;
+    public architectsOrder : boolean;
+    public cfai : boolean;
+    public professionalResponsibility : boolean;
+    public decennialInsurance : boolean;
+    public motivation : String;
+    public practicingSince : Date;
+    public type : ArchitectTypeClass;
+    public zipCodes : ZipCodeClass[];
+    public visites : VisiteClass[];
+    public potentialVisites : VisiteClass[];
+    public situation: ArchitectSituationClass;
+
+    constructor(obj?: any) {
+        super();
+        Object.assign(this, obj);
+    }
 }

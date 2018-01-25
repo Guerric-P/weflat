@@ -6,6 +6,7 @@ public class ArchitecteDto extends UtilisateurDto {
     
 	public ArchitecteDto() {
 	}
+	
 	private String webSite;
 	private boolean architectsOrder;
 	private boolean cfai;
@@ -15,6 +16,7 @@ public class ArchitecteDto extends UtilisateurDto {
 	private Date practicingSince;
 	private ArchitectSituationDto situation;
 	private ArchitectTypeDto type;
+	
 	public String getWebSite() {
 		return webSite;
 	}

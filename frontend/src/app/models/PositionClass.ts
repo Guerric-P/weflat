@@ -1,6 +1,6 @@
-export class ZipCodeClass {
+export class PositionClass {
     public id: number;
-    public number: string;
+    public label: string;
 
     constructor(obj?: any) {
         Object.assign(this, obj);

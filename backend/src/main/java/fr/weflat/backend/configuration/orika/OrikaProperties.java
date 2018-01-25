@@ -29,7 +29,7 @@ public class OrikaProperties {
      * Whether to map null values (MapperFactoryBuilder#mapNulls(boolean)).
      * Follows Orika's behavior by default.
      */
-    private Boolean mapNulls;
+    private Boolean mapNulls = false;
 
     /**
      * Whether to dump the current state of the mapping infrastructure objects
