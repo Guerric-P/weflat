@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import fr.weflat.backend.configuration.orika.OrikaMapperFactoryConfigurer;
 import fr.weflat.backend.domaine.Utilisateur;
 import fr.weflat.backend.web.dto.UtilisateurDto;
+import fr.weflat.backend.web.dto.UtilisateurSignupDto;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.converter.BidirectionalConverter;
@@ -53,6 +54,13 @@ public class UtilisateurMapping implements OrikaMapperFactoryConfigurer  {
 		});
 		
 		orikaMapperFactory.classMap(Utilisateur.class, UtilisateurDto.class)
+        .fieldMap("firstName", "firstName").converter("nameConverter").add()
+        .fieldMap("lastName", "lastName").converter("nameConverter").add()
+        .fieldMap("email", "email").converter("emailConverter").add()
+        .byDefault()
+        .register();
+		
+		orikaMapperFactory.classMap(Utilisateur.class, UtilisateurSignupDto.class)
         .fieldMap("firstName", "firstName").converter("nameConverter").add()
         .fieldMap("lastName", "lastName").converter("nameConverter").add()
         .fieldMap("email", "email").converter("emailConverter").add()

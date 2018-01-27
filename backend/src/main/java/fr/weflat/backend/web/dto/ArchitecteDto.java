@@ -2,6 +2,9 @@ package fr.weflat.backend.web.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 public class ArchitecteDto extends UtilisateurDto {
     
 	public ArchitecteDto() {
@@ -16,6 +19,10 @@ public class ArchitecteDto extends UtilisateurDto {
 	private Date practicingSince;
 	private ArchitectSituationDto situation;
 	private ArchitectTypeDto type;
+	
+	@JsonProperty(access = Access.READ_ONLY)
+	private int status;
+	private boolean cgu;
 	
 	public String getWebSite() {
 		return webSite;
@@ -71,6 +78,16 @@ public class ArchitecteDto extends UtilisateurDto {
 	public void setType(ArchitectTypeDto type) {
 		this.type = type;
 	}
-	
-	
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public boolean isCgu() {
+		return cgu;
+	}
+	public void setCgu(boolean cgu) {
+		this.cgu = cgu;
+	}
 }

@@ -43,11 +43,17 @@ public class Architecte extends Utilisateur {
 	@Column(nullable = true, name = "practicing_since")
 	private Date practicingSince;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+	@Column(nullable = true, name = "status")
+	private int status;
+	
+	@Column(nullable = true, name = "cgu")
+	private boolean cgu;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_architect_situation", nullable = true)
 	private ArchitectSituation situation;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_architect_type", nullable = true)
 	private ArchitectType type;
 	
@@ -157,5 +163,20 @@ public class Architecte extends Utilisateur {
 	public void setSituation(ArchitectSituation situation) {
 		this.situation = situation;
 	}
-	
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public boolean isCgu() {
+		return cgu;
+	}
+
+	public void setCgu(boolean cgu) {
+		this.cgu = cgu;
+	}
 }

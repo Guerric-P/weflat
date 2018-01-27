@@ -7,12 +7,12 @@
       <div class="row-container">
         <div class="mat-control">
           <mat-form-field>
-            <input matInput [(ngModel)]="data.firstName" required class="form-control" formControlName="firstName" placeholder="Prénom">
+            <input matInput [(ngModel)]="data.firstName" required class="form-control name" formControlName="firstName" placeholder="Prénom">
           </mat-form-field>
         </div>
         <div class="mat-control">
           <mat-form-field>
-            <input matInput [(ngModel)]="data.lastName" required class="form-control" formControlName="lastName" placeholder="Nom">
+            <input matInput [(ngModel)]="data.lastName" required class="form-control name" formControlName="lastName" placeholder="Nom">
           </mat-form-field>
         </div>
       </div>
@@ -26,18 +26,6 @@
               <mat-error *ngIf="registerForm.controls.email.hasError('required')">
                 L'adresse e-mail est <strong>requise</strong>
               </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="mat-control">
-          <mat-form-field>
-            <input matInput [(ngModel)]="data.book" required class="form-control" placeholder="Book" formControlName="book">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row-container">
-        <div class="mat-control">
-          <mat-form-field>
-            <input matInput [(ngModel)]="data.telephone" required class="form-control" formControlName="telephone" placeholder="Téléphone">
           </mat-form-field>
         </div>
       </div>

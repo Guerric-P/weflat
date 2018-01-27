@@ -6,10 +6,15 @@
       </div>
       <div class="card-body">
         <p class="card-text">
-          <span class="badge badge-info">Créé</span>
-          <span class="badge badge-warning">En cours d'approbation</span>
-          <span class="badge badge-success">Validé</span>
-          <span class="badge badge-danger">Refusé</span> Votre demande est en cours de traitement par nos équipes.</p>
+          <span *ngIf="architecte.status === ArchitectStatusEnum.CREATED">
+            <span class="badge badge-info">Créé</span> Remplissez votre profil afin qu'il soit étudié par nos équipes
+          </span>
+          <span *ngIf="architecte.status === ArchitectStatusEnum.APPROVING">
+            <span class="badge badge-warning">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
+          </span>
+          <span *ngIf="architecte.status === ArchitectStatusEnum.VALIDATED" class="badge badge-success">Validé</span>
+          <span *ngIf="architecte.status === ArchitectStatusEnum.REFUSED" class="badge badge-danger">Refusé</span>
+        </p>
       </div>
     </div>
     <div class="card mt-2">
@@ -20,22 +25,23 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Prénom</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" [class.is-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
+            <input type="text" class="form-control name" [class.is-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
               [class.is-valid]="!form.controls.firstName.invalid && form.controls.firstName.touched" placeholder="Prénom" formControlName="firstName">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Nom</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" [class.is-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
-            [class.is-valid]="!form.controls.lastName.invalid && form.controls.lastName.touched" placeholder="Nom" formControlName="lastName">
+            <input type="text" class="form-control name" [class.is-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
+              [class.is-valid]="!form.controls.lastName.invalid && form.controls.lastName.touched" placeholder="Nom" formControlName="lastName">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Date de naissance</label>
           <div class="col-sm-10">
             <input type="date" class="form-control" [class.is-invalid]="form.controls.birthDate.invalid && form.controls.birthDate.touched"
-            [class.is-valid]="!form.controls.birthDate.invalid && form.controls.birthDate.touched" placeholder="Date de naissance" formControlName="birthDate">
+              [class.is-valid]="!form.controls.birthDate.invalid && form.controls.birthDate.touched" placeholder="Date de naissance"
+              formControlName="birthDate" [max]="dateNow">
           </div>
         </div>
         <div class="form-group row">
@@ -48,20 +54,25 @@
           <label class="col-sm-2 col-form-label">E-mail</label>
           <div class="col-sm-10">
             <input type="email" class="form-control" [class.is-invalid]="form.controls.email.invalid && form.controls.email.touched"
-            [class.is-valid]="!form.controls.email.invalid && form.controls.email.touched" placeholder="Email" formControlName="email">
+              [class.is-valid]="!form.controls.email.invalid && form.controls.email.touched" placeholder="Email" formControlName="email"
+              disabled="disabled">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Portable</label>
           <div class="col-sm-10">
             <input type="tel" class="form-control" [class.is-invalid]="form.controls.telephone.invalid && form.controls.telephone.touched"
-            [class.is-valid]="!form.controls.telephone.invalid && form.controls.telephone.touched" placeholder="Numéro de téléphone portable" formControlName="telephone">
+              [class.is-valid]="!form.controls.telephone.invalid && form.controls.telephone.touched" placeholder="Numéro de téléphone portable"
+              formControlName="telephone">
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Mot de passe</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" placeholder="Réinitialiser le mot de passe">
+          <label class="col-lg-2 col-form-label">Mot de passe</label>
+          <div class="col-lg-6">
+            <input type="password" class="form-control" placeholder="Nouveau mot de passe" #password>
+          </div>
+          <div class="col-lg-4 mt-2 mt-lg-0">
+              <button type="button" class="btn btn-primary" (click)="changePassword(password.value)">Changer le mot de passe</button>
           </div>
         </div>
       </div>
@@ -74,8 +85,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Architecte</label>
           <div class="col-sm-10">
-            <select class="form-control" [class.is-invalid]="form.controls.type.invalid && form.controls.type.touched"
-            [class.is-valid]="!form.controls.type.invalid && form.controls.type.touched" formControlName="type">
+            <select class="form-control" [class.is-invalid]="form.controls.type.invalid && form.controls.type.touched" [class.is-valid]="!form.controls.type.invalid && form.controls.type.touched"
+              formControlName="type">
               <option *ngFor="let architectType of architectTypes" [value]="architectType.id">{{architectType.label}}</option>
             </select>
           </div>
@@ -83,9 +94,9 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Situation</label>
           <div class="col-sm-10">
-            <select class="form-control" [class.is-invalid]="form.controls.situation.invalid && form.controls.situation.touched"
-            [class.is-valid]="!form.controls.situation.invalid && form.controls.situation.touched" formControlName="situation">
-            <option *ngFor="let architectSituation of architectSituations" [value]="architectSituation.id">{{architectSituation.label}}</option>
+            <select class="form-control" [class.is-invalid]="form.controls.situation.invalid && form.controls.situation.touched" [class.is-valid]="!form.controls.situation.invalid && form.controls.situation.touched"
+              formControlName="situation">
+              <option *ngFor="let architectSituation of architectSituations" [value]="architectSituation.id">{{architectSituation.label}}</option>
               <!--choix possible si l'architecte est architecte d'interieur-->
             </select>
           </div>
@@ -93,17 +104,22 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Expérience</label>
           <div class="col-sm-10">
-            <input type="month" class="form-control" [class.is-invalid]="form.controls.practicingSince.invalid && form.controls.practicingSince.touched"
-            [class.is-valid]="!form.controls.practicingSince.invalid && form.controls.practicingSince.touched" placeholder="Mee" formControlName="practicingSince">
+            <input type="date" class="form-control" [class.is-invalid]="form.controls.practicingSince.invalid && form.controls.practicingSince.touched"
+              [class.is-valid]="!form.controls.practicingSince.invalid && form.controls.practicingSince.touched" placeholder="Mee"
+              formControlName="practicingSince" [max]="dateNow">
             <div>
-              <p class="text-muted">Depuis quand exercez-vous le métier d'architecte?</p>
+              <p class="text-muted">Depuis quand exercez-vous le métier d'architecte ?</p>
             </div>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Site internet</label>
           <div class="col-sm-10">
-            <input type="url" class="form-control-file" formControlName="webSite">
+            <input type="url" class="form-control-file" class="form-control" [class.is-invalid]="form.controls.webSite.invalid && form.controls.webSite.touched"
+              [class.is-valid]="!form.controls.webSite.invalid && form.controls.webSite.touched" formControlName="webSite">
+            <div>
+              <p class="text-muted">L'URL doit commencer par http:// ou https://</p>
+            </div>
           </div>
         </div>
         <div class="form-group row">
@@ -117,12 +133,12 @@
           <div class="col-sm-9">
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="architectsOrder" value="true"> Oui
+                <input class="form-check-input" type="radio" formControlName="architectsOrder" [value]="true"> Oui
               </label>
             </div>
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="architectsOrder" value="false"> Non
+                <input class="form-check-input" type="radio" formControlName="architectsOrder" [value]="false"> Non
               </label>
             </div>
             <div>
@@ -135,12 +151,12 @@
           <div class="col-sm-9">
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="cfai" value="true"> Oui
+                <input class="form-check-input" type="radio" formControlName="cfai" [value]="true"> Oui
               </label>
             </div>
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="cfai" value="false"> Non
+                <input class="form-check-input" type="radio" formControlName="cfai" [value]="false"> Non
               </label>
             </div>
             <div>
@@ -153,12 +169,12 @@
           <div class="col-sm-9">
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="professionalResponsibility" value="true"> Oui
+                <input class="form-check-input" type="radio" formControlName="professionalResponsibility" [value]="true"> Oui
               </label>
             </div>
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="professionalResponsibility" value="false"> Non
+                <input class="form-check-input" type="radio" formControlName="professionalResponsibility" [value]="false"> Non
               </label>
             </div>
             <div>
@@ -171,12 +187,12 @@
           <div class="col-sm-9">
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="decennialInsurance" value="true"> Oui
+                <input class="form-check-input" type="radio" formControlName="decennialInsurance" [value]="true"> Oui
               </label>
             </div>
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="decennialInsurance" value="false"> Non
+                <input class="form-check-input" type="radio" formControlName="decennialInsurance" [value]="false"> Non
               </label>
             </div>
             <div>
@@ -194,7 +210,9 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Motivation</label>
           <div class="col-md-10">
-            <textarea class="form-control" rows="3" placeholder="Pourquoi avoir rejoint Weflat?" formControlName="motivation"></textarea>
+            <textarea class="form-control" rows="3" class="form-control-file" class="form-control" [class.is-invalid]="form.controls.motivation.invalid && form.controls.motivation.touched"
+              [class.is-valid]="!form.controls.motivation.invalid && form.controls.motivation.touched" placeholder="Pourquoi avoir rejoint Weflat?"
+              formControlName="motivation"></textarea>
           </div>
         </div>
         <div class="form-group row">
@@ -217,10 +235,10 @@
         </div>
         <div class="col-sm-12 form-group row">
           <div class="form-check">
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" formControlName="cgu"> En cliquant sur cette case vous vous engagez à accepter et respecter les termes des CGU/CGV de weflat ainsi
-              que la charte de bonne conduite
-            </label>
+              <input class="form-check-input" type="checkbox" formControlName="cgu" [class.is-invalid]="form.controls.cgu.invalid && form.controls.cgu.touched"
+              [class.is-valid]="!form.controls.cgu.invalid && form.controls.cgu.touched"> 
+              <label class="form-check-label">En cliquant sur cette case vous vous engagez à accepter et respecter les termes des CGU/CGV de weflat ainsi
+                  que la charte de bonne conduite</label>
           </div>
         </div>
       </div>

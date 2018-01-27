@@ -7,6 +7,9 @@ import { ArchitectSituationService } from 'app/services/architect-situation.serv
 import { ArchitectTypeClass } from 'app/models/ArchitectTypeClass';
 import { ArchitectSituationClass } from 'app/models/ArchitectSituationClass';
 import * as moment from 'moment';
+import { NotificationsService } from 'angular2-notifications';
+import { ActivatedRoute } from '@angular/router';
+import { ArchitectStatusEnum } from 'app/common/enums/ArchitectStatusEnum'
 
 @Component({
   selector: 'app-architecte-profile',
@@ -17,38 +20,38 @@ export class ArchitecteProfileComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private architecteService: ArchitecteService,
-    private architectSituationService: ArchitectSituationService,
-    private architectTypeService: ArchitectTypeService) { }
+    private notificationsService: NotificationsService,
+    private route: ActivatedRoute) { }
 
   form: FormGroup;
   architectTypes: ArchitectTypeClass[];
   architectSituations: ArchitectSituationClass[];
+  architecte: ArchitecteClass;
+  dateNow = moment().format('YYYY-MM-DD');
+
+  public ArchitectStatusEnum = ArchitectStatusEnum;
 
   ngOnInit() {
-    this.architectSituationService.getSituations().subscribe(res => {
-      this.architectSituations = res;
-    });
-
-    this.architectTypeService.getTypes().subscribe(res => {
-      this.architectTypes = res;
-    });
+    this.architecte = this.route.snapshot.data['architecte'];
+    this.architectTypes = this.route.snapshot.data['architectTypes'];
+    this.architectSituations = this.route.snapshot.data['architectSituations'];
 
     this.form = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      birthDate: ['', Validators.required],
-      email: ['', Validators.required],
-      telephone: ['', Validators.required],
-      type: [''],
-      situation: [''],
-      practicingSince: [''],
-      webSite: [''],
-      architectsOrder: [''],
-      cfai: [''],
-      professionalResponsibility: [''],
-      decennialInsurance: [''],
-      motivation: [''],
-      cgu: ['']
+      firstName: [this.architecte.firstName, Validators.required],
+      lastName: [this.architecte.lastName, Validators.required],
+      birthDate: [moment(this.architecte.birthDate).format('YYYY-MM-DD'), [Validators.required]],
+      email: [this.architecte.email, [Validators.required, Validators.email]],
+      telephone: [this.architecte.telephone, [Validators.required, Validators.pattern(/0(6|7)\d{8}/)]],
+      type: [this.architecte.type && this.architecte.type.id],
+      situation: [this.architecte.situation && this.architecte.situation.id],
+      practicingSince: [moment(this.architecte.practicingSince).format('YYYY-MM-DD')],
+      webSite: [this.architecte.webSite, Validators.pattern(/^(http|https):\/\/[^ "]+$/)],
+      architectsOrder: [this.architecte.architectsOrder],
+      cfai: [this.architecte.cfai],
+      professionalResponsibility: [this.architecte.professionalResponsibility],
+      decennialInsurance: [this.architecte.decennialInsurance],
+      motivation: [this.architecte.motivation],
+      cgu: [this.architecte.cgu, Validators.requiredTrue]
     });
   }
 
@@ -60,7 +63,6 @@ export class ArchitecteProfileComponent implements OnInit {
         firstName: formModel.firstName,
         lastName: formModel.lastName,
         birthDate: formModel.birthDate,
-        email: formModel.email,
         telephone: formModel.telephone,
         type: new ArchitectTypeClass({ id: formModel.type }),
         situation: new ArchitectSituationClass({ id: formModel.situation }),
@@ -71,12 +73,13 @@ export class ArchitecteProfileComponent implements OnInit {
         professionalResponsibility: formModel.professionalResponsibility,
         decennialInsurance: formModel.decennialInsurance,
         motivation: formModel.motivation,
+        cgu: formModel.cgu
       });
 
       this.architecteService.patchArchitecte(architect).subscribe(res => {
-        console.log('ouais gros');
+        this.notificationsService.success('Merci !', 'Vos informations ont été sauvegardées avec succès.');
       }, err => {
-
+        this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de l\'enregistrement de vos informations');
       });
     }
     else {
@@ -84,7 +87,12 @@ export class ArchitecteProfileComponent implements OnInit {
         const control = this.form.get(field);
         control.markAsTouched({ onlySelf: true });
       });
+
+      this.notificationsService.error('Oups !', 'Les données saisies sont erronées ou incomplètes.');
     }
   }
 
+  changePassword(event) {
+    alert(event);
+  }
 }
