@@ -32,8 +32,6 @@ export class RegisterArchitecteComponent implements OnInit {
         Validators.required,
         Validators.pattern(Constantes.EMAIL_REGEX)
       ]),
-      book: ['', Validators.required],
-      telephone: ['', Validators.required],
       password: ['', Validators.required],
       verifyPassword: new FormControl('', [
         this.matchOtherValidator('password')
@@ -49,7 +47,7 @@ export class RegisterArchitecteComponent implements OnInit {
       x => {
         this.authenticationService.login(this.data.email, this.data.password).subscribe( x => {
           this.authenticationService.returnUrl = null;
-          this.router.navigate(['architecte']);
+          this.router.navigate(['/architecte/profile']);
         });
       });
   }

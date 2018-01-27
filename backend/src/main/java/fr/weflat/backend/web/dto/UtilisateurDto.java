@@ -2,15 +2,23 @@ package fr.weflat.backend.web.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 public class UtilisateurDto {
 	
 	private Long id;
-	
     private String lastName;
-	
     private String firstName;
-	
+    
+    @JsonProperty(access = Access.READ_ONLY)
     private String email;
+    
+    @JsonProperty(access = Access.READ_ONLY)
+	private String password;
+    private Date birthDate;
+    private String telephone;
+	private String aConnuWeflatPar;
 
 	public String getLastName() {
 		return lastName;
@@ -44,14 +52,6 @@ public class UtilisateurDto {
 		this.telephone = telephone;
 	}
 
-	private String password;
-	
-    private Date birthDate;
-	
-    private String telephone;
-    
-	private String aConnuWeflatPar;
-	
     public String getEmail() {
 		return email;
 	}

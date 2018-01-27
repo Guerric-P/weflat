@@ -17,6 +17,8 @@ export class ArchitecteClass extends UserClass{
     public visites : VisiteClass[];
     public potentialVisites : VisiteClass[];
     public situation: ArchitectSituationClass;
+    public cgu : boolean;
+    public status : number;
 
     constructor(obj?: any) {
         super();

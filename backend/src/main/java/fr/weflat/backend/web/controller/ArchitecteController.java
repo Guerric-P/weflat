@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.domaine.ZipCode;
+import fr.weflat.backend.enums.ArchitectStatusEnum;
 import fr.weflat.backend.service.ArchitecteService;
 import fr.weflat.backend.web.dto.ArchitecteDto;
+import fr.weflat.backend.web.dto.UtilisateurSignupDto;
 import fr.weflat.backend.web.dto.ZipCodeDto;
 import ma.glasnost.orika.MapperFacade;
 
@@ -54,12 +56,24 @@ public class ArchitecteController {
 	}
 	
 	@RequestMapping(path="", method=RequestMethod.POST)
-    public String postArchitecte(@RequestBody ArchitecteDto input) {
+    public String postArchitecte(@RequestBody UtilisateurSignupDto input) {
 		
-		architecteService.save(orikaMapperFacade.map(input, Architecte.class));
+		Architecte architecte = orikaMapperFacade.map(input, Architecte.class);
+		architecte.setStatus(ArchitectStatusEnum.CREATED.ordinal());
+		architecteService.save(architecte);
 		
 		return "";
     }
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path="", method=RequestMethod.GET)
+    public ArchitecteDto getArchitecte(Authentication authentication) {
+		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
+		
+		return orikaMapperFacade.map(architecteService.getById((Long)details.get("id")), ArchitecteDto.class);
+		
+    }
+	
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path="", method=RequestMethod.PATCH)

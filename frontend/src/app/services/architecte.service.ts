@@ -18,6 +18,10 @@ export class ArchitecteService {
     return this.http.patch('/backend/architecte', architecte, { responseType: 'text'});
   }
 
+  getArchitecte(){
+    return this.http.get<ArchitecteClass>('/backend/architecte');
+  }
+
   postZipCodes(zipCodes: ZipCodeClass[], id: number){
     return this.http.post('/backend/architecte/' + id + '/zipcodes', zipCodes);
   }

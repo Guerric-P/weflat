@@ -25,6 +25,9 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 //Resolvers
 
 import { ZipCodesResolver } from 'app/resolvers/zip-codes-resolver';
+import { ArchitecteResolver } from 'app/resolvers/architecte.resolver';
+import { ArchitectSituationResolver } from 'app/resolvers/architect-situation.resolver';
+import { ArchitectTypeResolver } from 'app/resolvers/architect-type.resolver';
 
 //Guards
 
@@ -92,7 +95,12 @@ const appRoutes: Routes = [
     path: 'architecte', component: ArchitecteLayoutComponent, canActivate: [AuthGuard, ArchitecteGuard], data: { authRequired: true }, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent, data: { authRequired: true } },
-      { path: 'profile', component: ArchitecteProfileComponent, data: { authRequired: true } },
+      { path: 'profile', component: ArchitecteProfileComponent, resolve:
+        {
+          architecte: ArchitecteResolver,
+          architectTypes: ArchitectTypeResolver,
+          architectSituations: ArchitectSituationResolver
+        }, data: { authRequired: true } },
       { path: 'visits', component: VisitsComponent, data: { authRequired: true } },
       { path: 'dispo', component: DispoComponent, resolve: { zipCodes: ZipCodesResolver }, data: { authRequired: true } },
       { path: 'messages', component: MessagesComponent, data: { authRequired: true } }
@@ -172,7 +180,10 @@ const appRoutes: Routes = [
     VisiteCounterService,
     ArchitectSituationService,
     ArchitectTypeService,
-    ReportService
+    ReportService,
+    ArchitecteResolver,
+    ArchitectSituationResolver,
+    ArchitectTypeResolver
   ],
   bootstrap: [AppComponent]
 })

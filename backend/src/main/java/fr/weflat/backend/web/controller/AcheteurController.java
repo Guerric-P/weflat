@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.weflat.backend.domaine.Acheteur;
 import fr.weflat.backend.service.AcheteurService;
-import fr.weflat.backend.web.dto.AcheteurDto;
+import fr.weflat.backend.web.dto.UtilisateurSignupDto;
 import ma.glasnost.orika.MapperFacade;
 
 @RestController
@@ -24,7 +24,7 @@ public class AcheteurController {
 	MapperFacade orikaMapperFacade;
 	
 	@RequestMapping(path="", method=RequestMethod.POST)
-    public String postAcheteur(@RequestBody AcheteurDto input) {
+    public String postAcheteur(@RequestBody UtilisateurSignupDto input) {
 		
 		acheteurService.save(orikaMapperFacade.map(input, Acheteur.class));
 		
