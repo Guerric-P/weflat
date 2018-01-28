@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 import { ArchitectStatusEnum } from 'app/common/enums/ArchitectStatusEnum'
+import { UserService } from 'app/services/user.service';
 
 @Component({
   selector: 'app-architecte-profile',
@@ -21,7 +22,8 @@ export class ArchitecteProfileComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private architecteService: ArchitecteService,
     private notificationsService: NotificationsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private userService: UserService) { }
 
   form: FormGroup;
   architectTypes: ArchitectTypeClass[];
@@ -39,8 +41,8 @@ export class ArchitecteProfileComponent implements OnInit {
     this.form = this.fb.group({
       firstName: [this.architecte.firstName, Validators.required],
       lastName: [this.architecte.lastName, Validators.required],
-      birthDate: [moment(this.architecte.birthDate).format('YYYY-MM-DD'), [Validators.required]],
-      email: [this.architecte.email, [Validators.required, Validators.email]],
+      birthDate: [this.architecte.birthDate && moment(this.architecte.birthDate).format('YYYY-MM-DD'), [Validators.required]],
+      email: [{value: this.architecte.email, disabled: true}, [Validators.required, Validators.email]],
       telephone: [this.architecte.telephone, [Validators.required, Validators.pattern(/0(6|7)\d{8}/)]],
       type: [this.architecte.type && this.architecte.type.id],
       situation: [this.architecte.situation && this.architecte.situation.id],
@@ -66,7 +68,7 @@ export class ArchitecteProfileComponent implements OnInit {
         telephone: formModel.telephone,
         type: new ArchitectTypeClass({ id: formModel.type }),
         situation: new ArchitectSituationClass({ id: formModel.situation }),
-        practicingSince: moment(formModel.practicingSince).toDate(),
+        practicingSince: new Date(formModel.practicingSince),
         webSite: formModel.webSite,
         architectsOrder: formModel.architectsOrder,
         cfai: formModel.cfai,
@@ -79,7 +81,7 @@ export class ArchitecteProfileComponent implements OnInit {
       this.architecteService.patchArchitecte(architect).subscribe(res => {
         this.notificationsService.success('Merci !', 'Vos informations ont été sauvegardées avec succès.');
       }, err => {
-        this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de l\'enregistrement de vos informations');
+        this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de l\'enregistrement de vos informations.');
       });
     }
     else {
@@ -92,7 +94,12 @@ export class ArchitecteProfileComponent implements OnInit {
     }
   }
 
-  changePassword(event) {
-    alert(event);
+  changePassword(password: string, event?: KeyboardEvent) {
+    if(event) event.preventDefault();
+    this.userService.changePassword(password).subscribe(res => {
+      this.notificationsService.success('Merci !', 'Votre mot de passe a été changé avec succès.');
+    }, err => {
+      this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors du changement de mot de passe.');
+    });
   }
 }
