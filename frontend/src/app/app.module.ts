@@ -48,6 +48,7 @@ import { ErrorInterceptor } from 'app/common/http-interceptor.service';
 import { ArchitectSituationService } from 'app/services/architect-situation.service';
 import { ArchitectTypeService } from 'app/services/architect-type.service';
 import { ReportService } from 'app/services/report.service';
+import { UserService } from 'app/services/user.service';
 
 //Components
 
@@ -183,7 +184,8 @@ const appRoutes: Routes = [
     ReportService,
     ArchitecteResolver,
     ArchitectSituationResolver,
-    ArchitectTypeResolver
+    ArchitectTypeResolver,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

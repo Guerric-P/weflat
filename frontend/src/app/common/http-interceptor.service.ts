@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/empty';
 import { tap } from 'rxjs/operators/tap';
 import { catchError } from 'rxjs/operators/catchError';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'app/services/local-storage.service';
 import { AuthenticationService } from 'app/services/authentication.service';
@@ -31,7 +32,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 authService.returnUrl = this.router.routerState.snapshot.url;
                 this.router.navigate(['/']);
               }
-              return Observable.throw(err.message || 'Erreur du serveur');
+              return ErrorObservable.create(err.message || 'Erreur du serveur');
             }
           }
         )
