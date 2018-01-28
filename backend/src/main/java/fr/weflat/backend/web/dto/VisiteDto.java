@@ -17,6 +17,7 @@ public class VisiteDto {
 	private String streetNumber;
 	private Date visiteDate;
 	private Date creationDate;
+	private int status;
 	
 	
 	public Long getId() {
@@ -91,5 +92,11 @@ public class VisiteDto {
 		this.visiteDate = visiteDate;
 	}
 
-	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

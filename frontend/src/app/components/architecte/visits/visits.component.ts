@@ -15,6 +15,8 @@ export class VisitsComponent implements OnInit {
 
   potentialVisites: VisiteClass[];
   plannedVisites: VisiteClass[];
+  reportPendingVisites: VisiteClass[];
+  reportWrittenVisites: VisiteClass[];
 
   ngOnInit() {
    this.loadAllVisites();
@@ -23,10 +25,12 @@ export class VisitsComponent implements OnInit {
   loadAllVisites(){
     this.loadPlannedVisites();
     this.loadPotentialVisites();
+    this.loadReportPendingVisites();
+    this.loadReportWrittenVisites();
   }
 
   loadPotentialVisites() {
-    this.visiteService.getVisites().subscribe(
+    this.visiteService.getAvailableVisits().subscribe(
       res => {
         this.potentialVisites = res;
         if(this.potentialVisites && this.potentialVisites.length){
@@ -36,13 +40,13 @@ export class VisitsComponent implements OnInit {
           $('#potentialVisites').collapse('hide');
         }
       }, err => {
-
+        //TODO
       }
     );
   }
 
   loadPlannedVisites() {
-    this.visiteService.getPlannedVisites().subscribe(
+    this.visiteService.getPlannedVisits().subscribe(
       res => {
         this.plannedVisites = res;
         if(this.plannedVisites && this.plannedVisites.length){
@@ -52,7 +56,39 @@ export class VisitsComponent implements OnInit {
           $('#plannedVisites').collapse('hide');
         }
       }, err => {
+        //TODO
+      }
+    );
+  }
 
+  loadReportPendingVisites() {
+    this.visiteService.getReportPendingVisites().subscribe(
+      res => {
+        this.reportPendingVisites = res;
+        if(this.reportPendingVisites && this.reportPendingVisites.length){
+          $('#reportPendingVisites').collapse('show');
+        }
+        else {
+          $('#reportPendingVisites').collapse('hide');
+        }
+      }, err => {
+        //TODO
+      }
+    );
+  }
+
+  loadReportWrittenVisites() {
+    this.visiteService.getReportWrittenVisites().subscribe(
+      res => {
+        this.reportWrittenVisites = res;
+        if(this.reportWrittenVisites && this.reportWrittenVisites.length){
+          $('#reportWrittenVisites').collapse('show');
+        }
+        else {
+          $('#reportWrittenVisites').collapse('hide');
+        }
+      }, err => {
+        //TODO
       }
     );
   }

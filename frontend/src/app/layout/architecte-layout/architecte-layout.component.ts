@@ -26,7 +26,7 @@ export class ArchitecteLayoutComponent extends BaseBackendLayoutComponent implem
         this.visiteCounterService.announceCount();
       }
     });
-    this.visiteService.getVisiteCounter().subscribe(res => {
+    this.visiteService.getVisitCounter().subscribe(res => {
       this.visiteCounter = res;
     });
     this.visiteCounterService.counterChanged$.subscribe(res => {

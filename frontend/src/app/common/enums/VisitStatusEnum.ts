@@ -1,0 +1,6 @@
+export enum VisitStatusEnum {
+    BEING_ASSIGNED = 0,
+	IN_PROGRESS = 1,
+	REPORT_BEING_WRITTEN = 2,
+	REPORT_AVAILABLE = 3
+}

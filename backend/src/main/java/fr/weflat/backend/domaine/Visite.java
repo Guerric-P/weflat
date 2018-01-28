@@ -70,6 +70,9 @@ public class Visite {
 	@Column(nullable = false, name = "visite_date")
 	private Date visiteDate;
 	
+	@Column(nullable = false, name = "status")
+	private int status;
+	
 	public Architecte getArchitecte() {
 		return architecte;
 	}
@@ -149,5 +152,12 @@ public class Visite {
 	public void setReport(Report report) {
 		this.report = report;
 	}
-	
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 }

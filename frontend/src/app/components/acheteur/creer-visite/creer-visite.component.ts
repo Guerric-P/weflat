@@ -127,7 +127,7 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
     visite.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
     visite.zipCode = this.addressFormGroup.controls['zipCode'].value;
     visite.visiteDate = moment(this.dateFormGroup.controls['datePicker'].value).toDate();
-    this.visiteService.postVisite(visite).subscribe(res => {
+    this.visiteService.postVisit(visite).subscribe(res => {
       this.notificationService.success('Succès', 'La visite a été créée');
     }, err => {
       this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');

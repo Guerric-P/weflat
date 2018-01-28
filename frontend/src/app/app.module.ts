@@ -28,6 +28,7 @@ import { ZipCodesResolver } from 'app/resolvers/zip-codes-resolver';
 import { ArchitecteResolver } from 'app/resolvers/architecte.resolver';
 import { ArchitectSituationResolver } from 'app/resolvers/architect-situation.resolver';
 import { ArchitectTypeResolver } from 'app/resolvers/architect-type.resolver';
+import { ReportResolver } from 'app/resolvers/report.resolver';
 
 //Guards
 
@@ -73,6 +74,7 @@ import { DashboardComponent } from './components/architecte/dashboard/dashboard.
 import { ErrorComponent } from './components/error/error.component';
 import { BaseBackendLayoutComponent } from './layout/base-backend-layout/base-backend-layout.component';
 import { PurchaseProjectComponent } from './components/acheteur/purchase-project/purchase-project.component';
+import { ReportEditComponent } from './components/report/report-edit/report-edit.component';
 
 //Models
 
@@ -103,6 +105,7 @@ const appRoutes: Routes = [
           architectSituations: ArchitectSituationResolver
         }, data: { authRequired: true } },
       { path: 'visits', component: VisitsComponent, data: { authRequired: true } },
+      { path: 'visits/:id/report', component: ReportEditComponent, resolve: {report: ReportResolver}, data: { authRequired: true } },
       { path: 'dispo', component: DispoComponent, resolve: { zipCodes: ZipCodesResolver }, data: { authRequired: true } },
       { path: 'messages', component: MessagesComponent, data: { authRequired: true } }
     ]
@@ -138,7 +141,8 @@ const appRoutes: Routes = [
     AcheteurProfileComponent,
     VisitComponent,
     BaseBackendLayoutComponent,
-    PurchaseProjectComponent
+    PurchaseProjectComponent,
+    ReportEditComponent
   ],
   imports: [
     BrowserModule,
@@ -172,6 +176,7 @@ const appRoutes: Routes = [
       multi: true,
     },
     ZipCodesResolver,
+    ReportResolver,
     SessionStorageService,
     VisiteService,
     {

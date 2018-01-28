@@ -17,7 +17,7 @@ export class VisiteCounterService {
 
   // Service message commands
   announceCount() {
-    this.visiteService.getVisiteCounter().first().subscribe(res => {
+    this.visiteService.getVisitCounter().first().subscribe(res => {
       this.counterChangedSource.next(res);
     });
   }
