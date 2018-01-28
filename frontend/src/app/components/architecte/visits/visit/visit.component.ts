@@ -3,6 +3,7 @@ import { VisiteClass } from 'app/models/visiteclass';
 import { VisiteService } from 'app/services/visite.service';
 import { NotificationsService } from 'angular2-notifications';
 import { VisiteCounterService } from 'app/services/visite-counter.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-visit',
@@ -13,13 +14,16 @@ export class VisitComponent implements OnInit {
 
   constructor(private visiteService: VisiteService,
     private notificationService: NotificationsService,
-    private visiteCounterService: VisiteCounterService) { }
+    private visiteCounterService: VisiteCounterService,
+    private router: Router) { }
 
   @Input() visite: VisiteClass;
-  @Input() enableButtons: boolean;
+  @Input() enableAcceptRefuseButtons: boolean = false;
+  @Input() enableReportButton: boolean = false;
   @Output() updated: EventEmitter<any> = new EventEmitter();
   acceptButtonDisabled: boolean = false;
   refuseButtonDisabled: boolean = false;
+  editButtonDisabled: boolean = false;
 
 
   ngOnInit() {
@@ -27,7 +31,7 @@ export class VisitComponent implements OnInit {
 
   accept() {
     this.acceptButtonDisabled = true;
-    this.visiteService.acceptVisite(this.visite.id).subscribe(res => {
+    this.visiteService.acceptVisit(this.visite.id).subscribe(res => {
       this.notificationService.success('Succès', `Vous avez accepté de visiter le bien de ${this.visite.acheteur.firstName} ${this.visite.acheteur.lastName}`);
       this.acceptButtonDisabled = false;
       this.visitesUpdated();
@@ -40,7 +44,7 @@ export class VisitComponent implements OnInit {
 
   refuse() {
     this.refuseButtonDisabled = false;
-    this.visiteService.refuseVisite(this.visite.id).subscribe(res => {
+    this.visiteService.refuseVisit(this.visite.id).subscribe(res => {
       this.notificationService.success('Succès', `Vous avez refusé de visiter le bien de ${this.visite.acheteur.firstName} ${this.visite.acheteur.lastName}`);
       this.refuseButtonDisabled = true;
       this.visitesUpdated();
@@ -54,5 +58,9 @@ export class VisitComponent implements OnInit {
   visitesUpdated() {
     this.updated.emit();
     this.visiteCounterService.announceCount();
+  }
+
+  editReport() {
+    this.router.navigate([`/architecte/visits/${this.visite.id}/report`]);
   }
 }

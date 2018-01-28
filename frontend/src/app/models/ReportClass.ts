@@ -1,4 +1,5 @@
 import { RenovationClass } from "app/models/RenovationClass";
+import { VisiteClass } from "app/models/visiteclass";
 
 export class ReportClass {
     public id: number;
@@ -8,6 +9,7 @@ export class ReportClass {
 	public orientation: string;;
 	public rooms: number;
     public surface: number;
+    public visite: VisiteClass;
     
     constructor(obj?: any) {
         Object.assign(this, obj);

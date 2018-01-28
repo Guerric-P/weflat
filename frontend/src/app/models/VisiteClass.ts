@@ -10,6 +10,7 @@ export class VisiteClass {
     public route: string;
     public streetNumber: string;
     public visiteDate: Date;
+    public status: number
 
     constructor(obj?: any) {
         Object.assign(this, obj);

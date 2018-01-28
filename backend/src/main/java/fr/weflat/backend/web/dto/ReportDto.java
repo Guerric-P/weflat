@@ -18,6 +18,8 @@ public class ReportDto {
 	private int rooms;
 	
 	private int surface;
+	
+	private VisiteDto visite;
 
 	public Long getId() {
 		return id;
@@ -74,4 +76,13 @@ public class ReportDto {
 	public void setSurface(int surface) {
 		this.surface = surface;
 	}
+
+	public VisiteDto getVisite() {
+		return visite;
+	}
+
+	public void setVisite(VisiteDto visite) {
+		this.visite = visite;
+	}
+	
 }

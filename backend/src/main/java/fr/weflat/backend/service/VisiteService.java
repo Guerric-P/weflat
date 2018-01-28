@@ -7,11 +7,18 @@ import fr.weflat.backend.domaine.Visite;
 public interface VisiteService {
 	void save(Visite visite);
 	
-	Set<Visite> findNearbyVisites(Long idArchitecte);
+	Set<Visite> findAvailableVisits(Long idArchitecte);
+	
+	Set<Visite> findPlannedVisits(Long idArchitecte);
+	
+	Set<Visite> findReportPendingVisits(Long idArchitecte);
+	
+	Set<Visite> findReportWrittenVisits(Long idArchitecte);
+	
+	Visite getById(Long id);
 	
 	void accept(Long idVisite, Long idArchitecte) throws Exception;
 	
 	void refuse(Long idVisite, Long idArchitecte) throws Exception;
-	
-	Set<Visite> findPlannedVisites(Long idArchitecte);
+
 }
