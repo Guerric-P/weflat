@@ -43,7 +43,7 @@ public class Visite {
 	@JoinColumn(name = "id_acheteur", nullable = false)
 	private Acheteur acheteur;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_report")
 	private Report report;
 	

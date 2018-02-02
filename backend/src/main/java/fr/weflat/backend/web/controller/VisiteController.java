@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.weflat.backend.domaine.Acheteur;
 import fr.weflat.backend.domaine.Architecte;
+import fr.weflat.backend.domaine.Renovation;
 import fr.weflat.backend.domaine.Report;
 import fr.weflat.backend.domaine.Visite;
 import fr.weflat.backend.domaine.ZipCode;
@@ -162,7 +163,7 @@ public class VisiteController {
 	public ReportDto getReport(@PathVariable("id") long id, Authentication authentication) {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 		
-		Report report =  reportService.getByVisiteId((Long) details.get("id"));
+		Report report =  reportService.getByVisiteId(id);
 		ReportDto reportDto = null;
 		
 		if(report == null) {
@@ -173,12 +174,33 @@ public class VisiteController {
 		}
 		else {
 			if(report.getVisite().getArchitecte() != null && report.getVisite().getArchitecte().getId() == (Long) details.get("id")) {
-				
+				reportDto = orikaMapperFacade.map(report, ReportDto.class);
 			} else {
 				throw new AccessDeniedException("Non autorisé.");
 			}
 		}
 		
 		return reportDto;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path = "/{id}/report", method = RequestMethod.POST)
+	public void postReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) {
+		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
+		
+		Visite visit = visiteService.getById(id);
+		
+		if(visit.getArchitecte().getId().equals((Long) details.get("id"))) {
+			visit.setReport(orikaMapperFacade.map(input, Report.class));
+			
+			for(Renovation renovation: visit.getReport().getRenovations()) {
+				renovation.setReport(visit.getReport());
+			}
+			
+			visiteService.save(visit);
+		} else {
+			throw new AccessDeniedException("Non autorisé.");
+		}
+		
 	}
 }

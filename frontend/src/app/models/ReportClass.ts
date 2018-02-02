@@ -10,6 +10,9 @@ export class ReportClass {
 	public rooms: number;
     public surface: number;
     public visite: VisiteClass;
+    public expectations: string;
+    public globalQualityRemarks: string;
+    public globalCondition: string;
     
     constructor(obj?: any) {
         Object.assign(this, obj);

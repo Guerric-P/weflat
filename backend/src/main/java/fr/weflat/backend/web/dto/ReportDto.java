@@ -2,25 +2,19 @@ package fr.weflat.backend.web.dto;
 
 import java.util.Set;
 
-import fr.weflat.backend.domaine.Renovation;
-
 public class ReportDto {
 	private Long id;
-	
-	private Set<Renovation> renovations;
-	
+	private Set<RenovationDto> renovations;
 	private int floor;
-	
 	private String generalRemarks;
-	
 	private String orientation;
-	
 	private int rooms;
-	
 	private int surface;
-	
 	private VisiteDto visite;
-
+	private String expectations;
+	private String globalQualityRemarks;
+	private int globalCondition;
+	
 	public Long getId() {
 		return id;
 	}
@@ -29,11 +23,11 @@ public class ReportDto {
 		this.id = id;
 	}
 
-	public Set<Renovation> getRenovations() {
+	public Set<RenovationDto> getRenovations() {
 		return renovations;
 	}
 
-	public void setRenovations(Set<Renovation> renovations) {
+	public void setRenovations(Set<RenovationDto> renovations) {
 		this.renovations = renovations;
 	}
 
@@ -84,5 +78,28 @@ public class ReportDto {
 	public void setVisite(VisiteDto visite) {
 		this.visite = visite;
 	}
-	
+
+	public String getExpectations() {
+		return expectations;
+	}
+
+	public void setExpectations(String expectations) {
+		this.expectations = expectations;
+	}
+
+	public String getGlobalQualityRemarks() {
+		return globalQualityRemarks;
+	}
+
+	public void setGlobalQualityRemarks(String globalQualityRemarks) {
+		this.globalQualityRemarks = globalQualityRemarks;
+	}
+
+	public int getGlobalCondition() {
+		return globalCondition;
+	}
+
+	public void setGlobalCondition(int globalCondition) {
+		this.globalCondition = globalCondition;
+	}
 }

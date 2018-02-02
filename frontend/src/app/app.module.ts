@@ -29,6 +29,7 @@ import { ArchitecteResolver } from 'app/resolvers/architecte.resolver';
 import { ArchitectSituationResolver } from 'app/resolvers/architect-situation.resolver';
 import { ArchitectTypeResolver } from 'app/resolvers/architect-type.resolver';
 import { ReportResolver } from 'app/resolvers/report.resolver';
+import { PositionResolver } from 'app/resolvers/position.resolver';
 
 //Guards
 
@@ -50,6 +51,7 @@ import { ArchitectSituationService } from 'app/services/architect-situation.serv
 import { ArchitectTypeService } from 'app/services/architect-type.service';
 import { ReportService } from 'app/services/report.service';
 import { UserService } from 'app/services/user.service';
+import { PositionService } from 'app/services/position.service';
 
 //Components
 
@@ -105,7 +107,7 @@ const appRoutes: Routes = [
           architectSituations: ArchitectSituationResolver
         }, data: { authRequired: true } },
       { path: 'visits', component: VisitsComponent, data: { authRequired: true } },
-      { path: 'visits/:id/report', component: ReportEditComponent, resolve: {report: ReportResolver}, data: { authRequired: true } },
+      { path: 'visits/:id/report', component: ReportEditComponent, resolve: { report: ReportResolver, positions: PositionResolver }, data: { authRequired: true } },
       { path: 'dispo', component: DispoComponent, resolve: { zipCodes: ZipCodesResolver }, data: { authRequired: true } },
       { path: 'messages', component: MessagesComponent, data: { authRequired: true } }
     ]
@@ -190,7 +192,9 @@ const appRoutes: Routes = [
     ArchitecteResolver,
     ArchitectSituationResolver,
     ArchitectTypeResolver,
-    UserService
+    UserService,
+    PositionResolver,
+    PositionService
   ],
   bootstrap: [AppComponent]
 })

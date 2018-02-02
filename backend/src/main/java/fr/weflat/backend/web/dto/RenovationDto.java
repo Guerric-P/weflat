@@ -1,11 +1,9 @@
 package fr.weflat.backend.web.dto;
 
-import fr.weflat.backend.domaine.Position;
-
 public class RenovationDto {
 	private Long id;
 	
-	private Position position;
+	private PositionDto position;
 	
 	private int condition;
 	
@@ -21,11 +19,11 @@ public class RenovationDto {
 		this.id = id;
 	}
 
-	public Position getPosition() {
+	public PositionDto getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position) {
+	public void setPosition(PositionDto position) {
 		this.position = position;
 	}
 
