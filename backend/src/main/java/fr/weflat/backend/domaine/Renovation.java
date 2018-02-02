@@ -1,5 +1,6 @@
 package fr.weflat.backend.domaine;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +26,7 @@ public class Renovation {
 	@JoinColumn(name = "id_report", nullable = false)
 	private Report report;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_position")
 	private Position position;
 	

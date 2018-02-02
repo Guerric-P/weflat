@@ -2,6 +2,7 @@ package fr.weflat.backend.domaine;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +26,7 @@ public class Report {
 	@OneToOne(mappedBy = "report")
 	private Visite visite;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "report")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "report", orphanRemoval = true)
 	private Set<Renovation> renovations;
 	
 	@Column(nullable = true, name = "floor")
@@ -43,6 +44,15 @@ public class Report {
 	@Column(nullable = true, name = "surface")
 	private int surface;
 
+	@Column(nullable = true, name = "expectations")
+	private String expectations;
+	
+	@Column(nullable = true, name = "global_quality_remarks")
+	private String globalQualityRemarks;
+	
+	@Column(nullable = true, name = "global_condition")
+	private int globalCondition;
+	
 	public Long getId() {
 		return id;
 	}
@@ -105,5 +115,29 @@ public class Report {
 
 	public void setSurface(int surface) {
 		this.surface = surface;
+	}
+
+	public String getExpectations() {
+		return expectations;
+	}
+
+	public void setExpectations(String expectations) {
+		this.expectations = expectations;
+	}
+
+	public String getGlobalQualityRemarks() {
+		return globalQualityRemarks;
+	}
+
+	public void setGlobalQualityRemarks(String globalQualityRemarks) {
+		this.globalQualityRemarks = globalQualityRemarks;
+	}
+
+	public int getGlobalCondition() {
+		return globalCondition;
+	}
+
+	public void setGlobalCondition(int globalCondition) {
+		this.globalCondition = globalCondition;
 	}
 }
