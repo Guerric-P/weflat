@@ -19,7 +19,8 @@ export class VisitComponent implements OnInit {
 
   @Input() visite: VisiteClass;
   @Input() enableAcceptRefuseButtons: boolean = false;
-  @Input() enableReportButton: boolean = false;
+  @Input() enableReportEditButton: boolean = false;
+  @Input() enableReportViewButton: boolean = false;
   @Output() updated: EventEmitter<any> = new EventEmitter();
   acceptButtonDisabled: boolean = false;
   refuseButtonDisabled: boolean = false;

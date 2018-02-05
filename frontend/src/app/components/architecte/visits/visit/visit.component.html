@@ -6,7 +6,10 @@
     <button mat-raised-button color="primary" (click)="accept()" [disabled]="acceptButtonDisabled">Accepter</button>
     <button mat-raised-button (click)="refuse()" [disabled]="refuseButtonDisabled">Refuser</button>
   </div>
-  <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end" *ngIf="enableReportButton">
+  <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end" *ngIf="enableReportEditButton">
     <button mat-raised-button color="primary" (click)="editReport()" [disabled]="editButtonDisabled">Editer le rapport</button>
+  </div>
+  <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end" *ngIf="enableReportViewButton">
+    <button mat-raised-button color="primary" [disabled]="editButtonDisabled">Voir le rapport</button>
   </div>
 </div>

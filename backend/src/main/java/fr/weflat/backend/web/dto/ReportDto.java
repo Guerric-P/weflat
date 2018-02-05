@@ -1,10 +1,11 @@
 package fr.weflat.backend.web.dto;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class ReportDto {
 	private Long id;
-	private Set<RenovationDto> renovations;
+	private Set<RenovationDto> renovations = new HashSet<RenovationDto>();
 	private int floor;
 	private String generalRemarks;
 	private String orientation;

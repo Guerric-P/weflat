@@ -28,7 +28,7 @@
       <div id="reportWrittenVisites" class="collapse" role="tabpanel">
         <div class="card-body">
           <div class="container">
-            <app-visit *ngFor="let visite of reportWrittenVisites" [visite]="visite" (updated)="loadAllVisites()"></app-visit>
+            <app-visit *ngFor="let visite of reportWrittenVisites" [visite]="visite" [enableReportViewButton]="true" (updated)="loadAllVisites()"></app-visit>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
       <div id="reportPendingVisites" class="collapse" role="tabpanel">
         <div class="card-body">
           <div class="container">
-            <app-visit *ngFor="let visite of reportPendingVisites" [visite]="visite" [enableReportButton]="true" (updated)="loadAllVisites()"></app-visit>
+            <app-visit *ngFor="let visite of reportPendingVisites" [visite]="visite" [enableReportEditButton]="true" (updated)="loadAllVisites()"></app-visit>
           </div>
         </div>
       </div>

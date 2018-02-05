@@ -3,7 +3,6 @@ package fr.weflat.backend.domaine;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
@@ -19,8 +18,8 @@ public class Position {
 	@Column(name = "label")
 	private String label;
 	
-	@OneToOne(mappedBy = "position")
-	private Renovation renovation;
+	@Column(name = "mandatory")
+	private boolean mandatory;
 
 	public Long getId() {
 		return id;
@@ -38,11 +37,11 @@ public class Position {
 		this.label = label;
 	}
 
-	public Renovation getRenovation() {
-		return renovation;
+	public boolean isMandatory() {
+		return mandatory;
 	}
 
-	public void setRenovation(Renovation renovation) {
-		this.renovation = renovation;
+	public void setMandatory(boolean mandatory) {
+		this.mandatory = mandatory;
 	}
 }

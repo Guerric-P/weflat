@@ -99,8 +99,8 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Orientation</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" [class.is-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
-                [class.is-valid]="!form.controls.firstName.invalid && form.controls.firstName.touched" formControlName="orientation"
+              <input type="text" class="form-control" [class.is-invalid]="form.controls.orientation.invalid && form.controls.orientation.touched"
+                [class.is-valid]="!form.controls.orientation.invalid && form.controls.orientation.touched" formControlName="orientation"
                 placeholder="Orientation">
             </div>
           </div>
@@ -121,11 +121,11 @@
               </tr>
             </thead>
             <tbody formArrayName="renovations">
-              <tr *ngFor="let renovation of this.form.get('renovations').controls;let i = index" [formGroupName]="i">
+              <tr *ngFor="let renovation of renovations.controls;let i = index" [formGroupName]="i">
                 <th class="d-inline-block col-2" scope="row">
                   <select class="custom-select" [class.is-valid]="renovation.get('position').touched && !renovation.get('position').invalid"
                     [class.is-invalid]="renovation.get('position').touched && renovation.get('position').invalid" formControlName="position">
-                    <option *ngFor="let position of positions" [value]="position.id">{{position.label}}</option>
+                    <option *ngFor="let position of positions" [disabled]="position.mandatory" [value]="position.id">{{position.label}}</option>
                   </select>
                 </th>
                 <td class="d-inline-block col-2">
@@ -180,25 +180,27 @@
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" [class.is-valid]="form.controls.globalCondition.touched && !form.controls.globalCondition.invalid"
                       [class.is-invalid]="form.controls.globalCondition.touched && form.controls.globalCondition.invalid" formControlName="globalCondition"
-                      [value]="1" id="average-{{i}}">
-                    <label class="custom-control-label" for="average-{{i}}">Moyen</label>
+                      [value]="1" id="average">
+                    <label class="custom-control-label" for="average">Moyen</label>
                   </div>
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" [class.is-valid]="form.controls.globalCondition.touched && !form.controls.globalCondition.invalid"
                       [class.is-invalid]="form.controls.globalCondition.touched && form.controls.globalCondition.invalid" formControlName="globalCondition"
-                      [value]="2" id="bad-{{i}}">
-                    <label class="custom-control-label" for="bad-{{i}}">Mauvais</label>
+                      [value]="2" id="bad">
+                    <label class="custom-control-label" for="bad">Mauvais</label>
                   </div>
                 </td>
                 <td class="d-inline-block col-3">
-                  <input type="text" class="form-control" placeholder="Somme auto-modifiable" [ngModel]="sumAmounts" [ngModelOptions]="{standalone: true}" disabled="disabled">
+                  <input type="text" class="form-control" placeholder="Somme auto-modifiable" [ngModel]="sumAmounts" [ngModelOptions]="{standalone: true}"
+                    disabled="disabled">
                 </td>
                 <td class="d-inline-block col-4">
                   <textarea class="form-control" rows="3" [class.is-valid]="form.controls.globalQualityRemarks.touched && !form.controls.globalQualityRemarks.invalid"
-                  [class.is-invalid]="form.controls.globalQualityRemarks.touched && form.controls.globalQualityRemarks.invalid" formControlName="globalQualityRemarks" placeholder="Remarques générales"></textarea>
+                    [class.is-invalid]="form.controls.globalQualityRemarks.touched && form.controls.globalQualityRemarks.invalid"
+                    formControlName="globalQualityRemarks" placeholder="Remarques générales"></textarea>
                 </td>
                 <td class="d-inline-block col-1">
-                  <button type="button" (click)="addRenovation()">Ajouter</button>
+                  <button type="button" class="btn btn-primary" (click)="addRenovation()">Ajouter</button>
                 </td>
               </tr>
             </tbody>
@@ -215,7 +217,7 @@
             <div class="col-md-10">
               <textarea class="form-control" rows="3" [class.is-invalid]="form.controls.generalRemarks.invalid && form.controls.generalRemarks.touched"
                 [class.is-valid]="!form.controls.generalRemarks.invalid && form.controls.generalRemarks.touched" formControlName="generalRemarks"
-                placeholder="Les remarques generales" required></textarea>
+                placeholder="Les remarques générales" required></textarea>
             </div>
           </div>
           <div class="text-center">
@@ -226,8 +228,41 @@
       <div class="form-group row mt-3">
         <div class="col-sm-12">
           <button type="submit" class="btn btn-primary">Sauvegarder</button>
+          <button type="button" class="btn btn-primary" (click)="submitClick()">Soumettre</button>
         </div>
       </div>
     </form>
   </div>
 </div>
+
+<ng-template #submitModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Modifications non sauvegardées !</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Vous devez sauvegarder les modifications de votre compte-rendu avant de le soumettre.</p>
+  </div>
+  <div class="modal-footer d-flex flex-row justify-content-around">
+    <button type="button" class="btn btn-outline-primary" (click)="c('save')">Sauvegarder</button>
+    <button type="button" class="btn btn-outline-primary" (click)="d('cancel')">Annuler</button>
+  </div>
+</ng-template>
+
+<ng-template #submitConfirmModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Soumettre le compte-rendu</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Vous êtes sur le point de soumettre votre compte-rendu. Aucune modification ne sera possible après soumission.</p>
+  </div>
+  <div class="modal-footer d-flex flex-row justify-content-around">
+    <button type="button" class="btn btn-outline-primary" (click)="c('submit')">Soumettre</button>
+    <button type="button" class="btn btn-outline-primary" (click)="d('cancel')">Annuler</button>
+  </div>
+</ng-template>

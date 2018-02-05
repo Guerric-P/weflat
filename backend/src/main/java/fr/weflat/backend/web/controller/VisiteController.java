@@ -185,22 +185,71 @@ public class VisiteController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/{id}/report", method = RequestMethod.POST)
-	public void postReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) {
+	public void postReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 		
 		Visite visit = visiteService.getById(id);
 		
 		if(visit.getArchitecte().getId().equals((Long) details.get("id"))) {
 			visit.setReport(orikaMapperFacade.map(input, Report.class));
+			visit.setStatus(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal());
 			
+			//deal with OneToOne mappedby relation
 			for(Renovation renovation: visit.getReport().getRenovations()) {
 				renovation.setReport(visit.getReport());
 			}
 			
 			visiteService.save(visit);
+		} else if (visit.getReport() != null) {
+			throw new Exception("Report already exists for visit" + visit.getId());
 		} else {
-			throw new AccessDeniedException("Non autorisé.");
+			throw new AccessDeniedException("Only the architect assigned to this visit can edit the report");
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path = "/{id}/report", method = RequestMethod.PATCH)
+	public void patchReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
+		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 		
+		Report report = reportService.getByVisiteId(id);
+		
+		if(report.getVisite().getArchitecte().getId().equals((Long) details.get("id"))) {
+			orikaMapperFacade.map(input, report);
+			report.getVisite().setStatus(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal());
+			
+			//deal with OneToOne mappedby relation
+			for(Renovation renovation: report.getRenovations()) {
+				renovation.setReport(report);
+			}
+			
+			reportService.save(report);
+		}
+		else {
+			throw new AccessDeniedException("Only the architect assigned to this visit can edit the report");
+		}
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(path = "/{id}/report/submit", method = RequestMethod.POST)
+	public void submitReport(@PathVariable("id") long id, Authentication authentication) throws Exception {
+		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
+		
+		Visite visit = visiteService.getById(id);
+		
+		if(visit.getArchitecte().getId().equals((Long) details.get("id"))) {
+			if(visit.getStatus() == VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal()) {
+				visit.setStatus(VisitStatusEnum.REPORT_AVAILABLE.ordinal());
+				visiteService.save(visit);
+			}
+			else {
+				throw new Exception("Report has not been written for visit " + visit.getId());
+			}
+		} else if (visit.getReport() != null) {
+			throw new Exception("Report doesn't exist for visit " + visit.getId());
+		} else {
+			throw new AccessDeniedException("Only the architect assigned to this visit can submit the report");
+		}
 	}
 }
