@@ -13,7 +13,14 @@ export class ReportService {
   }
 
   postReport(visitId: number, report: ReportClass): Observable<any> {
-    return this.http.post(`/backend/visits/${visitId}/report`, report, { responseType: 'text'});
+    return this.http.post(`/backend/visits/${visitId}/report`, report, { responseType: 'text' });
   }
 
+  patchReport(visitId: number, report: ReportClass): Observable<any> {
+    return this.http.patch(`/backend/visits/${visitId}/report`, report);
+  }
+
+  submitReport(visitId: number): Observable<any> {
+    return this.http.post(`/backend/visits/${visitId}/report/submit`, null);
+  }
 }

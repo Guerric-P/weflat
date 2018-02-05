@@ -106,13 +106,13 @@
     <div class="row float-right">
       <div class="col-8">Vous n'avez pas de compte ?</div>
       <div class="col-4">
-        <button type="button" class="btn btn-link" (click)="c(''); openSignup(signupMmodal);">S'inscrire</button>
+        <button type="button" class="btn btn-link" (click)="c(''); openSignup(signupModal);">S'inscrire</button>
       </div>
     </div>
   </div>
 </ng-template>
 
-<ng-template #signupMmodal let-c="close" let-d="dismiss">
+<ng-template #signupModal let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Qui êtes-vous ?</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
