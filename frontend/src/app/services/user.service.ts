@@ -8,6 +8,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   changePassword(password: string){
-    return this.http.put('/backend/users/password', {password: password});
+    return this.http.put('/users/password', {password: password});
   }
 }
