@@ -11,23 +11,23 @@ export class ArchitecteService {
 
 
   postArchitecte(architecte: ArchitecteClass){
-    return this.http.post('/backend/architecte', architecte, { responseType: 'text'});
+    return this.http.post('/architecte', architecte, { responseType: 'text'});
   }
 
   patchArchitecte(architecte: ArchitecteClass){
-    return this.http.patch('/backend/architecte', architecte, { responseType: 'text'});
+    return this.http.patch('/architecte', architecte, { responseType: 'text'});
   }
 
   getArchitecte(){
-    return this.http.get<ArchitecteClass>('/backend/architecte');
+    return this.http.get<ArchitecteClass>('/architecte');
   }
 
   postZipCodes(zipCodes: ZipCodeClass[], id: number){
-    return this.http.post('/backend/architecte/' + id + '/zipcodes', zipCodes);
+    return this.http.post('/architecte/' + id + '/zipcodes', zipCodes);
   }
 
   getZipCodes(id: number): Observable<ZipCodeClass[]> {
-    return this.http.get<ZipCodeClass[]>('/backend/architecte/' + id + '/zipcodes');
+    return this.http.get<ZipCodeClass[]>('/architecte/' + id + '/zipcodes');
   }
 
 }
