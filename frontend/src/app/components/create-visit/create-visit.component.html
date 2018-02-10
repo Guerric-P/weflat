@@ -1,0 +1,72 @@
+<mat-horizontal-stepper #stepper [linear]="isLinear">
+  <mat-step [stepControl]="dateFormGroup">
+    <div class="container">
+      <div class="col">
+        <form [formGroup]="dateFormGroup">
+          <ng-template matStepLabel>Date</ng-template>
+          <div class="row justify-content-center align-items-center">
+            <h1>Quand a lieu votre visite ?</h1>
+          </div>
+          <div class="row justify-content-center align-items-center mt-3">
+            <mat-form-field>
+              <input matInput type="datetime-local" formControlName="datePicker" placeholder="Choisissez une date..." required>
+            </mat-form-field>
+          </div>
+          <div class="row justify-content-center align-items-center">
+            <button mat-raised-button matStepperNext>Suivant</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-step>
+  <mat-step [completed]="authService.isLoggedIn()" [optional]="false" *ngIf="displaySignupStep">
+    <ng-template matStepLabel>Qui êtes-vous ?</ng-template>
+    <app-register-acheteur [isEmbedded]="true"></app-register-acheteur>
+  </mat-step>
+  <mat-step [stepControl]="addressFormGroup">
+    <form [formGroup]="addressFormGroup">
+      <div class="row">
+        <div class="col-sm-4">
+          <ng-template matStepLabel>Adresse</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Adresse" formControlName="addressInput" required #addressInput>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Numéro de voie" formControlName="streetNumber" required #streetNumber>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Voie" formControlName="route" required #route>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Code postal" formControlName="zipCode" required #zipCode>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Ville" formControlName="city" required #city>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-8 google-maps-container" #googleMap>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button mat-raised-button matStepperPrevious>Précédent</button>
+          <button mat-raised-button matStepperNext>Suivant</button>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Paiement</ng-template>
+    <div class="container">
+      <div class="col">
+        <div class="row justify-content-center align-items-center">
+            
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <button mat-raised-button matStepperPrevious>Précédent</button>
+          <button mat-raised-button color="primary" (click)="openStripePopup()">Payer</button>
+        </div>
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

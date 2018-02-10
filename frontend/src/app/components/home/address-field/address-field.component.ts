@@ -11,7 +11,7 @@ declare var google: any;
 })
 export class AddressFieldComponent implements OnInit {
 
-  constructor(private sessionStorageService: SessionStorageService, private router: Router, private zone:NgZone) { }
+  constructor(private sessionStorageService: SessionStorageService, private router: Router, private zone: NgZone) { }
 
   @ViewChild('input') input: ElementRef;
 
@@ -22,15 +22,14 @@ export class AddressFieldComponent implements OnInit {
         country: 'fr'
       }
     };
-    var self = this;
     var autocomplete = new google.maps.places.Autocomplete(this.input.nativeElement, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       var place = autocomplete.getPlace();
-      self.sessionStorageService.place = place;
-      self.zone.run(() => {
-        self.router.navigate(['/acheteur']);
+      this.sessionStorageService.place = place;
+      this.zone.run(() => {
+        this.router.navigate(['/create-visit']);
       });
-    })
+    }.bind(this));
   }
 
 }

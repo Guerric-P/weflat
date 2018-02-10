@@ -8,6 +8,7 @@ import { Constantes } from 'app/common/Constantes';
 import { NotificationsService } from 'angular2-notifications';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs';
+import { ShowSigninPopupService } from 'app/services/show-signin-popup.service';
 
 @Component({
   selector: 'app-navigation',
@@ -21,7 +22,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private authGuard: AuthGuard,
     private modalService: NgbModal,
     private localStorageService: LocalStorageService,
-    private notificationsService: NotificationsService) { }
+    private notificationsService: NotificationsService,
+    private showSigninPopupService: ShowSigninPopupService) { }
 
   private routeData;
   model: any = {};
@@ -49,6 +51,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
           this.displaySigninPopup();
         }
       }
+    });
+
+    this.showSigninPopupService.showSigninPopupObservable$.subscribe(x => {
+      this.openSignin(this.signinModalTemplate);
     });
   }
 
