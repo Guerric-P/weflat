@@ -8,7 +8,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatTabsModule, MatChipsModule, MatIconModule, MatNativeDateModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatTabsModule, MatChipsModule, MatIconModule, MatNativeDateModule, MatDividerModule} from '@angular/material';
 import { RouterModule, Routes, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
@@ -36,6 +36,7 @@ import { PositionResolver } from 'app/resolvers/position.resolver';
 import { AuthGuard } from 'app/guards/auth.guard';
 import { ArchitecteGuard } from 'app/guards/architecte.guard';
 import { AcheteurGuard } from 'app/guards/acheteur.guard';
+import { CreateVisitGuard } from 'app/guards/create-visit.guard';
 
 //Services
 
@@ -52,6 +53,7 @@ import { ArchitectTypeService } from 'app/services/architect-type.service';
 import { ReportService } from 'app/services/report.service';
 import { UserService } from 'app/services/user.service';
 import { PositionService } from 'app/services/position.service';
+import { ShowSigninPopupService } from 'app/services/show-signin-popup.service';
 
 //Components
 
@@ -66,7 +68,7 @@ import { PublicLayoutComponent } from './layout/public-layout/public-layout.comp
 import { ArchitecteLayoutComponent } from './layout/architecte-layout/architecte-layout.component';
 import { AcheteurLayoutComponent } from './layout/acheteur-layout/acheteur-layout.component';
 import { HomeComponent } from './components/home/home.component';
-import { CreerVisiteComponent } from './components/acheteur/creer-visite/creer-visite.component';
+import { CreateVisitComponent } from './components/create-visit/create-visit.component';
 import { RegisterArchitecteComponent } from './components/register-architecte/register-architecte.component';
 import { RegisterAcheteurComponent } from './components/register-acheteur/register-acheteur.component';
 import { VisitsComponent } from './components/architecte/visits/visits.component';
@@ -87,6 +89,7 @@ import { UserClass } from './models/UserClass';
 import { AcheteurClass } from './models/AcheteurClass';
 import { ArchitectSituationClass } from './models/ArchitectSituationClass';
 import { ArchitectTypeClass } from './models/ArchitectTypeClass';
+import { MyVisitsComponent } from './components/acheteur/my-visits/my-visits.component';
 
 
 const appRoutes: Routes = [
@@ -94,7 +97,8 @@ const appRoutes: Routes = [
     path: '', component: PublicLayoutComponent, children: [
       { path: '', component: HomeComponent },
       { path: 'register/architecte', component: RegisterArchitecteComponent },
-      { path: 'register/acheteur', component: RegisterAcheteurComponent }
+      { path: 'register/acheteur', component: RegisterAcheteurComponent },
+      { path: 'create-visit', canActivate: [CreateVisitGuard], component: CreateVisitComponent }
     ]
   }, {
     path: 'architecte', component: ArchitecteLayoutComponent, canActivate: [AuthGuard, ArchitecteGuard], data: { authRequired: true }, children: [
@@ -114,9 +118,10 @@ const appRoutes: Routes = [
   }, {
     path: 'acheteur', component: AcheteurLayoutComponent, canActivate: [AuthGuard, AcheteurGuard], data: { authRequired: true }, children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
-      { path: 'visit', component: CreerVisiteComponent, data: { authRequired: true } },
+      { path: 'visit', component: CreateVisitComponent, data: { authRequired: true } },
       { path: 'profile', component: AcheteurProfileComponent, data: { authRequired: true } },
-      { path: 'project', component: PurchaseProjectComponent, data: { authRequired: true } }
+      { path: 'project', component: PurchaseProjectComponent, data: { authRequired: true } },
+      { path: 'my-visits', component: MyVisitsComponent, data: { authRequired: true } }
     ]
   },
   { path: '**', component: ErrorComponent }
@@ -128,7 +133,7 @@ const appRoutes: Routes = [
     NavigationComponent,
     ErrorComponent,
     HomeComponent,
-    CreerVisiteComponent,
+    CreateVisitComponent,
     RegisterArchitecteComponent,
     RegisterAcheteurComponent,
     PublicLayoutComponent,
@@ -144,7 +149,9 @@ const appRoutes: Routes = [
     VisitComponent,
     BaseBackendLayoutComponent,
     PurchaseProjectComponent,
-    ReportEditComponent
+    ReportEditComponent,
+    MyVisitsComponent,
+    CreateVisitComponent
   ],
   imports: [
     BrowserModule,
@@ -162,6 +169,7 @@ const appRoutes: Routes = [
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDividerModule,
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot()
   ],
@@ -170,6 +178,7 @@ const appRoutes: Routes = [
     AuthGuard,
     ArchitecteGuard,
     AcheteurGuard,
+    CreateVisitGuard,
     AcheteurService,
     ArchitecteService,
     LocalStorageService, {
@@ -194,7 +203,8 @@ const appRoutes: Routes = [
     ArchitectTypeResolver,
     UserService,
     PositionResolver,
-    PositionService
+    PositionService,
+    ShowSigninPopupService
   ],
   bootstrap: [AppComponent]
 })

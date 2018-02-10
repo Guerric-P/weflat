@@ -1,21 +1,23 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DateAdapter } from '@angular/material';
+import { DateAdapter, MatHorizontalStepper } from '@angular/material';
 import { SessionStorageService } from 'app/services/session-storage.service';
-import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { VisiteService } from 'app/services/visite.service';
-import { VisiteClass } from 'app/models/visiteclass';
 import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
+import { VisiteClass } from 'app/models/visiteclass';
+import { AuthenticationService } from 'app/services/authentication.service';
+import { CreateVisitGuard } from 'app/guards/create-visit.guard';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var google;
 
 @Component({
-  selector: 'app-creer-visite',
-  templateUrl: './creer-visite.component.html',
-  styleUrls: ['./creer-visite.component.css']
+  selector: 'app-create-visit',
+  templateUrl: './create-visit.component.html',
+  styleUrls: ['./create-visit.component.css']
 })
-export class CreerVisiteComponent implements OnInit, AfterViewInit {
+export class CreateVisitComponent implements OnInit {
 
   isLinear = true;
   dateFormGroup: FormGroup;
@@ -25,26 +27,44 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
   marker: any;
   @ViewChild('googleMap') googleMap: ElementRef;
   @ViewChild('addressInput') addressInput: ElementRef;
+  @ViewChild('stepper') stepper: MatHorizontalStepper;
   placeKeys = {
     streetNumber: 'street_number',
     route: 'route',
     zipCode: 'postal_code',
     city: 'locality'
   }
+  displaySignupStep: boolean;
 
   constructor(private ref: ChangeDetectorRef,
     private _formBuilder: FormBuilder,
     private adapter: DateAdapter<any>,
-    private sessionStorageService:
-      SessionStorageService,
+    private sessionStorageService: SessionStorageService,
     private visiteService: VisiteService,
-    private notificationService: NotificationsService) { }
+    private notificationService: NotificationsService,
+    private authService: AuthenticationService,
+    private createVisitGuard: CreateVisitGuard,
+    private router: Router, private route: ActivatedRoute, ) { }
 
   ngOnInit() {
     this.place = this.sessionStorageService.place;
     this.sessionStorageService.place = undefined;
 
+    this.displaySignupStep = !this.authService.isLoggedIn();
 
+    this.authService.userLoggedIn().subscribe(res => {
+      this.createVisitGuard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
+      this.displaySignupStep = false;
+    });
+
+    this.authService.userLoggedOut().subscribe(res => {
+      this.displaySignupStep = true;
+
+      //If the selected step was above signin, return to signin step
+      if (this.stepper.selectedIndex > 1) {
+        this.stepper.selectedIndex = 1;
+      }
+    });
 
     var options = {
       types: ['address'],
@@ -132,5 +152,27 @@ export class CreerVisiteComponent implements OnInit, AfterViewInit {
     }, err => {
       this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');
     });
+  }
+
+  openStripePopup() {
+    var handler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_EJlsBsLshUf7TNnB2ITpQ7sB',
+      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+      locale: 'auto',
+      zipCode: true,
+      currency: 'eur',
+      token: function (token: any) {
+        console.log(token);
+        // You can access the token ID with `token.id`.
+        // Get the token ID to your server-side code for use.
+      }
+    });
+
+    handler.open({
+      name: 'Weflat',
+      description: 'Règlement de la prestation',
+      amount: 15000
+    });
+
   }
 }

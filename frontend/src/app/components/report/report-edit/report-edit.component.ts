@@ -10,7 +10,6 @@ import { PositionClass } from 'app/models/PositionClass';
 import { AbstractControl } from '@angular/forms/src/model';
 import { RenovationClass } from 'app/models/RenovationClass';
 import { PositionEnum } from 'app/common/enums/PositionEnum';
-import * as _ from 'lodash';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -71,7 +70,7 @@ export class ReportEditComponent implements OnInit {
           });
         }
 
-        const missingMandatoryRows = _.filter(this.mandatoryPositions, x => !_.map(this.report.renovations, x => x.position.id).includes(x.id));
+        const missingMandatoryRows = this.mandatoryPositions.filter(x => !this.report.renovations.map(x => x.position.id).includes(x.id));
 
         //Add unsaved mandatory positions
         for (let position of missingMandatoryRows) {
