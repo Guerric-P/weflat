@@ -8,7 +8,7 @@ export class AcheteurService {
   constructor(private http: HttpClient) { }
 
   postAcheteur(acheteur: AcheteurClass){
-    return this.http.post('/backend/acheteur', acheteur, { responseType: 'text'});
+    return this.http.post('/acheteur', acheteur, { responseType: 'text'});
   }
 
 }

@@ -18,7 +18,7 @@ export class AuthenticationService {
     public returnUrl: string;
 
     login(username: string, password: string) {
-        return this.http.post('/backend/login', JSON.stringify({ username: username, password: password }))
+        return this.http.post('/login', JSON.stringify({ username: username, password: password }))
             .map((response: any) => {
                 // login successful if there's a jwt token in the response
                 this.localStorageService.token = response.token;
@@ -33,7 +33,7 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage to log user out
-        this.http.get("/backend/logout", { responseType: 'text' }).subscribe();
+        this.http.get('/logout', { responseType: 'text' }).subscribe();
         this.localStorageService.removeToken();
         this.localStorageService.removeTokenPayload();
         this.userLoggedOutSubject.next();
