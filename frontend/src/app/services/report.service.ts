@@ -9,18 +9,18 @@ export class ReportService {
   constructor(private http: HttpClient) { }
 
   getByVisitId(visitId: number): Observable<ReportClass> {
-    return this.http.get<ReportClass>(`/backend/visits/${visitId}/report`);
+    return this.http.get<ReportClass>(`/visits/${visitId}/report`);
   }
 
   postReport(visitId: number, report: ReportClass): Observable<any> {
-    return this.http.post(`/backend/visits/${visitId}/report`, report, { responseType: 'text' });
+    return this.http.post(`/visits/${visitId}/report`, report, { responseType: 'text' });
   }
 
   patchReport(visitId: number, report: ReportClass): Observable<any> {
-    return this.http.patch(`/backend/visits/${visitId}/report`, report);
+    return this.http.patch(`/visits/${visitId}/report`, report);
   }
 
   submitReport(visitId: number): Observable<any> {
-    return this.http.post(`/backend/visits/${visitId}/report/submit`, null);
+    return this.http.post(`/visits/${visitId}/report/submit`, null);
   }
 }
