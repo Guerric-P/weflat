@@ -32,7 +32,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   errorMessage: string;
   signinModal: NgbModalRef;
   signupModal: NgbModalRef;
-  subscription: Subscription;
+  routerEventsSubscription: Subscription;
+  showSigninPopupSubscription: Subscription;
   @ViewChild('signinModal') signinModalTemplate: TemplateRef<any>;
 
   ngOnInit() {
@@ -41,7 +42,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.router.navigate([this.authService.returnUrl]);
     }
 
-    this.subscription = this.router.events.subscribe((data) => {
+    this.routerEventsSubscription = this.router.events.subscribe((data) => {
       if (data instanceof RoutesRecognized) {
         this.routeData = data.state.root.firstChild.data;
       }
@@ -53,13 +54,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.showSigninPopupService.showSigninPopupObservable$.subscribe(x => {
+    this.showSigninPopupSubscription = this.showSigninPopupService.showSigninPopupObservable$.subscribe(x => {
       this.openSignin(this.signinModalTemplate);
     });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.routerEventsSubscription.unsubscribe();
+    this.showSigninPopupSubscription.unsubscribe();
   }
 
   displaySigninPopup() {

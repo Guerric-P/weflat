@@ -1,6 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, TemplateRef } from '@angular/core';
 import { SessionStorageService } from 'app/services/session-storage.service';
 import { Router } from '@angular/router';
+import { VisiteService } from 'app/services/visite.service';
+import { GooglePlaceKeys } from 'app/common/GooglePlaceKeys';
+import { VisiteClass } from 'app/models/visiteclass';
+import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ZipCodeClass } from 'app/models/ZipCodeClass';
 
 declare var google: any;
 
@@ -11,9 +16,17 @@ declare var google: any;
 })
 export class AddressFieldComponent implements OnInit {
 
-  constructor(private sessionStorageService: SessionStorageService, private router: Router, private zone: NgZone) { }
+  constructor(private sessionStorageService: SessionStorageService,
+    private router: Router,
+    private zone: NgZone,
+    private visitService: VisiteService,
+    private modalService: NgbModal) { }
 
+  noArchitectsModal: NgbModalRef;
   @ViewChild('input') input: ElementRef;
+  @ViewChild('noArchitectsModal') noArchitectsModalTemplate: TemplateRef<any>;
+  visit: VisiteClass = new VisiteClass();
+  place: any;
 
   ngOnInit() {
     var options = {
@@ -24,12 +37,48 @@ export class AddressFieldComponent implements OnInit {
     };
     var autocomplete = new google.maps.places.Autocomplete(this.input.nativeElement, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
-      var place = autocomplete.getPlace();
-      this.sessionStorageService.place = place;
-      this.zone.run(() => {
-        this.router.navigate(['/create-visit']);
-      });
+      this.placeChanged(autocomplete);
     }.bind(this));
+  }
+
+  placeChanged(autocomplete) {
+    this.zone.run(() => {
+      this.place = autocomplete.getPlace();
+      this.sessionStorageService.place = this.place;
+      let keys = Object.keys(GooglePlaceKeys);
+
+      for (let key of keys) {
+        for (let component of this.place.address_components) {
+          if (component.types.includes(GooglePlaceKeys[key])) {
+            if (key !== 'zipCode') {
+              this.visit[key] = component.long_name;
+            } else {
+              this.visit.zipCode = new ZipCodeClass({ number: component.long_name });
+            }
+          }
+        }
+      }
+
+      this.visitService.post(this.visit).subscribe(res => {
+        if (!res.architectsAvailable) {
+          this.noArchitectsModal = this.modalService.open(this.noArchitectsModalTemplate);
+
+          this.noArchitectsModal.result.then((result) => {
+            this.sessionStorageService.place = this.place;
+            this.sessionStorageService.visit = this.visit;
+            this.router.navigate(['/create-visit']);
+          }, (reason) => {
+            (this.input.nativeElement as HTMLInputElement).value = null;
+          });
+        }
+        else {
+          this.visit.id = res.visitId;
+          this.sessionStorageService.visit = this.visit;
+          this.router.navigate(['/create-visit']);
+        }
+      });
+    });
+
   }
 
 }
