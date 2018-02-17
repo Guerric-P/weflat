@@ -7,8 +7,16 @@ import { Observable } from "rxjs/Observable";
 export class VisiteService {
     constructor(private http: HttpClient) { }
 
-    postVisit(visite: VisiteClass){
-        return this.http.post('/visits', visite, { responseType: 'text'});
+    post(visite: VisiteClass){
+        return this.http.post<any>('/visits', visite);
+    }
+
+    completeCreation(visite: VisiteClass){
+        return this.http.patch(`/visits/${visite.id}/complete`, visite);
+    }
+
+    pay(id: number, token: string){
+        return this.http.post(`/visits/${id}/pay?token=${token}`, null);
     }
 
     getAvailableVisits(): Observable<VisiteClass[]> {

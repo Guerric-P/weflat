@@ -9,6 +9,11 @@ import { VisiteClass } from 'app/models/visiteclass';
 import { AuthenticationService } from 'app/services/authentication.service';
 import { CreateVisitGuard } from 'app/guards/create-visit.guard';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ZipCodeClass } from 'app/models/ZipCodeClass';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { CdkStep } from '@angular/cdk/stepper';
+import { AcheteurService } from 'app/services/acheteur.service';
+import { GooglePlaceKeys } from 'app/common/GooglePlaceKeys';
 
 declare var google;
 
@@ -22,19 +27,19 @@ export class CreateVisitComponent implements OnInit {
   isLinear = true;
   dateFormGroup: FormGroup;
   addressFormGroup: FormGroup;
-  place: any;
+  projectFormGroup: FormGroup;
   map: any;
   marker: any;
   @ViewChild('googleMap') googleMap: ElementRef;
   @ViewChild('addressInput') addressInput: ElementRef;
   @ViewChild('stepper') stepper: MatHorizontalStepper;
-  placeKeys = {
-    streetNumber: 'street_number',
-    route: 'route',
-    zipCode: 'postal_code',
-    city: 'locality'
-  }
+  @ViewChild('projectStep') projectStep: CdkStep;
+  @ViewChild('paymentStep') paymentStep: CdkStep;
+  @ViewChild('locationStep') locationStep: CdkStep;
   displaySignupStep: boolean;
+  visit: VisiteClass = new VisiteClass();
+  place: any;
+  payButtonDisabled: boolean = true;
 
   constructor(private ref: ChangeDetectorRef,
     private _formBuilder: FormBuilder,
@@ -44,11 +49,16 @@ export class CreateVisitComponent implements OnInit {
     private notificationService: NotificationsService,
     private authService: AuthenticationService,
     private createVisitGuard: CreateVisitGuard,
-    private router: Router, private route: ActivatedRoute, ) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private acheteurService: AcheteurService) { }
 
   ngOnInit() {
     this.place = this.sessionStorageService.place;
     this.sessionStorageService.place = undefined;
+
+    this.visit = this.sessionStorageService.visit;
+    this.sessionStorageService.visit = undefined;
 
     this.displaySignupStep = !this.authService.isLoggedIn();
 
@@ -83,6 +93,7 @@ export class CreateVisitComponent implements OnInit {
     this.dateFormGroup = this._formBuilder.group({
       datePicker: ['', Validators.required]
     });
+
     this.addressFormGroup = this._formBuilder.group({
       addressInput: ['', Validators.required],
       streetNumber: [{ value: '', disabled: true }, Validators.required],
@@ -90,6 +101,8 @@ export class CreateVisitComponent implements OnInit {
       zipCode: [{ value: '', disabled: true }, Validators.required],
       city: [{ value: '', disabled: true }, Validators.required]
     });
+
+    //this.projectFormGroup = this._formBuilder.group();
 
     if (this.place) {
       this.displayAddressComponents();
@@ -113,11 +126,11 @@ export class CreateVisitComponent implements OnInit {
   }
 
   displayAddressComponents() {
-    let keys = Object.keys(this.placeKeys);
+    let keys = Object.keys(GooglePlaceKeys);
 
     for (let key of keys) {
       for (let component of this.place.address_components) {
-        if (component.types.includes(this.placeKeys[key])) {
+        if (component.types.includes(GooglePlaceKeys[key])) {
           this.addressFormGroup.controls[key].setValue(component.long_name);
         }
       }
@@ -140,15 +153,15 @@ export class CreateVisitComponent implements OnInit {
     this.map.setZoom(16);
   }
 
-  createVisit() {
+  postVisit() {
     let visite = new VisiteClass();
     visite.city = this.addressFormGroup.controls['city'].value;
     visite.route = this.addressFormGroup.controls['route'].value;
     visite.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
-    visite.zipCode = this.addressFormGroup.controls['zipCode'].value;
+    visite.zipCode = new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value });
     visite.visiteDate = moment(this.dateFormGroup.controls['datePicker'].value).toDate();
-    this.visiteService.postVisit(visite).subscribe(res => {
-      this.notificationService.success('Succès', 'La visite a été créée');
+    this.visiteService.post(visite).subscribe(res => {
+      this.visit.id = res.visitId;
     }, err => {
       this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');
     });
@@ -162,10 +175,11 @@ export class CreateVisitComponent implements OnInit {
       zipCode: true,
       currency: 'eur',
       token: function (token: any) {
-        console.log(token);
-        // You can access the token ID with `token.id`.
-        // Get the token ID to your server-side code for use.
-      }
+        this.visiteService.pay(this.visit.id, token.id).subscribe(res => {
+          this.notificationService.success('Paiement effectué', 'Le paiement a réussi pour votre création de visite.');
+          this.router.navigate(['/acheteur']);
+        });
+      }.bind(this)
     });
 
     handler.open({
@@ -174,5 +188,31 @@ export class CreateVisitComponent implements OnInit {
       amount: 15000
     });
 
+  }
+
+  selectionChanged(event: StepperSelectionEvent) {
+    if (event.selectedStep == this.locationStep) {
+      if (!this.visit.id) {
+        this.postVisit();
+      }
+      /*this.acheteurService.getAcheteur().subscribe(res => {
+        if(res.project) {
+          this.projectFormGroup = this._formBuilder.group({
+            announcementUrl: ['', Validators.required],
+          });
+        }
+        else {
+          this.projectFormGroup = this._formBuilder.group({
+            project: ['', Validators.required],
+            announcementUrl: ['', Validators.required],
+          });
+        }
+      });*/
+    }
+    if (event.selectedStep == this.paymentStep) {
+      this.visiteService.completeCreation(this.visit).subscribe(res => {
+        this.payButtonDisabled = false;
+      });
+    }
   }
 }

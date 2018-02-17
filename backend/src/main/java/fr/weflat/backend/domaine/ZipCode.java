@@ -38,6 +38,9 @@ public class ZipCode {
 	@Column(nullable = false, name = "number", unique = true)
 	private String number;
 	
+	@Column(nullable = false, name = "active", unique = true)
+	private boolean active;
+	
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "architecte_zip_code", joinColumns = @JoinColumn(name = "id_zip_code", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_architecte", referencedColumnName = "id"))
 	private Set<Architecte> architectes;
@@ -71,5 +74,10 @@ public class ZipCode {
 	public void setArchitectes(Set<Architecte> architectes) {
 		this.architectes = architectes;
 	}
-
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 }

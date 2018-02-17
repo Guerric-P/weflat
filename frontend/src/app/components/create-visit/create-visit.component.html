@@ -1,4 +1,4 @@
-<mat-horizontal-stepper #stepper [linear]="isLinear">
+<mat-horizontal-stepper #stepper [linear]="isLinear" (selectionChange)="selectionChanged($event)">
   <mat-step [stepControl]="dateFormGroup">
     <div class="container">
       <div class="col">
@@ -23,7 +23,18 @@
     <ng-template matStepLabel>Qui êtes-vous ?</ng-template>
     <app-register-acheteur [isEmbedded]="true"></app-register-acheteur>
   </mat-step>
-  <mat-step [stepControl]="addressFormGroup">
+  <mat-step #projectStep>
+    <ng-template matStepLabel>Votre projet</ng-template>
+    <!--<form [formGroup]="projectFormGroup">
+      <mat-form-field>
+        <textarea matInput placeholder="Projet" formControlName="project" required></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="URL de l'annonce" formControlName="announcementUrl" required>
+      </mat-form-field>
+    </form>-->
+  </mat-step>
+  <mat-step [stepControl]="addressFormGroup" #locationStep>
     <form [formGroup]="addressFormGroup">
       <div class="row">
         <div class="col-sm-4">
@@ -55,16 +66,16 @@
       </div>
     </form>
   </mat-step>
-  <mat-step>
+  <mat-step #paymentStep>
     <ng-template matStepLabel>Paiement</ng-template>
     <div class="container">
       <div class="col">
         <div class="row justify-content-center align-items-center">
-            
+
         </div>
         <div class="row justify-content-center align-items-center">
           <button mat-raised-button matStepperPrevious>Précédent</button>
-          <button mat-raised-button color="primary" (click)="openStripePopup()">Payer</button>
+          <button mat-raised-button color="primary" (click)="openStripePopup()" [disabled]="payButtonDisabled">Payer</button>
         </div>
       </div>
     </div>

@@ -10,7 +10,18 @@ export class VisiteClass {
     public route: string;
     public streetNumber: string;
     public visiteDate: Date;
-    public status: number
+    public status: number;
+    public annoucementUrl: string;
+
+    formattedAddress() {
+        return this.streetNumber
+        + ', '
+        + this.route
+        + ' - '
+        + this.zipCode.number
+        + ' '
+        + this.city;
+    }
 
     constructor(obj?: any) {
         Object.assign(this, obj);

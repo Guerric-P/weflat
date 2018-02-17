@@ -56,13 +56,11 @@ public class ArchitecteController {
 	}
 	
 	@RequestMapping(path="", method=RequestMethod.POST)
-    public String postArchitecte(@RequestBody UtilisateurSignupDto input) {
+    public void postArchitecte(@RequestBody UtilisateurSignupDto input) {
 		
 		Architecte architecte = orikaMapperFacade.map(input, Architecte.class);
 		architecte.setStatus(ArchitectStatusEnum.CREATED.ordinal());
 		architecteService.save(architecte);
-		
-		return "";
     }
 	
 	@SuppressWarnings("unchecked")
@@ -77,13 +75,12 @@ public class ArchitecteController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path="", method=RequestMethod.PATCH)
-    public String patchArchitecte(@RequestBody ArchitecteDto input, Authentication authentication) {
+    public void patchArchitecte(@RequestBody ArchitecteDto input, Authentication authentication) {
 		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
 		
 		Architecte architecte = architecteService.getById((Long)details.get("id"));
 		orikaMapperFacade.map(input, architecte);
 		architecteService.save(architecte);
-		
-		return "";
+
     }
 }

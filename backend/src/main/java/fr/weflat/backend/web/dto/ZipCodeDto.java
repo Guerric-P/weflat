@@ -3,6 +3,7 @@ package fr.weflat.backend.web.dto;
 public class ZipCodeDto {
 	private Long id;
 	private String number;
+	private boolean active;
 	
 	public ZipCodeDto() {
 	}
@@ -22,6 +23,14 @@ public class ZipCodeDto {
 	}
 	public void setNumber(String number) {
 		this.number = number;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 }

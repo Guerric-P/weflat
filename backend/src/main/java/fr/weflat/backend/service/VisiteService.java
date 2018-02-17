@@ -5,7 +5,7 @@ import java.util.Set;
 import fr.weflat.backend.domaine.Visite;
 
 public interface VisiteService {
-	void save(Visite visite);
+	Long save(Visite visite);
 	
 	Set<Visite> findAvailableVisits(Long idArchitecte);
 	
@@ -17,8 +17,16 @@ public interface VisiteService {
 	
 	Visite getById(Long id);
 	
+	void createVisit(Visite visit, Long idAcheteur) throws Exception;
+	
+	void completeVisitCreation(Visite visit, Long idAcheteur) throws Exception;
+	
+	void pay(Visite visit, String token) throws Exception;
+	
 	void accept(Long idVisite, Long idArchitecte) throws Exception;
 	
 	void refuse(Long idVisite, Long idArchitecte) throws Exception;
+	
+	boolean isVisitComplete(Visite visit);
 
 }

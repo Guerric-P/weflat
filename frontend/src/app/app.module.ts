@@ -117,7 +117,7 @@ const appRoutes: Routes = [
     ]
   }, {
     path: 'acheteur', component: AcheteurLayoutComponent, canActivate: [AuthGuard, AcheteurGuard], data: { authRequired: true }, children: [
-      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+      { path: '', redirectTo: 'my-visits', pathMatch: 'full' },
       { path: 'visit', component: CreateVisitComponent, data: { authRequired: true } },
       { path: 'profile', component: AcheteurProfileComponent, data: { authRequired: true } },
       { path: 'project', component: PurchaseProjectComponent, data: { authRequired: true } },

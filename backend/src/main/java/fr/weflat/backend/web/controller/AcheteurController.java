@@ -3,6 +3,7 @@ package fr.weflat.backend.web.controller;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.weflat.backend.domaine.Acheteur;
 import fr.weflat.backend.service.AcheteurService;
+import fr.weflat.backend.web.dto.AcheteurDto;
 import fr.weflat.backend.web.dto.UtilisateurSignupDto;
 import ma.glasnost.orika.MapperFacade;
 
@@ -24,10 +26,14 @@ public class AcheteurController {
 	MapperFacade orikaMapperFacade;
 	
 	@RequestMapping(path="", method=RequestMethod.POST)
-    public String postAcheteur(@RequestBody UtilisateurSignupDto input) {
+    public void postAcheteur(@RequestBody UtilisateurSignupDto input) {
 		
 		acheteurService.save(orikaMapperFacade.map(input, Acheteur.class));
 		
-		return "";
     }
+	
+	@RequestMapping(path="", method= RequestMethod.GET)
+	public AcheteurDto getAcheteur(@PathVariable("id") long id) {
+        return orikaMapperFacade.map(acheteurService.findById(id), AcheteurDto.class);
+	}
 }

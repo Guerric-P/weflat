@@ -6,4 +6,14 @@ public class AcheteurDto extends UtilisateurDto {
 
 	}
     
+    public String getProject() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
+	}
+
+	private String project;
+    
 }
