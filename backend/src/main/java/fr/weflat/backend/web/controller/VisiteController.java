@@ -110,8 +110,8 @@ public class VisiteController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/{id}/complete", method = RequestMethod.PATCH)
-	public void completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
+	@RequestMapping(path = "/{id}", method = RequestMethod.PATCH)
+	public VisitCreationResponseDto completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
 
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
@@ -120,11 +120,12 @@ public class VisiteController {
 		if(visit.getAcheteur() != null && visit.getAcheteur().getId() != (Long)details.get("id")) {
 			throw new AccessDeniedException("Non autorisé.");
 		}
-		else if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal()) {
-			throw new Exception("Visit non eligible for completion.");
+		else if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() && visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
+			throw new Exception("Visit non eligible for modification.");
 		} else {
 			orikaMapperFacade.map(input, visit);
 			visiteService.completeVisitCreation(visit, (Long)details.get("id"));
+			return new VisitCreationResponseDto(visiteService.isVisitComplete(visit), visit.getZipCode().isActive(), visit.getId());
 		}
 	}
 

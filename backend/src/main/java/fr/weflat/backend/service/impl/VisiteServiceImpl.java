@@ -6,11 +6,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.assertj.core.util.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Preconditions;
 import com.querydsl.core.types.Predicate;
 import com.stripe.Stripe;
 import com.stripe.model.Charge;
@@ -21,7 +21,6 @@ import fr.weflat.backend.domaine.Acheteur;
 import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.domaine.QVisite;
 import fr.weflat.backend.domaine.Visite;
-import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.enums.VisitStatusEnum;
 import fr.weflat.backend.service.AcheteurService;
 import fr.weflat.backend.service.ArchitecteService;
@@ -194,8 +193,10 @@ public class VisiteServiceImpl implements VisiteService {
 		Acheteur acheteur = null;
 
 		if(idAcheteur != null) {
-			acheteurService.findById(idAcheteur);
+			acheteur = acheteurService.findById(idAcheteur);
 		}
+		
+		visit.setAcheteur(acheteur);
 
 		if(visit.getZipCode() != null && visit.getZipCode().isActive()) {
 			if(isVisitComplete(visit)) {
@@ -209,8 +210,6 @@ public class VisiteServiceImpl implements VisiteService {
 			visit.setStatus(VisitStatusEnum.UNASSIGNED.ordinal());
 		}
 
-
-		visit.setAcheteur(acheteur);
 		visit.setCreationDate(new Date());
 
 		save(visit);
@@ -235,7 +234,12 @@ public class VisiteServiceImpl implements VisiteService {
 
 			charge = Charge.create(params);
 
+			Set<Architecte> nearbyArchitectes = architecteService.findNearbyArchitectes(visit.getZipCode().getNumber());
+
+			visit.setNearbyArchitectes(nearbyArchitectes);
+			
 			visit.setStatus(VisitStatusEnum.BEING_ASSIGNED.ordinal());
+			
 			save(visit);
 		}
 		catch(Exception e) {
@@ -250,22 +254,18 @@ public class VisiteServiceImpl implements VisiteService {
 
 	@Override
 	public void completeVisitCreation(Visite visit, Long idAcheteur) throws Exception {
-		
+
 		Acheteur acheteur = null;
 
 		if(idAcheteur != null) {
-			acheteurService.findById(idAcheteur);
+			acheteur = acheteurService.findById(idAcheteur);
 		}
 
 		if(visit.getZipCode() == null) {
 			throw new Exception("No architects are available for zip code : " + visit.getZipCode().getNumber());
 		}
-
+		
 		if(isVisitComplete(visit) && visit.getZipCode().isActive()) {
-
-			Set<Architecte> nearbyArchitectes = architecteService.findNearbyArchitectes(visit.getZipCode().getNumber());
-
-			visit.setNearbyArchitectes(nearbyArchitectes);
 			visit.setStatus(VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal());
 		}
 
@@ -279,7 +279,7 @@ public class VisiteServiceImpl implements VisiteService {
 		return visit.getCity() != null
 				&& visit.getStreetNumber() != null
 				&& visit.getRoute() != null
-				&& visit.getCity() != null
-				&& visit.getAnnouncementUrl() != null;
+				&& visit.getAnnouncementUrl() != null
+				&& visit.getAcheteur() != null;
 	}
 }

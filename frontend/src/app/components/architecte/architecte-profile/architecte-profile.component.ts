@@ -11,6 +11,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 import { ArchitectStatusEnum } from 'app/common/enums/ArchitectStatusEnum'
 import { UserService } from 'app/services/user.service';
+import { AuthenticationService } from 'app/services/authentication.service';
 
 @Component({
   selector: 'app-architecte-profile',
@@ -23,7 +24,8 @@ export class ArchitecteProfileComponent implements OnInit {
     private architecteService: ArchitecteService,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
-    private userService: UserService) { }
+    private userService: UserService,
+    private authService: AuthenticationService) { }
 
   form: FormGroup;
   architectTypes: ArchitectTypeClass[];
@@ -42,7 +44,7 @@ export class ArchitecteProfileComponent implements OnInit {
       firstName: [this.architecte.firstName, Validators.required],
       lastName: [this.architecte.lastName, Validators.required],
       birthDate: [this.architecte.birthDate && moment(this.architecte.birthDate).format('YYYY-MM-DD'), [Validators.required]],
-      email: [{value: this.architecte.email, disabled: true}, [Validators.required, Validators.email]],
+      email: [{ value: this.architecte.email, disabled: true }, [Validators.required, Validators.email]],
       telephone: [this.architecte.telephone, [Validators.required, Validators.pattern(/0(6|7)\d{8}/)]],
       type: [this.architecte.type && this.architecte.type.id],
       situation: [this.architecte.situation && this.architecte.situation.id],
@@ -78,7 +80,7 @@ export class ArchitecteProfileComponent implements OnInit {
         cgu: formModel.cgu
       });
 
-      this.architecteService.patchArchitecte(architect).subscribe(res => {
+      this.architecteService.patchArchitecte(architect, this.authService.userId()).subscribe(res => {
         this.notificationsService.success('Merci !', 'Vos informations ont été sauvegardées avec succès.');
       }, err => {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de l\'enregistrement de vos informations.');
@@ -95,7 +97,7 @@ export class ArchitecteProfileComponent implements OnInit {
   }
 
   changePassword(password: string, event?: KeyboardEvent) {
-    if(event) event.preventDefault();
+    if (event) event.preventDefault();
     this.userService.changePassword(password).subscribe(res => {
       this.notificationsService.success('Merci !', 'Votre mot de passe a été changé avec succès.');
     }, err => {

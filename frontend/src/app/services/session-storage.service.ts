@@ -5,6 +5,7 @@ import { VisiteClass } from 'app/models/visiteclass';
 export class SessionStorageService {
 
   private _place: any;
+  private _visitInfos: any;
   private _visit: VisiteClass;
 
   constructor() { }
@@ -23,6 +24,14 @@ export class SessionStorageService {
 
   set visit(visit: VisiteClass) {
     this._visit = visit;
+  }
+
+  get visitInfos(): any {
+    return this._visitInfos;
+  }
+
+  set visitInfos(visitInfos: any) {
+    this._visitInfos = visitInfos;
   }
 
 }

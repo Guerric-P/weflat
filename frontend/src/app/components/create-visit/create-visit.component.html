@@ -8,12 +8,12 @@
             <h1>Quand a lieu votre visite ?</h1>
           </div>
           <div class="row justify-content-center align-items-center mt-3">
-            <mat-form-field>
+            <mat-form-field id="visit-date">
               <input matInput type="datetime-local" formControlName="datePicker" placeholder="Choisissez une date..." required>
             </mat-form-field>
           </div>
           <div class="row justify-content-center align-items-center">
-            <button mat-raised-button matStepperNext>Suivant</button>
+            <button mat-raised-button color="primary" matStepperNext>Suivant</button>
           </div>
         </form>
       </div>
@@ -23,18 +23,37 @@
     <ng-template matStepLabel>Qui êtes-vous ?</ng-template>
     <app-register-acheteur [isEmbedded]="true"></app-register-acheteur>
   </mat-step>
-  <mat-step #projectStep>
+  <mat-step [stepControl]="projectFormGroup" #projectStep>
     <ng-template matStepLabel>Votre projet</ng-template>
-    <!--<form [formGroup]="projectFormGroup">
-      <mat-form-field>
-        <textarea matInput placeholder="Projet" formControlName="project" required></textarea>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="URL de l'annonce" formControlName="announcementUrl" required>
-      </mat-form-field>
-    </form>-->
+    <div class="col">
+      <form [formGroup]="projectFormGroup">
+        <div class="row justify-content-center align-items-center">
+          <h1>Projet</h1>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <mat-form-field id="project">
+            <textarea matInput placeholder="Décrivez votre projet immobilier..." formControlName="project" required></textarea>
+          </mat-form-field>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <h1>Lien de l'annonce</h1>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <mat-form-field id="url">
+            <input type="url" matInput placeholder="URL de l'annonce du bien que vous allez visiter" formControlName="announcementUrl" required>
+          </mat-form-field>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <div class="d-flex justify-content-center mt-5">
+            <button mat-raised-button matStepperPrevious>Précédent</button>
+            <button mat-raised-button color="primary" matStepperNext>Suivant</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </mat-step>
-  <mat-step [stepControl]="addressFormGroup" #locationStep>
+  <mat-step [completed]="visitCreationComplete && architectsAvailable" [optional]="false" [editable]="true" #locationStep>
+    <app-disabled-zip-code-popup #popup></app-disabled-zip-code-popup>
     <form [formGroup]="addressFormGroup">
       <div class="row">
         <div class="col-sm-4">
@@ -58,24 +77,22 @@
         <div class="col-sm-8 google-maps-container" #googleMap>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <button mat-raised-button matStepperPrevious>Précédent</button>
-          <button mat-raised-button matStepperNext>Suivant</button>
-        </div>
+      <div class="d-flex justify-content-center mt-5">
+        <button mat-raised-button matStepperPrevious>Précédent</button>
+        <button mat-raised-button color="primary" matStepperNext [disabled]="!(visitCreationComplete && architectsAvailable)">Suivant</button>
       </div>
     </form>
   </mat-step>
-  <mat-step #paymentStep>
+  <mat-step #paymentStep [completed]="false">
     <ng-template matStepLabel>Paiement</ng-template>
     <div class="container">
       <div class="col">
         <div class="row justify-content-center align-items-center">
-
+            <h1>Récapitulatif</h1>
         </div>
         <div class="row justify-content-center align-items-center">
           <button mat-raised-button matStepperPrevious>Précédent</button>
-          <button mat-raised-button color="primary" (click)="openStripePopup()" [disabled]="payButtonDisabled">Payer</button>
+          <button mat-raised-button color="primary" (click)="openStripePopup()">Payer</button>
         </div>
       </div>
     </div>

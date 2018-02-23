@@ -12,7 +12,7 @@ export class VisiteService {
     }
 
     completeCreation(visite: VisiteClass){
-        return this.http.patch(`/visits/${visite.id}/complete`, visite);
+        return this.http.patch<any>(`/visits/${visite.id}`, visite);
     }
 
     pay(id: number, token: string){
