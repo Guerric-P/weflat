@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -74,9 +75,13 @@ public class ArchitecteController {
 	
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path="", method=RequestMethod.PATCH)
-    public void patchArchitecte(@RequestBody ArchitecteDto input, Authentication authentication) {
+	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
+    public void patchArchitecte(@PathVariable("id") long id, @RequestBody ArchitecteDto input, Authentication authentication) {
 		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
+
+		if(id != (Long)details.get("id")) {
+			throw new AccessDeniedException("Non autorisé.");
+		}
 		
 		Architecte architecte = architecteService.getById((Long)details.get("id"));
 		orikaMapperFacade.map(input, architecte);

@@ -9,11 +9,15 @@ export class AcheteurService {
   constructor(private http: HttpClient) { }
 
   postAcheteur(acheteur: AcheteurClass){
-    return this.http.post('/acheteur', acheteur, { responseType: 'text'});
+    return this.http.post('/acheteur', acheteur);
   }
 
-  getAcheteur(): Observable<AcheteurClass> {
-    return this.http.get<AcheteurClass>('/acheteur');
+  getAcheteur(id: number): Observable<AcheteurClass> {
+    return this.http.get<AcheteurClass>(`/acheteur/${id}`);
+  }
+
+  patchAcheteur(acheteur: AcheteurClass, acheteurId: number){
+    return this.http.patch(`/acheteur/${acheteurId}`, acheteur);
   }
 
 }

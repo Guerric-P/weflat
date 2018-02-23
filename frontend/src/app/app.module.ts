@@ -90,6 +90,7 @@ import { AcheteurClass } from './models/AcheteurClass';
 import { ArchitectSituationClass } from './models/ArchitectSituationClass';
 import { ArchitectTypeClass } from './models/ArchitectTypeClass';
 import { MyVisitsComponent } from './components/acheteur/my-visits/my-visits.component';
+import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 
 
 const appRoutes: Routes = [
@@ -151,7 +152,8 @@ const appRoutes: Routes = [
     PurchaseProjectComponent,
     ReportEditComponent,
     MyVisitsComponent,
-    CreateVisitComponent
+    CreateVisitComponent,
+    DisabledZipCodePopupComponent
   ],
   imports: [
     BrowserModule,

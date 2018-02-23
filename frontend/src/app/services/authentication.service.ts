@@ -72,4 +72,8 @@ export class AuthenticationService {
     userLoggedOut(): Observable<any> {
         return this.userLoggedOutSubject.asObservable();
     }
+
+    userId(): number {
+        return this.localStorageService.tokenPayload.id;
+    }
 }

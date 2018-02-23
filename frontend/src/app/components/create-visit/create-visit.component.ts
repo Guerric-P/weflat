@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateAdapter, MatHorizontalStepper } from '@angular/material';
 import { SessionStorageService } from 'app/services/session-storage.service';
@@ -14,6 +14,9 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { CdkStep } from '@angular/cdk/stepper';
 import { AcheteurService } from 'app/services/acheteur.service';
 import { GooglePlaceKeys } from 'app/common/GooglePlaceKeys';
+import { DisabledZipCodePopupComponent } from 'app/components/disabled-zip-code-popup/disabled-zip-code-popup.component';
+import { AcheteurClass } from 'app/models/AcheteurClass';
+import { environment } from '../../../environments/environment';
 
 declare var google;
 
@@ -36,10 +39,12 @@ export class CreateVisitComponent implements OnInit {
   @ViewChild('projectStep') projectStep: CdkStep;
   @ViewChild('paymentStep') paymentStep: CdkStep;
   @ViewChild('locationStep') locationStep: CdkStep;
+  @ViewChild('popup') popup: DisabledZipCodePopupComponent;
   displaySignupStep: boolean;
   visit: VisiteClass = new VisiteClass();
   place: any;
-  payButtonDisabled: boolean = true;
+  visitCreationComplete: boolean = false;
+  architectsAvailable: boolean = false;
 
   constructor(private ref: ChangeDetectorRef,
     private _formBuilder: FormBuilder,
@@ -51,14 +56,24 @@ export class CreateVisitComponent implements OnInit {
     private createVisitGuard: CreateVisitGuard,
     private router: Router,
     private route: ActivatedRoute,
-    private acheteurService: AcheteurService) { }
+    private acheteurService: AcheteurService,
+    private zone: NgZone) { }
 
   ngOnInit() {
-    this.place = this.sessionStorageService.place;
-    this.sessionStorageService.place = undefined;
+    if (this.sessionStorageService.place) {
+      this.place = this.sessionStorageService.place;
+      this.sessionStorageService.place = undefined;
+    }
 
-    this.visit = this.sessionStorageService.visit;
-    this.sessionStorageService.visit = undefined;
+    if (this.sessionStorageService.visit) {
+      this.visit = this.sessionStorageService.visit;
+      this.sessionStorageService.visit = undefined;
+    }
+
+    if (this.sessionStorageService.visitInfos) {
+      this.visitCreationComplete = this.sessionStorageService.visitInfos.visitCreationComplete;
+      this.architectsAvailable = this.sessionStorageService.visitInfos.architectsAvailable;
+    }
 
     this.displaySignupStep = !this.authService.isLoggedIn();
 
@@ -87,7 +102,9 @@ export class CreateVisitComponent implements OnInit {
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       this.place = autocomplete.getPlace();
       this.displayAddressComponents.bind(this)();
-      this.placeMarker.bind(this)()
+      this.placeMarker.bind(this)();
+      this.loadVisit.bind(this)();
+      this.completeVisitCreation.bind(this)();
     }.bind(this));
 
     this.dateFormGroup = this._formBuilder.group({
@@ -102,7 +119,18 @@ export class CreateVisitComponent implements OnInit {
       city: [{ value: '', disabled: true }, Validators.required]
     });
 
-    //this.projectFormGroup = this._formBuilder.group();
+    this.projectFormGroup = this._formBuilder.group({
+      project: ['', Validators.required],
+      announcementUrl: ['', [Validators.required, Validators.pattern(/^(http|https):\/\/[^ "]+$/)]]
+    });
+
+    this.projectFormGroup.valueChanges.subscribe(() => {
+      this.loadVisit();
+    });
+
+    this.addressFormGroup.valueChanges.subscribe(() => {
+      this.loadVisit();
+    });
 
     if (this.place) {
       this.displayAddressComponents();
@@ -153,23 +181,38 @@ export class CreateVisitComponent implements OnInit {
     this.map.setZoom(16);
   }
 
-  postVisit() {
-    let visite = new VisiteClass();
-    visite.city = this.addressFormGroup.controls['city'].value;
-    visite.route = this.addressFormGroup.controls['route'].value;
-    visite.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
-    visite.zipCode = new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value });
-    visite.visiteDate = moment(this.dateFormGroup.controls['datePicker'].value).toDate();
-    this.visiteService.post(visite).subscribe(res => {
-      this.visit.id = res.visitId;
-    }, err => {
-      this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');
+  loadVisit() {
+    this.visit.city = this.addressFormGroup.controls['city'].value;
+    this.visit.route = this.addressFormGroup.controls['route'].value;
+    this.visit.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
+    this.visit.zipCode = new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value });
+    this.visit.announcementUrl = this.projectFormGroup.controls['announcementUrl'].value;
+    this.visit.visiteDate = moment(this.dateFormGroup.controls['datePicker'].value).toDate();
+  }
+
+  async postNewVisit() {
+    return new Promise((resolve, reject) => {
+      this.loadVisit();
+      this.visiteService.post(this.visit).subscribe(res => {
+        this.visit.id = res.visitId;
+        this.visitCreationComplete = res.complete;
+        this.architectsAvailable = res.architectsAvailable;
+        if (!this.architectsAvailable) {
+          this.popup.open(this.visit);
+        }
+        resolve();
+      }, err => {
+        this.visitCreationComplete = false;
+        this.architectsAvailable = false;
+        this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');
+        reject();
+      });
     });
   }
 
   openStripePopup() {
     var handler = (<any>window).StripeCheckout.configure({
-      key: 'pk_test_EJlsBsLshUf7TNnB2ITpQ7sB',
+      key: environment.stripePublicKey,
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       zipCode: true,
@@ -191,28 +234,53 @@ export class CreateVisitComponent implements OnInit {
   }
 
   selectionChanged(event: StepperSelectionEvent) {
-    if (event.selectedStep == this.locationStep) {
-      if (!this.visit.id) {
-        this.postVisit();
-      }
-      /*this.acheteurService.getAcheteur().subscribe(res => {
-        if(res.project) {
-          this.projectFormGroup = this._formBuilder.group({
-            announcementUrl: ['', Validators.required],
-          });
-        }
-        else {
-          this.projectFormGroup = this._formBuilder.group({
-            project: ['', Validators.required],
-            announcementUrl: ['', Validators.required],
-          });
-        }
-      });*/
-    }
-    if (event.selectedStep == this.paymentStep) {
-      this.visiteService.completeCreation(this.visit).subscribe(res => {
-        this.payButtonDisabled = false;
+    if (event.selectedStep == this.projectStep) {
+      this.acheteurService.getAcheteur(this.authService.userId()).subscribe(res => {
+        this.projectFormGroup.controls['project'].setValue(res.project);
       });
     }
+    if (event.previouslySelectedStep == this.projectStep) {
+      this.acheteurService.patchAcheteur(
+        new AcheteurClass(
+          {
+            project: this.projectFormGroup.controls['project'].value
+          }
+        ), this.authService.userId()
+      ).subscribe(res => {
+        //TODO
+      }, err => {
+        //TODO
+      });
+    }
+    if (event.selectedStep == this.locationStep && !(this.architectsAvailable && this.visitCreationComplete)) {
+      this.visiteService.completeCreation(this.visit).subscribe(res => {
+        this.visitCreationComplete = res.complete;
+        this.architectsAvailable = res.architectsAvailable;
+      }, err => {
+        this.visitCreationComplete = false;
+        this.architectsAvailable = false;
+      });
+    }
+  }
+
+  async completeVisitCreation() {
+    this.zone.run(() => {
+      this.visitCreationComplete = false;
+      if (!this.visit.id) {
+        this.postNewVisit();
+      }
+      else {
+        this.visiteService.completeCreation(this.visit).subscribe(res => {
+          this.visitCreationComplete = res.complete;
+          this.architectsAvailable = res.architectsAvailable;
+          if (!this.architectsAvailable) {
+            this.popup.open(this.visit);
+          }
+        }, err => {
+          this.visitCreationComplete = false;
+          this.architectsAvailable = false;
+        });
+      }
+    });
   }
 }

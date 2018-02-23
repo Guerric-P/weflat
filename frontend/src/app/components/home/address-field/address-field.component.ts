@@ -6,6 +6,7 @@ import { GooglePlaceKeys } from 'app/common/GooglePlaceKeys';
 import { VisiteClass } from 'app/models/visiteclass';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ZipCodeClass } from 'app/models/ZipCodeClass';
+import { DisabledZipCodePopupComponent } from 'app/components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 
 declare var google: any;
 
@@ -19,12 +20,10 @@ export class AddressFieldComponent implements OnInit {
   constructor(private sessionStorageService: SessionStorageService,
     private router: Router,
     private zone: NgZone,
-    private visitService: VisiteService,
-    private modalService: NgbModal) { }
+    private visitService: VisiteService) { }
 
-  noArchitectsModal: NgbModalRef;
   @ViewChild('input') input: ElementRef;
-  @ViewChild('noArchitectsModal') noArchitectsModalTemplate: TemplateRef<any>;
+  @ViewChild('popup') popup: DisabledZipCodePopupComponent;
   visit: VisiteClass = new VisiteClass();
   place: any;
 
@@ -39,6 +38,16 @@ export class AddressFieldComponent implements OnInit {
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       this.placeChanged(autocomplete);
     }.bind(this));
+
+    this.popup.OKFunction = function() {
+      this.sessionStorageService.place = this.place;
+      this.sessionStorageService.visit = this.visit;
+      this.router.navigate(['/create-visit']);
+    }.bind(this);
+
+    this.popup.cancelFunction = function() {
+      (this.input.nativeElement as HTMLInputElement).value = null;
+    }.bind(this);
   }
 
   placeChanged(autocomplete) {
@@ -61,24 +70,16 @@ export class AddressFieldComponent implements OnInit {
 
       this.visitService.post(this.visit).subscribe(res => {
         if (!res.architectsAvailable) {
-          this.noArchitectsModal = this.modalService.open(this.noArchitectsModalTemplate);
-
-          this.noArchitectsModal.result.then((result) => {
-            this.sessionStorageService.place = this.place;
-            this.sessionStorageService.visit = this.visit;
-            this.router.navigate(['/create-visit']);
-          }, (reason) => {
-            (this.input.nativeElement as HTMLInputElement).value = null;
-          });
+          this.popup.open(this.visit);
+          this.sessionStorageService.visitInfos = res;
         }
         else {
           this.visit.id = res.visitId;
           this.sessionStorageService.visit = this.visit;
+          this.sessionStorageService.visitInfos = res;
           this.router.navigate(['/create-visit']);
         }
       });
     });
-
   }
-
 }

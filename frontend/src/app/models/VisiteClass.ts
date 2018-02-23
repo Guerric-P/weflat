@@ -11,7 +11,7 @@ export class VisiteClass {
     public streetNumber: string;
     public visiteDate: Date;
     public status: number;
-    public annoucementUrl: string;
+    public announcementUrl: string;
 
     formattedAddress() {
         return this.streetNumber
