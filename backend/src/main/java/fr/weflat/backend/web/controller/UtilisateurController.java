@@ -34,7 +34,7 @@ public class UtilisateurController {
 	@Autowired
 	MapperFacade orikaMapperFacade;
 
-	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
+	/*@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public @ResponseBody UtilisateurDto getUser(@PathVariable("id") long id) {
 
 		Utilisateur utilisateur = utilisateurService.getById(id);
@@ -48,7 +48,7 @@ public class UtilisateurController {
 		}
 
 		return orikaMapperFacade.map(utilisateurService.getById(id), UtilisateurDto.class);
-	}
+	}*/
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/password", method = RequestMethod.PUT)

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VisiteClass } from 'app/models/visiteclass';
 import { VisiteService } from 'app/services/visite.service';
+import { AuthenticationService } from 'app/services/authentication.service';
 
 declare var $:any;
 
@@ -11,7 +12,7 @@ declare var $:any;
 })
 export class VisitsComponent implements OnInit {
 
-  constructor(private visiteService: VisiteService) { }
+  constructor(private visiteService: VisiteService, private authService: AuthenticationService) { }
 
   potentialVisites: VisiteClass[];
   plannedVisites: VisiteClass[];
@@ -30,7 +31,7 @@ export class VisitsComponent implements OnInit {
   }
 
   loadPotentialVisites() {
-    this.visiteService.getAvailableVisits().subscribe(
+    this.visiteService.getAvailableVisits(this.authService.userId).subscribe(
       res => {
         this.potentialVisites = res;
         if(this.potentialVisites && this.potentialVisites.length){
@@ -46,7 +47,7 @@ export class VisitsComponent implements OnInit {
   }
 
   loadPlannedVisites() {
-    this.visiteService.getPlannedVisits().subscribe(
+    this.visiteService.getPlannedVisits(this.authService.userId).subscribe(
       res => {
         this.plannedVisites = res;
         if(this.plannedVisites && this.plannedVisites.length){
@@ -62,7 +63,7 @@ export class VisitsComponent implements OnInit {
   }
 
   loadReportPendingVisites() {
-    this.visiteService.getReportPendingVisites().subscribe(
+    this.visiteService.getReportPendingVisites(this.authService.userId).subscribe(
       res => {
         this.reportPendingVisites = res;
         if(this.reportPendingVisites && this.reportPendingVisites.length){
@@ -78,7 +79,7 @@ export class VisitsComponent implements OnInit {
   }
 
   loadReportWrittenVisites() {
-    this.visiteService.getReportWrittenVisites().subscribe(
+    this.visiteService.getReportWrittenVisites(this.authService.userId).subscribe(
       res => {
         this.reportWrittenVisites = res;
         if(this.reportWrittenVisites && this.reportWrittenVisites.length){

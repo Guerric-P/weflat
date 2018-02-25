@@ -19,20 +19,20 @@ export class VisiteService {
         return this.http.post(`/visits/${id}/pay?token=${token}`, null);
     }
 
-    getAvailableVisits(): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>('/visits/available');
+    getAvailableVisits(architectId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/available`);
     }
 
-    getPlannedVisits(): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>('/visits/planned');
+    getPlannedVisits(architectId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/planned`);
     }
 
-    getReportPendingVisites(): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>('/visits/report-pending');
+    getReportPendingVisites(architectId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/report-pending`);
     }
 
-    getReportWrittenVisites(): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>('/visits/report-written');
+    getReportWrittenVisites(architectId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/report-written`);
     }
 
     acceptVisit(id: number): Observable<any> {

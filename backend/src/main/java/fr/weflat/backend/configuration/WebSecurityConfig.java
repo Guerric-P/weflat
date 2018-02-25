@@ -21,16 +21,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-		.authorizeRequests()
-			.antMatchers("/architecte", "/acheteur", "/visits").permitAll()
+			.authorizeRequests()
+			.antMatchers("/architecte/{architecteId:\\d+}/**").access("@weflatSecurityService.hasAccessToArchitecte(authentication,#architecteId)")
+			.antMatchers("/acheteur/{acheteurId:\\d+}/**").access("@weflatSecurityService.hasAccessToAcheteur(authentication,#acheteurId)")
+			.antMatchers("/visits/{visitId:\\d+}/**").access("@weflatSecurityService.hasAccessToVisit(authentication,#visitId)")
 			.anyRequest().authenticated()
-			.and()
-		.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
-		// And filter other requests to check the presence of JWT in header
-		.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-		.logout()
+		.and()
+			.logout()
 			.logoutSuccessHandler(new WeflatLogoutSuccessHandler())
-			.permitAll();
+			.permitAll()
+		.and()
+			.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+			// And filter other requests to check the presence of JWT in header
+			.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+		
 	}
 
 	@Autowired
