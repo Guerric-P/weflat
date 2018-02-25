@@ -75,14 +75,14 @@ export class CreateVisitComponent implements OnInit {
       this.architectsAvailable = this.sessionStorageService.visitInfos.architectsAvailable;
     }
 
-    this.displaySignupStep = !this.authService.isLoggedIn();
+    this.displaySignupStep = !this.authService.isLoggedIn;
 
-    this.authService.userLoggedIn().subscribe(res => {
+    this.authService.userLoggedIn.subscribe(res => {
       this.createVisitGuard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
       this.displaySignupStep = false;
     });
 
-    this.authService.userLoggedOut().subscribe(res => {
+    this.authService.userLoggedOut.subscribe(res => {
       this.displaySignupStep = true;
 
       //If the selected step was above signin, return to signin step
@@ -235,7 +235,7 @@ export class CreateVisitComponent implements OnInit {
 
   selectionChanged(event: StepperSelectionEvent) {
     if (event.selectedStep == this.projectStep) {
-      this.acheteurService.getAcheteur(this.authService.userId()).subscribe(res => {
+      this.acheteurService.getAcheteur(this.authService.userId).subscribe(res => {
         this.projectFormGroup.controls['project'].setValue(res.project);
       });
     }
@@ -245,7 +245,7 @@ export class CreateVisitComponent implements OnInit {
           {
             project: this.projectFormGroup.controls['project'].value
           }
-        ), this.authService.userId()
+        ), this.authService.userId
       ).subscribe(res => {
         //TODO
       }, err => {

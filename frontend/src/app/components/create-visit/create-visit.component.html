@@ -19,7 +19,7 @@
       </div>
     </div>
   </mat-step>
-  <mat-step [completed]="authService.isLoggedIn()" [optional]="false" *ngIf="displaySignupStep">
+  <mat-step [completed]="authService.isLoggedIn" [optional]="false" *ngIf="displaySignupStep">
     <ng-template matStepLabel>Qui êtes-vous ?</ng-template>
     <app-register-acheteur [isEmbedded]="true"></app-register-acheteur>
   </mat-step>

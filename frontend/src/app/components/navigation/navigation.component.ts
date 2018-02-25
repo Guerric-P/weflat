@@ -129,8 +129,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+  
+    this.authService.logout().subscribe(res => {
+      this.redirectIfAuthRequired();
+    }, err => {
+      this.redirectIfAuthRequired();
+    });
+    
+  }
 
-    this.authService.logout();
+  redirectIfAuthRequired() {
     if (this.routeData && this.routeData.authRequired) {
       this.authGuard.canActivate(
         this.route.snapshot,

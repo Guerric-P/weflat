@@ -80,7 +80,7 @@ export class ArchitecteProfileComponent implements OnInit {
         cgu: formModel.cgu
       });
 
-      this.architecteService.patchArchitecte(architect, this.authService.userId()).subscribe(res => {
+      this.architecteService.patchArchitecte(architect, this.authService.userId).subscribe(res => {
         this.notificationsService.success('Merci !', 'Vos informations ont été sauvegardées avec succès.');
       }, err => {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de l\'enregistrement de vos informations.');
