@@ -5,11 +5,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.weflat.backend.domaine.Visite;
 import fr.weflat.backend.service.VisiteService;
 
 @Component("weflatSecurityService")
+@Transactional
 public class WeflatSecurityService {
 	
 	@Autowired
@@ -56,6 +58,9 @@ public class WeflatSecurityService {
 			return true;
 		}
 		else if(visit.getAcheteur() != null && visit.getAcheteur().getId() == authenticatedUserId) { 
+			return true;
+		}
+		else if(visit.getArchitecte() != null && visit.getArchitecte().getId() == authenticatedUserId) { 
 			return true;
 		}
 		return false;
