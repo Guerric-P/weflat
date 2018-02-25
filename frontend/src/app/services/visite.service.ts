@@ -19,20 +19,44 @@ export class VisiteService {
         return this.http.post(`/visits/${id}/pay?token=${token}`, null);
     }
 
-    getAvailableVisits(architectId: number): Observable<VisiteClass[]> {
+    getAvailableVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
         return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/available`);
     }
 
-    getPlannedVisits(architectId: number): Observable<VisiteClass[]> {
+    getPlannedVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
         return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/planned`);
     }
 
-    getReportPendingVisites(architectId: number): Observable<VisiteClass[]> {
+    getReportPendingVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
         return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/report-pending`);
     }
 
-    getReportWrittenVisites(architectId: number): Observable<VisiteClass[]> {
+    getReportWrittenVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
         return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/report-written`);
+    }
+
+    getWaitingForPaymentVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/waiting-for-payment`);
+    }
+
+    getBeingAssignedVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/being-assigned`);
+    }
+
+    getInProgressVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/in-progress`);
+    }
+
+    getReportBeingWrittenVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/report-being-written`);
+    }
+
+    getReportWrittenVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/report-written`);
+    }
+
+    getPlannedVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/planned`);
     }
 
     acceptVisit(id: number): Observable<any> {

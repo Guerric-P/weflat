@@ -84,28 +84,28 @@ public class ArchitecteController {
 	
 	@RequestMapping(path = "/{id}/visits/available", method = RequestMethod.GET)
 	public List<VisiteDto> getVisites(@PathVariable("id") long id) {
-		Set<Visite> visites = visiteService.findAvailableVisits(id);
+		Set<Visite> visites = visiteService.findAvailableVisitsByArchitectId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 
 	@RequestMapping(path = "/{id}/visits/planned", method = RequestMethod.GET)
 	public List<VisiteDto> getPlannedVisites(@PathVariable("id") long id) {
-		Set<Visite> visites = visiteService.findPlannedVisits(id);
+		Set<Visite> visites = visiteService.findPlannedVisitsByArchitectId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 
 	@RequestMapping(path = "/{id}/visits/report-pending", method = RequestMethod.GET)
 	public List<VisiteDto> getReportPendingVisites(@PathVariable("id") long id) {
-		Set<Visite> visites = visiteService.findReportPendingVisits(id);
+		Set<Visite> visites = visiteService.findReportPendingVisitsByArchitectId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 
 	@RequestMapping(path = "/{id}/visits/report-written", method = RequestMethod.GET)
 	public List<VisiteDto> getReportWrittenVisites(@PathVariable("id") long id) {
-		Set<Visite> visites = visiteService.findReportWrittenVisits(id);
+		Set<Visite> visites = visiteService.findReportWrittenVisitsByArchitectId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}

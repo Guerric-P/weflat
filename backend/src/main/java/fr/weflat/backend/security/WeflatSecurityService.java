@@ -57,7 +57,7 @@ public class WeflatSecurityService {
 		if(authentication.getAuthorities().stream().anyMatch(x -> x.getAuthority().equals("admin"))) {
 			return true;
 		}
-		else if(visit.getAcheteur() != null && visit.getAcheteur().getId() == authenticatedUserId) { 
+		else if(visit.getAcheteur() == null || visit.getAcheteur().getId() == authenticatedUserId) { 
 			return true;
 		}
 		else if(visit.getArchitecte() != null && visit.getArchitecte().getId() == authenticatedUserId) { 
