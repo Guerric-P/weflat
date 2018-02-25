@@ -31,7 +31,7 @@ export class VisitsComponent implements OnInit {
   }
 
   loadPotentialVisites() {
-    this.visiteService.getAvailableVisits(this.authService.userId).subscribe(
+    this.visiteService.getAvailableVisitsByArchitect(this.authService.userId).subscribe(
       res => {
         this.potentialVisites = res;
         if(this.potentialVisites && this.potentialVisites.length){
@@ -47,7 +47,7 @@ export class VisitsComponent implements OnInit {
   }
 
   loadPlannedVisites() {
-    this.visiteService.getPlannedVisits(this.authService.userId).subscribe(
+    this.visiteService.getPlannedVisitsByArchitect(this.authService.userId).subscribe(
       res => {
         this.plannedVisites = res;
         if(this.plannedVisites && this.plannedVisites.length){
@@ -63,7 +63,7 @@ export class VisitsComponent implements OnInit {
   }
 
   loadReportPendingVisites() {
-    this.visiteService.getReportPendingVisites(this.authService.userId).subscribe(
+    this.visiteService.getReportPendingVisitsByArchitect(this.authService.userId).subscribe(
       res => {
         this.reportPendingVisites = res;
         if(this.reportPendingVisites && this.reportPendingVisites.length){
@@ -79,7 +79,7 @@ export class VisitsComponent implements OnInit {
   }
 
   loadReportWrittenVisites() {
-    this.visiteService.getReportWrittenVisites(this.authService.userId).subscribe(
+    this.visiteService.getReportWrittenVisitsByArchitect(this.authService.userId).subscribe(
       res => {
         this.reportWrittenVisites = res;
         if(this.reportWrittenVisites && this.reportWrittenVisites.length){

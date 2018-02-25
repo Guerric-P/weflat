@@ -1,8 +1,6 @@
 package fr.weflat.backend.web.controller;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.ws.rs.Produces;
 
@@ -66,15 +64,16 @@ public class VisiteController {
 	}
 
 	@RequestMapping(path = "/{id}", method = RequestMethod.PATCH)
-	public VisitCreationResponseDto completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input) throws Exception {
-
+	public VisitCreationResponseDto completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
+		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
+		
 		Visite visit = visiteService.getById(id);
 
 		if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() && visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
 			throw new Exception("Visit non eligible for modification.");
 		} else {
 			orikaMapperFacade.map(input, visit);
-			visiteService.completeVisitCreation(visit, id);
+			visiteService.completeVisitCreation(visit, (long)details.get("id"));
 			return new VisitCreationResponseDto(visiteService.isVisitComplete(visit), visit.getZipCode().isActive(), visit.getId());
 		}
 	}
@@ -110,7 +109,7 @@ public class VisiteController {
 	@RequestMapping(path = "/count", method = RequestMethod.GET)
 	public int getCount(Authentication authentication) {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
-		return visiteService.findAvailableVisits((Long) details.get("id")).size();
+		return visiteService.findAvailableVisitsByArchitectId((Long) details.get("id")).size();
 	}
 
 	@SuppressWarnings("unchecked")

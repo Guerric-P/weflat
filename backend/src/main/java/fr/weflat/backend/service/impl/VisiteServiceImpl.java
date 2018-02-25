@@ -108,7 +108,7 @@ public class VisiteServiceImpl implements VisiteService {
 	}
 
 	@Override
-	public Set<Visite> findAvailableVisits(Long idArchitecte) {
+	public Set<Visite> findAvailableVisitsByArchitectId(Long idArchitecte) {
 		QVisite visite = QVisite.visite;
 
 		Predicate predicate = visite.nearbyArchitectes.any().id.eq(idArchitecte)
@@ -126,7 +126,7 @@ public class VisiteServiceImpl implements VisiteService {
 	}
 
 	@Override
-	public Set<Visite> findPlannedVisits(Long idArchitecte) {
+	public Set<Visite> findPlannedVisitsByArchitectId(Long idArchitecte) {
 		QVisite visite = QVisite.visite;
 
 		Predicate predicate = visite.architecte.id.eq(idArchitecte)
@@ -145,7 +145,7 @@ public class VisiteServiceImpl implements VisiteService {
 	}
 
 	@Override
-	public Set<Visite> findReportPendingVisits(Long idArchitecte) {
+	public Set<Visite> findReportPendingVisitsByArchitectId(Long idArchitecte) {
 		QVisite visite = QVisite.visite;
 
 		Predicate predicate = visite.architecte.id.eq(idArchitecte)
@@ -165,7 +165,7 @@ public class VisiteServiceImpl implements VisiteService {
 	}
 
 	@Override
-	public Set<Visite> findReportWrittenVisits(Long idArchitecte) {
+	public Set<Visite> findReportWrittenVisitsByArchitectId(Long idArchitecte) {
 		QVisite visite = QVisite.visite;
 
 		Predicate predicate = visite.architecte.id.eq(idArchitecte)
@@ -260,6 +260,8 @@ public class VisiteServiceImpl implements VisiteService {
 		if(idAcheteur != null) {
 			acheteur = acheteurService.findById(idAcheteur);
 		}
+		
+		visit.setAcheteur(acheteur);
 
 		if(visit.getZipCode() == null) {
 			throw new Exception("No architects are available for zip code : " + visit.getZipCode().getNumber());
@@ -269,7 +271,6 @@ public class VisiteServiceImpl implements VisiteService {
 			visit.setStatus(VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal());
 		}
 
-		visit.setAcheteur(acheteur);
 		save(visit);
 
 	}
@@ -281,5 +282,116 @@ public class VisiteServiceImpl implements VisiteService {
 				&& visit.getRoute() != null
 				&& visit.getAnnouncementUrl() != null
 				&& visit.getAcheteur() != null;
+	}
+
+	@Override
+	public Set<Visite> findWaitingForPaymentVisitsByAcheteurId(Long idAcheteur) {
+		QVisite visite = QVisite.visite;
+
+		Predicate predicate = visite.acheteur.id.eq(idAcheteur)
+				.and(visite.status.eq(VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()));
+
+		Set<Visite> visites = new HashSet<Visite>();
+
+		Iterable<Visite> result = visiteDao.findAll(predicate);
+
+		for(Visite row : result) {
+			visites.add(row);
+		}
+
+		return visites;
+	}
+
+	@Override
+	public Set<Visite> findBeingAssignedVisitsByAcheteurId(Long idAcheteur) {
+		QVisite visite = QVisite.visite;
+
+		Predicate predicate = visite.acheteur.id.eq(idAcheteur)
+				.and(visite.status.eq(VisitStatusEnum.BEING_ASSIGNED.ordinal()));
+
+		Set<Visite> visites = new HashSet<Visite>();
+
+		Iterable<Visite> result = visiteDao.findAll(predicate);
+
+		for(Visite row : result) {
+			visites.add(row);
+		}
+
+		return visites;
+	}
+
+	@Override
+	public Set<Visite> findInProgressVisitsByAcheteurId(Long idAcheteur) {
+		QVisite visite = QVisite.visite;
+
+		Predicate predicate = visite.acheteur.id.eq(idAcheteur)
+				.and(visite.status.eq(VisitStatusEnum.IN_PROGRESS.ordinal()));
+
+		Set<Visite> visites = new HashSet<Visite>();
+
+		Iterable<Visite> result = visiteDao.findAll(predicate);
+
+		for(Visite row : result) {
+			visites.add(row);
+		}
+
+		return visites;
+	}
+
+	@Override
+	public Set<Visite> findReportBeingWrittenVisitsByAcheteurId(Long idAcheteur) {
+		QVisite visite = QVisite.visite;
+
+		Predicate predicate = visite.acheteur.id.eq(idAcheteur)
+				.and(visite.status.eq(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal())
+						.or(visite.status.eq(VisitStatusEnum.IN_PROGRESS.ordinal()))
+						.and(visite.visiteDate.before(new Date())));
+
+		Set<Visite> visites = new HashSet<Visite>();
+
+		Iterable<Visite> result = visiteDao.findAll(predicate);
+
+		for(Visite row : result) {
+			visites.add(row);
+		}
+
+		return visites;
+	}
+
+	@Override
+	public Set<Visite> findReportWrittenVisitsByAcheteurId(Long idAcheteur) {
+		QVisite visite = QVisite.visite;
+
+		Predicate predicate = visite.acheteur.id.eq(idAcheteur)
+				.and(visite.status.eq(VisitStatusEnum.REPORT_AVAILABLE.ordinal()));
+
+		Set<Visite> visites = new HashSet<Visite>();
+
+		Iterable<Visite> result = visiteDao.findAll(predicate);
+
+		for(Visite row : result) {
+			visites.add(row);
+		}
+
+		return visites;
+	}
+
+	@Override
+	public Set<Visite> findPlannedVisitsByAcheteurId(Long idAcheteur) {
+		QVisite visite = QVisite.visite;
+
+		Predicate predicate = visite.acheteur.id.eq(idAcheteur)
+				.and(visite.status.eq(VisitStatusEnum.IN_PROGRESS.ordinal()))
+				.and(visite.visiteDate.after(new Date()));
+
+		Set<Visite> visites = new HashSet<Visite>();
+
+		Iterable<Visite> result = visiteDao.findAll(predicate);
+
+		for(Visite row : result) {
+			visites.add(row);
+		}
+
+		return visites;
 	}
 }
