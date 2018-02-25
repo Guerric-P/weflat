@@ -28,6 +28,7 @@ import { ZipCodesResolver } from 'app/resolvers/zip-codes-resolver';
 import { ArchitecteResolver } from 'app/resolvers/architecte.resolver';
 import { ArchitectSituationResolver } from 'app/resolvers/architect-situation.resolver';
 import { ArchitectTypeResolver } from 'app/resolvers/architect-type.resolver';
+import { AcheteurResolver } from 'app/resolvers/acheteur.resolver';
 import { ReportResolver } from 'app/resolvers/report.resolver';
 import { PositionResolver } from 'app/resolvers/position.resolver';
 
@@ -120,7 +121,7 @@ const appRoutes: Routes = [
     path: 'acheteur', component: AcheteurLayoutComponent, canActivate: [AuthGuard, AcheteurGuard], data: { authRequired: true }, children: [
       { path: '', redirectTo: 'my-visits', pathMatch: 'full' },
       { path: 'visit', component: CreateVisitComponent, data: { authRequired: true } },
-      { path: 'profile', component: AcheteurProfileComponent, data: { authRequired: true } },
+      { path: 'profile', component: AcheteurProfileComponent, resolve: { acheteur: AcheteurResolver }, data: { authRequired: true } },
       { path: 'project', component: PurchaseProjectComponent, data: { authRequired: true } },
       { path: 'my-visits', component: MyVisitsComponent, data: { authRequired: true } }
     ]
@@ -206,7 +207,8 @@ const appRoutes: Routes = [
     UserService,
     PositionResolver,
     PositionService,
-    ShowSigninPopupService
+    ShowSigninPopupService,
+    AcheteurResolver
   ],
   bootstrap: [AppComponent]
 })

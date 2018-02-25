@@ -12,7 +12,7 @@ export class CreateVisitGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    if (!this.authService.isLoggedIn() || this.authService.isCustomer()) {
+    if (!this.authService.isLoggedIn || this.authService.isCustomer) {
       // logged in so return true
       return true;
     }

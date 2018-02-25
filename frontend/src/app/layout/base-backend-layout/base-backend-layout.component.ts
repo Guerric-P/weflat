@@ -56,7 +56,15 @@ export class BaseBackendLayoutComponent implements OnInit {
   
     logout() {
   
-      this.authService.logout();
+      this.authService.logout().subscribe(res => {
+        this.redirectIfAuthRequired();
+      }, err => {
+        this.redirectIfAuthRequired();
+      });
+      
+    }
+
+    redirectIfAuthRequired() {
       if (this.authRequired) {
         this.authGuard.canActivate(
           this.route.snapshot,

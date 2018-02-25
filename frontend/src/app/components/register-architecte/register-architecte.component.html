@@ -19,7 +19,7 @@
       <div class="row-container">
         <div class="mat-control">
           <mat-form-field>
-            <input matInput [(ngModel)]="data.email" required class="form-control" formControlName="email" placeholder="E-mail">
+            <input type="email" matInput [(ngModel)]="data.email" required class="form-control" formControlName="email" placeholder="E-mail">
             <mat-error *ngIf="registerForm.controls.email.hasError('pattern')">
                 Veuillez entrer une adresse e-mail valide.
               </mat-error>
