@@ -46,50 +46,6 @@ public class VisiteController {
 	MapperFacade orikaMapperFacade;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/available", method = RequestMethod.GET)
-	public List<VisiteDto> getVisites(Authentication authentication) {
-
-		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
-
-		Set<Visite> visites = visiteService.findAvailableVisits((Long) details.get("id"));
-
-		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
-	}
-
-	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/planned", method = RequestMethod.GET)
-	public List<VisiteDto> getPlannedVisites(Authentication authentication) {
-
-		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
-
-		Set<Visite> visites = visiteService.findPlannedVisits((Long) details.get("id"));
-
-		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
-	}
-
-	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/report-pending", method = RequestMethod.GET)
-	public List<VisiteDto> getReportPendingVisites(Authentication authentication) {
-
-		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
-
-		Set<Visite> visites = visiteService.findReportPendingVisits((Long) details.get("id"));
-
-		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
-	}
-
-	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/report-written", method = RequestMethod.GET)
-	public List<VisiteDto> getReportWrittenVisites(Authentication authentication) {
-
-		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
-
-		Set<Visite> visites = visiteService.findReportWrittenVisits((Long) details.get("id"));
-
-		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
-	}
-
-	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
 	public VisitCreationResponseDto postVisit(@RequestBody VisiteDto input, Authentication authentication) throws Exception {
 
@@ -109,37 +65,26 @@ public class VisiteController {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/{id}", method = RequestMethod.PATCH)
-	public VisitCreationResponseDto completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
-
-		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
+	public VisitCreationResponseDto completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input) throws Exception {
 
 		Visite visit = visiteService.getById(id);
 
-		if(visit.getAcheteur() != null && visit.getAcheteur().getId() != (Long)details.get("id")) {
-			throw new AccessDeniedException("Non autorisé.");
-		}
-		else if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() && visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
+		if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() && visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
 			throw new Exception("Visit non eligible for modification.");
 		} else {
 			orikaMapperFacade.map(input, visit);
-			visiteService.completeVisitCreation(visit, (Long)details.get("id"));
+			visiteService.completeVisitCreation(visit, id);
 			return new VisitCreationResponseDto(visiteService.isVisitComplete(visit), visit.getZipCode().isActive(), visit.getId());
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/{id}/pay", method = RequestMethod.POST)
-	public void payVisit(@PathVariable("id") long id, @RequestParam() String token, Authentication authentication) throws Exception {
-
-		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
+	public void payVisit(@PathVariable("id") long id, @RequestParam() String token) throws Exception {
 
 		Visite visit = visiteService.getById(id);
-
-		if(visit.getAcheteur().getId() != (Long)details.get("id")) {
-			throw new AccessDeniedException("Non autorisé.");
-		} else if (visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
+		
+		if (visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
 			throw new Exception("Visit non eligible for payment.");
 		}
 		else {
