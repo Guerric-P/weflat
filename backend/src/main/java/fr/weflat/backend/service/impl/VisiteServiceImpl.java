@@ -325,7 +325,8 @@ public class VisiteServiceImpl implements VisiteService {
 		QVisite visite = QVisite.visite;
 
 		Predicate predicate = visite.acheteur.id.eq(idAcheteur)
-				.and(visite.status.eq(VisitStatusEnum.IN_PROGRESS.ordinal()));
+				.and(visite.status.eq(VisitStatusEnum.IN_PROGRESS.ordinal()))
+				.and(visite.visiteDate.before(new Date()));;
 
 		Set<Visite> visites = new HashSet<Visite>();
 
@@ -343,9 +344,7 @@ public class VisiteServiceImpl implements VisiteService {
 		QVisite visite = QVisite.visite;
 
 		Predicate predicate = visite.acheteur.id.eq(idAcheteur)
-				.and(visite.status.eq(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal())
-						.or(visite.status.eq(VisitStatusEnum.IN_PROGRESS.ordinal()))
-						.and(visite.visiteDate.before(new Date())));
+				.and(visite.status.eq(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal()));
 
 		Set<Visite> visites = new HashSet<Visite>();
 

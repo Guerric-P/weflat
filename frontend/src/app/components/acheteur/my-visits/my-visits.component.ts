@@ -13,8 +13,9 @@ export class MyVisitsComponent implements OnInit {
   beingAssignedVisits: VisiteClass[];
   inProgressVisits: VisiteClass[];
   reportBeingWrittenVisits: VisiteClass[];
-  reportWrittenVisites: VisiteClass[];
+  reportWrittenVisits: VisiteClass[];
   waitingForPaymentVisits: VisiteClass[];
+  plannedVisits: VisiteClass[];
 
   constructor(private authService: AuthenticationService,
     private visitService: VisiteService) { }
@@ -33,11 +34,15 @@ export class MyVisitsComponent implements OnInit {
     });
 
     this.visitService.getReportWrittenVisitsByAcheteur(this.authService.userId).subscribe(res => {
-      this.reportWrittenVisites = res;
+      this.reportWrittenVisits = res;
     });
 
     this.visitService.getWaitingForPaymentVisitsByAcheteur(this.authService.userId).subscribe(res => {
       this.waitingForPaymentVisits = res;
+    });
+
+    this.visitService.getPlannedVisitsByAcheteur(this.authService.userId).subscribe(res => {
+      this.plannedVisits = res;
     });
   }
 

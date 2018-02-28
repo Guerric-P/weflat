@@ -73,5 +73,4 @@ export class AcheteurProfileComponent implements OnInit {
       this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors du changement de mot de passe.');
     });
   }
-
 }

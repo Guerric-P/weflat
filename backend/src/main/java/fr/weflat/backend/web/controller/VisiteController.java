@@ -63,6 +63,7 @@ public class VisiteController {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/{id}", method = RequestMethod.PATCH)
 	public VisitCreationResponseDto completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
