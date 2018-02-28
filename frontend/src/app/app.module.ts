@@ -92,6 +92,8 @@ import { ArchitectSituationClass } from './models/ArchitectSituationClass';
 import { ArchitectTypeClass } from './models/ArchitectTypeClass';
 import { MyVisitsComponent } from './components/acheteur/my-visits/my-visits.component';
 import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
+import { MyVisitComponent } from './components/acheteur/my-visits/my-visit/my-visit.component';
+import { PaymentDirective } from './directives/payment.directive';
 
 
 const appRoutes: Routes = [
@@ -122,7 +124,7 @@ const appRoutes: Routes = [
       { path: '', redirectTo: 'my-visits', pathMatch: 'full' },
       { path: 'visit', component: CreateVisitComponent, data: { authRequired: true } },
       { path: 'profile', component: AcheteurProfileComponent, resolve: { acheteur: AcheteurResolver }, data: { authRequired: true } },
-      { path: 'project', component: PurchaseProjectComponent, data: { authRequired: true } },
+      { path: 'project', component: PurchaseProjectComponent, resolve: { acheteur: AcheteurResolver }, data: { authRequired: true } },
       { path: 'my-visits', component: MyVisitsComponent, data: { authRequired: true } }
     ]
   },
@@ -154,7 +156,9 @@ const appRoutes: Routes = [
     ReportEditComponent,
     MyVisitsComponent,
     CreateVisitComponent,
-    DisabledZipCodePopupComponent
+    DisabledZipCodePopupComponent,
+    MyVisitComponent,
+    PaymentDirective
   ],
   imports: [
     BrowserModule,

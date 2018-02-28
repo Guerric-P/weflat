@@ -1,9 +1,11 @@
 import { ZipCodeClass } from 'app/models/ZipCodeClass'
 import { AcheteurClass } from 'app/models/AcheteurClass';
+import { ArchitecteClass } from 'app/models/ArchitecteClass';
 
 export class VisiteClass {
     public id: number;
     public acheteur: AcheteurClass;
+    public architecte: ArchitecteClass;
     public idArchitecte: number;
     public zipCode: ZipCodeClass;
     public city: string;

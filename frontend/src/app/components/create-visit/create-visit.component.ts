@@ -210,27 +210,8 @@ export class CreateVisitComponent implements OnInit {
     });
   }
 
-  openStripePopup() {
-    var handler = (<any>window).StripeCheckout.configure({
-      key: environment.stripePublicKey,
-      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-      locale: 'auto',
-      zipCode: true,
-      currency: 'eur',
-      token: function (token: any) {
-        this.visiteService.pay(this.visit.id, token.id).subscribe(res => {
-          this.notificationService.success('Paiement effectué', 'Le paiement a réussi pour votre création de visite.');
-          this.router.navigate(['/acheteur']);
-        });
-      }.bind(this)
-    });
-
-    handler.open({
-      name: 'Weflat',
-      description: 'Règlement de la prestation',
-      amount: 15000
-    });
-
+  paymentDone() {
+    this.router.navigate(['/acheteur']);
   }
 
   selectionChanged(event: StepperSelectionEvent) {
