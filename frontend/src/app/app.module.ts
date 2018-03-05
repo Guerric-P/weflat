@@ -8,7 +8,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatTabsModule, MatChipsModule, MatIconModule, MatNativeDateModule, MatDividerModule} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatTabsModule, MatChipsModule, MatIconModule, MatNativeDateModule, MatDividerModule, MatProgressSpinnerModule} from '@angular/material';
 import { RouterModule, Routes, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
@@ -55,6 +55,7 @@ import { ReportService } from 'app/services/report.service';
 import { UserService } from 'app/services/user.service';
 import { PositionService } from 'app/services/position.service';
 import { ShowSigninPopupService } from 'app/services/show-signin-popup.service';
+import { LoaderService } from'app/services/loader.service';
 
 //Components
 
@@ -94,6 +95,7 @@ import { MyVisitsComponent } from './components/acheteur/my-visits/my-visits.com
 import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { MyVisitComponent } from './components/acheteur/my-visits/my-visit/my-visit.component';
 import { PaymentDirective } from './directives/payment.directive';
+import { LoaderComponent } from './components/common/loader/loader.component';
 
 
 const appRoutes: Routes = [
@@ -158,7 +160,8 @@ const appRoutes: Routes = [
     CreateVisitComponent,
     DisabledZipCodePopupComponent,
     MyVisitComponent,
-    PaymentDirective
+    PaymentDirective,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -170,6 +173,7 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
+    MatProgressSpinnerModule,
     MatTabsModule,
     MatChipsModule,
     MatIconModule,
@@ -212,7 +216,8 @@ const appRoutes: Routes = [
     PositionResolver,
     PositionService,
     ShowSigninPopupService,
-    AcheteurResolver
+    AcheteurResolver,
+    LoaderService
   ],
   bootstrap: [AppComponent]
 })

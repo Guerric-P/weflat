@@ -1,0 +1,9 @@
+<div [class.loader-hidden]="!show">
+  <div class="loader-overlay">
+    <div class="loader" *ngIf="show">
+      <mat-progress-spinner class="spinner" diameter="30" mode="indeterminate"></mat-progress-spinner>
+      <div *ngIf="message">{{ message }}</div>
+      <div *ngIf="!message">Chargement...</div>
+    </div>
+  </div>
+</div>
