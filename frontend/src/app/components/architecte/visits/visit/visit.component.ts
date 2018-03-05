@@ -4,6 +4,7 @@ import { VisiteService } from 'app/services/visite.service';
 import { NotificationsService } from 'angular2-notifications';
 import { VisiteCounterService } from 'app/services/visite-counter.service';
 import { Router } from '@angular/router';
+import { LoaderService } from '../../../../services/loader.service';
 
 @Component({
   selector: 'app-visit',
@@ -15,7 +16,8 @@ export class VisitComponent implements OnInit {
   constructor(private visiteService: VisiteService,
     private notificationService: NotificationsService,
     private visiteCounterService: VisiteCounterService,
-    private router: Router) { }
+    private router: Router,
+    private loaderService: LoaderService) { }
 
   @Input() visite: VisiteClass;
   @Input() enableAcceptRefuseButtons: boolean = false;
@@ -32,13 +34,16 @@ export class VisitComponent implements OnInit {
 
   accept() {
     this.acceptButtonDisabled = true;
+    this.loaderService.show();
     this.visiteService.acceptVisit(this.visite.id).subscribe(res => {
       this.notificationService.success('Succès', `Vous avez accepté de visiter le bien de ${this.visite.acheteur.firstName} ${this.visite.acheteur.lastName}`);
       this.acceptButtonDisabled = false;
+      this.loaderService.hide();
       this.visitesUpdated();
     }, err => {
       this.notificationService.error('Erreur', 'Une erreur a eu lieu');
       this.acceptButtonDisabled = false;
+      this.loaderService.hide();
       this.visitesUpdated();
     });
   }
