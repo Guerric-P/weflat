@@ -22,16 +22,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/architecte/{architecteId:\\d+}/**").access("@weflatSecurityService.hasAccessToArchitecte(authentication,#architecteId)")
-			.antMatchers("/acheteur/{acheteurId:\\d+}/**").access("@weflatSecurityService.hasAccessToAcheteur(authentication,#acheteurId)")
-			.antMatchers("/visits/{visitId:\\d+}/**").access("@weflatSecurityService.hasAccessToVisit(authentication,#visitId)")
-			.antMatchers("/architecte", "/acheteur", "/visits").permitAll() // Signup and anonymous visit creation
-			.anyRequest().authenticated()
-		.and()
+				.antMatchers("/architecte/{architecteId:\\d+}/**").access("@weflatSecurityService.hasAccessToArchitecte(authentication,#architecteId)")
+				.antMatchers("/acheteur/{acheteurId:\\d+}/**").access("@weflatSecurityService.hasAccessToAcheteur(authentication,#acheteurId)")
+				.antMatchers("/visits/{visitId:\\d+}/**").access("@weflatSecurityService.hasAccessToVisit(authentication,#visitId)")
+				.antMatchers("/architecte", "/acheteur", "/visits").permitAll() // Signup and anonymous visit creation
+				.anyRequest().authenticated()
+				.and()
 			.logout()
-			.logoutSuccessHandler(new WeflatLogoutSuccessHandler())
-			.permitAll()
-		.and()
+				.logoutSuccessHandler(new WeflatLogoutSuccessHandler())
+				.permitAll()
+				.and()
 			.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 			// And filter other requests to check the presence of JWT in header
 			.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
