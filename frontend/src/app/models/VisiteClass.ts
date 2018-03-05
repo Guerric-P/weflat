@@ -15,7 +15,7 @@ export class VisiteClass {
     public status: number;
     public announcementUrl: string;
 
-    formattedAddress() {
+    get formattedAddress() {
         return this.streetNumber
         + ', '
         + this.route

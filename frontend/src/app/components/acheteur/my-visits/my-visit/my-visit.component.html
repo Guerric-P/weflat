@@ -1,6 +1,6 @@
 <div *ngIf="visit.status === VisitStatusEnum.WAITING_FOR_PAYMENT" class="card">
   <div class="card-body">
-    Visite au {{ visit.formattedAddress() }} planifiée le {{visit.visiteDate | date:'medium'}}
+    Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       En attente de paiement
     </div>
@@ -13,7 +13,7 @@
 </div>
 <div *ngIf="visit.status === VisitStatusEnum.BEING_ASSIGNED" class="card">
   <div class="card-body">
-    Visite au {{ visit.formattedAddress() }} planifiée le {{visit.visiteDate | date:'medium'}}
+    Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Visite en cours d'attribution</div>
     </div>
@@ -25,7 +25,7 @@
 </div>
 <div *ngIf="visit.status === VisitStatusEnum.IN_PROGRESS && !datePassed" class="card">
   <div class="card-body">
-    Visite au {{ visit.formattedAddress() }} planifiée le {{visit.visiteDate | date:'medium'}}
+    Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar" style="width: 35%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Visite attribuée</div>
     </div>
@@ -38,7 +38,7 @@
 </div>
 <div *ngIf="visit.status === VisitStatusEnum.IN_PROGRESS && datePassed" class="card">
   <div class="card-body">
-    Visite au {{ visit.formattedAddress() }} planifiée le {{visit.visiteDate | date:'medium'}}
+    Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Visite en cours</div>
     </div>
@@ -46,7 +46,7 @@
 </div>
 <div *ngIf="visit.status === VisitStatusEnum.REPORT_BEING_WRITTEN" class="card">
   <div class="card-body">
-    Visite au {{ visit.formattedAddress() }} planifiée le {{visit.visiteDate | date:'medium'}}
+    Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Compte rendu en cours de rédaction</div>
     </div>
@@ -55,7 +55,7 @@
 </div>
 <div *ngIf="visit.status === VisitStatusEnum.REPORT_AVAILABLE" class="card">
   <div class="card-body">
-    Visite au {{ visit.formattedAddress() }} planifiée le {{visit.visiteDate | date:'medium'}}
+    Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Compte rendu disponible</div>
     </div>

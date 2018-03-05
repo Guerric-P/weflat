@@ -104,7 +104,7 @@ export class CreateVisitComponent implements OnInit {
       this.displayAddressComponents.bind(this)();
       this.placeMarker.bind(this)();
       this.loadVisit.bind(this)();
-      this.completeVisitCreation.bind(this)();
+      this.completeVisitCreation.bind(this)(true);
     }.bind(this));
 
     this.dateFormGroup = this._formBuilder.group({
@@ -190,14 +190,14 @@ export class CreateVisitComponent implements OnInit {
     this.visit.visiteDate = moment(this.dateFormGroup.controls['datePicker'].value).toDate();
   }
 
-  async postNewVisit() {
+  async postNewVisit(enablePopup: boolean) {
     return new Promise((resolve, reject) => {
       this.loadVisit();
       this.visiteService.post(this.visit).subscribe(res => {
         this.visit.id = res.visitId;
         this.visitCreationComplete = res.complete;
         this.architectsAvailable = res.architectsAvailable;
-        if (!this.architectsAvailable) {
+        if (!this.architectsAvailable && enablePopup) {
           this.popup.open(this.visit);
         }
         resolve();
@@ -234,27 +234,21 @@ export class CreateVisitComponent implements OnInit {
       });
     }
     if (event.selectedStep == this.locationStep && !(this.architectsAvailable && this.visitCreationComplete)) {
-      this.visiteService.completeCreation(this.visit).subscribe(res => {
-        this.visitCreationComplete = res.complete;
-        this.architectsAvailable = res.architectsAvailable;
-      }, err => {
-        this.visitCreationComplete = false;
-        this.architectsAvailable = false;
-      });
+      this.completeVisitCreation(false);
     }
   }
 
-  async completeVisitCreation() {
+  completeVisitCreation(enablePopup: boolean) {
     this.zone.run(() => {
       this.visitCreationComplete = false;
       if (!this.visit.id) {
-        this.postNewVisit();
+        this.postNewVisit(enablePopup);
       }
       else {
         this.visiteService.completeCreation(this.visit).subscribe(res => {
           this.visitCreationComplete = res.complete;
           this.architectsAvailable = res.architectsAvailable;
-          if (!this.architectsAvailable) {
+          if (!this.architectsAvailable && enablePopup) {
             this.popup.open(this.visit);
           }
         }, err => {
