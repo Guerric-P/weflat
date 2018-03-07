@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AcheteurClass } from 'app/models/AcheteurClass';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AcheteurService } from 'app/services/acheteur.service';
 import { AuthenticationService } from 'app/services/authentication.service';
 import { Router } from '@angular/router';
 import { Constantes } from 'app/common/Constantes';
+import { ShowSigninPopupService } from 'app/services/show-signin-popup.service';
 
 @Component({
   selector: 'app-register-acheteur',
@@ -16,12 +17,14 @@ export class RegisterAcheteurComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private acheteurService: AcheteurService,
     private authenticationService: AuthenticationService,
-    private router: Router) {
+    private router: Router,
+    private showSigninPopupService: ShowSigninPopupService) {
     this.createForm();
   }
 
   data: AcheteurClass = new AcheteurClass();
   registerForm: FormGroup;
+  @Input() isEmbedded: boolean = false;
 
   createForm() {
     this.registerForm = this.fb.group({
@@ -43,16 +46,17 @@ export class RegisterAcheteurComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(){
+  onSubmit() {
     this.acheteurService.postAcheteur(this.data).subscribe(
       x => {
-        this.authenticationService.login(this.data.email, this.data.password).subscribe( x => {
+        this.authenticationService.login(this.data.email, this.data.password).subscribe(x => {
           this.authenticationService.returnUrl = null;
-          this.router.navigate(['acheteur']);
+          if (!this.isEmbedded)
+            this.router.navigate(['acheteur']);
         });
       });
   }
-  
+
   matchOtherValidator(otherControlName: string) {
     let thisControl: FormControl;
     let otherControl: FormControl;
@@ -81,4 +85,7 @@ export class RegisterAcheteurComponent implements OnInit {
     }
   }
 
+  openSigninPopup() {
+    this.showSigninPopupService.showSigninPopup();
+  }
 }

@@ -149,7 +149,7 @@
                   </div>
                 </td>
                 <td class="d-inline-block col-3">
-                  <input type="text" class="form-control" [class.is-valid]="renovation.get('estimatedWork').touched && !renovation.get('estimatedWork').invalid"
+                  <input type="number" min="0" step="100" data-number-to-fixed="2" class="form-control" [class.is-valid]="renovation.get('estimatedWork').touched && !renovation.get('estimatedWork').invalid"
                     [class.is-invalid]="renovation.get('estimatedWork').touched && renovation.get('estimatedWork').invalid"
                     formControlName="estimatedWork" placeholder="Montant en euros">
                 </td>
@@ -159,7 +159,7 @@
                     placeholder="Remarques"></textarea>
                 </td>
                 <td class="d-inline-block col-1">
-                  <button type="button" class="close" (click)="removeRenovation(i);">
+                  <button type="button" class="close" (click)="removeRenovation(i);" *ngIf="!mandatoryPositionsIds.includes(renovation.get('position').value)">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </td>
@@ -174,8 +174,8 @@
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" [class.is-valid]="form.controls.globalCondition.touched && !form.controls.globalCondition.invalid"
                       [class.is-invalid]="form.controls.globalCondition.touched && form.controls.globalCondition.invalid" formControlName="globalCondition"
-                      [value]="0" id="good-{{i}}">
-                    <label class="custom-control-label" for="good-{{i}}">Bon</label>
+                      [value]="0" id="good">
+                    <label class="custom-control-label" for="good">Bon</label>
                   </div>
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" [class.is-valid]="form.controls.globalCondition.touched && !form.controls.globalCondition.invalid"

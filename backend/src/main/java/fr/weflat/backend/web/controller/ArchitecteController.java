@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.weflat.backend.domaine.Architecte;
+import fr.weflat.backend.domaine.Visite;
 import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.enums.ArchitectStatusEnum;
 import fr.weflat.backend.service.ArchitecteService;
+import fr.weflat.backend.service.VisiteService;
 import fr.weflat.backend.web.dto.ArchitecteDto;
 import fr.weflat.backend.web.dto.UtilisateurSignupDto;
+import fr.weflat.backend.web.dto.VisiteDto;
 import fr.weflat.backend.web.dto.ZipCodeDto;
 import ma.glasnost.orika.MapperFacade;
 
@@ -34,20 +37,17 @@ public class ArchitecteController {
 	@Autowired
 	MapperFacade orikaMapperFacade;
 	
-	@SuppressWarnings("unchecked")
+	@Autowired
+	VisiteService visiteService;
+	
 	@RequestMapping(path="/{id}/zipcodes", method=RequestMethod.POST)
-    public void setZipCodes(Authentication authentication, @RequestBody Set<ZipCodeDto> input) {
-		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
-		
-		architecteService.saveZipCodesForArchitecte(orikaMapperFacade.mapAsList(input, ZipCode.class), (Long)details.get("id"));
+    public void setZipCodes(@PathVariable("id") long id, @RequestBody Set<ZipCodeDto> input) {
+		architecteService.saveZipCodesForArchitecte(orikaMapperFacade.mapAsList(input, ZipCode.class), id);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping(path="/{id}/zipcodes", method=RequestMethod.GET)
-    public List<ZipCodeDto> getZipCodes(Authentication authentication) {	
-		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
-		
-		return orikaMapperFacade.mapAsList(architecteService.getById((Long)details.get("id")).getZipCodes(), ZipCodeDto.class);
+    public List<ZipCodeDto> getZipCodes(@PathVariable("id") long id) {	
+		return orikaMapperFacade.mapAsList(architecteService.getById(id).getZipCodes(), ZipCodeDto.class);
 	}
 	
 	@RequestMapping(path="/{id}", method=RequestMethod.GET)
@@ -56,13 +56,11 @@ public class ArchitecteController {
 	}
 	
 	@RequestMapping(path="", method=RequestMethod.POST)
-    public String postArchitecte(@RequestBody UtilisateurSignupDto input) {
+    public void postArchitecte(@RequestBody UtilisateurSignupDto input) {
 		
 		Architecte architecte = orikaMapperFacade.map(input, Architecte.class);
 		architecte.setStatus(ArchitectStatusEnum.CREATED.ordinal());
 		architecteService.save(architecte);
-		
-		return "";
     }
 	
 	@SuppressWarnings("unchecked")
@@ -75,15 +73,40 @@ public class ArchitecteController {
     }
 	
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(path="", method=RequestMethod.PATCH)
-    public String patchArchitecte(@RequestBody ArchitecteDto input, Authentication authentication) {
-		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
-		
-		Architecte architecte = architecteService.getById((Long)details.get("id"));
+	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
+    public void patchArchitecte(@PathVariable("id") long id, @RequestBody ArchitecteDto input) {
+
+		Architecte architecte = architecteService.getById(id);
 		orikaMapperFacade.map(input, architecte);
 		architecteService.save(architecte);
-		
-		return "";
+
     }
+	
+	@RequestMapping(path = "/{id}/visits/available", method = RequestMethod.GET)
+	public List<VisiteDto> getVisites(@PathVariable("id") long id) {
+		Set<Visite> visites = visiteService.findAvailableVisitsByArchitectId(id);
+
+		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
+	}
+
+	@RequestMapping(path = "/{id}/visits/planned", method = RequestMethod.GET)
+	public List<VisiteDto> getPlannedVisites(@PathVariable("id") long id) {
+		Set<Visite> visites = visiteService.findPlannedVisitsByArchitectId(id);
+
+		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
+	}
+
+	@RequestMapping(path = "/{id}/visits/report-pending", method = RequestMethod.GET)
+	public List<VisiteDto> getReportPendingVisites(@PathVariable("id") long id) {
+		Set<Visite> visites = visiteService.findReportPendingVisitsByArchitectId(id);
+
+		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
+	}
+
+	@RequestMapping(path = "/{id}/visits/report-written", method = RequestMethod.GET)
+	public List<VisiteDto> getReportWrittenVisites(@PathVariable("id") long id) {
+		Set<Visite> visites = visiteService.findReportWrittenVisitsByArchitectId(id);
+
+		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
+	}
 }

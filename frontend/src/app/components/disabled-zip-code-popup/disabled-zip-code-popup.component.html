@@ -1,0 +1,15 @@
+<ng-template #noArchitectsModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Désolé !</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Il n'y a aucun architecte disponible pour l'adresse {{visit.formattedAddress}}</p>
+  </div>
+  <div class="modal-footer d-flex flex-row justify-content-around">
+    <button type="button" class="btn btn-outline-primary" (click)="c('continue')">Continuer avec une autre adresse</button>
+    <button type="button" class="btn btn-outline-primary" (click)="d('cancel')">Annuler</button>
+  </div>
+</ng-template>

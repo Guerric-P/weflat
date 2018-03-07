@@ -14,8 +14,6 @@ public class UtilisateurDto {
     @JsonProperty(access = Access.READ_ONLY)
     private String email;
     
-    @JsonProperty(access = Access.READ_ONLY)
-	private String password;
     private Date birthDate;
     private String telephone;
 	private String aConnuWeflatPar;
@@ -82,14 +80,6 @@ public class UtilisateurDto {
 
 	public void setPrenom(String prenom) {
 		this.firstName = prenom;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public Date getDateNaissance() {

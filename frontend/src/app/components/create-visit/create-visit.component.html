@@ -1,0 +1,104 @@
+<mat-horizontal-stepper #stepper [linear]="isLinear" (selectionChange)="selectionChanged($event)">
+  <mat-step [stepControl]="dateFormGroup">
+    <div class="container">
+      <div class="col">
+        <form [formGroup]="dateFormGroup">
+          <ng-template matStepLabel>Date</ng-template>
+          <div class="row justify-content-center align-items-center">
+            <h1>Quand a lieu votre visite ?</h1>
+          </div>
+          <div class="row justify-content-center align-items-center mt-3">
+            <mat-form-field id="visit-date">
+              <input matInput type="datetime-local" formControlName="datePicker" placeholder="Choisissez une date..." required>
+            </mat-form-field>
+          </div>
+          <div class="row justify-content-center align-items-center">
+            <button mat-raised-button color="primary" matStepperNext>Suivant</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-step>
+  <mat-step [completed]="authService.isLoggedIn" [optional]="false" *ngIf="displaySignupStep">
+    <ng-template matStepLabel>Qui êtes-vous ?</ng-template>
+    <app-register-acheteur [isEmbedded]="true"></app-register-acheteur>
+  </mat-step>
+  <mat-step [stepControl]="projectFormGroup" #projectStep>
+    <ng-template matStepLabel>Votre projet</ng-template>
+    <div class="col">
+      <form [formGroup]="projectFormGroup">
+        <div class="row justify-content-center align-items-center">
+          <h1>Projet</h1>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <mat-form-field id="project">
+            <textarea matInput placeholder="Décrivez votre projet immobilier..." formControlName="project" required></textarea>
+          </mat-form-field>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <h1>Lien de l'annonce</h1>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <mat-form-field id="url">
+            <input type="url" matInput placeholder="URL de l'annonce du bien que vous allez visiter" formControlName="announcementUrl"
+              required>
+          </mat-form-field>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <div class="d-flex justify-content-center mt-5">
+            <button mat-raised-button matStepperPrevious>Précédent</button>
+            <button mat-raised-button color="primary" matStepperNext>Suivant</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </mat-step>
+  <mat-step [completed]="visitCreationComplete && architectsAvailable" [optional]="false" [editable]="true" #locationStep>
+    <app-disabled-zip-code-popup #popup></app-disabled-zip-code-popup>
+    <form [formGroup]="addressFormGroup">
+      <div class="row">
+        <div class="col-sm-4">
+          <ng-template matStepLabel>Adresse</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Adresse" formControlName="addressInput" required #addressInput>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Numéro de voie" formControlName="streetNumber" required #streetNumber>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Voie" formControlName="route" required #route>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Code postal" formControlName="zipCode" required #zipCode>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Ville" formControlName="city" required #city>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-8 google-maps-container" #googleMap>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-5">
+        <button mat-raised-button matStepperPrevious>Précédent</button>
+        <button mat-raised-button color="primary" matStepperNext [disabled]="!(visitCreationComplete && architectsAvailable)">Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step #paymentStep [completed]="false">
+    <ng-template matStepLabel>Paiement</ng-template>
+    <div class="container">
+      <div class="col">
+        <div class="row justify-content-center align-items-center">
+          <h1>Récapitulatif</h1>
+        </div>
+        <div class="row justify-content-center" *ngIf="visit.id">
+          Vous allez visiter un bien immobilier situé au {{visit.formattedAddress}}, le {{visit.visiteDate | date:'medium'}}
+        </div>
+        <div class="row justify-content-center align-items-center mt-4">
+          <button mat-raised-button matStepperPrevious>Précédent</button>
+          <button mat-raised-button color="primary" appPayment [visitId]="visit.id" (paymentDone)="paymentDone()">Payer</button>
+        </div>
+      </div>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
