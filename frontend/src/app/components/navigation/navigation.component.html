@@ -44,11 +44,11 @@
       </a>
       <form class="form-inline">
         <div class="nav-item dropdown" *ngIf="token">
-          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             {{displayName}}
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+          <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" (click)="redirectToPersonal()">Mon espace personnel</a>
             <a class="dropdown-item" (click)="logout()">Déconnexion</a>
           </div>
@@ -69,7 +69,7 @@
 
 <ng-template #signinModal let-c="close" let-d="dismiss">
   <div class="modal-header" (loginSuccessful)="c('loginSuccessful')">
-    <h5 class="modal-title" id="exampleModalLabel"></h5>
+    <h5 class="modal-title">Connexion</h5>
     <button type="button" class="close" (click)="d('Cross click')" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -80,13 +80,13 @@
     </div>
     <form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-        <label for="exampleInputEmail1">Identifiant</label>
+        <label>Identifiant</label>
         <input type="email" class="form-control" placeholder="Adresse e-mail" name="username" [(ngModel)]="model.username" #username="ngModel"
           required>
         <div *ngIf="f.submitted && !username.valid" class="help-block">L'e-mail est requis.</div>
       </div>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-        <label for="exampleInputPassword1">Mot de passe</label>
+        <label>Mot de passe</label>
         <input type="password" class="form-control" placeholder="Mot de passe" name="password" [(ngModel)]="model.password" #password="ngModel"
           required>
         <div *ngIf="f.submitted && !password.valid" class="help-block">Le mot de passe est requis.</div>
@@ -103,7 +103,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <div class="row float-right">
+    <div class="row float-right align-items-center">
       <div class="col-8">Vous n'avez pas de compte ?</div>
       <div class="col-4">
         <button type="button" class="btn btn-link" (click)="c(''); openSignup(signupModal);">S'inscrire</button>

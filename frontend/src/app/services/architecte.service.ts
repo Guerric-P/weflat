@@ -11,11 +11,11 @@ export class ArchitecteService {
 
 
   postArchitecte(architecte: ArchitecteClass){
-    return this.http.post('/architecte', architecte, { responseType: 'text'});
+    return this.http.post('/architecte', architecte);
   }
 
-  patchArchitecte(architecte: ArchitecteClass){
-    return this.http.patch('/architecte', architecte, { responseType: 'text'});
+  patchArchitecte(architecte: ArchitecteClass, architecteId: number){
+    return this.http.patch(`/architecte/${architecteId}`, architecte);
   }
 
   getArchitecte(){

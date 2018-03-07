@@ -7,24 +7,76 @@ import { Observable } from "rxjs/Observable";
 export class VisiteService {
     constructor(private http: HttpClient) { }
 
-    postVisit(visite: VisiteClass){
-        return this.http.post('/visits', visite, { responseType: 'text'});
+    post(visite: VisiteClass){
+        return this.http.post<any>('/visits', visite);
     }
 
-    getAvailableVisits(): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>('/visits/available');
+    completeCreation(visite: VisiteClass){
+        return this.http.patch<any>(`/visits/${visite.id}`, visite);
     }
 
-    getPlannedVisits(): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>('/visits/planned');
+    pay(id: number, token: string){
+        return this.http.post(`/visits/${id}/pay?token=${token}`, null);
     }
 
-    getReportPendingVisites(): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>('/visits/report-pending');
+    getAvailableVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/available`).map(res => {
+            return res.map(x => new VisiteClass(x));
+        });
     }
 
-    getReportWrittenVisites(): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>('/visits/report-written');
+    getPlannedVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/planned`).map(res => {
+            return res.map(x => new VisiteClass(x));
+        });
+    }
+
+    getReportPendingVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/report-pending`).map(res => {
+            return res.map(x => new VisiteClass(x));
+        });
+    }
+
+    getReportWrittenVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/architecte/${architectId}/visits/report-written`).map(res => {
+            return res.map(x => new VisiteClass(x));
+        });
+    }
+
+    getWaitingForPaymentVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/waiting-for-payment`).map(res => {
+            return res.map(x => new VisiteClass(x));
+        });
+    }
+
+    getBeingAssignedVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/being-assigned`).map(res => {
+            return res.map(x => new VisiteClass(x));
+        });
+    }
+
+    getInProgressVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/in-progress`).map(res => {
+            return res.map(x => new VisiteClass(x));
+        });
+    }
+
+    getReportBeingWrittenVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/report-being-written`).map(res => {
+            return res.map(x => new VisiteClass(x));
+        });
+    }
+
+    getReportWrittenVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/report-written`).map(res => {
+            return res.map(x => new VisiteClass(x));
+        });
+    }
+
+    getPlannedVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>(`/acheteur/${acheteurId}/visits/planned`).map(res => {
+            return res.map(x => new VisiteClass(x));
+        });
     }
 
     acceptVisit(id: number): Observable<any> {

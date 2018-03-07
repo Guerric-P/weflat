@@ -12,6 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import fr.weflat.backend.domaine.Acheteur;
+import fr.weflat.backend.domaine.Admin;
 import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.domaine.Utilisateur;
 import fr.weflat.backend.service.UtilisateurService;
@@ -36,6 +37,10 @@ public class WeflatAuthenticationProvider implements AuthenticationProvider {
 			
 			if(utilisateur instanceof Architecte) {
 				list.add(new SimpleGrantedAuthority("architecte"));
+			}
+			
+			if(utilisateur instanceof Admin) {
+				list.add(new SimpleGrantedAuthority("admin"));
 			}
 			
 			UsernamePasswordAuthenticationToken retour = new UsernamePasswordAuthenticationToken(

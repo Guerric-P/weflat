@@ -8,6 +8,7 @@ import { Constantes } from 'app/common/Constantes';
 import { NotificationsService } from 'angular2-notifications';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs';
+import { ShowSigninPopupService } from 'app/services/show-signin-popup.service';
 
 @Component({
   selector: 'app-navigation',
@@ -21,7 +22,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private authGuard: AuthGuard,
     private modalService: NgbModal,
     private localStorageService: LocalStorageService,
-    private notificationsService: NotificationsService) { }
+    private notificationsService: NotificationsService,
+    private showSigninPopupService: ShowSigninPopupService) { }
 
   private routeData;
   model: any = {};
@@ -30,7 +32,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   errorMessage: string;
   signinModal: NgbModalRef;
   signupModal: NgbModalRef;
-  subscription: Subscription;
+  routerEventsSubscription: Subscription;
+  showSigninPopupSubscription: Subscription;
   @ViewChild('signinModal') signinModalTemplate: TemplateRef<any>;
 
   ngOnInit() {
@@ -39,7 +42,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.router.navigate([this.authService.returnUrl]);
     }
 
-    this.subscription = this.router.events.subscribe((data) => {
+    this.routerEventsSubscription = this.router.events.subscribe((data) => {
       if (data instanceof RoutesRecognized) {
         this.routeData = data.state.root.firstChild.data;
       }
@@ -50,10 +53,15 @@ export class NavigationComponent implements OnInit, OnDestroy {
         }
       }
     });
+
+    this.showSigninPopupSubscription = this.showSigninPopupService.showSigninPopupObservable$.subscribe(x => {
+      this.openSignin(this.signinModalTemplate);
+    });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.routerEventsSubscription.unsubscribe();
+    this.showSigninPopupSubscription.unsubscribe();
   }
 
   displaySigninPopup() {
@@ -121,8 +129,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   logout() {
+  
+    this.authService.logout().subscribe(res => {
+      this.redirectIfAuthRequired();
+    }, err => {
+      this.redirectIfAuthRequired();
+    });
+    
+  }
 
-    this.authService.logout();
+  redirectIfAuthRequired() {
     if (this.routeData && this.routeData.authRequired) {
       this.authGuard.canActivate(
         this.route.snapshot,

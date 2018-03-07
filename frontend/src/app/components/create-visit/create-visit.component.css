@@ -1,0 +1,33 @@
+.google-maps-container {
+    min-height: 200px;
+}
+
+::ng-deep .mat-horizontal-stepper-content {
+    overflow: visible !important;
+}
+
+::ng-deep #visit-date {
+    width: 200px;
+}
+
+::ng-deep #url {
+    width: 100%;
+}
+
+::ng-deep #project {
+    width: 100%;
+}
+
+::ng-deep #project textarea {
+    height: 200px;
+}
+
+@media (min-width: 768px) {
+    ::ng-deep #url {
+        width: 400px;
+    }
+
+    ::ng-deep #project {
+        width: 700px;
+    }
+}

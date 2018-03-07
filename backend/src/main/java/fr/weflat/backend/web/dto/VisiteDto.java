@@ -2,6 +2,9 @@ package fr.weflat.backend.web.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 public class VisiteDto {
 
 	public VisiteDto() {
@@ -16,8 +19,13 @@ public class VisiteDto {
 	private String route;
 	private String streetNumber;
 	private Date visiteDate;
+	
+	@JsonProperty(access = Access.READ_ONLY)
 	private Date creationDate;
+	
+	@JsonProperty(access = Access.READ_ONLY)
 	private int status;
+	private String announcementUrl;
 	
 	
 	public Long getId() {
@@ -98,5 +106,13 @@ public class VisiteDto {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getAnnouncementUrl() {
+		return announcementUrl;
+	}
+
+	public void setAnnouncementUrl(String announcementUrl) {
+		this.announcementUrl = announcementUrl;
 	}
 }

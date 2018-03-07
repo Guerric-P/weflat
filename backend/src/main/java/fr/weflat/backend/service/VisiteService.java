@@ -5,20 +5,40 @@ import java.util.Set;
 import fr.weflat.backend.domaine.Visite;
 
 public interface VisiteService {
-	void save(Visite visite);
+	Long save(Visite visite);
 	
-	Set<Visite> findAvailableVisits(Long idArchitecte);
+	Set<Visite> findAvailableVisitsByArchitectId(Long idArchitecte);
 	
-	Set<Visite> findPlannedVisits(Long idArchitecte);
+	Set<Visite> findPlannedVisitsByArchitectId(Long idArchitecte);
 	
-	Set<Visite> findReportPendingVisits(Long idArchitecte);
+	Set<Visite> findReportPendingVisitsByArchitectId(Long idArchitecte);
 	
-	Set<Visite> findReportWrittenVisits(Long idArchitecte);
+	Set<Visite> findReportWrittenVisitsByArchitectId(Long idArchitecte);
+	
+	Set<Visite> findWaitingForPaymentVisitsByAcheteurId(Long idAcheteur);
+	
+	Set<Visite> findBeingAssignedVisitsByAcheteurId(Long idAcheteur);
+	
+	Set<Visite> findInProgressVisitsByAcheteurId(Long idAcheteur);
+	
+	Set<Visite> findReportBeingWrittenVisitsByAcheteurId(Long idAcheteur);
+	
+	Set<Visite> findReportWrittenVisitsByAcheteurId(Long idAcheteur);
+	
+	Set<Visite> findPlannedVisitsByAcheteurId(Long idAcheteur);
 	
 	Visite getById(Long id);
+	
+	void createVisit(Visite visit, Long idAcheteur) throws Exception;
+	
+	void completeVisitCreation(Visite visit, Long idAcheteur) throws Exception;
+	
+	void pay(Visite visit, String token) throws Exception;
 	
 	void accept(Long idVisite, Long idArchitecte) throws Exception;
 	
 	void refuse(Long idVisite, Long idArchitecte) throws Exception;
+	
+	boolean isVisitComplete(Visite visit);
 
 }

@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>Mes visites</h1>
+  <div class="card">
+    <div class="card-body">
+      <button class="btn btn-primary float-right" type="button" routerLink="/create-visit">Planifier une visite</button>
+    </div>
+  </div>
+  <app-my-visit *ngFor="let visit of waitingForPaymentVisits" [visit]="visit"></app-my-visit>
+  <app-my-visit *ngFor="let visit of beingAssignedVisits" [visit]="visit"></app-my-visit>
+  <app-my-visit *ngFor="let visit of plannedVisits" [visit]="visit" [datePassed]="false"></app-my-visit>
+  <app-my-visit *ngFor="let visit of inProgressVisits" [visit]="visit" [datePassed]="true"></app-my-visit>
+  <app-my-visit *ngFor="let visit of reportBeingWrittenVisits" [visit]="visit"></app-my-visit>
+  <app-my-visit *ngFor="let visit of reportWrittenVisits" [visit]="visit"></app-my-visit>
+</div>

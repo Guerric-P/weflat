@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  baseBackendUrl: '/backend'
+  baseBackendUrl: '/backend',
+  stripePublicKey: 'pk_test_EJlsBsLshUf7TNnB2ITpQ7sB'
 };

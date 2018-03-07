@@ -27,14 +27,6 @@ public class Visite {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "visite_id_seq")
 	private Long id;
 
-	public Set<Architecte> getNearbyArchitectes() {
-		return nearbyArchitectes;
-	}
-
-	public void setNearbyArchitectes(Set<Architecte> nearbyArchitectes) {
-		this.nearbyArchitectes = nearbyArchitectes;
-	}
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_architecte", nullable = true)
 	private Architecte architecte;
@@ -47,7 +39,7 @@ public class Visite {
 	@JoinColumn(name = "id_report")
 	private Report report;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_zip_code", nullable = false)
 	private ZipCode zipCode;
 	
@@ -72,6 +64,9 @@ public class Visite {
 	
 	@Column(nullable = false, name = "status")
 	private int status;
+	
+	@Column(nullable = true, name = "announcement_url")
+	private String announcementUrl;
 	
 	public Architecte getArchitecte() {
 		return architecte;
@@ -159,5 +154,20 @@ public class Visite {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	public Set<Architecte> getNearbyArchitectes() {
+		return nearbyArchitectes;
+	}
+
+	public void setNearbyArchitectes(Set<Architecte> nearbyArchitectes) {
+		this.nearbyArchitectes = nearbyArchitectes;
+	}
+
+	public String getAnnouncementUrl() {
+		return announcementUrl;
+	}
+
+	public void setAnnouncementUrl(String announcementUrl) {
+		this.announcementUrl = announcementUrl;
 	}
 }
