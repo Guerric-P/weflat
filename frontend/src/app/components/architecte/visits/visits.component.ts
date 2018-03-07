@@ -18,6 +18,10 @@ export class VisitsComponent implements OnInit {
   plannedVisites: VisiteClass[];
   reportPendingVisites: VisiteClass[];
   reportWrittenVisites: VisiteClass[];
+  potentialVisitesExpanded: boolean;
+  plannedVisitesExpanded: boolean;
+  reportPendingVisitesExpanded: boolean;
+  reportWrittenVisitesExpanded: boolean;
 
   ngOnInit() {
    this.loadAllVisites();
@@ -34,12 +38,7 @@ export class VisitsComponent implements OnInit {
     this.visiteService.getAvailableVisitsByArchitect(this.authService.userId).subscribe(
       res => {
         this.potentialVisites = res;
-        if(this.potentialVisites && this.potentialVisites.length){
-          $('#potentialVisites').collapse('show');
-        }
-        else {
-          $('#potentialVisites').collapse('hide');
-        }
+        this.potentialVisitesExpanded = this.potentialVisites && !!this.potentialVisites.length;
       }, err => {
         //TODO
       }
@@ -50,12 +49,7 @@ export class VisitsComponent implements OnInit {
     this.visiteService.getPlannedVisitsByArchitect(this.authService.userId).subscribe(
       res => {
         this.plannedVisites = res;
-        if(this.plannedVisites && this.plannedVisites.length){
-          $('#plannedVisites').collapse('show');
-        }
-        else {
-          $('#plannedVisites').collapse('hide');
-        }
+        this.plannedVisitesExpanded = this.plannedVisites && !!this.plannedVisites.length;
       }, err => {
         //TODO
       }
@@ -66,12 +60,7 @@ export class VisitsComponent implements OnInit {
     this.visiteService.getReportPendingVisitsByArchitect(this.authService.userId).subscribe(
       res => {
         this.reportPendingVisites = res;
-        if(this.reportPendingVisites && this.reportPendingVisites.length){
-          $('#reportPendingVisites').collapse('show');
-        }
-        else {
-          $('#reportPendingVisites').collapse('hide');
-        }
+        this.reportPendingVisitesExpanded = this.reportPendingVisites && !!this.reportPendingVisites.length;
       }, err => {
         //TODO
       }
@@ -82,12 +71,7 @@ export class VisitsComponent implements OnInit {
     this.visiteService.getReportWrittenVisitsByArchitect(this.authService.userId).subscribe(
       res => {
         this.reportWrittenVisites = res;
-        if(this.reportWrittenVisites && this.reportWrittenVisites.length){
-          $('#reportWrittenVisites').collapse('show');
-        }
-        else {
-          $('#reportWrittenVisites').collapse('hide');
-        }
+        this.reportWrittenVisitesExpanded = this.reportWrittenVisites && !!this.reportWrittenVisites.length;
       }, err => {
         //TODO
       }

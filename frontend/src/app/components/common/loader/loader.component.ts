@@ -23,11 +23,9 @@ export class LoaderComponent implements OnInit {
         this.show = state.show;
         this.message = state.message;
         if(this.show) {
-          //document.body.style.overflow = 'hidden';
           this.disableScroll();
         }
         else {
-          //document.body.style.overflow = 'visible';
           this.enableScroll();
         }
       });
