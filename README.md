@@ -14,7 +14,7 @@ Lorsque `GitHub Desktop` a terminé de récupérer les fichiers, lancer Visual S
 
 Dans Visual Studio Code, ouvrir le fichier `proxy.config.json` puis remplacer la valeur `http://localhost` par `http://ec2-18-217-96-165.us-east-2.compute.amazonaws.com`
 
-Se placer dans le dossier `frontend` avec l'explorateur Windows puis ouvrir une invite de commande via `shift + clic droit` dans une zone vide `Ouvrir la fenêtre Powershell ici`
+Dans Visual Studio Code, cliquer sur `Afficher`, `Terminal intégré`
 
 Exécuter successivement les commandes suivantes :
 > npm install
