@@ -12,13 +12,12 @@ Ouvrir `GitHub Desktop` et cliquer sur `Clone a repository`, dans l'onglet `URL`
 
 Lorsque `GitHub Desktop` a terminé de récupérer les fichiers, lancer Visual Studio Code et cliquer sur `Fichier` `Ouvrir le dossier` puis sélectionner le dossier  `frontend` dans le dossier créé par GitHub (par défaut `Mes Documents\GitHub\talfew`)
 
-Dans Visual Studio Code, ouvrir le fichier `proxy.config.json` puis remplacer la valeur `http://localhost` par `http://ec2-18-220-178-211.us-east-2.compute.amazonaws.com`
+Dans Visual Studio Code, ouvrir le fichier `proxy.config.json` puis remplacer la valeur `http://localhost` par `http://ec2-18-217-96-165.us-east-2.compute.amazonaws.com`
 
-Se placer dans le dossier `frontend` avec l'explorateur Windows puis ouvrir une invite de commande via `shift + clic droit` dans une zone vide `Ouvrir la fenêtre Powershell ici`
+Dans Visual Studio Code, cliquer sur `Afficher`, `Terminal intégré`
 
 Exécuter successivement les commandes suivantes :
-> npm install -g ng
-> 
+
 > npm install
 > 
 > npm run start
