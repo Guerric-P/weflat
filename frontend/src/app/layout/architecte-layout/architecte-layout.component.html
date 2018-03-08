@@ -17,20 +17,21 @@
 
   <!--Navbar-->
   <nav class="navbar sticky-top navbar-right">
-      <button type="button" id="sidebarCollapse" class="btn navbar-btn" (click)="showLeftMenu()">
-        <i class="material-icons">menu</i>
+    <button type="button" id="sidebarCollapse" class="btn navbar-btn" (click)="showLeftMenu()">
+      <i class="material-icons">menu</i>
+    </button>
+    <a routerLink="/">
+      <img src="assets/weflat_noir.png" class="weflat-logo">
+    </a>
+    <div ngbDropdown placement="bottom-right" class="ml-auto">
+      <button class="btn btn-secondary" type="button" ngbDropdownToggle>
+        {{displayName}}
       </button>
-
-      <div class="dropdown ml-auto">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">
-          {{displayName}}
-        </button>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" (click)="logout()">Se déconnecter</a>
-        </div>
+      <div ngbDropdownMenu >
+        <a class="dropdown-item" (click)="logout()">Se déconnecter</a>
       </div>
-    </nav>
+    </div>
+  </nav>
 
   <div id="maincontent">
     <router-outlet></router-outlet>

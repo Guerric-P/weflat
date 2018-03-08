@@ -1,46 +1,48 @@
-<mat-accordion class="example-headers-align" multi="true">
-  <mat-expansion-panel [expanded]="potentialVisitesExpanded">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Demandes de visites
-      </mat-panel-title>
-      <mat-panel-description>
-        Liste des visites que vous pouvez accepter
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <app-visit *ngFor="let visite of potentialVisites" [visite]="visite" [enableAcceptRefuseButtons]="true" (updated)="loadAllVisites()"></app-visit>
-  </mat-expansion-panel>
-  <mat-expansion-panel [expanded]="plannedVisitesExpanded">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Mes visites passées
-      </mat-panel-title>
-      <mat-panel-description>
-        Liste des visites dont vous avez écrit le compte-rendu
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <app-visit *ngFor="let visite of reportWrittenVisites" [visite]="visite" [enableReportViewButton]="true" (updated)="loadAllVisites()"></app-visit>
-  </mat-expansion-panel>
-  <mat-expansion-panel [expanded]="reportPendingVisitesExpanded">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Mes visites en cours
-      </mat-panel-title>
-      <mat-panel-description>
-        Liste des visites dont vous écrivez le compte-rendu
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <app-visit *ngFor="let visite of reportPendingVisites" [visite]="visite" [enableReportEditButton]="true" (updated)="loadAllVisites()"></app-visit>
-  </mat-expansion-panel>
-  <mat-expansion-panel [expanded]="reportWrittenVisitesExpanded">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Mes visites programmées
-      </mat-panel-title>
-      <mat-panel-description>
-        Liste des visites que vous avez acceptées
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <app-visit *ngFor="let visite of plannedVisites" [visite]="visite" (updated)="loadAllVisites()"></app-visit>
-  </mat-expansion-panel>
-</mat-accordion>
+<div class="container">
+  <mat-accordion class="example-headers-align" multi="true">
+    <mat-expansion-panel [expanded]="potentialVisitesExpanded">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Demandes de visites
+        </mat-panel-title>
+        <mat-panel-description>
+          Liste des visites que vous pouvez accepter
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-visit *ngFor="let visite of potentialVisites" [visite]="visite" [enableAcceptRefuseButtons]="true" (updated)="loadAllVisites()"></app-visit>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="plannedVisitesExpanded">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Mes visites passées
+        </mat-panel-title>
+        <mat-panel-description>
+          Liste des visites dont vous avez écrit le compte-rendu
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-visit *ngFor="let visite of reportWrittenVisites" [visite]="visite" [enableReportViewButton]="true" (updated)="loadAllVisites()"></app-visit>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="reportPendingVisitesExpanded">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Mes visites en cours
+        </mat-panel-title>
+        <mat-panel-description>
+          Liste des visites dont vous écrivez le compte-rendu
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-visit *ngFor="let visite of reportPendingVisites" [visite]="visite" [enableReportEditButton]="true" (updated)="loadAllVisites()"></app-visit>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="reportWrittenVisitesExpanded">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Mes visites programmées
+        </mat-panel-title>
+        <mat-panel-description>
+          Liste des visites que vous avez acceptées
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-visit *ngFor="let visite of plannedVisites" [visite]="visite" (updated)="loadAllVisites()"></app-visit>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

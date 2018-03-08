@@ -15,7 +15,7 @@ import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-report-edit',
   templateUrl: './report-edit.component.html',
-  styleUrls: ['./report-edit.component.css']
+  styleUrls: ['./report-edit.component.scss']
 })
 export class ReportEditComponent implements OnInit {
 

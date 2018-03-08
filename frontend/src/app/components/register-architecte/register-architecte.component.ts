@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register-architecte',
   templateUrl: './register-architecte.component.html',
-  styleUrls: ['./register-architecte.component.css']
+  styleUrls: ['./register-architecte.component.scss']
 })
 export class RegisterArchitecteComponent implements OnInit {
 

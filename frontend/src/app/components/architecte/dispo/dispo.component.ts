@@ -13,7 +13,7 @@ declare var google: any;
 @Component({
   selector: 'app-dispo',
   templateUrl: './dispo.component.html',
-  styleUrls: ['./dispo.component.css']
+  styleUrls: ['./dispo.component.scss']
 })
 export class DispoComponent implements OnInit, AfterViewInit {
 

@@ -9,7 +9,7 @@ import { BaseBackendLayoutComponent } from 'app/layout/base-backend-layout/base-
 @Component({
   selector: 'app-acheteur-layout',
   templateUrl: './acheteur-layout.component.html',
-  styleUrls: ['./acheteur-layout.component.css']
+  styleUrls: ['./acheteur-layout.component.scss']
 })
 export class AcheteurLayoutComponent extends BaseBackendLayoutComponent implements OnInit {
 

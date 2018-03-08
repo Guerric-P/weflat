@@ -9,7 +9,7 @@ import { LoaderService } from '../../../../services/loader.service';
 @Component({
   selector: 'app-visit',
   templateUrl: './visit.component.html',
-  styleUrls: ['./visit.component.css']
+  styleUrls: ['./visit.component.scss']
 })
 export class VisitComponent implements OnInit {
 

@@ -16,7 +16,7 @@ import { AuthenticationService } from 'app/services/authentication.service';
 @Component({
   selector: 'app-architecte-profile',
   templateUrl: './architecte-profile.component.html',
-  styleUrls: ['./architecte-profile.component.css']
+  styleUrls: ['./architecte-profile.component.scss']
 })
 export class ArchitecteProfileComponent implements OnInit {
 

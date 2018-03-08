@@ -25,6 +25,7 @@
     "@angular/router": "^5.0.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0",
     "angular2-notifications": "0.9.5",
+    "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.5",

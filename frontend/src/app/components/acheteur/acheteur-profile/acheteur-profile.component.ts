@@ -12,7 +12,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-acheteur-profile',
   templateUrl: './acheteur-profile.component.html',
-  styleUrls: ['./acheteur-profile.component.css']
+  styleUrls: ['./acheteur-profile.component.scss']
 })
 export class AcheteurProfileComponent implements OnInit {
   constructor(private fb: FormBuilder,

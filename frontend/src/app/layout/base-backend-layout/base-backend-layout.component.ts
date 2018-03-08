@@ -10,7 +10,7 @@ import { VisiteCounterService } from 'app/services/visite-counter.service';
 @Component({
   selector: 'app-base-backend-layout',
   templateUrl: './base-backend-layout.component.html',
-  styleUrls: ['./base-backend-layout.component.css']
+  styleUrls: ['./base-backend-layout.component.scss']
 })
 export class BaseBackendLayoutComponent implements OnInit {
   constructor(protected authService: AuthenticationService,
@@ -45,7 +45,7 @@ export class BaseBackendLayoutComponent implements OnInit {
     }
   
     get displayName() {
-      return this.localStorageService.tokenPayload.displayName;
+      return this.localStorageService.tokenPayload ? this.localStorageService.tokenPayload.displayName : null;
     }
   
     open(content) {
