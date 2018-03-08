@@ -96,6 +96,7 @@ import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-po
 import { MyVisitComponent } from './components/acheteur/my-visits/my-visit/my-visit.component';
 import { PaymentDirective } from './directives/payment.directive';
 import { LoaderComponent } from './components/common/loader/loader.component';
+import { ReportConsultationComponent } from './components/report/report-consultation/report-consultation.component';
 
 
 const appRoutes: Routes = [
@@ -161,7 +162,8 @@ const appRoutes: Routes = [
     DisabledZipCodePopupComponent,
     MyVisitComponent,
     PaymentDirective,
-    LoaderComponent
+    LoaderComponent,
+    ReportConsultationComponent
   ],
   imports: [
     BrowserModule,
