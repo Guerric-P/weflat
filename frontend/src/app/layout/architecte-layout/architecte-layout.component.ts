@@ -13,7 +13,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 @Component({
   selector: 'app-architecte-layout',
   templateUrl: './architecte-layout.component.html',
-  styleUrls: ['./architecte-layout.component.css']
+  styleUrls: ['./architecte-layout.component.scss']
 })
 export class ArchitecteLayoutComponent extends BaseBackendLayoutComponent implements OnInit, OnDestroy {
 

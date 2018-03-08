@@ -5,7 +5,7 @@ import { VisiteClass } from 'app/models/visiteclass';
 @Component({
   selector: 'app-disabled-zip-code-popup',
   templateUrl: './disabled-zip-code-popup.component.html',
-  styleUrls: ['./disabled-zip-code-popup.component.css']
+  styleUrls: ['./disabled-zip-code-popup.component.scss']
 })
 export class DisabledZipCodePopupComponent implements OnInit {
 

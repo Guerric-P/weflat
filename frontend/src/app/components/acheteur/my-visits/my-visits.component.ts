@@ -6,7 +6,7 @@ import { VisiteService } from 'app/services/visite.service';
 @Component({
   selector: 'app-my-visits',
   templateUrl: './my-visits.component.html',
-  styleUrls: ['./my-visits.component.css']
+  styleUrls: ['./my-visits.component.scss']
 })
 export class MyVisitsComponent implements OnInit {
 

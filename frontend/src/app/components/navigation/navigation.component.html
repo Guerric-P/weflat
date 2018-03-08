@@ -1,5 +1,5 @@
 <header>
-  <div class="collapse bg-dark" id="navbarHeader">
+  <div class="bg-dark" [ngbCollapse]="isCollapsed">
     <div class="container">
       <div class="row">
         <div class="col-sm-6 py-4">
@@ -42,13 +42,12 @@
       <a class="navbar-brand" routerLink="/">
         <img src="assets/weflatlogo.png" width="70" height="70" alt="">
       </a>
-      <form class="form-inline">
-        <div class="nav-item dropdown" *ngIf="token">
-          <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+      <div>
+        <div *ngIf="token" ngbDropdown class="d-inline-block" placement="bottom-right">
+          <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
             {{displayName}}
           </a>
-          <div class="dropdown-menu dropdown-menu-right">
+          <div ngbDropdownMenu>
             <a class="dropdown-item" (click)="redirectToPersonal()">Mon espace personnel</a>
             <a class="dropdown-item" (click)="logout()">Déconnexion</a>
           </div>
@@ -57,11 +56,10 @@
           Se connecter
         </button>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader"
-          aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed">
           <span class="navbar-toggler-icon"></span>
         </button>
-      </form>
+      </div>
 
     </div>
   </div>

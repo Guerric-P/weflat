@@ -3,12 +3,10 @@ import { VisiteClass } from 'app/models/visiteclass';
 import { VisiteService } from 'app/services/visite.service';
 import { AuthenticationService } from 'app/services/authentication.service';
 
-declare var $:any;
-
 @Component({
   selector: 'app-visits',
   templateUrl: './visits.component.html',
-  styleUrls: ['./visits.component.css']
+  styleUrls: ['./visits.component.scss']
 })
 export class VisitsComponent implements OnInit {
 

@@ -10,7 +10,7 @@ import { ShowSigninPopupService } from 'app/services/show-signin-popup.service';
 @Component({
   selector: 'app-register-acheteur',
   templateUrl: './register-acheteur.component.html',
-  styleUrls: ['./register-acheteur.component.css']
+  styleUrls: ['./register-acheteur.component.scss']
 })
 export class RegisterAcheteurComponent implements OnInit {
 

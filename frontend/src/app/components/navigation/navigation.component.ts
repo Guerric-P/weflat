@@ -13,7 +13,7 @@ import { ShowSigninPopupService } from 'app/services/show-signin-popup.service';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+  styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit, OnDestroy {
 
@@ -34,6 +34,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   signupModal: NgbModalRef;
   routerEventsSubscription: Subscription;
   showSigninPopupSubscription: Subscription;
+  isCollapsed: boolean = true;
   @ViewChild('signinModal') signinModalTemplate: TemplateRef<any>;
 
   ngOnInit() {

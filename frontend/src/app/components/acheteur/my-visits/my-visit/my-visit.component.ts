@@ -5,7 +5,7 @@ import { VisitStatusEnum } from 'app/common/enums/VisitStatusEnum';
 @Component({
   selector: 'app-my-visit',
   templateUrl: './my-visit.component.html',
-  styleUrls: ['./my-visit.component.css']
+  styleUrls: ['./my-visit.component.scss']
 })
 export class MyVisitComponent implements OnInit {
 

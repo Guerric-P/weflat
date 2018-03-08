@@ -9,7 +9,7 @@ import { AuthenticationService } from 'app/services/authentication.service';
 @Component({
   selector: 'app-purchase-project',
   templateUrl: './purchase-project.component.html',
-  styleUrls: ['./purchase-project.component.css']
+  styleUrls: ['./purchase-project.component.scss']
 })
 export class PurchaseProjectComponent implements OnInit {
 
