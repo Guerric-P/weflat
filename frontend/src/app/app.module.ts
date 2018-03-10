@@ -4,13 +4,15 @@ import { CoreModule } from "./core/core.module";
 import { RouterModule } from "@angular/router";
 import { SimpleNotificationsModule } from "angular2-notifications";
 import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   imports: [
     CoreModule,
     BrowserModule,
+    BrowserAnimationsModule, 
     RouterModule,
-    SimpleNotificationsModule,
+    SimpleNotificationsModule.forRoot(),
   ],
   declarations: [
     AppComponent

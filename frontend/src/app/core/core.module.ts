@@ -1,4 +1,4 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -32,7 +32,6 @@ import { ArchitecteLayoutComponent } from './layout/architecte-layout/architecte
 import { AcheteurLayoutComponent } from './layout/acheteur-layout/acheteur-layout.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { BaseBackendLayoutComponent } from './layout/base-backend-layout/base-backend-layout.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -46,11 +45,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatDividerModule,
     MatStepperModule,
     MatProgressSpinnerModule,
-    BrowserAnimationsModule,
     NgbModule,
     SharedModule.forRoot(),
     ArchitectModule,
-    CustomerModule,
+    CustomerModule
   ],
   providers: [
     AuthenticationService,
@@ -58,16 +56,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ArchitecteGuard,
     AcheteurGuard,
     CreateVisitGuard,
-    LocalStorageService, {
+    LocalStorageService,
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true,
     },
     SessionStorageService,
-    {
-      provide: LOCALE_ID,
-      useValue: 'fr-FR'
-    },
     ShowSigninPopupService,
     LoaderService
   ],
