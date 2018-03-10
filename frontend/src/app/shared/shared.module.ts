@@ -57,12 +57,4 @@ export class SharedModule {
       ]
     };
   }
-  static forChild(): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: [
-        
-      ]
-    };
-  }
 }

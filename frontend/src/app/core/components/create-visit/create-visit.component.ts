@@ -16,6 +16,7 @@ import { GooglePlaceKeys } from '../../../shared/common/GooglePlaceKeys';
 import { VisiteClass } from '../../models/VisiteClass';
 import { ZipCodeClass } from '../../models/ZipCodeClass';
 import { AcheteurClass } from '../../models/AcheteurClass';
+import { DatePipe } from '@angular/common';
 
 declare var google;
 
@@ -123,6 +124,10 @@ export class CreateVisitComponent implements OnInit {
       announcementUrl: ['', [Validators.required, Validators.pattern(/^(http|https):\/\/[^ "]+$/)]]
     });
 
+    this.dateFormGroup.valueChanges.subscribe(() => {
+      this.loadVisit();
+    });
+
     this.projectFormGroup.valueChanges.subscribe(() => {
       this.loadVisit();
     });
@@ -137,6 +142,12 @@ export class CreateVisitComponent implements OnInit {
     }
 
     this.adapter.setLocale('fr');
+  }
+
+  get formattedVisitDate() {
+    if (this.visit && this.visit.visiteDate && !isNaN(this.visit.visiteDate.getTime())) {
+      return new DatePipe('fr').transform(this.visit.visiteDate, 'medium');
+    }
   }
 
   ngAfterViewInit(): void {

@@ -16,13 +16,18 @@ export class VisiteClass {
     public announcementUrl: string;
 
     get formattedAddress() {
-        return this.streetNumber
-        + ', '
-        + this.route
-        + ' - '
-        + this.zipCode.number
-        + ' '
-        + this.city;
+        try {
+            return this.streetNumber
+                + ', '
+                + this.route
+                + ' - '
+                + this.zipCode.number
+                + ' '
+                + this.city;
+        }
+        catch (err) {
+            // Ignore
+        }
     }
 
     constructor(obj?: any) {

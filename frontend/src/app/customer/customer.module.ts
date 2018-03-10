@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatButtonModule, MatCheckboxModule, MatInputModule, MatProgressSpinnerModule, MatIconModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { MyVisitComponent } from './components/my-visits/my-visit/my-visit.component';
 import { SharedModule } from '../shared/shared.module';
 import { CustomerRoutingModule } from './customer-routing.module';
@@ -30,8 +29,7 @@ import { CustomerRoutingModule } from './customer-routing.module';
     MatStepperModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    SimpleNotificationsModule.forRoot(),
-    SharedModule.forChild()
+    SharedModule
   ],
   declarations: [
     AcheteurProfileComponent,

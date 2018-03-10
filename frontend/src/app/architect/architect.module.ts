@@ -17,7 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatButtonModule, MatCheckboxModule, MatInputModule, MatChipsModule, MatIconModule, MatExpansionModule } from '@angular/material';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
 import { VisiteCounterService } from './services/visite-counter.service';
@@ -35,8 +34,7 @@ import { VisiteCounterService } from './services/visite-counter.service';
     MatInputModule,
     MatChipsModule,
     MatIconModule,
-    MatExpansionModule,
-    SimpleNotificationsModule.forRoot()
+    MatExpansionModule
   ],
   declarations: [
     DashboardComponent,
