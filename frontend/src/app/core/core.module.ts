@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterArchitecteComponent } from './components/register-architecte/register-architecte.component';
@@ -10,8 +11,6 @@ import { AuthGuard } from './guards/auth.guard';
 import { ArchitecteGuard } from './guards/architecte.guard';
 import { AcheteurGuard } from './guards/acheteur.guard';
 import { ErrorComponent } from './components/error/error.component';
-import { ArchitectModule } from '../architect/architect.module';
-import { CustomerModule } from '../customer/customer.module';
 import { AuthenticationService } from './services/authentication.service';
 import { ErrorInterceptor } from './services/http-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -32,6 +31,8 @@ import { ArchitecteLayoutComponent } from './layout/architecte-layout/architecte
 import { AcheteurLayoutComponent } from './layout/acheteur-layout/acheteur-layout.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { BaseBackendLayoutComponent } from './layout/base-backend-layout/base-backend-layout.component';
+import { HttpClient } from 'selenium-webdriver/http';
+import { VisiteCounterService } from './services/visite-counter.service';
 
 @NgModule({
   imports: [
@@ -46,9 +47,9 @@ import { BaseBackendLayoutComponent } from './layout/base-backend-layout/base-ba
     MatStepperModule,
     MatProgressSpinnerModule,
     NgbModule,
-    SharedModule.forRoot(),
-    ArchitectModule,
-    CustomerModule
+    HttpClientModule,
+    NgbModule.forRoot(),
+    SharedModule.forRoot()
   ],
   providers: [
     AuthenticationService,
@@ -64,7 +65,8 @@ import { BaseBackendLayoutComponent } from './layout/base-backend-layout/base-ba
     },
     SessionStorageService,
     ShowSigninPopupService,
-    LoaderService
+    LoaderService,
+    VisiteCounterService
   ],
   declarations: [
     PublicLayoutComponent,

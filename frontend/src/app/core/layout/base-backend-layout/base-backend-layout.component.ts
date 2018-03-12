@@ -4,8 +4,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { AuthGuard } from '../../../core/guards/auth.guard';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
-import { VisiteCounterService } from '../../../architect/services/visite-counter.service';
 import { VisiteService } from '../../../shared/services/visite.service';
+import { VisiteCounterService } from '../../services/visite-counter.service';
 
 @Component({
   selector: 'app-base-backend-layout',

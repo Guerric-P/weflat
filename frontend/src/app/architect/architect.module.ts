@@ -19,7 +19,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatButtonModule, MatCheckboxModule, MatInputModule, MatChipsModule, MatIconModule, MatExpansionModule } from '@angular/material';
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
-import { VisiteCounterService } from './services/visite-counter.service';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -46,9 +45,6 @@ import { SharedModule } from '../shared/shared.module';
     ReportEditComponent,
     DispoComponent,
     MessagesComponent
-  ],
-  providers: [
-    VisiteCounterService
   ]
 })
 export class ArchitectModule { }
