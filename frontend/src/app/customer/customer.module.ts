@@ -36,9 +36,6 @@ import { CustomerRoutingModule } from './customer-routing.module';
     PurchaseProjectComponent,
     MyVisitsComponent,
     MyVisitComponent
-  ],
-  exports: [
-    RouterModule
   ]
 })
 export class CustomerModule { }

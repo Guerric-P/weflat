@@ -10,8 +10,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
   imports: [
     CoreModule,
     BrowserModule,
-    BrowserAnimationsModule, 
-    RouterModule,
+    BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
   ],
   declarations: [
