@@ -8,7 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatProgressSpinnerModule, MatIconModule, MatStepperModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatProgressSpinnerModule, MatIconModule, MatStepperModule } from '@angular/material';
 import { MyVisitComponent } from './components/my-visits/my-visit/my-visit.component';
 import { SharedModule } from '../shared/shared.module';
 import { CustomerRoutingModule } from './customer-routing.module';
@@ -27,8 +27,6 @@ import { CustomerRoutingModule } from './customer-routing.module';
     MatProgressSpinnerModule,
     MatIconModule,
     MatStepperModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     SharedModule
   ],
   declarations: [
