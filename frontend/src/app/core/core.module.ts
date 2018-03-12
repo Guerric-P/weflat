@@ -82,7 +82,8 @@ import { BaseBackendLayoutComponent } from './layout/base-backend-layout/base-ba
     LoaderComponent
   ],
   exports: [
-    LoaderComponent
+    LoaderComponent,
+    RouterModule
   ]
 })
 export class CoreModule { }

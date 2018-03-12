@@ -20,6 +20,7 @@ import { MatButtonModule, MatCheckboxModule, MatInputModule, MatChipsModule, Mat
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
 import { VisiteCounterService } from './services/visite-counter.service';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { VisiteCounterService } from './services/visite-counter.service';
     MatInputModule,
     MatChipsModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    SharedModule
   ],
   declarations: [
     DashboardComponent,
@@ -47,9 +49,6 @@ import { VisiteCounterService } from './services/visite-counter.service';
   ],
   providers: [
     VisiteCounterService
-  ],
-  exports: [
-    RouterModule
   ]
 })
 export class ArchitectModule { }
