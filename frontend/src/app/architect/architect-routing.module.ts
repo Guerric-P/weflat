@@ -13,6 +13,7 @@ import { ReportResolver } from '../shared/resolvers/report.resolver';
 import { PositionResolver } from '../shared/resolvers/position.resolver';
 import { ZipCodesResolver } from '../shared/resolvers/zip-codes-resolver';
 import { MessagesComponent } from './components/messages/messages.component';
+import { ReportConsultationComponent } from '../shared/components/report/report-consultation/report-consultation.component';
 
 const routes: Routes  = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -26,7 +27,8 @@ const routes: Routes  = [
       }, data: { authRequired: true }
   },
   { path: 'visits', component: VisitsComponent, data: { authRequired: true } },
-  { path: 'visits/:id/report', component: ReportEditComponent, resolve: { report: ReportResolver, positions: PositionResolver }, data: { authRequired: true } },
+  { path: 'visits/:id/report/edit', component: ReportEditComponent, resolve: { report: ReportResolver, positions: PositionResolver }, data: { authRequired: true } },
+  { path: 'visits/:id/report', component: ReportConsultationComponent, resolve: { report: ReportResolver }, data: { authRequired: true } },
   { path: 'dispo', component: DispoComponent, resolve: { zipCodes: ZipCodesResolver }, data: { authRequired: true } },
   { path: 'messages', component: MessagesComponent, data: { authRequired: true } }
 ];

@@ -1,3 +1,154 @@
-<p>
-  report-consultation works!
-</p>
+<div class="container mt-3">
+  <div class="container">
+    <button class="btn btn-light" type="submit">Retour</button>
+    <button class="btn btn-primary mr-2 float-right" type="submit">Télécharger au format pdf</button>
+    <button class="btn btn-light mr-2 float-right" type="button">Noter l'architecte</button>
+    <button class="btn btn-light float-right" type="button">Contacter l'architecte</button>
+    <h1 class="mt-3" style="font-size:3.2em;">Mon compte rendu</h1>
+    <div class="card mt-2">
+      <div class="card-header">
+        L'acheteur
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label for="inputfirstname3" class="col-sm-2 col-form-label">Prénom</label>
+          <div class="col-sm-10">
+            {{report.visite.acheteur.firstName}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputlastname3" class="col-sm-2 col-form-label">Nom</label>
+          <div class="col-sm-10">
+            {{report.visite.acheteur.lastName}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputlastname3" class="col-sm-2 col-form-label">Ses attentes</label>
+          <div class="col-md-10">
+            {{report.visite.acheteur.project}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-header">
+        La visite
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Date de visite</label>
+          <div class="col-sm-10">
+            {{report.visite.visiteDate | date:'medium'}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Adresse</label>
+          <div class="col-sm-10">
+            {{report.visite.formattedAddress}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Superficie</label>
+          <div class="col-sm-10">
+            {{report.surface}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Pièces</label>
+          <div class="col-sm-10">
+            <div class="form-group">
+              {{report.rooms}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Etage</label>
+          <div class="col-sm-10">
+            <div class="form-group">
+              {{report.floor}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Orientation</label>
+          <div class="col-sm-10">
+            {{report.orientation}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-header">
+        La qualité du bien immobilier
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="d-inline-block col-2">Poste</th>
+              <th class="d-inline-block col-2">Etat</th>
+              <th class="d-inline-block col-3">Travaux estimatifs</th>
+              <th class="d-inline-block col-4">Remarques</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let renovation of report.renovations">
+              <th class="d-inline-block col-2" scope="row">
+                {{renovation.position.label}}
+              </th>
+              <td class="d-inline-block col-2">
+                <ng-container [ngSwitch]="renovation.condition">
+                  <div *ngSwitchCase="0">Bon</div>
+                  <div *ngSwitchCase="1">Moyen</div>
+                  <div *ngSwitchCase="2">Mauvais</div>
+                </ng-container>
+              </td>
+              <td class="d-inline-block col-3">
+                {{renovation.estimatedWork}}
+              </td>
+              <td class="d-inline-block col-4">
+                {{ renovation.remarks }}
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <th class="d-inline-block col-2" scope="row">
+                Global
+              </th>
+              <td class="d-inline-block col-2">
+                <ng-container [ngSwitch]="report.globalCondition">
+                  <div *ngSwitchCase="0">Bon</div>
+                  <div *ngSwitchCase="1">Moyen</div>
+                  <div *ngSwitchCase="2">Mauvais</div>
+                </ng-container>
+              </td>
+              <td class="d-inline-block col-3">
+                {{ estimatedWorkSum }}
+              </td>
+              <td class="d-inline-block col-4">
+                {{ report.globalQualityRemarks }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-header">
+        Le potentiel du bien immobilier
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Remarques générales</label>
+          <div class="col-md-10">
+            {{report.generalRemarks}}
+          </div>
+        </div>
+        <div class="text-center">
+          <img src="assets/salon.jpg" class="img-fluid" alt="Responsive image">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

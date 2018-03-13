@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } f
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateAdapter, MatHorizontalStepper } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
-import * as moment from 'moment';
+declare var moment;
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { CdkStep } from '@angular/cdk/stepper';
 import { DisabledZipCodePopupComponent } from '../disabled-zip-code-popup/disabled-zip-code-popup.component';

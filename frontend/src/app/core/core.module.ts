@@ -1,4 +1,4 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
@@ -21,7 +21,7 @@ import { ShowSigninPopupService } from './services/show-signin-popup.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AddressFieldComponent } from './components/home/address-field/address-field.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatFormField, MatFormFieldModule, MatDividerModule, MatStepperModule, MatProgressSpinnerModule, MatInputModule, MatButtonModule, MatDatepickerModule } from '@angular/material';
+import { MatFormField, MatFormFieldModule, MatDividerModule, MatStepperModule, MatProgressSpinnerModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -33,11 +33,6 @@ import { CoreRoutingModule } from './core-routing.module';
 import { BaseBackendLayoutComponent } from './layout/base-backend-layout/base-backend-layout.component';
 import { HttpClient } from 'selenium-webdriver/http';
 import { VisiteCounterService } from './services/visite-counter.service';
-import { MatMomentDateModule } from '@angular/material-moment-adapter'
-import { registerLocaleData } from '@angular/common';
-import localeFr from '@angular/common/locales/fr';
-
-registerLocaleData(localeFr);
 
 @NgModule({
   imports: [
@@ -52,7 +47,7 @@ registerLocaleData(localeFr);
     MatStepperModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
-    MatMomentDateModule,
+    MatNativeDateModule,
     NgbModule,
     HttpClientModule,
     NgbModule.forRoot(),
@@ -69,10 +64,6 @@ registerLocaleData(localeFr);
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true,
-    },
-    {
-      provide: LOCALE_ID,
-      useValue: 'fr'
     },
     SessionStorageService,
     ShowSigninPopupService,
