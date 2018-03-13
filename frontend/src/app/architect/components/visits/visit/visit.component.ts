@@ -67,6 +67,10 @@ export class VisitComponent implements OnInit {
   }
 
   editReport() {
+    this.router.navigate([`/architecte/visits/${this.visite.id}/report/edit`]);
+  }
+
+  viewReport() {
     this.router.navigate([`/architecte/visits/${this.visite.id}/report`]);
   }
 }

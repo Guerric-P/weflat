@@ -10,6 +10,6 @@
     <button mat-raised-button color="primary" (click)="editReport()" [disabled]="editButtonDisabled">Editer le rapport</button>
   </div>
   <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end" *ngIf="enableReportViewButton">
-    <button mat-raised-button color="primary" [disabled]="editButtonDisabled">Voir le rapport</button>
+    <button mat-raised-button color="primary" (click)="viewReport()" [disabled]="editButtonDisabled">Voir le rapport</button>
   </div>
 </div>

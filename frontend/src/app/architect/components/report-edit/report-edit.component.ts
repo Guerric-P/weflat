@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, SimpleChanges, TemplateRef, ViewChild } f
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
+declare var moment;
 import { AbstractControl } from '@angular/forms/src/model';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VisiteService } from '../../../shared/services/visite.service';

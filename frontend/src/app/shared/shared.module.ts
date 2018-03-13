@@ -29,7 +29,8 @@ import { ReportConsultationComponent } from './components/report/report-consulta
     ReportConsultationComponent
   ],
   exports: [
-    PaymentDirective
+    PaymentDirective,
+    ReportConsultationComponent
   ]
 })
 export class SharedModule {
