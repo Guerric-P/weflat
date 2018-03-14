@@ -48,7 +48,7 @@ public class VisiteController {
 	public VisitCreationResponseDto postVisit(@RequestBody VisiteDto input, Authentication authentication) throws Exception {
 
 		Long acheteurId = null;
-		
+
 		if(authentication != null) {
 			acheteurId = (Long)((Map<String, Object>) authentication.getDetails()).get("id");
 		}
@@ -67,7 +67,7 @@ public class VisiteController {
 	@RequestMapping(path = "/{id}", method = RequestMethod.PATCH)
 	public VisitCreationResponseDto completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
-		
+
 		Visite visit = visiteService.getById(id);
 
 		if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() && visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
@@ -83,7 +83,7 @@ public class VisiteController {
 	public void payVisit(@PathVariable("id") long id, @RequestParam() String token) throws Exception {
 
 		Visite visit = visiteService.getById(id);
-		
+
 		if (visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
 			throw new Exception("Visit non eligible for payment.");
 		}
@@ -113,10 +113,8 @@ public class VisiteController {
 		return visiteService.findAvailableVisitsByArchitectId((Long) details.get("id")).size();
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/{id}/report", method = RequestMethod.GET)
 	public ReportDto getReport(@PathVariable("id") long id, Authentication authentication) {
-		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
 		Report report =  reportService.getByVisiteId(id);
 		ReportDto reportDto = null;
@@ -128,11 +126,7 @@ public class VisiteController {
 			reportDto.setVisite(orikaMapperFacade.map(visite, VisiteDto.class));
 		}
 		else {
-			if(report.getVisite().getArchitecte() != null && report.getVisite().getArchitecte().getId() == (Long) details.get("id")) {
-				reportDto = orikaMapperFacade.map(report, ReportDto.class);
-			} else {
-				throw new AccessDeniedException("Non autorisé.");
-			}
+			reportDto = orikaMapperFacade.map(report, ReportDto.class);
 		}
 
 		return reportDto;

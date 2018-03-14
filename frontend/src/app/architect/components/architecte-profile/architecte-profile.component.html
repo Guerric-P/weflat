@@ -77,6 +77,32 @@
         </div>
       </div>
     </div>
+
+    <div class="card mt-2">
+      <div class="card-header">
+        Ma zone d'action
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-4 zip-codes-container">
+            <label>Saisissez les codes postaux correspondant à votre zone d'action</label>
+            <mat-form-field>
+              <mat-chip-list #zipCodesList>
+                <mat-chip *ngFor="let zipCode of zipCodes" [selectable]="selectable" [removable]="removable" (remove)="remove(zipCode)">
+                  {{zipCode}}
+                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                </mat-chip>
+                <input #zipCodeInput placeholder="Nouveau code postal..." [matChipInputFor]="zipCodesList" />
+              </mat-chip-list>
+            </mat-form-field>
+            <button type="button" mat-raised-button (click)="fitBounds()">Recentrer la carte</button>
+          </div>
+          <div class="col-sm-8 google-maps-container" #googleMap>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="card mt-2">
       <div class="card-header">
         Mon métier d'architecte
@@ -245,7 +271,7 @@
     </div>
     <div class="form-group row mt-3">
       <div class="col-sm-12">
-          <p class="font-italic">* Champ obligatoire</p>
+        <p class="font-italic">* Champ obligatoire</p>
       </div>
     </div>
     <div class="form-group row mt-3">
