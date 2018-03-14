@@ -1,6 +1,7 @@
 package fr.weflat.backend.web.dto;
 
 import java.util.Date;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -19,6 +20,9 @@ public class ArchitecteDto extends UtilisateurDto {
 	private Date practicingSince;
 	private ArchitectSituationDto situation;
 	private ArchitectTypeDto type;
+	
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private Set<ZipCodeDto> zipCodes;
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	private int status;
@@ -89,5 +93,11 @@ public class ArchitecteDto extends UtilisateurDto {
 	}
 	public void setCgu(boolean cgu) {
 		this.cgu = cgu;
+	}
+	public Set<ZipCodeDto> getZipCodes() {
+		return zipCodes;
+	}
+	public void setZipCodes(Set<ZipCodeDto> zipCodes) {
+		this.zipCodes = zipCodes;
 	}
 }

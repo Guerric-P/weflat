@@ -56,31 +56,38 @@
   <mat-step [completed]="visitCreationComplete && architectsAvailable" [optional]="false" [editable]="true" #locationStep>
     <app-disabled-zip-code-popup #popup></app-disabled-zip-code-popup>
     <form [formGroup]="addressFormGroup">
-      <div class="row">
-        <div class="col-sm-4">
-          <ng-template matStepLabel>Adresse</ng-template>
-          <mat-form-field>
-            <input matInput placeholder="Adresse" formControlName="addressInput" required #addressInput>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Numéro de voie" formControlName="streetNumber" required #streetNumber>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Voie" formControlName="route" required #route>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Code postal" formControlName="zipCode" required #zipCode>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Ville" formControlName="city" required #city>
-          </mat-form-field>
+      <div class="container">
+        <div class="col">
+          <div class="row justify-content-center align-items-center">
+            <h1>Adresse du bien immobilier</h1>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <ng-template matStepLabel>Adresse</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="Adresse" formControlName="addressInput" required #addressInput>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Numéro de voie" formControlName="streetNumber" required #streetNumber>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Voie" formControlName="route" required #route>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Code postal" formControlName="zipCode" required #zipCode>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Ville" formControlName="city" required #city>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-8 google-maps-container" #googleMap>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mt-5">
+            <button mat-raised-button matStepperPrevious>Précédent</button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="!(visitCreationComplete && architectsAvailable)">Suivant</button>
+          </div>
         </div>
-        <div class="col-sm-8 google-maps-container" #googleMap>
-        </div>
-      </div>
-      <div class="d-flex justify-content-center mt-5">
-        <button mat-raised-button matStepperPrevious>Précédent</button>
-        <button mat-raised-button color="primary" matStepperNext [disabled]="!(visitCreationComplete && architectsAvailable)">Suivant</button>
       </div>
     </form>
   </mat-step>

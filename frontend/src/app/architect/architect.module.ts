@@ -10,7 +10,6 @@ import { VisitsComponent } from './components/visits/visits.component';
 import { ReportEditComponent } from './components/report-edit/report-edit.component';
 import { ReportResolver } from '../shared/resolvers/report.resolver';
 import { PositionResolver } from '../shared/resolvers/position.resolver';
-import { DispoComponent } from './components/dispo/dispo.component';
 import { ZipCodesResolver } from '../shared/resolvers/zip-codes-resolver';
 import { MessagesComponent } from './components/messages/messages.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,7 +42,6 @@ import { SharedModule } from '../shared/shared.module';
     VisitsComponent,
     VisitComponent,
     ReportEditComponent,
-    DispoComponent,
     MessagesComponent
   ]
 })

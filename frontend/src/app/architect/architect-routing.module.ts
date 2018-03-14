@@ -8,7 +8,6 @@ import { ArchitectTypeResolver } from '../shared/resolvers/architect-type.resolv
 import { ArchitectSituationResolver } from '../shared/resolvers/architect-situation.resolver';
 import { VisitsComponent } from './components/visits/visits.component';
 import { ReportEditComponent } from './components/report-edit/report-edit.component';
-import { DispoComponent } from './components/dispo/dispo.component';
 import { ReportResolver } from '../shared/resolvers/report.resolver';
 import { PositionResolver } from '../shared/resolvers/position.resolver';
 import { ZipCodesResolver } from '../shared/resolvers/zip-codes-resolver';
@@ -23,13 +22,13 @@ const routes: Routes  = [
       {
         architecte: ArchitecteResolver,
         architectTypes: ArchitectTypeResolver,
-        architectSituations: ArchitectSituationResolver
+        architectSituations: ArchitectSituationResolver,
+        zipCodes: ZipCodesResolver
       }, data: { authRequired: true }
   },
   { path: 'visits', component: VisitsComponent, data: { authRequired: true } },
   { path: 'visits/:id/report/edit', component: ReportEditComponent, resolve: { report: ReportResolver, positions: PositionResolver }, data: { authRequired: true } },
   { path: 'visits/:id/report', component: ReportConsultationComponent, resolve: { report: ReportResolver }, data: { authRequired: true } },
-  { path: 'dispo', component: DispoComponent, resolve: { zipCodes: ZipCodesResolver }, data: { authRequired: true } },
   { path: 'messages', component: MessagesComponent, data: { authRequired: true } }
 ];
 
