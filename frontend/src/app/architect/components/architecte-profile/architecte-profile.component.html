@@ -83,6 +83,14 @@
         Ma zone d'action
       </div>
       <div class="card-body">
+        <div *ngIf="disabledZipCodes && disabledZipCodes.length" [ngSwitch]="disabledZipCodes.length" class="alert alert-warning" role="alert">
+          <ng-container *ngSwitchCase="1">
+              Le code postal {{formattedDisabledZipCodes}} n'a pas été activé pour l'instant. Vous recevrez des demandes de visites pour ce code postal lorsqu'il sera activé par l'équipe Weflat.
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+              Les code postaux {{formattedDisabledZipCodes}} n'ont pas été activés pour l'instant. Vous recevrez des demandes de visites pour ces codes postaux lorsqu'ils seront activés par l'équipe Weflat.
+          </ng-container>
+        </div>
         <div class="row">
           <div class="col-sm-4 zip-codes-container">
             <label>Saisissez les codes postaux correspondant à votre zone d'action</label>
