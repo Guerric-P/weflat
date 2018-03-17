@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
@@ -13,6 +13,7 @@ import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
 import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
+import { ZipCodeService } from '../../../shared/services/zip-code.service';
 declare var moment;
 declare var google;
 
@@ -33,6 +34,7 @@ export class ArchitecteProfileComponent implements OnInit {
   @ViewChild('googleMap') googleMap: ElementRef;
   index: number = 0;
   zipCodes = [];
+  disabledZipCodes: string[];
   visible: boolean = true;
   selectable: boolean = true;
   removable: boolean = true;
@@ -51,7 +53,9 @@ export class ArchitecteProfileComponent implements OnInit {
     private authService: AuthenticationService,
     private notificationService: NotificationsService,
     private localStorageService: LocalStorageService,
-    private ref: ChangeDetectorRef) { }
+    private zipCodeService: ZipCodeService,
+    private ref: ChangeDetectorRef,
+    private zone: NgZone) { }
 
 
   public ArchitectStatusEnum = ArchitectStatusEnum;
@@ -80,6 +84,7 @@ export class ArchitecteProfileComponent implements OnInit {
     });
 
     this.zipCodes = this.route.snapshot.data['zipCodes'].map(x => x.number);
+    this.disabledZipCodes = this.route.snapshot.data['zipCodes'].filter(x => !x.active).map(x => x.number);
 
     var options = {
       types: ['(regions)'],
@@ -121,6 +126,10 @@ export class ArchitecteProfileComponent implements OnInit {
     }
 
     this.getZipCodes();
+  }
+
+  get formattedDisabledZipCodes() {
+    return this.disabledZipCodes.join(', ');
   }
 
   placeMarker(zipCode: string, place: any, cb?: any) {
@@ -177,12 +186,21 @@ export class ArchitecteProfileComponent implements OnInit {
     // Add our person
     if ((value || '').trim()) {
       this.zipCodes.push(value.trim());
+      //Check zip codes status
     }
 
     // Reset the input value
     if (input) {
       input.value = '';
     }
+  }
+
+  checkZipCodesStatus() {
+    this.zone.run(() => {
+      this.zipCodeService.getZipCodesStatus(this.zipCodesArrayFromThis).subscribe(res => {
+        this.disabledZipCodes = res.filter(x => !x.active).map(x => x.number);
+      })
+    });
   }
 
   remove(zipCode: any): void {
@@ -196,6 +214,8 @@ export class ArchitecteProfileComponent implements OnInit {
     delete this.markers[zipCode];
 
     this.computeBoundingRect();
+
+    this.checkZipCodesStatus();
 
     this.ref.detectChanges();
   }
@@ -224,6 +244,7 @@ export class ArchitecteProfileComponent implements OnInit {
   loadZipCode(zipCode: string, place: any) {
     this.zipCodes.push(zipCode);
     this.placeMarker(zipCode, place);
+    this.checkZipCodesStatus();
   }
 
   computeBoundingRect() {
@@ -256,15 +277,21 @@ export class ArchitecteProfileComponent implements OnInit {
     }
   }
 
+  get zipCodesArrayFromThis() {
+    const zipCodes: ZipCodeClass[] = new Array<ZipCodeClass>();
+
+    for (let zipCode of this.zipCodes) {
+      zipCodes.push(new ZipCodeClass({ number: zipCode }));
+    }
+
+    return zipCodes;
+  }
+
   onSubmit() {
     const formModel = this.form.value;
 
     if (!this.form.invalid) {
-      let zipCodes: ZipCodeClass[] = new Array<ZipCodeClass>();
-
-      for(let zipCode of this.zipCodes) {
-        zipCodes.push(new ZipCodeClass({number: zipCode}));
-      }
+      const zipCodes = this.zipCodesArrayFromThis;
 
       const architect = new ArchitecteClass({
         firstName: formModel.firstName,

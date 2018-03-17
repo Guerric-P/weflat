@@ -19,6 +19,7 @@ import { AcheteurResolver } from './resolvers/acheteur.resolver';
 import { LoaderService } from '../core/services/loader.service';
 import { PaymentDirective } from './directives/payment.directive';
 import { ReportConsultationComponent } from './components/report/report-consultation/report-consultation.component';
+import { ZipCodeService } from './services/zip-code.service';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ export class SharedModule {
         PositionService,
         ShowSigninPopupService,
         AcheteurResolver,
-        LoaderService
+        LoaderService,
+        ZipCodeService
       ]
     };
   }

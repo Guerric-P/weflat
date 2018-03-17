@@ -30,9 +30,15 @@ public class ZipCode {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "zip_code_id_seq")
 	private Long id;
 	
-	public ZipCode(String numero) {
+	public ZipCode(String number) {
 		super();
-		this.number = numero;
+		this.number = number;
+	}
+	
+	public ZipCode(String number, boolean active) {
+		super();
+		this.number = number;
+		this.active = active;
 	}
 
 	@Column(nullable = false, name = "number", unique = true)

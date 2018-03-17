@@ -1,5 +1,7 @@
 package fr.weflat.backend.service;
 
+import java.util.Set;
+
 import fr.weflat.backend.domaine.ZipCode;
 
 public interface ZipCodeService {
@@ -8,4 +10,6 @@ public interface ZipCodeService {
 	ZipCode getByCode(String code);
 	
 	ZipCode save(ZipCode zipCode);
+	
+	Set<ZipCode> getZipCodesByNumbers(Set<String> numbers);
 }
