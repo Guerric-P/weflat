@@ -52,13 +52,16 @@
             <a class="dropdown-item" (click)="logout()">Déconnexion</a>
           </div>
         </div>
-        <button *ngIf="!token" type="button" class="btn btn-outline-success mr-2" (click)="openSignin(signinModal)">
+        <button *ngIf="!token" type="button" (click)="openSignin(signinModal)" mat-button>
           Se connecter
         </button>
 
         <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <md-button class="md-icon-button md-primary" aria-label="Settings">
+            <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+          </md-button>
       </div>
 
     </div>
