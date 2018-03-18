@@ -3,7 +3,7 @@
     <div class="container">
       <div class="col">
         <form [formGroup]="dateFormGroup">
-          <ng-template matStepLabel>Date</ng-template>
+          <ng-template matStepLabel>Date de visite</ng-template>
           <div class="row justify-content-center align-items-center">
             <h1>Quand a lieu votre visite ?</h1>
           </div>
@@ -24,19 +24,19 @@
     <app-register-acheteur [isEmbedded]="true"></app-register-acheteur>
   </mat-step>
   <mat-step [stepControl]="projectFormGroup" #projectStep>
-    <ng-template matStepLabel>Votre projet</ng-template>
+    <ng-template matStepLabel>Projet d'achat</ng-template>
     <div class="col">
       <form [formGroup]="projectFormGroup">
         <div class="row justify-content-center align-items-center">
-          <h1>Projet</h1>
+          <h1>Quel est votre projet d'achat?</h1>
         </div>
         <div class="row justify-content-center align-items-center">
           <mat-form-field id="project">
-            <textarea matInput placeholder="Décrivez votre projet immobilier..." formControlName="project" required></textarea>
+            <textarea matInput placeholder="Décrivez votre projet immobilier ainsi que vos attentes..." formControlName="project" required></textarea>
           </mat-form-field>
         </div>
         <div class="row justify-content-center align-items-center">
-          <h1>Lien de l'annonce</h1>
+          <h1>Lien de l'annonce immobilière</h1>
         </div>
         <div class="row justify-content-center align-items-center">
           <mat-form-field id="url">
@@ -63,7 +63,7 @@
           </div>
           <div class="row">
             <div class="col-sm-4">
-              <ng-template matStepLabel>Adresse</ng-template>
+              <ng-template matStepLabel>Adresse du bien</ng-template>
               <mat-form-field>
                 <input matInput placeholder="Adresse" formControlName="addressInput" required #addressInput>
               </mat-form-field>
