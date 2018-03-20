@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoaderService } from '../../../services/loader.service';
+import { Overlay, ScrollStrategyOptions, BlockScrollStrategy } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-loader',
@@ -12,60 +14,34 @@ export class LoaderComponent implements OnInit {
   show = false;
   message: string;
   private subscription: Subscription;
+  @ViewChild('loader') loader: TemplateRef<any>;
   
   constructor(
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private overlay: Overlay,
+    private vcr: ViewContainerRef
   ) { }
 
   ngOnInit() {
+    const overlayRef = this.overlay.create(
+      {
+        hasBackdrop: true,
+        scrollStrategy: this.overlay.scrollStrategies.block()
+      }
+    );
     this.subscription = this.loaderService.loaderState
       .subscribe((state) => {
         this.show = state.show;
         this.message = state.message;
         if(this.show) {
-          this.disableScroll();
+          overlayRef.attach(new TemplatePortal(this.loader, this.vcr));
         }
         else {
-          this.enableScroll();
+          overlayRef.detach();
         }
       });
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-  keys = {37: 1, 38: 1, 39: 1, 40: 1};
-
-  preventDefault(e) {
-    e = e || window.event;
-    if (e.preventDefault)
-        e.preventDefault();
-    e.returnValue = false;  
-  }
-
-  preventDefaultForScrollKeys(e) {
-    if (this.keys[e.keyCode]) {
-        this.preventDefault(e);
-        return false;
-    }
-}
-  
-  disableScroll() {
-    if (window.addEventListener) // older FF
-        window.addEventListener('DOMMouseScroll', this.preventDefault, false);
-    window.onwheel = this.preventDefault; // modern standard
-    window.onmousewheel = document.onmousewheel = this.preventDefault; // older browsers, IE
-    window.ontouchmove  = this.preventDefault; // mobile
-    document.onkeydown  = this.preventDefaultForScrollKeys;
-  }
-  
-  enableScroll() {
-      if (window.removeEventListener)
-          window.removeEventListener('DOMMouseScroll', this.preventDefault, false);
-      window.onmousewheel = document.onmousewheel = null; 
-      window.onwheel = null; 
-      window.ontouchmove = null;  
-      document.onkeydown = null;  
-  }
-
 }

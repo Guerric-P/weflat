@@ -3,6 +3,7 @@ package fr.weflat.backend.service.impl;
 import java.io.File;
 import java.net.URL;
 import java.util.Collections;
+import java.util.concurrent.CompletableFuture;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -38,7 +40,8 @@ public class MailServiceImpl implements MailService {
 	
 	private Credential creds;
 
-	public void sendSimpleMail(String email, String subject, String text) throws Exception {
+	@Async
+	public CompletableFuture<Void> sendSimpleMail(String email, String subject, String text) throws Exception {
 
 		if(creds == null) {
 			final HttpTransport TRANSPORT = new NetHttpTransport();
@@ -69,6 +72,8 @@ public class MailServiceImpl implements MailService {
 			message.setText(text);
 
 			javaMailSender.send((MimeMessage)message);
+			
+			return CompletableFuture.completedFuture(null);
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);

@@ -121,7 +121,7 @@ export class CreateVisitComponent implements OnInit {
 
     this.projectFormGroup = this._formBuilder.group({
       project: ['', Validators.required],
-      announcementUrl: ['', [Validators.required, Validators.pattern(/^(http|https):\/\/[^ "]+$/)]]
+      announcementUrl: ['', [Validators.pattern(/^(http|https):\/\/[^ "]+$/)]]
     });
 
     this.dateFormGroup.valueChanges.subscribe(() => {
@@ -245,6 +245,9 @@ export class CreateVisitComponent implements OnInit {
     }
     if (event.selectedStep == this.locationStep && !(this.architectsAvailable && this.visitCreationComplete)) {
       this.completeVisitCreation(false);
+    }
+    if(event.selectedStep == this.paymentStep) {
+      this.completeVisitCreation(true);
     }
   }
 

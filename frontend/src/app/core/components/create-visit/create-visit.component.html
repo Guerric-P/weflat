@@ -40,8 +40,7 @@
         </div>
         <div class="row justify-content-center align-items-center">
           <mat-form-field id="url">
-            <input type="url" matInput placeholder="URL de l'annonce du bien que vous allez visiter" formControlName="announcementUrl"
-              required>
+            <input type="url" matInput placeholder="URL de l'annonce du bien que vous allez visiter" formControlName="announcementUrl">
           </mat-form-field>
         </div>
         <div class="row justify-content-center align-items-center">
@@ -103,7 +102,7 @@
         </div>
         <div class="row justify-content-center align-items-center mt-4">
           <button mat-raised-button matStepperPrevious>Précédent</button>
-          <button mat-raised-button color="primary" appPayment [visitId]="visit.id" (paymentDone)="paymentDone()">Payer</button>
+          <button mat-raised-button color="primary" appPayment  [visitId]="visit.id" [disabled]="!(visitCreationComplete && architectsAvailable)" (paymentDone)="paymentDone()">Payer</button>
         </div>
       </div>
     </div>
