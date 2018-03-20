@@ -26,7 +26,6 @@ export class PaymentDirective {
       key: environment.stripePublicKey,
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
-      zipCode: true,
       currency: 'eur',
       token: function (token: any) {
         this.loaderService.show("Paiement en cours...");

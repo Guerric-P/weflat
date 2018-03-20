@@ -1,20 +1,7 @@
-.loader-hidden {
-    visibility: hidden;
-}
-.loader-overlay {
-    position: fixed;
-    width:100%;
-    height: 100vh;
-    top:0;
-    left: 0;
-    background-color: rgba(0,0,0,0.6);
-    z-index: 500000;
-}
-
 .loader {
     background-color: white;
     box-shadow: 2px;
-    position: absolute;
+    position: fixed;
     top: calc(50% - 30px);
     right: calc(50% - 150px);
     width: 300px;
@@ -29,4 +16,9 @@
 
 .spinner {
     margin: 15px;
+}
+
+::ng-deep .cdk-overlay-container {
+
+    z-index: 500000;
 }

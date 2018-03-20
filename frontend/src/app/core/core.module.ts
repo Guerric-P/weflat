@@ -33,6 +33,7 @@ import { CoreRoutingModule } from './core-routing.module';
 import { BaseBackendLayoutComponent } from './layout/base-backend-layout/base-backend-layout.component';
 import { HttpClient } from 'selenium-webdriver/http';
 import { VisiteCounterService } from './services/visite-counter.service';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { VisiteCounterService } from './services/visite-counter.service';
     MatNativeDateModule,
     NgbModule,
     HttpClientModule,
+    OverlayModule,
     NgbModule.forRoot(),
     SharedModule.forRoot()
   ],
