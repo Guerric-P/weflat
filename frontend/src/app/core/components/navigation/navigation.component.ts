@@ -9,6 +9,7 @@ import { AuthGuard } from '../../guards/auth.guard';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { ShowSigninPopupService } from '../../services/show-signin-popup.service';
 import { Constantes } from '../../../shared/common/Constantes';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-navigation',
@@ -20,22 +21,23 @@ export class NavigationComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthenticationService,
     private router: Router, private route: ActivatedRoute,
     private authGuard: AuthGuard,
-    private modalService: NgbModal,
     private localStorageService: LocalStorageService,
     private notificationsService: NotificationsService,
-    private showSigninPopupService: ShowSigninPopupService) { }
+    private showSigninPopupService: ShowSigninPopupService,
+    private dialog: MatDialog) { }
 
   private routeData;
   model: any = {};
   returnUrl: string;
   disabled: boolean;
   errorMessage: string;
-  signinModal: NgbModalRef;
-  signupModal: NgbModalRef;
   routerEventsSubscription: Subscription;
   showSigninPopupSubscription: Subscription;
   isCollapsed: boolean = true;
   @ViewChild('signinModal') signinModalTemplate: TemplateRef<any>;
+  @ViewChild('signupModal') signupModalemplate: TemplateRef<any>;
+  signinModal: MatDialogRef<any>;
+  signupModal: MatDialogRef<any>;
 
   ngOnInit() {
 
@@ -78,19 +80,20 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   openSignup(content) {
-    this.signupModal = this.modalService.open(content);
+    this.signupModal = this.dialog.open(content);
 
-    this.signupModal.result.then((result) => {
-      this.router.navigate([`/register/${result}`]);
+    this.signupModal.afterClosed().subscribe((result) => {
+      if (result)
+        this.router.navigate([`/register/${result}`]);
     }, (reason) => {
 
     });
   }
 
   openSignin(content) {
-    this.signinModal = this.modalService.open(content);
+    this.signinModal = this.dialog.open(content);
 
-    this.signinModal.result.then((result) => {
+    this.signinModal.afterClosed().subscribe((result) => {
       this.errorMessage = null;
       this.authService.returnUrl = null;
     }, (reason) => {
@@ -99,21 +102,29 @@ export class NavigationComponent implements OnInit, OnDestroy {
     });
   }
 
+  closeSignin() {
+    this.signinModal.close();
+  }
+
+  closeSignup() {
+    this.signupModal.close();
+  }
+
   login() {
     this.disabled = true;
     this.authService.login(this.model.username, this.model.password)
       .subscribe(
-      data => {
-        this.signinModal.close();
-        if (this.authService.returnUrl) {
-          this.router.navigate([this.authService.returnUrl]);
-          this.authService.returnUrl = null;
-        }
-      },
-      error => {
-        this.errorMessage = 'Erreur lors de l\'authentification';
-        this.disabled = false;
-      });
+        data => {
+          this.signinModal.close();
+          if (this.authService.returnUrl) {
+            this.router.navigate([this.authService.returnUrl]);
+            this.authService.returnUrl = null;
+          }
+        },
+        error => {
+          this.errorMessage = 'Erreur lors de l\'authentification';
+          this.disabled = false;
+        });
   }
 
   redirectToPersonal() {
@@ -130,13 +141,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-  
+
     this.authService.logout().subscribe(res => {
       this.redirectIfAuthRequired();
     }, err => {
       this.redirectIfAuthRequired();
     });
-    
+
   }
 
   redirectIfAuthRequired() {

@@ -21,7 +21,7 @@ import { ShowSigninPopupService } from './services/show-signin-popup.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AddressFieldComponent } from './components/home/address-field/address-field.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatFormField, MatFormFieldModule, MatDividerModule, MatStepperModule, MatProgressSpinnerModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatFormField, MatFormFieldModule, MatDividerModule, MatStepperModule, MatProgressSpinnerModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule } from '@angular/material';
 import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -34,6 +34,9 @@ import { BaseBackendLayoutComponent } from './layout/base-backend-layout/base-ba
 import { HttpClient } from 'selenium-webdriver/http';
 import { VisiteCounterService } from './services/visite-counter.service';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { EndUserLicenseAgreementComponent } from './components/end-user-license-agreement/end-user-license-agreement.component';
+import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked-questions/frequently-asked-questions.component';
+import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
 
 @NgModule({
   imports: [
@@ -49,6 +52,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     NgbModule,
     HttpClientModule,
     OverlayModule,
@@ -85,7 +89,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
     NavigationComponent,
     AddressFieldComponent,
     DisabledZipCodePopupComponent,
-    LoaderComponent
+    LoaderComponent,
+    EndUserLicenseAgreementComponent,
+    FrequentlyAskedQuestionsComponent,
+    ArchitectOnBoardingComponent
   ],
   exports: [
     LoaderComponent,
