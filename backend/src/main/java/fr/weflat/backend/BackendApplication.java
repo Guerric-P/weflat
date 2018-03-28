@@ -16,10 +16,11 @@ public class BackendApplication extends SpringBootServletInitializer  {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(BackendApplication.class);
+        return application.sources(BackendApplication.class).properties("spring.config.name:weflat");
     }
 	
 	public static void main(String[] args) {
+		System.setProperty("spring.config.name", "weflat");
 		SpringApplication.run(BackendApplication.class, args);
 	}
 	

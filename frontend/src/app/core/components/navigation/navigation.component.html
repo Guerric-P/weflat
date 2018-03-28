@@ -12,7 +12,7 @@
           <h5 class="text-white">Contact</h5>
           <ul class="list-unstyled">
             <li>
-              <a href="#" class="text-white">Nous contacter</a>
+              <a href="mailto:contact@weflat.fr" class="text-white">Nous contacter</a>
             </li>
             <li>
               <p class="text-muted">82 rue truffaut
@@ -27,10 +27,10 @@
               <a href="#" class="text-white">Blog</a>
             </li>
             <li>
-              <a href="#" class="text-white">Questions fréquentes</a>
+              <a routerLink="/faq" class="text-white">Questions fréquentes</a>
             </li>
             <li>
-              <a href="#" class="text-white">Conditions générales d'utilisation</a>
+              <a routerLink="/eula" class="text-white">Conditions générales d'utilisation</a>
             </li>
           </ul>
         </div>
@@ -66,60 +66,63 @@
   </div>
 </header>
 
-<ng-template #signinModal let-c="close" let-d="dismiss">
-  <div class="modal-header" (loginSuccessful)="c('loginSuccessful')">
-    <h5 class="modal-title">Connexion</h5>
-    <button type="button" class="close" (click)="d('Cross click')" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="alert alert-danger" role="alert" *ngIf="errorMessage && errorMessage.length !== 0">
-      <strong>Erreur :</strong> {{errorMessage}}
+<ng-template #signinModal>
+  <div class="popup">
+    <div class="d-flex flex-row justify-content-between">
+      <h5>Connexion</h5>
+      <button type="button" class="close" (click)="closeSignin()">
+        <span>&times;</span>
+      </button>
     </div>
-    <form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-        <label>Identifiant</label>
-        <input type="email" class="form-control" placeholder="Adresse e-mail" name="username" [(ngModel)]="model.username" #username="ngModel"
-          required>
-        <div *ngIf="f.submitted && !username.valid" class="help-block">L'e-mail est requis.</div>
+    <div class="mb-2">
+      <div class="alert alert-danger" role="alert" *ngIf="errorMessage && errorMessage.length !== 0">
+        <strong>Erreur :</strong> {{errorMessage}}
       </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-        <label>Mot de passe</label>
-        <input type="password" class="form-control" placeholder="Mot de passe" name="password" [(ngModel)]="model.password" #password="ngModel"
-          required>
-        <div *ngIf="f.submitted && !password.valid" class="help-block">Le mot de passe est requis.</div>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input type="checkbox" class="form-check-input"> Se souvenir de moi
-        </label>
-      </div>
-      <div class="float-right">
-        <button type="button" class="btn btn-link">Mot de passe oublié ?</button>
-        <button [disabled]="loading" type="submit" class="btn btn-primary">Se connecter</button>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <div class="row float-right align-items-center">
-      <div class="col-8">Vous n'avez pas de compte ?</div>
-      <div class="col-4">
-        <button type="button" class="btn btn-link" (click)="c(''); openSignup(signupModal);">S'inscrire</button>
+      <form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+        <mat-form-field class="w-100">
+          <input type="email" matInput class="form-control" placeholder="Adresse e-mail" name="username" [(ngModel)]="model.username"
+            #username="ngModel" required>
+          <mat-error *ngIf="f.submitted && !username.valid">
+            L'adresse e-mail est
+            <strong>requise</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <input type="email" matInput class="form-control" placeholder="Mot de passe" name="password" [(ngModel)]="model.password"
+            #password="ngModel" required>
+          <mat-error *ngIf="f.submitted && !username.valid">
+            Le mot de passe est
+            <strong>requis.</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="d-flex flex-row-reverse">
+          <button mat-raised-button color="primary" [disabled]="loading" type="submit">Se connecter</button>
+        </div>
+      </form>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mt-2">
+      <div class="d-flex justify-content-between">
+        <div>Vous n'avez pas de compte ?</div>
+        <div>
+          <button mat-raised-button color="primary" type="button" (click)="closeSignin(); openSignup(signupModal)">S'inscrire</button>
+        </div>
       </div>
     </div>
   </div>
 </ng-template>
 
 <ng-template #signupModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Qui êtes-vous ?</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
+  <div class="d-flex flex-row justify-content-between">
+    <h5>Qui êtes-vous ?</h5>
+    <button type="button" class="close" (click)="closeSignup()">
+      <span>&times;</span>
     </button>
   </div>
+
   <div class="modal-body d-flex flex-row justify-content-around">
-    <button type="button" class="btn btn-outline-primary" (click)="c('acheteur')">Un acheteur</button>
-    <button type="button" class="btn btn-outline-primary" (click)="c('architecte')">Un architecte</button>
+    <button mat-raised-button color="primary" type="button" class="mr-2" [mat-dialog-close]="'acheteur'">Un acheteur</button>
+    <button mat-raised-button color="primary" type="button" class="ml-2" [mat-dialog-close]="'architecte'">Un architecte</button>
   </div>
 </ng-template>
