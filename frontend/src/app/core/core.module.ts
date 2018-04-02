@@ -37,6 +37,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { EndUserLicenseAgreementComponent } from './components/end-user-license-agreement/end-user-license-agreement.component';
 import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked-questions/frequently-asked-questions.component';
 import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -53,8 +56,11 @@ import { ArchitectOnBoardingComponent } from './components/architect-on-boarding
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatMenuModule,
     NgbModule,
+    MatExpansionModule,
     HttpClientModule,
+    MatIconModule,
     OverlayModule,
     NgbModule.forRoot(),
     SharedModule.forRoot()
