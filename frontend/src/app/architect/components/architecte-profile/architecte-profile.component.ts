@@ -132,6 +132,10 @@ export class ArchitecteProfileComponent implements OnInit {
     return this.disabledZipCodes.join(', ');
   }
 
+  isChipWarning(zipCode: string): boolean {
+    return !!this.disabledZipCodes.find(x => x === zipCode);
+  }
+
   placeMarker(zipCode: string, place: any, cb?: any) {
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()),
