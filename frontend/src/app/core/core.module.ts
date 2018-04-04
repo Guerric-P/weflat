@@ -21,7 +21,7 @@ import { ShowSigninPopupService } from './services/show-signin-popup.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AddressFieldComponent } from './components/home/address-field/address-field.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatFormField, MatFormFieldModule, MatDividerModule, MatStepperModule, MatProgressSpinnerModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule } from '@angular/material';
+import { MatFormField, MatFormFieldModule, MatDividerModule, MatStepperModule, MatProgressSpinnerModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MatMenuModule, MatExpansionModule, MatIconModule } from '@angular/material';
 import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -37,9 +37,6 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { EndUserLicenseAgreementComponent } from './components/end-user-license-agreement/end-user-license-agreement.component';
 import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked-questions/frequently-asked-questions.component';
 import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
