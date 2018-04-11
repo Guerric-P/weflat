@@ -23,12 +23,12 @@
       <img src="assets/weflat_noir.png" class="weflat-logo">
     </a>
     <div ngbDropdown placement="bottom-right" class="ml-auto">
-      <button class="btn btn-secondary" type="button" ngbDropdownToggle>
+      <button mat-button type="button" class="dropdown-button" [matMenuTriggerFor]="personalMenu">
         {{displayName}}
       </button>
-      <div ngbDropdownMenu >
-        <a class="dropdown-item" (click)="logout()">Se déconnecter</a>
-      </div>
+      <mat-menu #personalMenu="matMenu" overlapTrigger="false" xPosition="before">
+        <button mat-menu-item (click)="logout()">Se déconnecter</button>
+      </mat-menu>
     </div>
   </nav>
 

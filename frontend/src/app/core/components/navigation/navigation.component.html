@@ -44,13 +44,13 @@
       </a>
       <div>
         <div *ngIf="token" ngbDropdown class="d-inline-block" placement="bottom-right">
-          <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+          <button mat-button type="button" class="dropdown-button" [matMenuTriggerFor]="personalMenu">
             {{displayName}}
-          </a>
-          <div ngbDropdownMenu>
-            <a class="dropdown-item" (click)="redirectToPersonal()">Mon espace personnel</a>
-            <a class="dropdown-item" (click)="logout()">Déconnexion</a>
-          </div>
+          </button>
+          <mat-menu #personalMenu="matMenu" overlapTrigger="false" xPosition="before">
+            <button mat-menu-item (click)="redirectToPersonal()">Mon espace personnel</button>
+            <button mat-menu-item (click)="logout()">Déconnexion</button>
+          </mat-menu>
         </div>
         <button *ngIf="!token" type="button" (click)="openSignin(signinModal)" mat-button>
           Se connecter
@@ -90,7 +90,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="w-100">
-          <input type="email" matInput class="form-control" placeholder="Mot de passe" name="password" [(ngModel)]="model.password"
+          <input type="password" matInput class="form-control" placeholder="Mot de passe" name="password" [(ngModel)]="model.password"
             #password="ngModel" required>
           <mat-error *ngIf="f.submitted && !username.valid">
             Le mot de passe est

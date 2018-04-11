@@ -6,6 +6,7 @@
           Demandes de visites
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <div *ngIf="potentialVisites">Vous n'avez aucune demande de visite pour l'instant...</div>
       <app-visit *ngFor="let visite of potentialVisites" [visite]="visite" [enableAcceptRefuseButtons]="true" (updated)="loadAllVisites()"></app-visit>
     </mat-expansion-panel>
     <mat-expansion-panel [expanded]="reportWrittenVisitesExpanded">
@@ -14,6 +15,7 @@
           Mes visites passées
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <div *ngIf="reportWrittenVisites">Vous n'avez aucune visite passée</div>
       <app-visit *ngFor="let visite of reportWrittenVisites" [visite]="visite" [enableReportViewButton]="true" (updated)="loadAllVisites()"></app-visit>
     </mat-expansion-panel>
     <mat-expansion-panel [expanded]="reportPendingVisitesExpanded">
@@ -22,6 +24,7 @@
           Mes visites en cours
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <div *ngIf="reportPendingVisites">Vous n'avez aucune visite en cours</div>
       <app-visit *ngFor="let visite of reportPendingVisites" [visite]="visite" [enableReportEditButton]="true" (updated)="loadAllVisites()"></app-visit>
     </mat-expansion-panel>
     <mat-expansion-panel [expanded]="plannedVisitesExpanded">
@@ -30,6 +33,7 @@
           Mes visites programmées
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <div *ngIf="plannedVisites">Vous n'avez aucune visite programmée</div>
       <app-visit *ngFor="let visite of plannedVisites" [visite]="visite" (updated)="loadAllVisites()"></app-visit>
     </mat-expansion-panel>
   </mat-accordion>
