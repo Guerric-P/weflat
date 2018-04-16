@@ -1,5 +1,8 @@
 package fr.weflat.backend.service.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,19 @@ public class AcheteurServiceImpl implements AcheteurService {
 	@Override
 	public Acheteur findById(Long id) {
 		return acheteurDao.findOne(id);
+	}
+
+	@Override
+	public Set<Acheteur> findAll() {
+		Set<Acheteur> acheteurs = new HashSet<Acheteur>();
+
+		Iterable<Acheteur> result = acheteurDao.findAll();
+
+		for(Acheteur row : result) {
+			acheteurs.add(row);
+		}
+
+		return acheteurs;
 	}
 
 }

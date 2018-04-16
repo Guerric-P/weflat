@@ -14,7 +14,7 @@ import ma.glasnost.orika.MapperFacade;
 
 @RestController
 @Produces("application/json")
-@RequestMapping("/architecte/situations")
+@RequestMapping("/architectes/situations")
 public class ArchitectSituationController {
 	
 	@Autowired

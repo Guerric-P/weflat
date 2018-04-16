@@ -9,6 +9,6 @@ export class ArchitectSituationService {
   constructor(private http: HttpClient) { }
 
   getSituations(): Observable<ArchitectSituationClass[]> {
-    return this.http.get<ArchitectSituationClass[]>('/architecte/situations');
+    return this.http.get<ArchitectSituationClass[]>('/architectes/situations');
   }
 }

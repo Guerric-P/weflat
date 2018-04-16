@@ -25,7 +25,7 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	}
 
 	@Override
-	public ZipCode getById(Long id) {
+	public ZipCode findById(Long id) {
 		return zipCodeDao.findOne(id);
 	}
 

@@ -20,7 +20,7 @@ public class ReportServiceImpl implements ReportService {
 	private ReportDao reportDao;
 	
 	@Override
-	public Report getById(long id) {
+	public Report findById(long id) {
 		return reportDao.findOne(id);
 	}
 

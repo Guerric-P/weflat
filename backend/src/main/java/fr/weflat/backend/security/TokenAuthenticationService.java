@@ -1,9 +1,10 @@
 package fr.weflat.backend.security;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,11 +59,25 @@ class TokenAuthenticationService {
 	          .getBody()
 	          .get("id", Long.class);
 	      
+	      @SuppressWarnings("unchecked")
+	      List<Map<String, String>> roles = Jwts.parser()
+		      .setSigningKey(SECRET)
+		      .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+		      .getBody()
+		      .get("roles", List.class);
+	      
+	      List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+	      
+	      for(Map<String, String> role : roles) {
+	    	  String authority = role.get("authority");
+	    	  authorities.add(new SimpleGrantedAuthority(authority));
+	      }
+	      
 	      Map<String, Object> details = new HashMap<String, Object>();
 	      details.put("id", id);
 	      
 	      if(user != null) {
-	    	  UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+	    	  UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, authorities);
 	    	  auth.setDetails(details);
 	    	  return auth;
 	      }

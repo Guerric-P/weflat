@@ -23,7 +23,7 @@ import ma.glasnost.orika.MapperFacade;
 
 @RestController
 @Produces("application/json")
-@RequestMapping("/acheteur")
+@RequestMapping("/acheteurs")
 public class AcheteurController {
 	@Autowired
 	AcheteurService acheteurService;

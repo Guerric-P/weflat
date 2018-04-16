@@ -1,7 +1,6 @@
 package fr.weflat.backend.web.controller;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.ws.rs.Produces;
@@ -30,7 +29,7 @@ import ma.glasnost.orika.MapperFacade;
 
 @RestController
 @Produces("application/json")
-@RequestMapping("/architecte")
+@RequestMapping("/architectes")
 public class ArchitecteController {
 	@Autowired
 	ArchitecteService architecteService;
@@ -51,12 +50,12 @@ public class ArchitecteController {
 
 	@RequestMapping(path="/{id}/zipcodes", method=RequestMethod.GET)
 	public List<ZipCodeDto> getZipCodes(@PathVariable("id") long id) {	
-		return orikaMapperFacade.mapAsList(architecteService.getById(id).getZipCodes(), ZipCodeDto.class);
+		return orikaMapperFacade.mapAsList(architecteService.findById(id).getZipCodes(), ZipCodeDto.class);
 	}
 
 	@RequestMapping(path="/{id}", method=RequestMethod.GET)
 	public @ResponseBody ArchitecteDto getArchitecte(@PathVariable("id") long id) {
-		return orikaMapperFacade.map(architecteService.getById(id), ArchitecteDto.class);
+		return orikaMapperFacade.map(architecteService.findById(id), ArchitecteDto.class);
 	}
 
 	@RequestMapping(path="", method=RequestMethod.POST)
@@ -67,12 +66,9 @@ public class ArchitecteController {
 		architecteService.save(architecte);
 	}
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(path="", method=RequestMethod.GET)
-	public ArchitecteDto getArchitecte(Authentication authentication) {
-		Map<String, Object> details = (Map<String, Object>)authentication.getDetails();
-
-		return orikaMapperFacade.map(architecteService.getById((Long)details.get("id")), ArchitecteDto.class);
+	public List<ArchitecteDto> getArchitecte(Authentication authentication) {
+		return orikaMapperFacade.mapAsList(architecteService.findAll(), ArchitecteDto.class);
 
 	}
 
@@ -80,7 +76,7 @@ public class ArchitecteController {
 	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
 	public void patchArchitecte(@PathVariable("id") long id, @RequestBody ArchitecteDto input) {
 
-		Architecte architecte = architecteService.getById(id);
+		Architecte architecte = architecteService.findById(id);
 		orikaMapperFacade.map(input, architecte);
 		architecteService.save(architecte);
 

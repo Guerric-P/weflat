@@ -30,7 +30,7 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 	private ZipCodeDao zipCodeDao;
 
 	@Override
-	public Architecte getById(long id) {
+	public Architecte findById(long id) {
 		return architecteDao.findOne(id);
 	}
 
@@ -41,7 +41,7 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 
 	@Override
 	public void saveZipCodesForArchitecte(List<ZipCode> zipCodes, long id) {
-		Architecte architecte = getById(id);
+		Architecte architecte = findById(id);
 
 		//Ajout des nouveaux codes
 		for(ZipCode zipCode : zipCodes) {
@@ -87,6 +87,20 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 			architectes.add(row);
 		}
 		
+		return architectes;
+	}
+
+	@Override
+	public Set<Architecte> findAll() {
+		
+		Set<Architecte> architectes = new HashSet<Architecte>();
+
+		Iterable<Architecte> result = architecteDao.findAll();
+
+		for(Architecte row : result) {
+			architectes.add(row);
+		}
+
 		return architectes;
 	}
 
