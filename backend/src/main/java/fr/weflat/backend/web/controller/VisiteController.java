@@ -68,7 +68,7 @@ public class VisiteController {
 	public VisitCreationResponseDto completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
-		Visite visit = visiteService.getById(id);
+		Visite visit = visiteService.findById(id);
 
 		if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() && visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
 			throw new Exception("Visit non eligible for modification.");
@@ -82,7 +82,7 @@ public class VisiteController {
 	@RequestMapping(path = "/{id}/pay", method = RequestMethod.POST)
 	public void payVisit(@PathVariable("id") long id, @RequestParam() String token) throws Exception {
 
-		Visite visit = visiteService.getById(id);
+		Visite visit = visiteService.findById(id);
 
 		if (visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
 			throw new Exception("Visit non eligible for payment.");
@@ -93,15 +93,15 @@ public class VisiteController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/accept", method = RequestMethod.POST)
-	public void acceptVisite(@RequestParam("id") Long id, Authentication authentication) throws Exception {
+	@RequestMapping(path = "/{id}/accept", method = RequestMethod.POST)
+	public void acceptVisite(@PathVariable("id") long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 		visiteService.accept(id, (Long) details.get("id"));
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/refuse", method = RequestMethod.POST)
-	public void refuseVisit(@RequestParam("id") Long id, Authentication authentication) throws Exception {
+	@RequestMapping(path = "/{id}/refuse", method = RequestMethod.POST)
+	public void refuseVisit(@PathVariable("id") long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 		visiteService.refuse(id, (Long) details.get("id"));
 	}
@@ -120,7 +120,7 @@ public class VisiteController {
 		ReportDto reportDto = null;
 
 		if(report == null) {
-			Visite visite = visiteService.getById(id);
+			Visite visite = visiteService.findById(id);
 
 			reportDto = new ReportDto();
 			reportDto.setVisite(orikaMapperFacade.map(visite, VisiteDto.class));
@@ -137,7 +137,7 @@ public class VisiteController {
 	public void postReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
-		Visite visit = visiteService.getById(id);
+		Visite visit = visiteService.findById(id);
 
 		if(visit.getArchitecte().getId().equals((Long) details.get("id"))) {
 			visit.setReport(orikaMapperFacade.map(input, Report.class));
@@ -185,7 +185,7 @@ public class VisiteController {
 	public void submitReport(@PathVariable("id") long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
-		Visite visit = visiteService.getById(id);
+		Visite visit = visiteService.findById(id);
 
 		if(visit.getArchitecte().getId().equals((Long) details.get("id"))) {
 			if(visit.getStatus() == VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal()) {

@@ -2,6 +2,7 @@ package fr.weflat.backend.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,11 +23,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.authorizeRequests()
-				.antMatchers("/architecte/{architecteId:\\d+}/**").access("@weflatSecurityService.hasAccessToArchitecte(authentication,#architecteId)")
-				.antMatchers("/acheteur/{acheteurId:\\d+}/**").access("@weflatSecurityService.hasAccessToAcheteur(authentication,#acheteurId)")
+				.antMatchers(HttpMethod.POST, "/architectes", "/acheteurs", "/visits").permitAll()// Signup and anonymous visit creation
+				.antMatchers(HttpMethod.PATCH, "/visits").permitAll()// Signup and anonymous visit creation
+				.antMatchers(HttpMethod.GET, "/visits/count").hasAuthority("architecte")// Signup and anonymous visit creation
+				.antMatchers("/architectes/{architecteId:\\d+}/**").access("@weflatSecurityService.hasAccessToArchitecte(authentication,#architecteId)")
+				.antMatchers("/acheteurs/{acheteurId:\\d+}/**").access("@weflatSecurityService.hasAccessToAcheteur(authentication,#acheteurId)")
 				.antMatchers("/visits/{visitId:\\d+}/**").access("@weflatSecurityService.hasAccessToVisit(authentication,#visitId)")
-				.antMatchers("/architecte", "/acheteur", "/visits").permitAll() // Signup and anonymous visit creation
-				.anyRequest().authenticated()
+				.antMatchers("/architectes/types").permitAll()
+				.antMatchers("/architectes/situations").permitAll()
+				.antMatchers("/zipcodes/check-status").permitAll()
+				.antMatchers("/positions").permitAll()
+				.anyRequest().hasAuthority("admin")
 				.and()
 			.logout()
 				.logoutSuccessHandler(new WeflatLogoutSuccessHandler())

@@ -27,7 +27,7 @@ public interface VisiteService {
 	
 	Set<Visite> findPlannedVisitsByAcheteurId(Long idAcheteur);
 	
-	Visite getById(Long id);
+	Visite findById(Long id);
 	
 	void createVisit(Visite visit, Long idAcheteur) throws Exception;
 	

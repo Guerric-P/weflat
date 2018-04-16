@@ -5,7 +5,7 @@ import java.util.Set;
 import fr.weflat.backend.domaine.ZipCode;
 
 public interface ZipCodeService {
-	ZipCode getById(Long id);
+	ZipCode findById(Long id);
 	
 	ZipCode getByCode(String code);
 	

@@ -183,7 +183,7 @@ public class VisiteServiceImpl implements VisiteService {
 	}
 
 	@Override
-	public Visite getById(Long id) {
+	public Visite findById(Long id) {
 		return visiteDao.findOne(id);
 	}
 

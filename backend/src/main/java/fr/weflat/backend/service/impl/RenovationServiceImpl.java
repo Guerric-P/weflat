@@ -17,7 +17,7 @@ public class RenovationServiceImpl implements RenovationService {
 	private RenovationDao renovationDao;
 	
 	@Override
-	public Renovation getById(long id) {
+	public Renovation findById(long id) {
 		return renovationDao.findOne(id);
 	}
 

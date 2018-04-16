@@ -17,7 +17,7 @@ export class ArchitecteLayoutComponent extends BaseBackendLayoutComponent implem
   ngOnInit() {
     super.ngOnInit();
     this.subscription = this.router.events.subscribe((data) => {
-      if (data instanceof RoutesRecognized) {
+      if (data instanceof RoutesRecognized && this.authService.isArchitect) {
         this.visiteCounterService.announceCount();
       }
     });

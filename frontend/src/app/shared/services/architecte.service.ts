@@ -11,23 +11,22 @@ export class ArchitecteService {
 
 
   postArchitecte(architecte: ArchitecteClass){
-    return this.http.post('/architecte', architecte);
+    return this.http.post('/architectes', architecte);
   }
 
   patchArchitecte(architecte: ArchitecteClass, architecteId: number){
-    return this.http.patch(`/architecte/${architecteId}`, architecte);
+    return this.http.patch(`/architectes/${architecteId}`, architecte);
   }
 
-  getArchitecte(){
-    return this.http.get<ArchitecteClass>('/architecte');
+  getArchitecte(id: number){
+    return this.http.get<ArchitecteClass>(`/architectes/${id}`);
   }
 
   postZipCodes(zipCodes: ZipCodeClass[], id: number){
-    return this.http.post('/architecte/' + id + '/zipcodes', zipCodes);
+    return this.http.post(`/architectes/${id}/zipcodes`, zipCodes);
   }
 
   getZipCodes(id: number): Observable<ZipCodeClass[]> {
-    return this.http.get<ZipCodeClass[]>('/architecte/' + id + '/zipcodes');
+    return this.http.get<ZipCodeClass[]>(`/architectes/${id}/zipcodes`);
   }
-
 }

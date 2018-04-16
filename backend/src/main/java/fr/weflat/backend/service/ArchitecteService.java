@@ -8,11 +8,13 @@ import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.domaine.ZipCode;
 
 public interface ArchitecteService {
-	Architecte getById(long id);
+	Architecte findById(long id);
 	
 	void save(Architecte architecte);
 	
 	void saveZipCodesForArchitecte(List<ZipCode> zipCodes, long id);
 	
 	Set<Architecte> findNearbyArchitectes(String zipCode);
+	
+	Set<Architecte> findAll();
 }

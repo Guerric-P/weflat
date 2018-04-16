@@ -4,7 +4,7 @@ import fr.weflat.backend.domaine.Utilisateur;
 
 public interface UtilisateurService {
 	
-	Utilisateur getById(long id);
+	Utilisateur findById(long id);
 	
 	Utilisateur getByEmailAndPassword(String email, String password);
 	
