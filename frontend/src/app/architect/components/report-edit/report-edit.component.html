@@ -164,6 +164,11 @@
                   </button>
                 </td>
               </tr>
+              <tr>
+                <td class="d-inline-block col-12">
+                  <button type="button" class="btn btn-primary" (click)="addRenovation()">Ajouter</button>
+                </td>
+              </tr>
             </tbody>
             <tbody>
               <tr>
@@ -198,9 +203,6 @@
                   <textarea class="form-control" rows="3" [class.is-valid]="form.controls.globalQualityRemarks.touched && !form.controls.globalQualityRemarks.invalid"
                     [class.is-invalid]="form.controls.globalQualityRemarks.touched && form.controls.globalQualityRemarks.invalid"
                     formControlName="globalQualityRemarks" placeholder="Remarques générales"></textarea>
-                </td>
-                <td class="d-inline-block col-1">
-                  <button type="button" class="btn btn-primary" (click)="addRenovation()">Ajouter</button>
                 </td>
               </tr>
             </tbody>
