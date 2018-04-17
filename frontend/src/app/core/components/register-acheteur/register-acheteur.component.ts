@@ -35,7 +35,6 @@ export class RegisterAcheteurComponent implements OnInit {
         Validators.pattern(Constantes.EMAIL_REGEX)
       ]),
       book: ['', Validators.required],
-      telephone: ['', Validators.required],
       password: ['', Validators.required],
       verifyPassword: new FormControl('', [
         this.matchOtherValidator('password')
