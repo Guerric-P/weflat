@@ -15,7 +15,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatChipsModule, MatIconModule, MatExpansionModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatChipsModule, MatIconModule, MatExpansionModule, MatTooltipModule } from '@angular/material';
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -34,6 +34,7 @@ import { SharedModule } from '../shared/shared.module';
     MatChipsModule,
     MatIconModule,
     MatExpansionModule,
+    MatTooltipModule,
     SharedModule
   ],
   declarations: [

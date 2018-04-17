@@ -20,10 +20,13 @@ import { LoaderService } from '../core/services/loader.service';
 import { PaymentDirective } from './directives/payment.directive';
 import { ReportConsultationComponent } from './components/report/report-consultation/report-consultation.component';
 import { ZipCodeService } from './services/zip-code.service';
+import { MatTooltipModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MatTooltipModule,
+    MatButtonModule
   ],
   declarations: [
     PaymentDirective,
