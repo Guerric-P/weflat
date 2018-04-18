@@ -68,18 +68,18 @@ export class ArchitecteProfileComponent implements OnInit {
     this.form = this.fb.group({
       firstName: [this.architecte.firstName, Validators.required],
       lastName: [this.architecte.lastName, Validators.required],
-      birthDate: [this.architecte.birthDate && moment(this.architecte.birthDate).format('YYYY-MM-DD'), [Validators.required]],
+      birthDate: [this.architecte.birthDate && moment(this.architecte.birthDate).format('YYYY-MM-DD'), Validators.required],
       email: [{ value: this.architecte.email, disabled: true }, [Validators.required, Validators.email]],
       telephone: [this.architecte.telephone, [Validators.required, Validators.pattern(/0(6|7)\d{8}/)]],
-      type: [this.architecte.type && this.architecte.type.id],
-      situation: [this.architecte.situation && this.architecte.situation.id],
-      practicingSince: [moment(this.architecte.practicingSince).format('YYYY-MM-DD')],
+      type: [this.architecte.type && this.architecte.type.id, Validators.required],
+      situation: [this.architecte.situation && this.architecte.situation.id, Validators.required],
+      practicingSince: [this.architecte.practicingSince && moment(this.architecte.practicingSince).format('YYYY-MM-DD'), Validators.required],
       webSite: [this.architecte.webSite, Validators.pattern(/^(http|https):\/\/[^ "]+$/)],
-      architectsOrder: [this.architecte.architectsOrder],
-      cfai: [this.architecte.cfai],
-      professionalResponsibility: [this.architecte.professionalResponsibility],
-      decennialInsurance: [this.architecte.decennialInsurance],
-      motivation: [this.architecte.motivation],
+      architectsOrder: [this.architecte.architectsOrder, Validators.required],
+      cfai: [this.architecte.cfai, Validators.required],
+      professionalResponsibility: [this.architecte.professionalResponsibility, Validators.required],
+      decennialInsurance: [this.architecte.decennialInsurance, Validators.required],
+      motivation: [this.architecte.motivation, Validators.required],
       cgu: [this.architecte.cgu, Validators.requiredTrue]
     });
 
