@@ -11,4 +11,8 @@ export class ZipCodeService {
   getZipCodesStatus(zipCodes: ZipCodeClass[]): Observable<ZipCodeClass[]> {
     return this.http.post<ZipCodeClass[]>('/zipcodes/check-status', zipCodes);
   }
+
+  searchZipCodes(query: string): Observable<ZipCodeClass[]> {
+    return this.http.get<ZipCodeClass[]>('/zipcodes/search', {params: {query: query}});
+  }
 }

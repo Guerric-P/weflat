@@ -1,0 +1,102 @@
+a {
+    cursor: pointer;
+  }
+  
+  .nav-link{
+    color:white;
+    }
+  
+  .wrapper {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    padding: 0;
+  }
+  
+  #leftmenu.hidden {
+    margin-left: -250px;
+  }
+  
+  #leftmenu {
+    min-width: 250px;
+    max-width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    transition: all 0.3s;
+    background-color: #1C2331;
+    padding-top: 30px;
+  }
+  
+  .overlay {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+    transition: all 0.3s;
+  }
+  
+  .overlay-hidden {
+    visibility: hidden;
+    background: rgba(0, 0, 0, 0);
+  }
+  
+  .navbar.sticky-top{
+    background-color: rgb(255, 255, 255);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(255, 255, 255);
+  }
+  
+  #dismiss {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  #logo {
+    padding-left: 10px;
+  }
+  
+  #maincontent {
+    width: 100%;
+    padding-top: 20px;
+    margin: 0;
+  }
+  
+  .weflat-logo {
+    height: 30px;
+    margin-left: 20px;
+  }
+  
+  @media (min-width: 768px) {
+  
+    #leftmenu, #leftmenu.hidden {
+      margin-left: 0px;
+      width: 15%;
+    }
+  
+    #maincontent {
+      left: 15%;
+      width: calc(100vw - 250px);
+      float: right;
+      padding: 20px;
+    }
+  
+    #dismiss, #sidebarCollapse {
+      display: none;
+    }
+  
+    .overlay {
+      visibility: hidden;
+    }
+  }

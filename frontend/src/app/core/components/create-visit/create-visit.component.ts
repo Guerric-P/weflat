@@ -45,6 +45,7 @@ export class CreateVisitComponent implements OnInit {
   place: any;
   visitCreationComplete: boolean = false;
   architectsAvailable: boolean = false;
+  minDate = moment().add(5, 'days').utc().format();
 
   constructor(private ref: ChangeDetectorRef,
     private _formBuilder: FormBuilder,

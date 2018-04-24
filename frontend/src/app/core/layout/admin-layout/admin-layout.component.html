@@ -1,0 +1,50 @@
+<div class="wrapper">
+  <nav id="leftmenu" class="nav flex-column" [class.hidden]="leftMenuHidden">
+    <a id="dismiss" (click)="dismissLeftMenu()">
+      <i class="material-icons nav-link">arrow_back</i>
+    </a>
+    <a id="logo" routerLink="/">
+      <img src="assets/weflat_blanc.png" alt="">
+    </a>
+    <a class="nav-link mt-5" routerLink="/admin/zip-codes" routerLinkActive="active">Codes postaux</a>
+    <a class="nav-link" routerLink="/admin/customers" routerLinkActive="active">Acheteurs</a>
+    <a class="nav-link" routerLink="/admin/architects" routerLinkActive="active">Architectes</a>
+    <a class="nav-link" routerLink="/admin/visits" routerLinkActive="active">Visites</a>
+  </nav>
+
+  <!--Navbar-->
+  <nav class="navbar sticky-top navbar-right">
+    <button type="button" id="sidebarCollapse" class="btn navbar-btn" (click)="showLeftMenu()">
+      <i class="material-icons">menu</i>
+    </button>
+    <a routerLink="/">
+      <img src="assets/weflat_noir.png" class="weflat-logo">
+    </a>
+    <div ngbDropdown placement="bottom-right" class="ml-auto">
+      <button mat-button type="button" class="dropdown-button" [matMenuTriggerFor]="personalMenu">
+        {{displayName}}
+      </button>
+      <mat-menu #personalMenu="matMenu" overlapTrigger="false" xPosition="before">
+        <button mat-menu-item (click)="logout()">Se déconnecter</button>
+      </mat-menu>
+    </div>
+  </nav>
+
+  <div id="maincontent">
+    <router-outlet></router-outlet>
+    <!-- Footer -->
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a (click)="scrollToTop()">Haut de la page</a>
+        </p>
+        <p>&copy; Weflat 2018</p>
+        <p>Made with &hearts; in Paris</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <div class="overlay" [class.overlay-hidden]="leftMenuHidden" (click)="dismissLeftMenu()"></div>
+
+</div>

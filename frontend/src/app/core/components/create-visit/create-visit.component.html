@@ -9,7 +9,7 @@
           </div>
           <div class="row justify-content-center align-items-center mt-3">
             <mat-form-field id="visit-date">
-              <input matInput type="datetime-local" formControlName="datePicker" placeholder="Choisissez une date..." required>
+              <input matInput type="datetime-local" [min]="minDate" formControlName="datePicker" placeholder="Choisissez une date..." required>
             </mat-form-field>
           </div>
           <div class="row justify-content-center align-items-center">

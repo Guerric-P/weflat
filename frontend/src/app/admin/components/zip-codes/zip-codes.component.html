@@ -1,0 +1,5 @@
+
+<input matInput type="text" (keyup)="onKeyUp($event)" placeholder="Choisissez un code postal">
+<ng-container *ngFor="let result of results">
+  {{result.number}}
+</ng-container>

@@ -68,6 +68,17 @@ public class Visite {
 	@Column(nullable = true, name = "announcement_url")
 	private String announcementUrl;
 	
+	@Column(nullable = true, name = "id_charge")
+	private String idCharge;
+	
+	public String getIdCharge() {
+		return idCharge;
+	}
+
+	public void setIdCharge(String idCharge) {
+		this.idCharge = idCharge;
+	}
+
 	public Architecte getArchitecte() {
 		return architecte;
 	}
