@@ -240,6 +240,8 @@ public class VisiteServiceImpl implements VisiteService {
 			
 			visit.setStatus(VisitStatusEnum.BEING_ASSIGNED.ordinal());
 			
+			visit.setIdCharge(charge.getId());
+			
 			save(visit);
 		}
 		catch(Exception e) {

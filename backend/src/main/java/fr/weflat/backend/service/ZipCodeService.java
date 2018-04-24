@@ -12,4 +12,6 @@ public interface ZipCodeService {
 	ZipCode save(ZipCode zipCode);
 	
 	Set<ZipCode> getZipCodesByNumbers(Set<String> numbers);
+	
+	Set<ZipCode> getZipCodesByNumbersStartingWith(String string);
 }

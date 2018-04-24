@@ -37,6 +37,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { EndUserLicenseAgreementComponent } from './components/end-user-license-agreement/end-user-license-agreement.component';
 import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked-questions/frequently-asked-questions.component';
 import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { AdminGuard } from './guards/admin.guard';
 
 @NgModule({
   imports: [
@@ -67,6 +69,7 @@ import { ArchitectOnBoardingComponent } from './components/architect-on-boarding
     AuthGuard,
     ArchitecteGuard,
     AcheteurGuard,
+    AdminGuard,
     CreateVisitGuard,
     LocalStorageService,
     {
@@ -95,7 +98,8 @@ import { ArchitectOnBoardingComponent } from './components/architect-on-boarding
     LoaderComponent,
     EndUserLicenseAgreementComponent,
     FrequentlyAskedQuestionsComponent,
-    ArchitectOnBoardingComponent
+    ArchitectOnBoardingComponent,
+    AdminLayoutComponent
   ],
   exports: [
     LoaderComponent,

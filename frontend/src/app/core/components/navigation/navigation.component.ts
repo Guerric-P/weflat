@@ -137,6 +137,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
       case Constantes.ROLE_ARCHITECTE:
         this.router.navigate(['/architecte']);
         break;
+      case Constantes.ROLE_ADMIN:
+        this.router.navigate(['/admin']);
+        break;
     }
   }
 

@@ -19,7 +19,7 @@ import fr.weflat.backend.service.ZipCodeService;
 public class ZipCodeServiceImpl implements ZipCodeService {
 	@Autowired
 	private ZipCodeDao zipCodeDao;
-	
+
 	public ZipCode findById(long id) {
 		return zipCodeDao.findOne(id);
 	}
@@ -42,24 +42,41 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	@Override
 	public Set<ZipCode> getZipCodesByNumbers(Set<String> numbers) {
 		QZipCode zipCode = QZipCode.zipCode;
-		
+
 		Predicate predicate = zipCode.number.in(numbers);
-		
+
 		Set<ZipCode> zipCodes = new HashSet<ZipCode>();
-		
+
 		Iterable<ZipCode> result = zipCodeDao.findAll(predicate);
-		
+
 		for(ZipCode row : result) {
 			zipCodes.add(row);
 		}
 
-		
+
 		for(String number : numbers) {
 			if(!zipCodes.stream().anyMatch(x -> x.getNumber().equals(number))) {
 				zipCodes.add(new ZipCode(number, false));
 			}
 		}
-		
+
+
+		return zipCodes;
+	}
+
+	@Override
+	public Set<ZipCode> getZipCodesByNumbersStartingWith(String string) {
+		QZipCode zipCode = QZipCode.zipCode;
+
+		Predicate predicate = zipCode.number.startsWith(string);
+
+		Set<ZipCode> zipCodes = new HashSet<ZipCode>();
+
+		Iterable<ZipCode> result = zipCodeDao.findAll(predicate);
+
+		for(ZipCode row : result) {
+			zipCodes.add(row);
+		}
 
 		return zipCodes;
 	}

@@ -16,6 +16,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { EndUserLicenseAgreementComponent } from './components/end-user-license-agreement/end-user-license-agreement.component';
 import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked-questions/frequently-asked-questions.component';
 import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
+import { AdminGuard } from './guards/admin.guard';
+import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
 const routes: Routes = [
   {
@@ -40,6 +42,12 @@ const routes: Routes = [
     canActivate: [AuthGuard, AcheteurGuard],
     data: { authRequired: true },
     loadChildren: '../customer/customer.module#CustomerModule'
+  }, {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    canActivate: [AuthGuard, AdminGuard],
+    data: { authRequired: true },
+    loadChildren: '../admin/admin.module#AdminModule'
   },
   { path: '**', component: ErrorComponent }
 ];
