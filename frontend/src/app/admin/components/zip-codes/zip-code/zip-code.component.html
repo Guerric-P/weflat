@@ -1,0 +1,7 @@
+<div>
+  {{zipCode.number}}
+  <mat-slide-toggle class="ml-5" [checked]="zipCode.active" (change)="onValueChanged($event)">{{zipCode.active ? 'Activé' : 'Désactivé'}}</mat-slide-toggle>
+  <button type="button" class="close float-right" (click)="onDeleteClick()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>

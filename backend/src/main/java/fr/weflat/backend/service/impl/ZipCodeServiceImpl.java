@@ -80,4 +80,9 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 
 		return zipCodes;
 	}
+
+	@Override
+	public void deleteById(long id) {
+		zipCodeDao.delete(id);
+	}
 }
