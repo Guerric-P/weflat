@@ -7,25 +7,47 @@ import java.util.stream.Collectors;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.service.ZipCodeService;
 import fr.weflat.backend.web.dto.ZipCodeDto;
 import ma.glasnost.orika.MapperFacade;
 
 @RestController
 @Produces("application/json")
-@RequestMapping("/zipcodes")
+@RequestMapping("/zip-codes")
 public class ZipCodeController {
 	@Autowired
 	MapperFacade orikaMapperFacade;
 
 	@Autowired
 	ZipCodeService zipCodeService;
+	
+	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
+	public void patchZipCode(@PathVariable("id") long id, @RequestBody ZipCodeDto input) {
+		input.setId(id);
+		zipCodeService.save(orikaMapperFacade.map(input, ZipCode.class));
+	}
+	
+	@RequestMapping(path="/{id}", method=RequestMethod.DELETE)
+	public void deleteZipCode(@PathVariable("id") long id) {
+		zipCodeService.deleteById(id);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ZipCodeDto postZipCode(@RequestBody ZipCodeDto input) {
+		return orikaMapperFacade.map(
+				zipCodeService.save(
+						orikaMapperFacade.map(input, ZipCode.class)
+						), ZipCodeDto.class
+				);
+	}
 	
 	@RequestMapping(path="/check-status", method=RequestMethod.POST)
 	public List<ZipCodeDto> checkZipCodesStatus(@RequestBody Set<ZipCodeDto> input) {

@@ -53,15 +53,13 @@ public class ZipCodeMapping implements OrikaMapperFactoryConfigurer {
 				if(source.getNumber() != null)
 				{
 					ZipCode zipCode = zipCodeDao.findByNumber(source.getNumber());
-					if(zipCode != null) {
-						return zipCode;
-					}
-					else {
+
+					if(zipCode == null) {
 						zipCode = new ZipCode();
 						zipCode.setNumber(source.getNumber());
-						zipCode.setActive(false);
-						return zipCode;
 					}
+					zipCode.setActive(source.isActive());
+					return zipCode;
 				}
 				else {
 					return null;

@@ -14,4 +14,6 @@ public interface ZipCodeService {
 	Set<ZipCode> getZipCodesByNumbers(Set<String> numbers);
 	
 	Set<ZipCode> getZipCodesByNumbersStartingWith(String string);
+	
+	void deleteById(long id);
 }

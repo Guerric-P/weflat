@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CustomersComponent } from './components/customers/customers.component';
 import { VisitsComponent } from './components/visits/visits.component';
 import { ArchitectsComponent } from './components/architects/architects.component';
-import { ZipCodesComponent } from './components/zip-codes/zip-codes.component';
+import { ZipCodesComponent } from './components/zip-codes/zip-codes/zip-codes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'customers', pathMatch: 'full' },
