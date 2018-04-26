@@ -28,6 +28,7 @@
     "angular2-notifications": "0.9.7",
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
+    "font-awesome": "^4.7.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
