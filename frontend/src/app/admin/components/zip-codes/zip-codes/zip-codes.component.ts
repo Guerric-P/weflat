@@ -28,9 +28,11 @@ export class ZipCodesComponent implements OnInit {
   }
 
   onKeyUp(event: any) {
-    this.zipCodeService.searchZipCodes(event.target.value).subscribe(res => {
-      this.results = res;
-    });
+    if (event.keyCode !== 13) {
+      this.zipCodeService.searchZipCodes(event.target.value).subscribe(res => {
+        this.results = res;
+      });
+    }
 
     if (event.keyCode === 13 && !this.matcher.isErrorState(event.target, null) && !this.results.find(x => x.number === event.target.value)) {
       this.zipCodeService.postZipCode(new ZipCodeClass({ number: event.target.value, active: false })).subscribe(res => {
@@ -46,10 +48,10 @@ export class ZipCodesComponent implements OnInit {
     this.zipCodeService.deleteZipCode(zipCode.id).subscribe(() => {
       // TODO replace with lodash compose
       let compose = f => g => x => f(g(x));
-      let findDeletedZipCode = results => id => results.find(x => x.id === id);
-      let findIndex = results => deletedZipCode => results.indexOf(deletedZipCode);
-      let findDeletedZipCodeIndex = results => compose(findIndex(results))(findDeletedZipCode(results));
-      this.results.splice(findDeletedZipCodeIndex(this.results)(zipCode.id), 1);
+      let findById = array => id => array.find(x => x.id === id);
+      let findIndex = array => item => array.indexOf(item);
+      let findIndexById = array => compose(findIndex(array))(findById(array));
+      this.results.splice(findIndexById(this.results)(zipCode.id), 1);
       this.notificationsService.success('Succès !', `Le code postal ${zipCode.number} a été supprimé`);
     }, err => {
       this.notificationsService.error('Erreur', 'Une erreur a eu lieu...');
