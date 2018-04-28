@@ -262,4 +262,8 @@ export class ReportEditComponent implements OnInit {
   removeRenovation(index: number) {
     this.renovations.removeAt(index);
   }
+
+  backClick() {
+    window.history.back();
+  }
 }
