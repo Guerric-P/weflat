@@ -55,12 +55,10 @@
         <button *ngIf="!token" type="button" (click)="openSignin(signinModal)" mat-button>
           Se connecter
         </button>
-        
-
-        <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed">
-          <i class="material-icons">menu</i>
+        <button mat-icon-button type="button" (click)="isCollapsed = !isCollapsed">
+          <mat-icon aria-label="Example icon-button with a heart icon">menu</mat-icon>
         </button>
-        
+
 
       </div>
 
