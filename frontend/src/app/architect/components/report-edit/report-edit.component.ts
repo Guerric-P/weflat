@@ -3,12 +3,12 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
 declare var moment;
-import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VisiteService } from '../../../shared/services/visite.service';
 import { ReportService } from '../../../shared/services/report.service';
 import { ReportClass } from '../../../core/models/ReportClass';
 import { PositionClass } from '../../../core/models/PositionClass';
 import { RenovationClass } from '../../../core/models/RenovationClass';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-report-edit',
@@ -22,7 +22,7 @@ export class ReportEditComponent implements OnInit {
     private route: ActivatedRoute,
     private visiteService: VisiteService,
     private reportService: ReportService,
-    private modalService: NgbModal,
+    private dialog: MatDialog,
     private router: Router) { }
 
   form: FormGroup;
@@ -31,9 +31,7 @@ export class ReportEditComponent implements OnInit {
   sumAmounts: number;
   mandatoryPositions: PositionClass[];
   mandatoryPositionsIds: number[];
-  submitModal: NgbModalRef;
-  submitConfirmModal: NgbModalRef;
-  @ViewChild('submitModal') submitModalTemplate: TemplateRef<any>;
+  submitConfirmModal: MatDialogRef<any>;
   @ViewChild('submitConfirmModal') submitConfirmModalTemplate: TemplateRef<any>;
   renovations: FormArray;
 
@@ -83,8 +81,8 @@ export class ReportEditComponent implements OnInit {
       }
 
       for (let renovation of this.report.renovations) {
-         //Add saved optional positions
-         if (!renovation.position.mandatory) {
+        //Add saved optional positions
+        if (!renovation.position.mandatory) {
           controls.push({
             id: [renovation.id],
             position: [renovation.position.id, [Validators.required]],
@@ -146,16 +144,6 @@ export class ReportEditComponent implements OnInit {
     });
   }
 
-  onSubmit(callback?: Function) {
-    if (!this.form.invalid) {
-      this.saveForm(callback);
-    }
-    else {
-      this.touchAll(this.form);
-      this.notificationsService.error('Oups !', 'Les données saisies sont erronées ou incomplètes.');
-    }
-  }
-
   saveForm(callback?: Function) {
     const formModel = this.form.value;
 
@@ -186,24 +174,24 @@ export class ReportEditComponent implements OnInit {
 
     if (!this.report.id) {
       this.reportService.postReport(this.report.visite.id, report).subscribe(res => {
-        this.notificationsService.success('Merci !', 'Vos informations ont été sauvegardées avec succès.');
+        this.notificationsService.success('Merci !', 'Votre rapport a été sauvegardé avec succès.');
         this.form.markAsUntouched();
-        if(callback){
+        if (callback) {
           callback();
         }
       }, err => {
-        this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la création du compte-rendu.');
+        this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la création du rapport.');
       });
     }
     else {
       this.reportService.patchReport(this.report.visite.id, report).subscribe(res => {
-        this.notificationsService.success('Merci !', 'Vos informations ont été sauvegardées avec succès.');
+        this.notificationsService.success('Merci !', 'Votre rapport a été sauvegardé avec succès.');
         this.form.markAsUntouched();
-        if(callback){
+        if (callback) {
           callback();
         }
       }, err => {
-        this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la mise à jour du compte-rendu.');
+        this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la mise à jour du rapport.');
       });
     }
   }
@@ -212,31 +200,26 @@ export class ReportEditComponent implements OnInit {
     this.reportService.submitReport(this.report.visite.id).subscribe(res => {
       this.router.navigate(['/architecte/visits']);
     }, err => {
-      this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la soumission du compte-rendu.');
+      this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la soumission du rapport.');
     })
   }
 
   submitClick() {
-    if (this.form.touched) {
-      this.submitModal = this.modalService.open(this.submitModalTemplate);
+    this.saveForm(function () {
+      if (this.form.valid) {
+        this.submitConfirmModal = this.dialog.open(this.submitConfirmModalTemplate);
 
-      this.submitModal.result.then((result) => {
-        this.onSubmit();
-      }, (reason) => {
-
-      });
-    }
-    else {
-      this.submitConfirmModal = this.modalService.open(this.submitConfirmModalTemplate);
-
-      this.submitConfirmModal.result.then((result) => {
-        this.onSubmit(function() {
-          this.submitForm();
-        }.bind(this));
-      }, (reason) => {
-
-      });
-    }
+        this.submitConfirmModal.afterClosed().subscribe((result) => {
+          if (result) {
+            this.submitForm();
+          }
+        });
+      }
+      else {
+        this.touchAll(this.form);
+        this.notificationsService.error('Rapport incomplet', 'Veuillez remplir la totalité du rapport avant soumission.')
+      }
+    }.bind(this));
   }
 
   touchAll(formGroup: FormGroup | FormArray, func = 'markAsTouched', opts = { onlySelf: false }): void {
@@ -265,5 +248,9 @@ export class ReportEditComponent implements OnInit {
 
   backClick() {
     window.history.back();
+  }
+
+  closeSubmitConfirmModal() {
+    this.submitConfirmModal.close();
   }
 }

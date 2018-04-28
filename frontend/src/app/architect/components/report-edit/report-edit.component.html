@@ -1,8 +1,10 @@
 <div class="container mt-3">
   <div class="container">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <form [formGroup]="form" (ngSubmit)="saveForm()" novalidate>
       <button mat-raised-button type="button" (click)="backClick()">Retour</button>
-      <span class="float-right" matTooltip="Cette fonctionnalité sera bientôt disponible."><button mat-raised-button color="primary" disabled="disabled" class="cursor-not-allowed" type="button">Télécharger au format pdf</button></span>
+      <span class="float-right" matTooltip="Cette fonctionnalité sera bientôt disponible.">
+        <button mat-raised-button color="primary" disabled="disabled" class="cursor-not-allowed" type="button">Télécharger au format pdf</button>
+      </span>
       <a mat-raised-button class="mr-2 float-right" href="mailto:{{report.visite.architecte.email}}">Contacter l'architecte</a>
       <h1 class="mt-3" style="font-size:3.2em;">Mon compte rendu</h1>
       <div class="card mt-2">
@@ -233,34 +235,18 @@
   </div>
 </div>
 
-<ng-template #submitModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Modifications non sauvegardées !</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+<ng-template #submitConfirmModal>
+  <h4 mat-dialog-title>Soumettre le compte-rendu
+    <button type="button" class="close" aria-label="Close" (click)="closeSubmitConfirmModal()">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>
-  <div class="modal-body">
-    <p>Vous devez sauvegarder les modifications de votre compte-rendu avant de le soumettre.</p>
-  </div>
-  <div class="modal-footer d-flex flex-row justify-content-around">
-    <button type="button" mat-raised-button color="primary" (click)="c('save')">Sauvegarder</button>
-    <button type="button" mat-raised-button color="primary" (click)="d('cancel')">Annuler</button>
-  </div>
-</ng-template>
+  </h4>
 
-<ng-template #submitConfirmModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title">Soumettre le compte-rendu</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
+  <div mat-dialog-content>
     <p>Vous êtes sur le point de soumettre votre compte-rendu. Aucune modification ne sera possible après soumission.</p>
   </div>
-  <div class="modal-footer d-flex flex-row justify-content-around">
-    <button type="button" mat-raised-button color="primary" (click)="c('submit')">Soumettre</button>
-    <button type="button" mat-raised-button color="primary" (click)="d('cancel')">Annuler</button>
+  <div mat-dialog-actions>
+    <button type="button" mat-raised-button color="primary" [mat-dialog-close]="true">Soumettre</button>
+    <button type="button" mat-raised-button [mat-dialog-close]="false">Annuler</button>
   </div>
 </ng-template>

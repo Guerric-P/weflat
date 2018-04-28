@@ -226,7 +226,7 @@ export class ArchitecteProfileComponent implements OnInit {
 
   getZipCodeLocation(zipCode: string, cb: any) {
     new google.maps.Geocoder().geocode({ 'address': zipCode, 'region': 'fr' }, function (results, status) {
-      if (status == 'OK') {
+      if (status == true) {
         return this.placeMarker(zipCode, results[0], cb);
       }
       else {

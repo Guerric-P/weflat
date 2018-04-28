@@ -14,8 +14,7 @@ import { ZipCodesResolver } from '../shared/resolvers/zip-codes-resolver';
 import { MessagesComponent } from './components/messages/messages.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatChipsModule, MatIconModule, MatExpansionModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatChipsModule, MatIconModule, MatExpansionModule, MatTooltipModule, MatDialogModule } from '@angular/material';
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -27,7 +26,6 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule.forRoot(),
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,
@@ -35,6 +33,7 @@ import { SharedModule } from '../shared/shared.module';
     MatIconModule,
     MatExpansionModule,
     MatTooltipModule,
+    MatDialogModule,
     SharedModule
   ],
   declarations: [

@@ -41,7 +41,7 @@ export class MyVisitComponent implements OnInit {
     this.cancelModal = this.dialog.open(this.cancelModalTemplate);
 
     this.cancelModal.afterClosed().subscribe(value => {
-      if (value === 'OK') {
+      if (value) {
         this.visiteService.cancel(this.visit.id).subscribe(res => {
           this.notificationsService.success('Visite supprimée', 'Votre visite a bien été supprimée.');
           this.canceled.emit();
@@ -55,6 +55,6 @@ export class MyVisitComponent implements OnInit {
   }
 
   closeCancelModal() {
-    this.cancelModal.close('cancel');
+    this.cancelModal.close(false);
   }
 }
