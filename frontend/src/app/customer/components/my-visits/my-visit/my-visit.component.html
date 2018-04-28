@@ -1,7 +1,7 @@
 <mat-card *ngIf="visit.status === VisitStatusEnum.WAITING_FOR_PAYMENT" class="card">
   <mat-card-content>
     Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
-    <div class="progress" style="height: 20px;">
+    <div class="progress text-center d-flex flex-column" style="height: 20px;">
       En attente de paiement
     </div>
     <div class="d-flex flex-row-reverse mt-2">
@@ -63,3 +63,18 @@
     </div>
   </mat-card-content>
 </mat-card>
+
+<ng-template #cancelModal>
+  <h5 mat-dialog-title>Êtes-vous sûr(e) ?
+    <button type="button" class="close" (click)="closeCancelModal()">
+      <span>&times;</span>
+    </button>
+  </h5>
+
+
+  <div mat-dialog-content>Vous êtes sur le point d'annuler votre visite. Vous serez remboursé(e) intégralement.</div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" type="button" class="mr-2" [mat-dialog-close]="'OK'">Continuer</button>
+    <button mat-raised-button type="button" class="ml-2" [mat-dialog-close]="'cancel'">Annuler</button>
+  </div>
+</ng-template>
