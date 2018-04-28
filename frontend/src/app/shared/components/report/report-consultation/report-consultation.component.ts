@@ -21,4 +21,8 @@ export class ReportConsultationComponent implements OnInit {
       this.estimatedWorkSum += renovation.estimatedWork;
     }
   }
+
+  backClick() {
+    window.history.back();
+  }
 }
