@@ -102,7 +102,7 @@
         </div>
         <div class="row justify-content-center align-items-center mt-4">
           <button mat-raised-button matStepperPrevious>Précédent</button>
-          <button mat-raised-button color="primary" appPayment  [visitId]="visit.id" [disabled]="!(visitCreationComplete && architectsAvailable)" (paymentDone)="paymentDone()">Payer</button>
+          <button mat-raised-button color="primary" appPayment  [visitId]="visit.id" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)" (paymentDone)="paymentDone()">Payer</button>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { VisiteService } from '../../../../shared/services/visite.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
+import { AuthenticationService } from '../../../../core/services/authentication.service';
 
 @Component({
   selector: 'app-my-visit',
@@ -21,6 +22,7 @@ export class MyVisitComponent implements OnInit {
   VisitStatusEnum = VisitStatusEnum;
 
   constructor(
+    public authService: AuthenticationService,
     private visiteService: VisiteService,
     private dialog: MatDialog,
     private notificationsService: NotificationsService,
