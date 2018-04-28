@@ -35,6 +35,12 @@ public interface VisiteService {
 	
 	void pay(Visite visit, String token) throws Exception;
 	
+	void cancel(Visite visit) throws Exception;
+	
+	void refund(Visite visit) throws Exception;
+	
+	void refund(Visite visit, long amount) throws Exception;
+	
 	void accept(Long idVisite, Long idArchitecte) throws Exception;
 	
 	void refuse(Long idVisite, Long idArchitecte) throws Exception;

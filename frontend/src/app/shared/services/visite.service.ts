@@ -16,7 +16,11 @@ export class VisiteService {
     }
 
     pay(id: number, token: string){
-        return this.http.post(`/visits/${id}/pay?token=${token}`, null);
+        return this.http.post(`/visits/${id}/pay`, null, {params: {token: token}});
+    }
+
+    cancel(id: number){
+        return this.http.post(`/visits/${id}/cancel`, null);
     }
 
     getAvailableVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
