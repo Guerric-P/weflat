@@ -15,6 +15,7 @@ export class PaymentDirective {
 
   buttonDisabled: boolean;
   @Input() visitId: number;
+  @Input() email: string;
   @Output() paymentDone: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private visiteService: VisiteService,
@@ -27,6 +28,7 @@ export class PaymentDirective {
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       currency: 'eur',
+      email: this.email,
       token: function (token: any) {
         this.loaderService.show("Paiement en cours...");
         this.visiteService.pay(this.visitId, token.id).subscribe(res => {

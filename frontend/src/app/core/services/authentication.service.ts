@@ -77,4 +77,8 @@ export class AuthenticationService {
     get userId(): number {
         return this.localStorageService.tokenPayload.id;
     }
+
+    get userEmail(): string {
+        return this.localStorageService.tokenPayload.sub;
+    }
 }

@@ -47,13 +47,14 @@ export class CreateVisitComponent implements OnInit {
   architectsAvailable: boolean = false;
   minDate = moment().add(5, 'days').utc().format();
 
-  constructor(private ref: ChangeDetectorRef,
+  constructor(
+    public authService: AuthenticationService,
+    private ref: ChangeDetectorRef,
     private _formBuilder: FormBuilder,
     private adapter: DateAdapter<any>,
     private sessionStorageService: SessionStorageService,
     private visiteService: VisiteService,
     private notificationService: NotificationsService,
-    private authService: AuthenticationService,
     private createVisitGuard: CreateVisitGuard,
     private router: Router,
     private route: ActivatedRoute,
