@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   notificationOptions: any = {
-    timeOut: 5000
+    timeOut: 5000,
+    showProgressBar: false
   }
 }
