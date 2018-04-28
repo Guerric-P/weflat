@@ -91,6 +91,21 @@ public class VisiteController {
 			visiteService.pay(visit, token);
 		}
 	}
+	
+	@RequestMapping(path = "/{id}/cancel", method = RequestMethod.POST)
+	public void cancelVisit(@PathVariable("id") long id) throws Exception {
+
+		Visite visit = visiteService.findById(id);
+
+		if (visit.getStatus() == VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()
+				|| visit.getStatus() == VisitStatusEnum.UNASSIGNED.ordinal()
+				|| visit.getStatus() == VisitStatusEnum.BEING_ASSIGNED.ordinal()) {
+			visiteService.cancel(visit);
+		}
+		else {
+			throw new Exception("Visit non eligible for payment.");
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/{id}/accept", method = RequestMethod.POST)

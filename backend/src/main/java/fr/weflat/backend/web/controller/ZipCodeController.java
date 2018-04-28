@@ -31,8 +31,11 @@ public class ZipCodeController {
 	
 	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
 	public void patchZipCode(@PathVariable("id") long id, @RequestBody ZipCodeDto input) {
-		input.setId(id);
-		zipCodeService.save(orikaMapperFacade.map(input, ZipCode.class));
+		ZipCode zipCode = new ZipCode();
+		zipCode.setId(id);
+		zipCode.setActive(input.isActive());
+		zipCode.setNumber(input.getNumber());
+		zipCodeService.save(zipCode);
 	}
 	
 	@RequestMapping(path="/{id}", method=RequestMethod.DELETE)

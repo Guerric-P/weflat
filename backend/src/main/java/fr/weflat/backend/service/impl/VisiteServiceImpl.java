@@ -14,7 +14,6 @@ import com.google.common.base.Preconditions;
 import com.querydsl.core.types.Predicate;
 import com.stripe.Stripe;
 import com.stripe.model.Charge;
-
 import fr.weflat.backend.dao.ArchitecteDao;
 import fr.weflat.backend.dao.VisiteDao;
 import fr.weflat.backend.domaine.Acheteur;
@@ -394,5 +393,30 @@ public class VisiteServiceImpl implements VisiteService {
 		}
 
 		return visites;
+	}
+
+	@Override
+	public void cancel(Visite visit) throws Exception {
+		if(visit.getIdCharge() != null) {
+			refund(visit);
+			visit.setStatus(VisitStatusEnum.REFUNDED.ordinal());
+		} else {
+			visit.setStatus(VisitStatusEnum.CANCELED.ordinal());
+		}
+		visit.setNearbyArchitectes(null);
+		save(visit);
+	}
+	
+	@Override
+	public void refund(Visite visit) throws Exception {
+		Charge.retrieve(visit.getIdCharge()).refund();
+	}
+
+	@Override
+	public void refund(Visite visit, long amount) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("amount", amount);
+		Charge.retrieve(visit.getIdCharge()).refund(params);
+		
 	}
 }

@@ -57,8 +57,8 @@ public class ZipCodeMapping implements OrikaMapperFactoryConfigurer {
 					if(zipCode == null) {
 						zipCode = new ZipCode();
 						zipCode.setNumber(source.getNumber());
+						zipCode.setActive(false);
 					}
-					zipCode.setActive(source.isActive());
 					return zipCode;
 				}
 				else {

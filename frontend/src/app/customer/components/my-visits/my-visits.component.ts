@@ -21,29 +21,47 @@ export class MyVisitsComponent implements OnInit {
     private visitService: VisiteService) { }
 
   ngOnInit() {
+    this.loadBeingAssignedVisits();
+    this.loadInProgressVisits();
+    this.loadInProgressVisits();
+    this.loadReportBeingWrittenVisits();
+    this.loadReportWrittenVisits();
+    this.loadWaitingForPaymentVisits();
+  }
+
+  loadBeingAssignedVisits() {
     this.visitService.getBeingAssignedVisitsByAcheteur(this.authService.userId).subscribe(res => {
       this.beingAssignedVisits = res;
     });
+  }
 
+  loadInProgressVisits() {
     this.visitService.getInProgressVisitsByAcheteur(this.authService.userId).subscribe(res => {
       this.inProgressVisits = res;
     });
+  }
 
+  loadReportBeingWrittenVisits() {
     this.visitService.getReportBeingWrittenVisitsByAcheteur(this.authService.userId).subscribe(res => {
       this.reportBeingWrittenVisits = res;
     });
+  }
 
+  loadReportWrittenVisits() {
     this.visitService.getReportWrittenVisitsByAcheteur(this.authService.userId).subscribe(res => {
       this.reportWrittenVisits = res;
     });
+  }
 
+  loadWaitingForPaymentVisits() {
     this.visitService.getWaitingForPaymentVisitsByAcheteur(this.authService.userId).subscribe(res => {
       this.waitingForPaymentVisits = res;
     });
+  }
 
+  loadPlannedVisits() {
     this.visitService.getPlannedVisitsByAcheteur(this.authService.userId).subscribe(res => {
       this.plannedVisits = res;
     });
   }
-
 }
