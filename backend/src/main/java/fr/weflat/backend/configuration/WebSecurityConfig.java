@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/visits/{visitId:\\d+}/**").access("@weflatSecurityService.hasAccessToVisit(authentication,#visitId)")
 				.antMatchers("/architectes/types").permitAll()
 				.antMatchers("/architectes/situations").permitAll()
+				.antMatchers("/architectes/payment-types").permitAll()
 				.antMatchers("/zip-codes/check-status").permitAll()
 				.antMatchers("/positions").permitAll()
 				.anyRequest().hasAuthority("admin")

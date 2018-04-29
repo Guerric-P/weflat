@@ -21,6 +21,8 @@ import { PaymentDirective } from './directives/payment.directive';
 import { ReportConsultationComponent } from './components/report/report-consultation/report-consultation.component';
 import { ZipCodeService } from './services/zip-code.service';
 import { MatTooltipModule, MatButtonModule } from '@angular/material';
+import { PaymentTypeService } from './services/payment-type.service';
+import { PaymentTypeResolver } from './resolvers/payment-type.resolver';
 
 @NgModule({
   imports: [
@@ -53,13 +55,15 @@ export class SharedModule {
         ArchitecteResolver,
         ArchitectSituationResolver,
         ArchitectTypeResolver,
+        PaymentTypeResolver,
         UserService,
         PositionResolver,
         PositionService,
         ShowSigninPopupService,
         AcheteurResolver,
         LoaderService,
-        ZipCodeService
+        ZipCodeService,
+        PaymentTypeService
       ]
     };
   }

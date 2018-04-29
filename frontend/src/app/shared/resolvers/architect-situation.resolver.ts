@@ -10,7 +10,7 @@ export class ArchitectSituationResolver implements Resolve<ArchitectSituationCla
   constructor(private architectSituationService: ArchitectSituationService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ArchitectSituationClass[] | Observable<ArchitectSituationClass[]> | Promise<ArchitectSituationClass[]> {
-    return this.architectSituationService.getSituations();
+    return this.architectSituationService.getAll();
   }
 
 }
