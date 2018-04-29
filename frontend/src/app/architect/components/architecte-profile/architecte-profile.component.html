@@ -252,10 +252,10 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Paiement</label>
           <div class="col-sm-10">
-            <select class="form-control" disabled="disabled">
-              <option>Transfert bancaire</option>
-              <option>Lydia</option>
-            </select>
+            <select class="form-control" [class.is-invalid]="form.controls.paymentType.invalid && form.controls.paymentType.touched" [class.is-valid]="!form.controls.paymentType.invalid && form.controls.paymentType.touched"
+            formControlName="paymentType">
+            <option *ngFor="let paymentType of paymentTypes" [value]="paymentType.id">{{paymentType.label}}</option>
+          </select>
             <div>
               <p class="text-muted">Choisissez la méthode de paiement pour le versement de vos prestations</p>
             </div>

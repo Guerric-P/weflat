@@ -10,7 +10,7 @@ export class ArchitectTypeResolver implements Resolve<ArchitectTypeClass[]> {
   constructor(private architectTypeService: ArchitectTypeService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ArchitectTypeClass[] | Observable<ArchitectTypeClass[]> | Promise<ArchitectTypeClass[]> {
-    return this.architectTypeService.getTypes();
+    return this.architectTypeService.getAll();
   }
 
 }

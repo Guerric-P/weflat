@@ -15,6 +15,7 @@ import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { ZipCodeService } from '../../../shared/services/zip-code.service';
 import * as IBAN from 'iban';
+import { PaymentTypeClass } from '../../../core/models/PaymentTypeClass';
 declare var moment;
 declare var google;
 
@@ -29,6 +30,7 @@ export class ArchitecteProfileComponent implements OnInit {
   form: FormGroup;
   architectTypes: ArchitectTypeClass[];
   architectSituations: ArchitectSituationClass[];
+  paymentTypes: PaymentTypeClass[];
   architecte: ArchitecteClass;
   dateNow = moment().format('YYYY-MM-DD');
   @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
@@ -65,6 +67,7 @@ export class ArchitecteProfileComponent implements OnInit {
     this.architecte = this.route.snapshot.data['architecte'];
     this.architectTypes = this.route.snapshot.data['architectTypes'];
     this.architectSituations = this.route.snapshot.data['architectSituations'];
+    this.paymentTypes = this.route.snapshot.data['paymentTypes'];
 
     this.form = this.fb.group({
       firstName: [this.architecte.firstName, Validators.required],
@@ -77,12 +80,13 @@ export class ArchitecteProfileComponent implements OnInit {
       practicingSince: [this.architecte.practicingSince && moment(this.architecte.practicingSince).format('YYYY-MM-DD'), Validators.required],
       webSite: [this.architecte.webSite, Validators.pattern(/^(http|https):\/\/[^ "]+$/)],
       architectsOrder: [this.architecte.architectsOrder, Validators.required],
+      paymentType: [this.architecte.paymentType && this.architecte.paymentType.id, Validators.required],
       cfai: [this.architecte.cfai, Validators.required],
       professionalResponsibility: [this.architecte.professionalResponsibility, Validators.required],
       decennialInsurance: [this.architecte.decennialInsurance, Validators.required],
       motivation: [this.architecte.motivation, Validators.required],
       cgu: [this.architecte.cgu, Validators.requiredTrue],
-      iban: [IBAN.printFormat(this.architecte.iban), [Validators.required, this.IBANValidator]]
+      iban: [this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null, [Validators.required, this.IBANValidator]]
     });
 
     this.zipCodes = this.route.snapshot.data['zipCodes'].map(x => x.number);
@@ -306,6 +310,7 @@ export class ArchitecteProfileComponent implements OnInit {
         telephone: formModel.telephone,
         type: new ArchitectTypeClass({ id: formModel.type }),
         situation: new ArchitectSituationClass({ id: formModel.situation }),
+        paymentType: new PaymentTypeClass({ id: formModel.paymentType }),
         practicingSince: new Date(formModel.practicingSince),
         webSite: formModel.webSite,
         architectsOrder: formModel.architectsOrder,

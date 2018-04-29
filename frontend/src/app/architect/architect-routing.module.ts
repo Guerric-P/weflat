@@ -13,6 +13,7 @@ import { PositionResolver } from '../shared/resolvers/position.resolver';
 import { ZipCodesResolver } from '../shared/resolvers/zip-codes-resolver';
 import { MessagesComponent } from './components/messages/messages.component';
 import { ReportConsultationComponent } from '../shared/components/report/report-consultation/report-consultation.component';
+import { PaymentTypeResolver } from '../shared/resolvers/payment-type.resolver';
 
 const routes: Routes  = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes  = [
         architecte: ArchitecteResolver,
         architectTypes: ArchitectTypeResolver,
         architectSituations: ArchitectSituationResolver,
+        paymentTypes: PaymentTypeResolver,
         zipCodes: ZipCodesResolver
       }, data: { authRequired: true }
   },

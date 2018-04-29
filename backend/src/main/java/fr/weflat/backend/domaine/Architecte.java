@@ -60,10 +60,14 @@ public class Architecte extends Utilisateur {
 	@JoinColumn(name = "id_architect_type", nullable = true)
 	private ArchitectType type;
 	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_payment_type", nullable = true)
+	private PaymentType paymentType;
+	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "architecte_zip_code", joinColumns = @JoinColumn(name = "id_architecte", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_zip_code", referencedColumnName = "id"))
 	private Set<ZipCode> zipCodes;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "architecte")
 	private Set<Visite> visites;
 	
@@ -165,6 +169,14 @@ public class Architecte extends Utilisateur {
 
 	public void setSituation(ArchitectSituation situation) {
 		this.situation = situation;
+	}
+	
+	public PaymentType getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(PaymentType paymentType) {
+		this.paymentType = paymentType;
 	}
 
 	public int getStatus() {

@@ -3,6 +3,7 @@ import { ArchitectTypeClass } from "./ArchitectTypeClass";
 import { ZipCodeClass } from "./ZipCodeClass";
 import { VisiteClass } from "./VisiteClass";
 import { ArchitectSituationClass } from "./ArchitectSituationClass";
+import { PaymentTypeClass } from "./PaymentTypeClass";
 
 export class ArchitecteClass extends UserClass{
     public webSite: String;
@@ -19,7 +20,8 @@ export class ArchitecteClass extends UserClass{
     public situation: ArchitectSituationClass;
     public cgu: boolean;
     public status: number;
-    public iban: string
+    public iban: string;
+    public paymentType: PaymentTypeClass;
 
     constructor(obj?: any) {
         super();

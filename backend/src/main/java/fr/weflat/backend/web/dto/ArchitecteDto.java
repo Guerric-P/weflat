@@ -20,6 +20,7 @@ public class ArchitecteDto extends UtilisateurDto {
 	private Date practicingSince;
 	private ArchitectSituationDto situation;
 	private ArchitectTypeDto type;
+	private PaymentTypeDto paymentType;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Set<ZipCodeDto> zipCodes;
@@ -106,5 +107,11 @@ public class ArchitecteDto extends UtilisateurDto {
 	}
 	public void setZipCodes(Set<ZipCodeDto> zipCodes) {
 		this.zipCodes = zipCodes;
+	}
+	public PaymentTypeDto getPaymentType() {
+		return paymentType;
+	}
+	public void setPaymentType(PaymentTypeDto paymentType) {
+		this.paymentType = paymentType;
 	}
 }
