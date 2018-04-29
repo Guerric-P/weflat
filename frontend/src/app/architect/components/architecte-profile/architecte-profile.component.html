@@ -264,7 +264,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">IBAN</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" disabled="disabled">
+            <input type="text" [class.is-invalid]="form.controls.iban.invalid && form.controls.iban.touched"
+            [class.is-valid]="!form.controls.iban.invalid && form.controls.iban.touched" formControlName="iban" class="form-control">
           </div>
         </div>
         <div class="col-sm-12 form-group row">

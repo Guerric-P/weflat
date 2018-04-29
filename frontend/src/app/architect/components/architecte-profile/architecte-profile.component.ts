@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 import { ArchitecteService } from '../../../shared/services/architecte.service';
@@ -14,6 +14,7 @@ import { MatChipInputEvent } from '@angular/material';
 import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { ZipCodeService } from '../../../shared/services/zip-code.service';
+import * as IBAN from 'iban';
 declare var moment;
 declare var google;
 
@@ -80,7 +81,8 @@ export class ArchitecteProfileComponent implements OnInit {
       professionalResponsibility: [this.architecte.professionalResponsibility, Validators.required],
       decennialInsurance: [this.architecte.decennialInsurance, Validators.required],
       motivation: [this.architecte.motivation, Validators.required],
-      cgu: [this.architecte.cgu, Validators.requiredTrue]
+      cgu: [this.architecte.cgu, Validators.requiredTrue],
+      iban: [IBAN.printFormat(this.architecte.iban), [Validators.required, this.IBANValidator]]
     });
 
     this.zipCodes = this.route.snapshot.data['zipCodes'].map(x => x.number);
@@ -226,7 +228,7 @@ export class ArchitecteProfileComponent implements OnInit {
 
   getZipCodeLocation(zipCode: string, cb: any) {
     new google.maps.Geocoder().geocode({ 'address': zipCode, 'region': 'fr' }, function (results, status) {
-      if (status == true) {
+      if (status === 'OK') {
         return this.placeMarker(zipCode, results[0], cb);
       }
       else {
@@ -312,6 +314,7 @@ export class ArchitecteProfileComponent implements OnInit {
         decennialInsurance: formModel.decennialInsurance,
         motivation: formModel.motivation,
         cgu: formModel.cgu,
+        iban: IBAN.electronicFormat(formModel.iban),
         zipCodes: zipCodes
       });
 
@@ -338,5 +341,11 @@ export class ArchitecteProfileComponent implements OnInit {
     }, err => {
       this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors du changement de mot de passe.');
     });
+  }
+
+  IBANValidator(c: AbstractControl): ValidationErrors | null {
+    return IBAN.isValid(c.value) ? null : {
+      invalidIBAN: true
+    }
   }
 }

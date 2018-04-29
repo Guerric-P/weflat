@@ -49,6 +49,9 @@ public class Architecte extends Utilisateur {
 	@Column(nullable = true, name = "cgu")
 	private boolean cgu;
 	
+	@Column(nullable = true, name = "iban")
+	private String iban;
+
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_architect_situation", nullable = true)
 	private ArchitectSituation situation;
@@ -178,5 +181,13 @@ public class Architecte extends Utilisateur {
 
 	public void setCgu(boolean cgu) {
 		this.cgu = cgu;
+	}
+	
+	public String getIban() {
+		return iban;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
 	}
 }

@@ -27,7 +27,14 @@ public class ArchitecteDto extends UtilisateurDto {
 	@JsonProperty(access = Access.READ_ONLY)
 	private int status;
 	private boolean cgu;
+	private String iban;
 	
+	public String getIban() {
+		return iban;
+	}
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
 	public String getWebSite() {
 		return webSite;
 	}
