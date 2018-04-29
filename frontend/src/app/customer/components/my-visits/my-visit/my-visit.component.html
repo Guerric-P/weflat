@@ -7,7 +7,8 @@
     <div class="d-flex flex-row-reverse mt-2">
       <button mat-raised-button (click)="cancelClick()">Annuler</button>
       <button mat-raised-button class="mr-2">Modifier</button>
-      <button mat-raised-button color="primary" appPayment [visitId]="visit.id" [email]="authService.userEmail" (paymentDone)="visitPaid()" class="mr-2">Payer</button>
+      <button mat-raised-button color="primary" appPayment [visitId]="visit.id" [email]="authService.userEmail" (paymentDone)="visitPaid()"
+        class="mr-2">Payer</button>
     </div>
   </mat-card-content>
 </mat-card>
@@ -48,7 +49,9 @@
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Compte rendu en cours de rédaction</div>
     </div>
-    <a class="btn btn-light float-right" href="mailto:{{visit.architecte.email}}">Contacter l'architecte</a>
+    <div class="d-flex flex-row-reverse mt-2">
+      <a mat-raised-button href="mailto:{{visit.architecte.email}}">Contacter l'architecte</a>
+    </div>
   </mat-card-content>
 </mat-card>
 <mat-card *ngIf="visit.status === VisitStatusEnum.REPORT_AVAILABLE" class="card">
