@@ -75,10 +75,10 @@ export class AuthenticationService {
     }
 
     get userId(): number {
-        return this.localStorageService.tokenPayload.id;
+        return this.localStorageService.tokenPayload ? this.localStorageService.tokenPayload.id : null;
     }
 
     get userEmail(): string {
-        return this.localStorageService.tokenPayload.sub;
+        return this.localStorageService.tokenPayload ? this.localStorageService.tokenPayload.sub : null;
     }
 }
