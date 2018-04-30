@@ -17,12 +17,13 @@ import fr.weflat.backend.dao.ZipCodeDao;
 import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.domaine.QArchitecte;
 import fr.weflat.backend.domaine.ZipCode;
+import fr.weflat.backend.enums.ArchitectStatusEnum;
 import fr.weflat.backend.service.ArchitecteService;
 
 @Service
 @Transactional
 public class ArchitecteServiceImpl implements ArchitecteService {
-	
+
 	@Autowired
 	private ArchitecteDao architecteDao;
 
@@ -35,8 +36,14 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 	}
 
 	@Override
-	public void save(Architecte architecte) {
-		architecteDao.save(architecte);
+	public Architecte save(Architecte architect) {
+		if(isProfileComplete(architect) && architect.getStatus() == ArchitectStatusEnum.CREATED.ordinal()) {
+			architect.setStatus(ArchitectStatusEnum.APPROVING.ordinal());
+		}
+		if(!isProfileComplete(architect) && architect.getStatus() == ArchitectStatusEnum.APPROVING.ordinal()) {
+			architect.setStatus(ArchitectStatusEnum.CREATED.ordinal());
+		}
+		return architecteDao.save(architect);
 	}
 
 	@Override
@@ -74,25 +81,26 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 	@Override
 	public Set<Architecte> findNearbyArchitectes(String code) {
 		QArchitecte architecte = QArchitecte.architecte;
-		
+
 		ZipCode zipCode = zipCodeDao.findByNumber(code);
-		
-		Predicate predicate = architecte.zipCodes.contains(zipCode);
-		
+
+		Predicate predicate = architecte.zipCodes.contains(zipCode)
+				.and(architecte.status.eq(ArchitectStatusEnum.VALIDATED.ordinal()));
+
 		Set<Architecte> architectes = new HashSet<Architecte>();
-	
+
 		Iterable<Architecte> result = architecteDao.findAll(predicate);
-		
+
 		for(Architecte row : result) {
 			architectes.add(row);
 		}
-		
+
 		return architectes;
 	}
 
 	@Override
 	public Set<Architecte> findAll() {
-		
+
 		Set<Architecte> architectes = new HashSet<Architecte>();
 
 		Iterable<Architecte> result = architecteDao.findAll();
@@ -102,6 +110,23 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 		}
 
 		return architectes;
+	}
+
+	@Override
+	public boolean isProfileComplete(Architecte architect) {
+		return architect.getBirthDate() != null
+				&& architect.getEmail() != null
+				&& architect.getFirstName() != null
+				&& architect.getLastName() != null
+				&& architect.getMotivation() != null
+				&& architect.getPaymentType() != null
+				&& architect.getPracticingSince() != null
+				&& architect.getSituation() != null
+				&& architect.getTelephone() != null
+				&& architect.getType() != null
+				&& architect.getWebSite() != null
+				&& architect.getZipCodes() != null
+				&& architect.getZipCodes().size() != 0;
 	}
 
 }

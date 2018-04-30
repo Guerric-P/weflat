@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, ValidationErrors, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 import { ArchitecteService } from '../../../shared/services/architecte.service';
@@ -10,7 +10,7 @@ import { ArchitectTypeClass } from '../../../core/models/ArchitectTypeClass';
 import { ArchitectSituationClass } from '../../../core/models/ArchitectSituationClass';
 import { ArchitecteClass } from '../../../core/models/ArchitecteClass';
 import { ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material';
+import { MatChipInputEvent, ErrorStateMatcher, MatChipList } from '@angular/material';
 import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { ZipCodeService } from '../../../shared/services/zip-code.service';
@@ -35,6 +35,7 @@ export class ArchitecteProfileComponent implements OnInit {
   dateNow = moment().format('YYYY-MM-DD');
   @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
   @ViewChild('googleMap') googleMap: ElementRef;
+  @ViewChild('zipCodesList') zipCodesList: MatChipList;
   index: number = 0;
   zipCodes = [];
   disabledZipCodes: string[];
@@ -47,6 +48,11 @@ export class ArchitecteProfileComponent implements OnInit {
   markers: any = {};
   northeast: any;
   southwest: any;
+  statusEmphasis: boolean;
+  zipCodeErrorStateMatcher: ErrorStateMatcher = {
+    isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean =>
+      !this.zipCodes || !this.zipCodes.length
+  }
 
   constructor(private fb: FormBuilder,
     private architecteService: ArchitecteService,
@@ -69,25 +75,7 @@ export class ArchitecteProfileComponent implements OnInit {
     this.architectSituations = this.route.snapshot.data['architectSituations'];
     this.paymentTypes = this.route.snapshot.data['paymentTypes'];
 
-    this.form = this.fb.group({
-      firstName: [this.architecte.firstName, Validators.required],
-      lastName: [this.architecte.lastName, Validators.required],
-      birthDate: [this.architecte.birthDate && moment(this.architecte.birthDate).format('YYYY-MM-DD'), Validators.required],
-      email: [{ value: this.architecte.email, disabled: true }, [Validators.required, Validators.email]],
-      telephone: [this.architecte.telephone, [Validators.required, Validators.pattern(/0(6|7)\d{8}/)]],
-      type: [this.architecte.type && this.architecte.type.id, Validators.required],
-      situation: [this.architecte.situation && this.architecte.situation.id, Validators.required],
-      practicingSince: [this.architecte.practicingSince && moment(this.architecte.practicingSince).format('YYYY-MM-DD'), Validators.required],
-      webSite: [this.architecte.webSite, Validators.pattern(/^(http|https):\/\/[^ "]+$/)],
-      architectsOrder: [this.architecte.architectsOrder, Validators.required],
-      paymentType: [this.architecte.paymentType && this.architecte.paymentType.id, Validators.required],
-      cfai: [this.architecte.cfai, Validators.required],
-      professionalResponsibility: [this.architecte.professionalResponsibility, Validators.required],
-      decennialInsurance: [this.architecte.decennialInsurance, Validators.required],
-      motivation: [this.architecte.motivation, Validators.required],
-      cgu: [this.architecte.cgu, Validators.requiredTrue],
-      iban: [this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null, this.IBANValidator]
-    });
+    this.initForm();
 
     this.zipCodes = this.route.snapshot.data['zipCodes'].map(x => x.number);
     this.disabledZipCodes = this.route.snapshot.data['zipCodes'].filter(x => !x.active).map(x => x.number);
@@ -121,6 +109,28 @@ export class ArchitecteProfileComponent implements OnInit {
         }
       }
     }.bind(this))
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      firstName: [this.architecte.firstName, Validators.required],
+      lastName: [this.architecte.lastName, Validators.required],
+      birthDate: [this.architecte.birthDate && moment(this.architecte.birthDate).format('YYYY-MM-DD'), Validators.required],
+      email: [{ value: this.architecte.email, disabled: true }, [Validators.required, Validators.email]],
+      telephone: [this.architecte.telephone, [Validators.required, Validators.pattern(/0(6|7)\d{8}/)]],
+      type: [this.architecte.type && this.architecte.type.id, Validators.required],
+      situation: [this.architecte.situation && this.architecte.situation.id, Validators.required],
+      practicingSince: [this.architecte.practicingSince && moment(this.architecte.practicingSince).format('YYYY-MM-DD'), Validators.required],
+      webSite: [this.architecte.webSite, Validators.pattern(/^(http|https):\/\/[^ "]+$/)],
+      architectsOrder: [this.architecte.architectsOrder, Validators.required],
+      paymentType: [this.architecte.paymentType && this.architecte.paymentType.id, Validators.required],
+      cfai: [this.architecte.cfai, Validators.required],
+      professionalResponsibility: [this.architecte.professionalResponsibility, Validators.required],
+      decennialInsurance: [this.architecte.decennialInsurance, Validators.required],
+      motivation: [this.architecte.motivation, Validators.required],
+      cgu: [this.architecte.cgu, Validators.requiredTrue],
+      iban: [this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null, this.IBANValidator]
+    });
   }
 
   ngAfterViewInit(): void {
@@ -300,7 +310,7 @@ export class ArchitecteProfileComponent implements OnInit {
   onSubmit() {
     const formModel = this.form.value;
 
-    if (!this.form.invalid) {
+    if (!this.form.invalid && this.zipCodesList.chips && this.zipCodesList.chips.length) {
       const zipCodes = this.zipCodesArrayFromThis;
 
       const architect = new ArchitecteClass({
@@ -324,6 +334,11 @@ export class ArchitecteProfileComponent implements OnInit {
       });
 
       this.architecteService.patchArchitecte(architect, this.authService.userId).subscribe(res => {
+        if (this.architecte.status !== ArchitectStatusEnum.APPROVING && res.status === ArchitectStatusEnum.APPROVING) {
+          document.body.scrollTop = document.documentElement.scrollTop = 0;
+          this.statusEmphasis = true;
+        }
+        this.architecte = res;
         this.notificationsService.success('Merci !', 'Vos informations ont été sauvegardées avec succès.');
       }, err => {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de l\'enregistrement de vos informations.');
@@ -349,7 +364,7 @@ export class ArchitecteProfileComponent implements OnInit {
   }
 
   IBANValidator(c: AbstractControl): ValidationErrors | null {
-    return IBAN.isValid(c.value) ? null : {
+    return IBAN.isValid(c.value) || !c.value ? null : {
       invalidIBAN: true
     }
   }

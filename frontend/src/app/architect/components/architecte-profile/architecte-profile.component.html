@@ -4,7 +4,7 @@
       <div class="card-header">
         Mon statut
       </div>
-      <div class="card-body">
+      <div class="card-body" [class.emphasis]="statusEmphasis">
         <p class="card-text">
           <span *ngIf="architecte.status === ArchitectStatusEnum.CREATED">
             <span class="badge badge-info">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat et moi") afin qu'il soit étudié par nos équipes
@@ -95,7 +95,7 @@
           <div class="col-sm-4 zip-codes-container">
             <label>Saisissez les codes postaux correspondant à votre zone d'action</label>
             <mat-form-field>
-              <mat-chip-list #zipCodesList>
+              <mat-chip-list [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
                 <mat-chip *ngFor="let zipCode of zipCodes" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable" [removable]="removable" (remove)="remove(zipCode)">
                   {{zipCode}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
