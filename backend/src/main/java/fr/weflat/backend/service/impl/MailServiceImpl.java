@@ -112,7 +112,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(firstName);
 		messageBuilder.append("</p>");
 		messageBuilder.append("<p>Toute l’equipe Weflat est très heureuse de vous accueillir au sein de la communauté des architectes Weflat. Vous recevrez désormais les demandes de visites Weflat.</p>");
-		messageBuilder.append("<p>N’hésitez pas à nous contacter directement par email à l’adresse contact@weflat.fr pour toute question supplémentaire.</p>");
+		messageBuilder.append("<p>N’hésitez pas à nous contacter directement par email à l’adresse <a href=\"mailto:contact@weflat.fr\">contact@weflat.fr</a> pour toute question supplémentaire.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");
 		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
 		
@@ -132,7 +132,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(customerFirstName);
 		messageBuilder.append(" vous a été attribuée.</p>");
 		messageBuilder.append("<p>Pour rappel, la visite a lieu le </p>");
-		messageBuilder.append(date);
+		messageBuilder.append(date.toLocaleString());
 		messageBuilder.append(" à l’adresse suivante : ");
 		messageBuilder.append(address);
 		messageBuilder.append(".</p>");
@@ -173,7 +173,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append("<p>Bonjour ");
 		messageBuilder.append(firstName);
 		messageBuilder.append(",</p>");
-		messageBuilder.append("<p>Toute l’équipe Weflat vous souhaite la bienvenue. Nous vous remercions de l’intérêt que vous portez à Weflat et l’ensemble de la communaute des architectes espérons vous satisfaire à l’occasion de votre premiere visite de bien immobilier.</p>");
+		messageBuilder.append("<p>Toute l’équipe Weflat vous souhaite la bienvenue. Nous vous remercions de l’intérêt que vous portez à Weflat et l’ensemble de la communauté des architectes espérons vous satisfaire à l’occasion de votre première visite de bien immobilier.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");
 		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
 		
@@ -200,7 +200,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(address);
 		messageBuilder.append("</li>");
 		messageBuilder.append("</ul>");
-		messageBuilder.append("<p>Vous recevrez un mail de confirmation lorsqu’un de nos architectes sera attribué à votre visite. Vous pouvez voir le statut de votre visite a tout moment dans votre espace personnel.</p>");
+		messageBuilder.append("<p>Vous recevrez un mail de confirmation lorsqu’un de nos architectes sera attribué à votre visite. Vous pouvez voir le statut de votre visite à tout moment dans votre espace personnel.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");
 		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
 		
@@ -220,7 +220,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(",</p>");
 		messageBuilder.append("<p>");
 		messageBuilder.append(architectFirstName);
-		messageBuilder.append(" vous accompagnera lors de votre visite du bien situe au ");
+		messageBuilder.append(" vous accompagnera lors de votre visite du bien situé au ");
 		messageBuilder.append(address);
 		messageBuilder.append(" le ");
 		messageBuilder.append(date.toLocaleString());

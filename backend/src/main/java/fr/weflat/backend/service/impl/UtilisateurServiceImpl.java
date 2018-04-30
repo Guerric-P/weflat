@@ -29,6 +29,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		utilisateurDao.save(utilisateur);
 		
 	}
+
+	@Override
+	public Utilisateur getByEmail(String email) {
+		return utilisateurDao.findByEmail(email);
+	}
 	
 	
 }

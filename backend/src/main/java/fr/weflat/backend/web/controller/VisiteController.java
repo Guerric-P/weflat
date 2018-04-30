@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.domaine.Renovation;
 import fr.weflat.backend.domaine.Report;
 import fr.weflat.backend.domaine.Visite;
 import fr.weflat.backend.enums.VisitStatusEnum;
+import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.ReportService;
 import fr.weflat.backend.service.UtilisateurService;
 import fr.weflat.backend.service.VisiteService;
@@ -42,6 +44,9 @@ public class VisiteController {
 
 	@Autowired
 	MapperFacade orikaMapperFacade;
+	
+	@Autowired
+	MailService mailService;
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
@@ -89,6 +94,24 @@ public class VisiteController {
 		}
 		else {
 			visiteService.pay(visit, token);
+			
+			//Mails
+			for(Architecte architect : visit.getNearbyArchitectes()) {
+				mailService.sendVisitAvailableMail(
+						architect.getEmail(),
+						architect.getFirstName(),
+						visit.getAcheteur().getFirstName(),
+						visit.formattedAddress(),
+						visit.getVisiteDate()
+						);
+			}
+			
+			mailService.sendVisitCreationMail(visit.getAcheteur().getEmail(),
+					visit.getAcheteur().getFirstName(),
+					visit.formattedAddress(),
+					visit.getVisiteDate()
+					);
+			
 		}
 	}
 	
@@ -103,7 +126,7 @@ public class VisiteController {
 			visiteService.cancel(visit);
 		}
 		else {
-			throw new Exception("Visit non eligible for payment.");
+			throw new Exception("Visit non eligible for cancellation.");
 		}
 	}
 
@@ -112,6 +135,24 @@ public class VisiteController {
 	public void acceptVisite(@PathVariable("id") long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 		visiteService.accept(id, (Long) details.get("id"));
+		
+		//Mails
+		Visite visit = visiteService.findById(id);
+		mailService.sendVisitAttributionMail(
+				visit.getArchitecte().getEmail(),
+				visit.getArchitecte().getFirstName(),
+				visit.getAcheteur().getFirstName(),
+				visit.formattedAddress(),
+				visit.getVisiteDate()
+				);
+		
+		mailService.sendVisitAssignedMail(
+				visit.getAcheteur().getEmail(),
+				visit.getArchitecte().getFirstName(),
+				visit.getAcheteur().getFirstName(),
+				visit.formattedAddress(),
+				visit.getVisiteDate()
+				);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -206,6 +247,13 @@ public class VisiteController {
 			if(visit.getStatus() == VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal()) {
 				visit.setStatus(VisitStatusEnum.REPORT_AVAILABLE.ordinal());
 				visiteService.save(visit);
+				
+				//Mail
+				mailService.sendReportReadyMail(
+						visit.getAcheteur().getEmail(),
+						visit.getArchitecte().getFirstName(),
+						visit.getAcheteur().getFirstName()
+						);
 			}
 			else {
 				throw new Exception("Report has not been written for visit " + visit.getId());

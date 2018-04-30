@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.weflat.backend.domaine.Acheteur;
 import fr.weflat.backend.domaine.Architecte;
+import fr.weflat.backend.domaine.Utilisateur;
 import fr.weflat.backend.domaine.Visite;
 import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.enums.ArchitectStatusEnum;
 import fr.weflat.backend.service.ArchitecteService;
 import fr.weflat.backend.service.MailService;
+import fr.weflat.backend.service.UtilisateurService;
 import fr.weflat.backend.service.VisiteService;
 import fr.weflat.backend.service.ZipCodeService;
 import fr.weflat.backend.web.dto.ArchitecteDto;
@@ -34,6 +37,9 @@ import ma.glasnost.orika.MapperFacade;
 public class ArchitecteController {
 	@Autowired
 	ArchitecteService architecteService;
+	
+	@Autowired
+	UtilisateurService utilisateurService;
 
 	@Autowired
 	MapperFacade orikaMapperFacade;
@@ -63,17 +69,28 @@ public class ArchitecteController {
 	}
 
 	@RequestMapping(path="", method=RequestMethod.POST)
-	public void postArchitecte(@RequestBody UtilisateurSignupDto input) {
+	public void postArchitecte(@RequestBody UtilisateurSignupDto input) throws Exception {
+		
+		Utilisateur user = utilisateurService.getByEmail(input.getEmail());
 
-		Architecte architecte = orikaMapperFacade.map(input, Architecte.class);
-		architecte.setStatus(ArchitectStatusEnum.CREATED.ordinal());
-		architecteService.save(architecte);
-		try {
-			mailService.sendArchitectSignupMail(architecte.getEmail(), architecte.getFirstName());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(user == null) {
+			Architecte architecte = orikaMapperFacade.map(input, Architecte.class);
+			architecte.setStatus(ArchitectStatusEnum.CREATED.ordinal());
+			architecteService.save(architecte);
+			
+			//Mail
+			try {
+				mailService.sendArchitectSignupMail(architecte.getEmail(), architecte.getFirstName());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		else {
+			throw new Exception("This email already exists.");
+		}
+
+		
 	}
 
 	@RequestMapping(path="", method=RequestMethod.GET)
