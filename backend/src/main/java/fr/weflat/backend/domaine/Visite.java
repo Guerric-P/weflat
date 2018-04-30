@@ -181,4 +181,13 @@ public class Visite {
 	public void setAnnouncementUrl(String announcementUrl) {
 		this.announcementUrl = announcementUrl;
 	}
+	
+	public String formattedAddress() {
+		if(streetNumber != null) {
+			return streetNumber + ", " + route + " - " + zipCode.getNumber() + " " + city;
+		}
+		else {
+			return route + " - " + zipCode.getNumber() + " " + city;
+		}
+	}
 }
