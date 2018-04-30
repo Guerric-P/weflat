@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 			.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/architectes", "/acheteurs", "/visits").permitAll()// Signup and anonymous visit creation
-				.antMatchers(HttpMethod.PATCH, "/visits").permitAll()// Signup and anonymous visit creation
+				.antMatchers(HttpMethod.PATCH, "/visits").permitAll()// Anonymous visit creation
 				.antMatchers(HttpMethod.GET, "/visits/count").hasAuthority("architecte")
 				.antMatchers("/architectes/{architecteId:\\d+}/**").access("@weflatSecurityService.hasAccessToArchitecte(authentication,#architecteId)")
 				.antMatchers("/acheteurs/{acheteurId:\\d+}/**").access("@weflatSecurityService.hasAccessToAcheteur(authentication,#acheteurId)")

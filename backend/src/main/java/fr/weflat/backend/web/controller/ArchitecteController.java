@@ -19,6 +19,7 @@ import fr.weflat.backend.domaine.Visite;
 import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.enums.ArchitectStatusEnum;
 import fr.weflat.backend.service.ArchitecteService;
+import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.VisiteService;
 import fr.weflat.backend.service.ZipCodeService;
 import fr.weflat.backend.web.dto.ArchitecteDto;
@@ -42,6 +43,9 @@ public class ArchitecteController {
 
 	@Autowired
 	ZipCodeService zipCodeService;
+	
+	@Autowired
+	MailService mailService;
 
 	@RequestMapping(path="/{id}/zipcodes", method=RequestMethod.POST)
 	public void setZipCodes(@PathVariable("id") long id, @RequestBody Set<ZipCodeDto> input) {
@@ -64,6 +68,12 @@ public class ArchitecteController {
 		Architecte architecte = orikaMapperFacade.map(input, Architecte.class);
 		architecte.setStatus(ArchitectStatusEnum.CREATED.ordinal());
 		architecteService.save(architecte);
+		try {
+			mailService.sendArchitectSignupMail(architecte.getEmail(), architecte.getFirstName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@RequestMapping(path="", method=RequestMethod.GET)

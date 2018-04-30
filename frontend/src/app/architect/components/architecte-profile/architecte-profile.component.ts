@@ -86,7 +86,7 @@ export class ArchitecteProfileComponent implements OnInit {
       decennialInsurance: [this.architecte.decennialInsurance, Validators.required],
       motivation: [this.architecte.motivation, Validators.required],
       cgu: [this.architecte.cgu, Validators.requiredTrue],
-      iban: [this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null, [Validators.required, this.IBANValidator]]
+      iban: [this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null, this.IBANValidator]
     });
 
     this.zipCodes = this.route.snapshot.data['zipCodes'].map(x => x.number);
