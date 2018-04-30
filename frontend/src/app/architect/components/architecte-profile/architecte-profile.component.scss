@@ -17,3 +17,14 @@
 .warning-chip {
     background-color: #ffd740;
 }
+
+@keyframes emphasis {
+    to {
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+
+.emphasis {
+    animation: emphasis 2s ease-in 1 forwards;
+    background-color: orange;
+}

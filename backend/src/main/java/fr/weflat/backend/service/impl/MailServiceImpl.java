@@ -2,6 +2,7 @@ package fr.weflat.backend.service.impl;
 
 import java.io.File;
 import java.net.URL;
+import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
@@ -40,6 +41,8 @@ public class MailServiceImpl implements MailService {
 	private String scope;
 	
 	private Credential creds;
+	
+	private DateFormat format = DateFormat.getDateInstance();
 
 	@Async
 	public CompletableFuture<Void> sendSimpleMail(String email, String subject, String text) throws Exception {
@@ -87,7 +90,7 @@ public class MailServiceImpl implements MailService {
 		StringBuilder messageBuilder = new StringBuilder();
 		messageBuilder.append("<p>Bonjour ");
 		messageBuilder.append(firstName);
-		messageBuilder.append("</p>");
+		messageBuilder.append(",</p>");
 		messageBuilder.append("<p>Nous avons bien enregistré votre demande d'inscription à la communauté d'architectes weflat et vous en remercions. Votre statut est « profil créé ». Vous ne pouvez pas encore recevoir de demande de visite car votre profil doit être approuvé.<p>");
 		messageBuilder.append("<p>Merci d’enrichir votre profil architecte afin que votre inscription soit étudiée par nos équipes :</p>");
 		messageBuilder.append("<ul>");
@@ -110,7 +113,7 @@ public class MailServiceImpl implements MailService {
 		StringBuilder messageBuilder = new StringBuilder();
 		messageBuilder.append("<p>Bonjour ");
 		messageBuilder.append(firstName);
-		messageBuilder.append("</p>");
+		messageBuilder.append(",</p>");
 		messageBuilder.append("<p>Toute l’equipe Weflat est très heureuse de vous accueillir au sein de la communauté des architectes Weflat. Vous recevrez désormais les demandes de visites Weflat.</p>");
 		messageBuilder.append("<p>N’hésitez pas à nous contacter directement par email à l’adresse <a href=\"mailto:contact@weflat.fr\">contact@weflat.fr</a> pour toute question supplémentaire.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");
@@ -127,12 +130,12 @@ public class MailServiceImpl implements MailService {
 		StringBuilder messageBuilder = new StringBuilder();
 		messageBuilder.append("<p>Bonjour ");
 		messageBuilder.append(architectFirstName);
-		messageBuilder.append("</p>");
+		messageBuilder.append(",</p>");
 		messageBuilder.append("<p>Félicitations! La visite de ");
 		messageBuilder.append(customerFirstName);
 		messageBuilder.append(" vous a été attribuée.</p>");
 		messageBuilder.append("<p>Pour rappel, la visite a lieu le </p>");
-		messageBuilder.append(date.toLocaleString());
+		messageBuilder.append(format.format(date));
 		messageBuilder.append(" à l’adresse suivante : ");
 		messageBuilder.append(address);
 		messageBuilder.append(".</p>");
@@ -155,7 +158,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append("<p>");
 		messageBuilder.append(customerFirstName);
 		messageBuilder.append(" souhaite visiter un bien immobilier dans votre zone d’action le ");
-		messageBuilder.append(date.toLocaleString());
+		messageBuilder.append(format.format(date));
 		messageBuilder.append(". Connectez-vous à votre compte personnel weflat pour accompagner cet acheteur.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");
 		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
@@ -194,7 +197,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append("<p>Voici le récapitulatif de votre demande:</p>");
 		messageBuilder.append("<ul>");
 		messageBuilder.append("<li>");
-		messageBuilder.append(date.toLocaleString());
+		messageBuilder.append(format.format(date));
 		messageBuilder.append("</li>");
 		messageBuilder.append("<li>");
 		messageBuilder.append(address);
@@ -223,7 +226,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(" vous accompagnera lors de votre visite du bien situé au ");
 		messageBuilder.append(address);
 		messageBuilder.append(" le ");
-		messageBuilder.append(date.toLocaleString());
+		messageBuilder.append(format.format(date));
 		messageBuilder.append(". Rien de plus simple, l’architecte sera présent à l’adresse et l’horaire mentionné.</p>");
 		messageBuilder.append("<p>Vous pouvez d’ores et déjà discuter avec lui par mail.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");

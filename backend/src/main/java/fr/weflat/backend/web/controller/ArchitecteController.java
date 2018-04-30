@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.weflat.backend.domaine.Acheteur;
 import fr.weflat.backend.domaine.Architecte;
 import fr.weflat.backend.domaine.Utilisateur;
 import fr.weflat.backend.domaine.Visite;
@@ -69,14 +68,14 @@ public class ArchitecteController {
 	}
 
 	@RequestMapping(path="", method=RequestMethod.POST)
-	public void postArchitecte(@RequestBody UtilisateurSignupDto input) throws Exception {
+	public ArchitecteDto postArchitecte(@RequestBody UtilisateurSignupDto input) throws Exception {
 		
 		Utilisateur user = utilisateurService.getByEmail(input.getEmail());
 
 		if(user == null) {
 			Architecte architecte = orikaMapperFacade.map(input, Architecte.class);
 			architecte.setStatus(ArchitectStatusEnum.CREATED.ordinal());
-			architecteService.save(architecte);
+			ArchitecteDto returnValue = orikaMapperFacade.map(architecteService.save(architecte), ArchitecteDto.class);
 			
 			//Mail
 			try {
@@ -85,6 +84,8 @@ public class ArchitecteController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			return returnValue;
 		}
 		else {
 			throw new Exception("This email already exists.");
@@ -101,11 +102,11 @@ public class ArchitecteController {
 
 
 	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
-	public void patchArchitecte(@PathVariable("id") long id, @RequestBody ArchitecteDto input) {
+	public ArchitecteDto patchArchitecte(@PathVariable("id") long id, @RequestBody ArchitecteDto input) {
 
 		Architecte architecte = architecteService.findById(id);
 		orikaMapperFacade.map(input, architecte);
-		architecteService.save(architecte);
+		return orikaMapperFacade.map(architecteService.save(architecte), ArchitecteDto.class);
 
 	}
 

@@ -10,19 +10,19 @@ export class ArchitecteService {
   constructor(private http: HttpClient) { }
 
 
-  postArchitecte(architecte: ArchitecteClass){
-    return this.http.post('/architectes', architecte);
+  postArchitecte(architecte: ArchitecteClass) {
+    return this.http.post<ArchitecteClass>('/architectes', architecte).map(res => new ArchitecteClass(res));
   }
 
-  patchArchitecte(architecte: ArchitecteClass, architecteId: number){
-    return this.http.patch(`/architectes/${architecteId}`, architecte);
+  patchArchitecte(architecte: ArchitecteClass, architecteId: number) {
+    return this.http.patch<ArchitecteClass>(`/architectes/${architecteId}`, architecte).map(res => new ArchitecteClass(res));
   }
 
-  getArchitecte(id: number){
-    return this.http.get<ArchitecteClass>(`/architectes/${id}`);
+  getArchitecte(id: number) {
+    return this.http.get<ArchitecteClass>(`/architectes/${id}`).map(res => new ArchitecteClass(res));
   }
 
-  postZipCodes(zipCodes: ZipCodeClass[], id: number){
+  postZipCodes(zipCodes: ZipCodeClass[], id: number) {
     return this.http.post(`/architectes/${id}/zipcodes`, zipCodes);
   }
 
