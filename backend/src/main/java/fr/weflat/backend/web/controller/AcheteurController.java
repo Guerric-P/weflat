@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.weflat.backend.domaine.Acheteur;
+import fr.weflat.backend.domaine.Utilisateur;
 import fr.weflat.backend.domaine.Visite;
 import fr.weflat.backend.service.AcheteurService;
+import fr.weflat.backend.service.MailService;
+import fr.weflat.backend.service.UtilisateurService;
 import fr.weflat.backend.service.VisiteService;
 import fr.weflat.backend.web.dto.AcheteurDto;
 import fr.weflat.backend.web.dto.UtilisateurSignupDto;
@@ -29,16 +32,36 @@ public class AcheteurController {
 	AcheteurService acheteurService;
 	
 	@Autowired
+	UtilisateurService utilisateurService;
+	
+	@Autowired
 	VisiteService visiteService;
 
 	@Autowired
 	MapperFacade orikaMapperFacade;
+	
+	@Autowired
+	MailService mailService;
 
 	@RequestMapping(path="", method=RequestMethod.POST)
-	public void postAcheteur(@RequestBody UtilisateurSignupDto input) {
+	public void postAcheteur(@RequestBody UtilisateurSignupDto input) throws Exception {
+		
+		Utilisateur user = utilisateurService.getByEmail(input.getEmail());
 
-		acheteurService.save(orikaMapperFacade.map(input, Acheteur.class));
+		if(user == null) {
+			acheteurService.save(orikaMapperFacade.map(input, Acheteur.class));
+		}
+		else {
+			throw new Exception("This email already exists.");
+		}
 
+		//Mail
+		try {
+			mailService.sendCustomerSignupMail(input.getEmail(), input.getFirstName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@RequestMapping(path="/{id}", method= RequestMethod.GET)

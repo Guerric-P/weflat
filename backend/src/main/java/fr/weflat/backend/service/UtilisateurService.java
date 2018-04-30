@@ -8,5 +8,7 @@ public interface UtilisateurService {
 	
 	Utilisateur getByEmailAndPassword(String email, String password);
 	
+	Utilisateur getByEmail(String email);
+	
 	void save(Utilisateur utilisateur);
 }
