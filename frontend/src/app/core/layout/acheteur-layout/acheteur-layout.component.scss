@@ -69,6 +69,7 @@ a {
 
 #maincontent {
   width: 100%;
+  min-height: 100vh;
   padding-top: 20px;
   margin: 0;
 }
@@ -88,6 +89,7 @@ a {
   #maincontent {
     left: 15%;
     width: calc(100vw - 250px);
+    min-height: 100vh;
     float: right;
     padding: 20px;
   }

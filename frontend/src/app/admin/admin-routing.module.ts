@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomersComponent } from './components/customers/customers.component';
-import { VisitsComponent } from './components/visits/visits.component';
-import { ArchitectsComponent } from './components/architects/architects.component';
+import { VisitsComponent } from './components/visits/visits/visits.component';
+import { ArchitectsComponent } from './components/architects/architects/architects.component';
 import { ZipCodesComponent } from './components/zip-codes/zip-codes/zip-codes.component';
 
 const routes: Routes = [

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +52,12 @@ public class VisiteServiceImpl implements VisiteService {
 
 	@Autowired
 	MapperFacade orikaMapperFacade;
+	
+	@Value("${fr.weflat.stripe.price}")
+	Long visitPrice;
+	
+	@Value("${fr.weflat.stripe.partial-refund}")
+	Long partialRefundAmount;
 
 	@Override
 	public Long save(Visite visite) {
@@ -225,7 +232,7 @@ public class VisiteServiceImpl implements VisiteService {
 			Stripe.apiKey = "sk_test_ex3BOWKtQexdJh4zKFOTo36m";
 
 			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("amount", 15000);
+			params.put("amount", visitPrice);
 			params.put("currency", "eur");
 			params.put("description", "Paiement acheteur");
 			params.put("source", token);

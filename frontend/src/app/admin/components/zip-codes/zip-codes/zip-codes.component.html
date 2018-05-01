@@ -1,10 +1,12 @@
-<mat-form-field>
-  <input matInput type="text" [ngModel]="inputValue" (keyup)="onKeyUp($event)" [errorStateMatcher]="matcher" placeholder="Choisissez un code postal">
-</mat-form-field>
+<div class="wrapper">
+  <mat-form-field>
+    <input matInput type="text" [ngModel]="inputValue" (keyup)="onKeyUp($event)" [errorStateMatcher]="matcher" placeholder="Choisissez un code postal">
+  </mat-form-field>
 
-<mat-list>
-  <mat-list-item *ngFor="let result of results">
-    <app-zip-code [zipCode]="result" (deleted)="zipCodeDeleted($event)" (changed)="zipCodeChanged($event)"></app-zip-code>
-    <mat-divider></mat-divider>
-  </mat-list-item>
- </mat-list>
+  <mat-list>
+    <mat-list-item *ngFor="let result of results">
+      <app-zip-code [zipCode]="result" (deleted)="zipCodeDeleted($event)" (changed)="zipCodeChanged($event)"></app-zip-code>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</div>

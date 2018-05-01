@@ -22,6 +22,10 @@ export class ArchitecteService {
     return this.http.get<ArchitecteClass>(`/architectes/${id}`).map(res => new ArchitecteClass(res));
   }
 
+  getAll() {
+    return this.http.get<ArchitecteClass[]>('/architectes').map(res => res.map(item => new ArchitecteClass(item)));
+  }
+
   postZipCodes(zipCodes: ZipCodeClass[], id: number) {
     return this.http.post(`/architectes/${id}/zipcodes`, zipCodes);
   }
