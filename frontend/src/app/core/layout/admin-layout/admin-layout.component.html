@@ -31,18 +31,9 @@
   </nav>
 
   <div id="maincontent">
-    <router-outlet></router-outlet>
-    <!-- Footer -->
-    <footer class="text-muted">
-      <div class="container">
-        <p class="float-right">
-          <a (click)="scrollToTop()">Haut de la page</a>
-        </p>
-        <p>&copy; Weflat 2018</p>
-        <p>Made with &hearts; in Paris</p>
-      </div>
-    </footer>
-
+    <div class="router-outlet-wrapper">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 
   <div class="overlay" [class.overlay-hidden]="leftMenuHidden" (click)="dismissLeftMenu()"></div>

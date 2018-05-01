@@ -21,8 +21,6 @@ public class ArchitecteDto extends UtilisateurDto {
 	private ArchitectSituationDto situation;
 	private ArchitectTypeDto type;
 	private PaymentTypeDto paymentType;
-	
-	@JsonProperty(access = Access.WRITE_ONLY)
 	private Set<ZipCodeDto> zipCodes;
 	
 	@JsonProperty(access = Access.READ_ONLY)

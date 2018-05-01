@@ -66,6 +66,11 @@ public class ArchitecteController {
 	public @ResponseBody ArchitecteDto getArchitecte(@PathVariable("id") long id) {
 		return orikaMapperFacade.map(architecteService.findById(id), ArchitecteDto.class);
 	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public @ResponseBody List<ArchitecteDto> getAll() {
+		return orikaMapperFacade.mapAsList(architecteService.findAll(), ArchitecteDto.class);
+	}
 
 	@RequestMapping(path="", method=RequestMethod.POST)
 	public ArchitecteDto postArchitecte(@RequestBody UtilisateurSignupDto input) throws Exception {
@@ -93,13 +98,6 @@ public class ArchitecteController {
 
 		
 	}
-
-	@RequestMapping(path="", method=RequestMethod.GET)
-	public List<ArchitecteDto> getArchitecte(Authentication authentication) {
-		return orikaMapperFacade.mapAsList(architecteService.findAll(), ArchitecteDto.class);
-
-	}
-
 
 	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
 	public ArchitecteDto patchArchitecte(@PathVariable("id") long id, @RequestBody ArchitecteDto input) {
