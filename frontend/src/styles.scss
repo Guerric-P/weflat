@@ -7,6 +7,10 @@
 @import "node_modules/bootstrap/scss/functions";
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/type";
 
 // Bootstrap Optional
 @import "node_modules/bootstrap/scss/alert";
@@ -28,19 +32,38 @@
 @import "node_modules/bootstrap/scss/type";
 @import "node_modules/bootstrap/scss/utilities";
 
+
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";
 
 
 html {
     overflow-y: scroll;
+    font-size: 100%;
 }
 
 body {
     padding: 0;
     margin: 0;
+    font-size: 1.4rem; /* =14px */
   }
-  
+
+h1   { 
+  font-size: 2.4rem; 
+} /* =24px */
+h2   { 
+  font-size: 2.2rem; 
+} /* =24px */
+h3   { 
+  font-size: 2rem; 
+} /* =24px */
+h4   { 
+  font-size: 1.8rem; 
+} /* =24px */
+h5   { 
+  font-size: 1.6rem; 
+} /* =24px */
+
   .navbar {
     margin-bottom: 0;
   }
@@ -91,4 +114,29 @@ body {
     cursor: not-allowed !important;
   }
 
-  
+  :host {
+    font-size: 1rem;
+    }
+
+  @include media-breakpoint-up(xs) {
+    :host {
+        font-size: 0.4rem;
+        }
+    }
+    @include media-breakpoint-up(sm) {
+        :host {
+            font-size: 0.6rem;
+        }
+    }
+      
+    @include media-breakpoint-up(md) {
+        :host {
+            font-size: 0.8rem;
+        }
+    }
+    
+    @include media-breakpoint-up(lg) {
+        :host {
+            font-size: 1rem;
+        }
+    }
