@@ -31,10 +31,14 @@ public class ZipCodeController {
 	
 	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
 	public void patchZipCode(@PathVariable("id") long id, @RequestBody ZipCodeDto input) {
-		ZipCode zipCode = new ZipCode();
-		zipCode.setId(id);
+		ZipCode zipCode = zipCodeService.findById(id);
+		if(zipCode == null) {
+			zipCode = new ZipCode();
+			zipCode.setId(id);
+			zipCode.setNumber(input.getNumber());
+		}
 		zipCode.setActive(input.isActive());
-		zipCode.setNumber(input.getNumber());
+
 		zipCodeService.save(zipCode);
 	}
 	

@@ -13,6 +13,7 @@ public class ArchitecteMapping implements OrikaMapperFactoryConfigurer  {
 	@Override
 	public void configure(MapperFactory orikaMapperFactory) {
 		 orikaMapperFactory.classMap(Architecte.class, ArchitecteDto.class)
+		 .fieldAToB("status", "status")
          .byDefault()
          .register();
 	}
