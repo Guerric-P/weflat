@@ -12,6 +12,9 @@ import { ZipCodesComponent } from './components/zip-codes/zip-codes/zip-codes.co
 import { ArchitectsListComponent } from './components/architects/architects-list/architects-list.component';
 import { ArchitectDetailComponent } from './components/architects/architect-detail/architect-detail.component';
 import { ArchitectComponent } from './components/architects/architect/architect.component';
+import { VisitComponent } from './components/visits/visit/visit.component';
+import { VisitDetailComponent } from './components/visits/visit-detail/visit-detail.component';
+import { VisitsListComponent } from './components/visits/visits-list/visits-list.component';
 
 @NgModule({
   imports: [
@@ -26,6 +29,6 @@ import { ArchitectComponent } from './components/architects/architect/architect.
     MatChipsModule,
     SharedModule
   ],
-  declarations: [CustomersComponent, VisitsComponent, ArchitectsComponent, ZipCodesComponent, ZipCodeComponent, ArchitectsListComponent, ArchitectDetailComponent, ArchitectComponent]
+  declarations: [CustomersComponent, VisitsComponent, ArchitectsComponent, ZipCodesComponent, ZipCodeComponent, ArchitectsListComponent, ArchitectDetailComponent, ArchitectComponent, VisitComponent, VisitDetailComponent, VisitsListComponent]
 })
 export class AdminModule { }
