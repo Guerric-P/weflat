@@ -68,14 +68,19 @@ a {
   }
   
   #maincontent {
-    width: 100%;
-    padding-top: 20px;
-    margin: 0;
     position: absolute;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 100%;
     right: 0px;
     bottom: 0px;
-    top: 0px;
+    top: 40px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 0px;
   }
   
   .weflat-logo {
@@ -91,19 +96,7 @@ a {
     }
   
     #maincontent {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: space-between;
       width: calc(100vw - 250px);
-      right: 0px;
-      bottom: 0px;
-      top: 40px;
-      padding-top: 20px;
-      padding-right: 20px;
-      padding-left: 20px;
-      padding-bottom: 0px;
     }
 
     .router-outlet-wrapper {

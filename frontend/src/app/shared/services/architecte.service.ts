@@ -33,4 +33,12 @@ export class ArchitecteService {
   getZipCodes(id: number): Observable<ZipCodeClass[]> {
     return this.http.get<ZipCodeClass[]>(`/architectes/${id}/zipcodes`);
   }
+
+  accept(id: number): Observable<any> {
+    return this.http.post(`/architectes/${id}/accept`, null);
+  }
+
+  refuse(id: number): Observable<any> {
+    return this.http.post(`/architectes/${id}/refuse`, null);
+  }
 }

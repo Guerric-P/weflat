@@ -39,12 +39,12 @@ public interface VisiteService {
 	
 	void refund(Visite visit) throws Exception;
 	
-	void refund(Visite visit, long amount) throws Exception;
-	
 	void accept(Long idVisite, Long idArchitecte) throws Exception;
 	
 	void refuse(Long idVisite, Long idArchitecte) throws Exception;
 	
 	boolean isVisitComplete(Visite visit);
+
+	void partialRefund(Visite visit) throws Exception;
 
 }

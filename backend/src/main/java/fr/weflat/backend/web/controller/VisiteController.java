@@ -122,7 +122,8 @@ public class VisiteController {
 
 		if (visit.getStatus() == VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()
 				|| visit.getStatus() == VisitStatusEnum.UNASSIGNED.ordinal()
-				|| visit.getStatus() == VisitStatusEnum.BEING_ASSIGNED.ordinal()) {
+				|| visit.getStatus() == VisitStatusEnum.BEING_ASSIGNED.ordinal()
+				|| visit.getStatus() == VisitStatusEnum.IN_PROGRESS.ordinal()) {
 			visiteService.cancel(visit);
 		}
 		else {

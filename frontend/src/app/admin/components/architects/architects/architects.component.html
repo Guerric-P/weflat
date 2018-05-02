@@ -1,4 +1,4 @@
 <div *ngIf="architects" class="d-flex flex-row align-items-stretch h-100">
   <app-architects-list [architects]="architects" (architectSelected)="architectSelected($event)"></app-architects-list>
-  <app-architect-detail [architect]="selectedArchitect"></app-architect-detail>
+  <app-architect-detail [architect]="selectedArchitect" (updated)="updated($event)"></app-architect-detail>
 </div>

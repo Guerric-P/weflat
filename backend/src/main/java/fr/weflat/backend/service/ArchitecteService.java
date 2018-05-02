@@ -19,4 +19,8 @@ public interface ArchitecteService {
 	Set<Architecte> findAll();
 	
 	boolean isProfileComplete(Architecte architect);
+	
+	void accept(long id) throws Exception;
+	
+	void refuse(long id) throws Exception;
 }

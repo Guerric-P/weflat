@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { ArchitecteClass } from '../../../../core/models/ArchitecteClass';
 import { ArchitectStatusEnum } from '../../../../shared/common/enums/ArchitectStatusEnum';
 
@@ -7,7 +7,8 @@ import { ArchitectStatusEnum } from '../../../../shared/common/enums/ArchitectSt
   templateUrl: './architects-list.component.html',
   styleUrls: ['./architects-list.component.scss']
 })
-export class ArchitectsListComponent implements OnInit {
+export class ArchitectsListComponent implements OnInit, OnChanges {
+
 
   @Input() architects: ArchitecteClass[];
   @Output() architectSelected: EventEmitter<ArchitecteClass> = new EventEmitter<ArchitecteClass>();
@@ -23,6 +24,14 @@ export class ArchitectsListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.filterArchitects();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.filterArchitects();
+  }
+
+  filterArchitects() {
     this.createdArchitects = this.architects.filter(x => x.status === ArchitectStatusEnum.CREATED);
     this.approvingArchitects = this.architects.filter(x => x.status === ArchitectStatusEnum.APPROVING);
     this.validatedArchitects = this.architects.filter(x => x.status === ArchitectStatusEnum.VALIDATED);
