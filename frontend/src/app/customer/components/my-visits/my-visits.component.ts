@@ -23,7 +23,7 @@ export class MyVisitsComponent implements OnInit {
   ngOnInit() {
     this.loadBeingAssignedVisits();
     this.loadInProgressVisits();
-    this.loadInProgressVisits();
+    this.loadPlannedVisits();
     this.loadReportBeingWrittenVisits();
     this.loadReportWrittenVisits();
     this.loadWaitingForPaymentVisits();
