@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.querydsl.core.types.Predicate;
@@ -127,6 +128,35 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 				&& architect.getWebSite() != null
 				&& architect.getZipCodes() != null
 				&& architect.getZipCodes().size() != 0;
+	}
+
+	@Override
+	@PreAuthorize("hasAuthority('admin')")
+	public void accept(long id) throws Exception {
+		Architecte architect = findById(id);
+		
+		if(architect.getStatus() == ArchitectStatusEnum.APPROVING.ordinal()) {
+			architect.setStatus(ArchitectStatusEnum.VALIDATED.ordinal());
+			save(architect);
+		}
+		else {
+			throw new Exception("Architect is not in pending state.");
+		}
+	}
+
+	@Override
+	@PreAuthorize("hasAuthority('admin')")
+	public void refuse(long id) throws Exception {
+		Architecte architect = findById(id);
+
+		if(architect.getStatus() == ArchitectStatusEnum.APPROVING.ordinal()) {
+			architect.setStatus(ArchitectStatusEnum.REFUSED.ordinal());
+			save(architect);
+		}
+		else {
+			throw new Exception("Architect is not in pending state.");
+		}
+		
 	}
 
 }

@@ -405,7 +405,16 @@ public class VisiteServiceImpl implements VisiteService {
 	@Override
 	public void cancel(Visite visit) throws Exception {
 		if(visit.getIdCharge() != null) {
-			refund(visit);
+			if (visit.getStatus() == VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()
+					|| visit.getStatus() == VisitStatusEnum.UNASSIGNED.ordinal()
+					|| visit.getStatus() == VisitStatusEnum.BEING_ASSIGNED.ordinal())
+			{
+				refund(visit);
+			}
+			else if (visit.getStatus() == VisitStatusEnum.IN_PROGRESS.ordinal()) {
+				partialRefund(visit);
+			}
+			
 			visit.setStatus(VisitStatusEnum.REFUNDED.ordinal());
 		} else {
 			visit.setStatus(VisitStatusEnum.CANCELED.ordinal());
@@ -420,9 +429,9 @@ public class VisiteServiceImpl implements VisiteService {
 	}
 
 	@Override
-	public void refund(Visite visit, long amount) throws Exception {
+	public void partialRefund(Visite visit) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("amount", amount);
+		params.put("amount", partialRefundAmount);
 		Charge.retrieve(visit.getIdCharge()).refund(params);
 		
 	}
