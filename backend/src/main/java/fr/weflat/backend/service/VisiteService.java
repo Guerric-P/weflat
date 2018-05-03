@@ -29,6 +29,8 @@ public interface VisiteService {
 	
 	Visite findById(Long id);
 	
+	Set<Visite> findAll();
+	
 	void createVisit(Visite visit, Long idAcheteur) throws Exception;
 	
 	void completeVisitCreation(Visite visit, Long idAcheteur) throws Exception;

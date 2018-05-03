@@ -11,6 +11,10 @@ export class VisiteService {
         return this.http.post<any>('/visits', visite);
     }
 
+    getAll(): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>('/visits').map(res => res.map(item => new VisiteClass(item)));
+    }
+
     completeCreation(visite: VisiteClass){
         return this.http.patch<any>(`/visits/${visite.id}`, visite);
     }

@@ -435,4 +435,17 @@ public class VisiteServiceImpl implements VisiteService {
 		Charge.retrieve(visit.getIdCharge()).refund(params);
 		
 	}
+
+	@Override
+	public Set<Visite> findAll() {
+		Set<Visite> visits = new HashSet<Visite>();
+
+		Iterable<Visite> result = visiteDao.findAll();
+
+		for(Visite row : result) {
+			visits.add(row);
+		}
+
+		return visits;
+	}
 }
