@@ -1,5 +1,6 @@
 package fr.weflat.backend.web.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Produces;
@@ -23,6 +24,7 @@ import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.ReportService;
 import fr.weflat.backend.service.UtilisateurService;
 import fr.weflat.backend.service.VisiteService;
+import fr.weflat.backend.web.dto.ArchitecteDto;
 import fr.weflat.backend.web.dto.ReportDto;
 import fr.weflat.backend.web.dto.VisitCreationResponseDto;
 import fr.weflat.backend.web.dto.VisiteDto;
@@ -66,6 +68,11 @@ public class VisiteController {
 
 		return new VisitCreationResponseDto(visiteService.isVisitComplete(visit), visit.getZipCode().isActive(), visit.getId());
 
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public List<VisiteDto> getAll() {
+		return orikaMapperFacade.mapAsList(visiteService.findAll(), VisiteDto.class);
 	}
 
 	@SuppressWarnings("unchecked")
