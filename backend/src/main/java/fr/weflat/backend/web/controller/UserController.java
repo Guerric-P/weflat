@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.weflat.backend.domaine.Utilisateur;
-import fr.weflat.backend.service.UtilisateurService;
+import fr.weflat.backend.domaine.User;
+import fr.weflat.backend.service.UserService;
 import fr.weflat.backend.web.dto.PasswordDto;
 import ma.glasnost.orika.MapperFacade;
 
 @RestController
 @Produces("application/json")
 @RequestMapping("/users")
-public class UtilisateurController {
+public class UserController {
 
 	@Autowired
-	UtilisateurService utilisateurService;
+	UserService userService;
 
 	@Autowired
 	MapperFacade orikaMapperFacade;
@@ -48,9 +48,9 @@ public class UtilisateurController {
 	public void changePassword(@RequestBody PasswordDto input, Authentication authentication) {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
-		Utilisateur user = utilisateurService.findById((Long) details.get("id"));
+		User user = userService.findById((Long) details.get("id"));
 		user.setPassword(input.getPassword());
-		utilisateurService.save(user);
+		userService.save(user);
 	}
 
 }

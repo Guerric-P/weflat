@@ -23,15 +23,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/architectes", "/acheteurs", "/visits").permitAll()// Signup and anonymous visit creation
+				.antMatchers(HttpMethod.POST, "/architects", "/customers", "/visits").permitAll()// Signup and anonymous visit creation
 				.antMatchers(HttpMethod.PATCH, "/visits").permitAll()// Anonymous visit creation
-				.antMatchers(HttpMethod.GET, "/visits/count").hasAuthority("architecte")
-				.antMatchers("/architectes/{architecteId:\\d+}/**").access("@weflatSecurityService.hasAccessToArchitecte(authentication,#architecteId)")
-				.antMatchers("/acheteurs/{acheteurId:\\d+}/**").access("@weflatSecurityService.hasAccessToAcheteur(authentication,#acheteurId)")
+				.antMatchers(HttpMethod.GET, "/visits/count").hasAuthority("architect")
+				.antMatchers("/architects/{architectId:\\d+}/**").access("@weflatSecurityService.hasAccessToArchitect(authentication,#architectId)")
+				.antMatchers("/customers/{customerId:\\d+}/**").access("@weflatSecurityService.hasAccessToCustomer(authentication,#customerId)")
 				.antMatchers("/visits/{visitId:\\d+}/**").access("@weflatSecurityService.hasAccessToVisit(authentication,#visitId)")
-				.antMatchers("/architectes/types").permitAll()
-				.antMatchers("/architectes/situations").permitAll()
-				.antMatchers("/architectes/payment-types").permitAll()
+				.antMatchers("/architects/types").permitAll()
+				.antMatchers("/architects/situations").permitAll()
+				.antMatchers("/architects/payment-types").permitAll()
 				.antMatchers("/zip-codes/check-status").permitAll()
 				.antMatchers("/positions").permitAll()
 				.anyRequest().hasAuthority("admin")

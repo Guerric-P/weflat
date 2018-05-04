@@ -4,21 +4,21 @@ package fr.weflat.backend.service;
 import java.util.List;
 import java.util.Set;
 
-import fr.weflat.backend.domaine.Architecte;
+import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.ZipCode;
 
-public interface ArchitecteService {
-	Architecte findById(long id);
+public interface ArchitectService {
+	Architect findById(long id);
 	
-	Architecte save(Architecte architect);
+	Architect save(Architect architect);
 	
 	void saveZipCodesForArchitecte(List<ZipCode> zipCodes, long id);
 	
-	Set<Architecte> findNearbyArchitectes(String zipCode);
+	Set<Architect> findNearbyArchitectes(String zipCode);
 	
-	Set<Architecte> findAll();
+	Set<Architect> findAll();
 	
-	boolean isProfileComplete(Architecte architect);
+	boolean isProfileComplete(Architect architect);
 	
 	void accept(long id) throws Exception;
 	

@@ -48,16 +48,16 @@ public class ZipCode {
 	private boolean active;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "architecte_zip_code", joinColumns = @JoinColumn(name = "id_zip_code", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_architecte", referencedColumnName = "id"))
-	private Set<Architecte> architectes;
+    @JoinTable(name = "architect_zip_code", joinColumns = @JoinColumn(name = "zip_code_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "architect_id", referencedColumnName = "id"))
+	private Set<Architect> architectes;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "zipCode")
-	private Set<Visite> visites;
+	private Set<Visit> visites;
 	
-	public Set<Visite> getVisites() {
+	public Set<Visit> getVisites() {
 		return visites;
 	}
-	public void setVisites(Set<Visite> visites) {
+	public void setVisites(Set<Visit> visites) {
 		this.visites = visites;
 	}
 	public Long getId() {
@@ -73,11 +73,11 @@ public class ZipCode {
 		this.number = numero;
 	}
 	
-    public Set<Architecte> getArchitectes() {
+    public Set<Architect> getArchitectes() {
         return architectes;
     }
 	
-	public void setArchitectes(Set<Architecte> architectes) {
+	public void setArchitectes(Set<Architect> architectes) {
 		this.architectes = architectes;
 	}
 	public boolean isActive() {
