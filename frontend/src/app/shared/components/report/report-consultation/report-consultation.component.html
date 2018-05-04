@@ -2,7 +2,7 @@
   <div class="container">
     <button mat-raised-button type="button" (click)="backClick()">Retour</button>
     <span class="float-right" matTooltip="Cette fonctionnalité sera bientôt disponible."><button mat-raised-button color="primary" disabled="disabled" class="cursor-not-allowed" type="button">Télécharger au format pdf</button></span>
-    <a mat-raised-button class="mr-2 float-right" href="mailto:{{report.visite.architecte.email}}">Contacter l'architecte</a>
+    <a mat-raised-button class="mr-2 float-right" href="mailto:{{report.visite.architect.email}}">Contacter l'architecte</a>
     <h1 class="mt-3" style="font-size:3.2em;">Mon compte rendu</h1>
     <div class="card mt-2">
       <div class="card-header">
@@ -12,19 +12,19 @@
         <div class="form-group row">
           <label for="inputfirstname3" class="col-sm-2 col-form-label">Prénom</label>
           <div class="col-sm-10">
-            {{report.visite.acheteur.firstName}}
+            {{report.visite.customer.firstName}}
           </div>
         </div>
         <div class="form-group row">
           <label for="inputlastname3" class="col-sm-2 col-form-label">Nom</label>
           <div class="col-sm-10">
-            {{report.visite.acheteur.lastName}}
+            {{report.visite.customer.lastName}}
           </div>
         </div>
         <div class="form-group row">
           <label for="inputlastname3" class="col-sm-2 col-form-label">Ses attentes</label>
           <div class="col-md-10">
-            {{report.visite.acheteur.project}}
+            {{report.visite.customer.project}}
           </div>
         </div>
       </div>
