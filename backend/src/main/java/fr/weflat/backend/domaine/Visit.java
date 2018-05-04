@@ -19,28 +19,28 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "visite")
-public class Visite {
+@Table(name = "visit")
+public class Visit {
 	@Id
 	@Column(name = "id")
-	@SequenceGenerator(name = "visite_id_seq", sequenceName = "visite_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "visite_id_seq")
+	@SequenceGenerator(name = "visit_id_seq", sequenceName = "visit_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "visit_id_seq")
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_architecte", nullable = true)
-	private Architecte architecte;
+	@JoinColumn(name = "architect_id", nullable = true)
+	private Architect architect;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_acheteur", nullable = false)
-	private Acheteur acheteur;
+	@JoinColumn(name = "customer_id", nullable = false)
+	private Customer customer;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_report")
+	@JoinColumn(name = "report_id")
 	private Report report;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_zip_code", nullable = false)
+	@JoinColumn(name = "zip_code_id", nullable = false)
 	private ZipCode zipCode;
 	
 	@Column(nullable = true, name = "city")
@@ -53,13 +53,13 @@ public class Visite {
 	private String streetNumber;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "architecte_visite", joinColumns = @JoinColumn(name = "id_visite", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_architecte", referencedColumnName = "id"))
-	private Set<Architecte> nearbyArchitectes;
+    @JoinTable(name = "architect_visit", joinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "architect_id", referencedColumnName = "id"))
+	private Set<Architect> nearbyArchitects;
 	
 	@Column(nullable = false, name = "creation_date")
 	private Date creationDate;
 	
-	@Column(nullable = false, name = "visite_date")
+	@Column(nullable = false, name = "visit_date")
 	private Date visiteDate;
 	
 	@Column(nullable = false, name = "status")
@@ -68,19 +68,19 @@ public class Visite {
 	@Column(nullable = true, name = "announcement_url")
 	private String announcementUrl;
 	
-	@Column(nullable = true, name = "id_charge")
-	private String idCharge;
+	@Column(nullable = true, name = "charge_id")
+	private String chargeId;
 	
-	public String getIdCharge() {
-		return idCharge;
+	public String getChargeId() {
+		return chargeId;
 	}
 
-	public void setIdCharge(String idCharge) {
-		this.idCharge = idCharge;
+	public void setChargeId(String idCharge) {
+		this.chargeId = idCharge;
 	}
 
-	public Architecte getArchitecte() {
-		return architecte;
+	public Architect getArchitect() {
+		return architect;
 	}
 
 	public Date getVisiteDate() {
@@ -91,16 +91,16 @@ public class Visite {
 		this.visiteDate = visiteDate;
 	}
 
-	public void setArchitecte(Architecte architecte) {
-		this.architecte = architecte;
+	public void setArchitect(Architect architecte) {
+		this.architect = architecte;
 	}
 
-	public Acheteur getAcheteur() {
-		return acheteur;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setAcheteur(Acheteur acheteur) {
-		this.acheteur = acheteur;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public ZipCode getZipCode() {
@@ -166,12 +166,12 @@ public class Visite {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public Set<Architecte> getNearbyArchitectes() {
-		return nearbyArchitectes;
+	public Set<Architect> getNearbyArchitects() {
+		return nearbyArchitects;
 	}
 
-	public void setNearbyArchitectes(Set<Architecte> nearbyArchitectes) {
-		this.nearbyArchitectes = nearbyArchitectes;
+	public void setNearbyArchitects(Set<Architect> nearbyArchitectes) {
+		this.nearbyArchitects = nearbyArchitectes;
 	}
 
 	public String getAnnouncementUrl() {

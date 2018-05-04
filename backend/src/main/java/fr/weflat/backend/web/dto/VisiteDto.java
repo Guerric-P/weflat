@@ -12,8 +12,8 @@ public class VisiteDto {
 	}
 	
 	private Long id;
-	private AcheteurDto acheteur;
-	private ArchitecteDto architecte;
+	private CustomerDto customer;
+	private ArchitectDto architect;
 	private ZipCodeDto zipCode;
 	private String city;
 	private String route;
@@ -44,20 +44,20 @@ public class VisiteDto {
 		this.creationDate = creationDate;
 	}
 
-	public AcheteurDto getAcheteur() {
-		return acheteur;
+	public CustomerDto getCustomer() {
+		return customer;
 	}
 
-	public void setAcheteur(AcheteurDto acheteur) {
-		this.acheteur = acheteur;
+	public void setCustomer(CustomerDto acheteur) {
+		this.customer = acheteur;
 	}
 
-	public ArchitecteDto getArchitecte() {
-		return architecte;
+	public ArchitectDto getArchitect() {
+		return architect;
 	}
 
-	public void setArchitecte(ArchitecteDto architecte) {
-		this.architecte = architecte;
+	public void setArchitect(ArchitectDto architecte) {
+		this.architect = architecte;
 	}
 
 	public ZipCodeDto getZipCode() {

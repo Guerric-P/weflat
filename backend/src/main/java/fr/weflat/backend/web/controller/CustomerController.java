@@ -12,30 +12,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.weflat.backend.domaine.Acheteur;
-import fr.weflat.backend.domaine.Utilisateur;
-import fr.weflat.backend.domaine.Visite;
-import fr.weflat.backend.service.AcheteurService;
+import fr.weflat.backend.domaine.Customer;
+import fr.weflat.backend.domaine.User;
+import fr.weflat.backend.domaine.Visit;
+import fr.weflat.backend.service.CustomerService;
 import fr.weflat.backend.service.MailService;
-import fr.weflat.backend.service.UtilisateurService;
-import fr.weflat.backend.service.VisiteService;
-import fr.weflat.backend.web.dto.AcheteurDto;
-import fr.weflat.backend.web.dto.UtilisateurSignupDto;
+import fr.weflat.backend.service.UserService;
+import fr.weflat.backend.service.VisitService;
+import fr.weflat.backend.web.dto.CustomerDto;
+import fr.weflat.backend.web.dto.UserSignupDto;
 import fr.weflat.backend.web.dto.VisiteDto;
 import ma.glasnost.orika.MapperFacade;
 
 @RestController
 @Produces("application/json")
-@RequestMapping("/acheteurs")
-public class AcheteurController {
+@RequestMapping("/customers")
+public class CustomerController {
 	@Autowired
-	AcheteurService acheteurService;
+	CustomerService customerService;
 	
 	@Autowired
-	UtilisateurService utilisateurService;
+	UserService userService;
 	
 	@Autowired
-	VisiteService visiteService;
+	VisitService visitService;
 
 	@Autowired
 	MapperFacade orikaMapperFacade;
@@ -44,12 +44,12 @@ public class AcheteurController {
 	MailService mailService;
 
 	@RequestMapping(path="", method=RequestMethod.POST)
-	public void postAcheteur(@RequestBody UtilisateurSignupDto input) throws Exception {
+	public void postAcheteur(@RequestBody UserSignupDto input) throws Exception {
 		
-		Utilisateur user = utilisateurService.getByEmail(input.getEmail());
+		User user = userService.getByEmail(input.getEmail());
 
 		if(user == null) {
-			acheteurService.save(orikaMapperFacade.map(input, Acheteur.class));
+			customerService.save(orikaMapperFacade.map(input, Customer.class));
 		}
 		else {
 			throw new Exception("This email already exists.");
@@ -65,55 +65,55 @@ public class AcheteurController {
 	}
 
 	@RequestMapping(path="/{id}", method= RequestMethod.GET)
-	public AcheteurDto getAcheteur(@PathVariable("id") long id) {
-		return orikaMapperFacade.map(acheteurService.findById(id), AcheteurDto.class);
+	public CustomerDto getAcheteur(@PathVariable("id") long id) {
+		return orikaMapperFacade.map(customerService.findById(id), CustomerDto.class);
 	}
 
 	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
-	public void patchArchitecte(@PathVariable("id") long id, @RequestBody AcheteurDto input) {
-		Acheteur acheteur = acheteurService.findById(id);
+	public void patchArchitecte(@PathVariable("id") long id, @RequestBody CustomerDto input) {
+		Customer acheteur = customerService.findById(id);
 		orikaMapperFacade.map(input, acheteur);
-		acheteurService.save(acheteur);
+		customerService.save(acheteur);
 	}
 	
 	@RequestMapping(path="/{id}/visits/waiting-for-payment", method= RequestMethod.GET)
 	public List<VisiteDto> getWaitingForPaymentVisits(@PathVariable("id") long id) {
-		Set<Visite> visites = visiteService.findWaitingForPaymentVisitsByAcheteurId(id);
+		Set<Visit> visites = visitService.findWaitingForPaymentVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 	
 	@RequestMapping(path="/{id}/visits/being-assigned", method= RequestMethod.GET)
 	public List<VisiteDto> getBeingAssignedVisits(@PathVariable("id") long id) {
-		Set<Visite> visites = visiteService.findBeingAssignedVisitsByAcheteurId(id);
+		Set<Visit> visites = visitService.findBeingAssignedVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 	
 	@RequestMapping(path="/{id}/visits/in-progress", method= RequestMethod.GET)
 	public List<VisiteDto> getInProgressVisits(@PathVariable("id") long id) {
-		Set<Visite> visites = visiteService.findInProgressVisitsByAcheteurId(id);
+		Set<Visit> visites = visitService.findInProgressVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 	
 	@RequestMapping(path="/{id}/visits/report-being-written", method= RequestMethod.GET)
 	public List<VisiteDto> getReportBeingWrittenVisits(@PathVariable("id") long id) {
-		Set<Visite> visites = visiteService.findReportBeingWrittenVisitsByAcheteurId(id);
+		Set<Visit> visites = visitService.findReportBeingWrittenVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 	
 	@RequestMapping(path="/{id}/visits/report-written", method= RequestMethod.GET)
 	public List<VisiteDto> getReportWrittenVisits(@PathVariable("id") long id) {
-		Set<Visite> visites = visiteService.findReportWrittenVisitsByAcheteurId(id);
+		Set<Visit> visites = visitService.findReportWrittenVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 	
 	@RequestMapping(path="/{id}/visits/planned", method= RequestMethod.GET)
 	public List<VisiteDto> getPlannedVisits(@PathVariable("id") long id) {
-		Set<Visite> visites = visiteService.findPlannedVisitsByAcheteurId(id);
+		Set<Visit> visites = visitService.findPlannedVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}

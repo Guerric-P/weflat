@@ -13,60 +13,60 @@ import org.springframework.stereotype.Service;
 
 import com.querydsl.core.types.Predicate;
 
-import fr.weflat.backend.dao.ArchitecteDao;
+import fr.weflat.backend.dao.ArchitectDao;
 import fr.weflat.backend.dao.ZipCodeDao;
-import fr.weflat.backend.domaine.Architecte;
-import fr.weflat.backend.domaine.QArchitecte;
+import fr.weflat.backend.domaine.Architect;
+import fr.weflat.backend.domaine.QArchitect;
 import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.enums.ArchitectStatusEnum;
-import fr.weflat.backend.service.ArchitecteService;
+import fr.weflat.backend.service.ArchitectService;
 
 @Service
 @Transactional
-public class ArchitecteServiceImpl implements ArchitecteService {
+public class ArchitectServiceImpl implements ArchitectService {
 
 	@Autowired
-	private ArchitecteDao architecteDao;
+	private ArchitectDao architectDao;
 
 	@Autowired
 	private ZipCodeDao zipCodeDao;
 
 	@Override
-	public Architecte findById(long id) {
-		return architecteDao.findOne(id);
+	public Architect findById(long id) {
+		return architectDao.findOne(id);
 	}
 
 	@Override
-	public Architecte save(Architecte architect) {
+	public Architect save(Architect architect) {
 		if(isProfileComplete(architect) && architect.getStatus() == ArchitectStatusEnum.CREATED.ordinal()) {
 			architect.setStatus(ArchitectStatusEnum.APPROVING.ordinal());
 		}
 		if(!isProfileComplete(architect) && architect.getStatus() == ArchitectStatusEnum.APPROVING.ordinal()) {
 			architect.setStatus(ArchitectStatusEnum.CREATED.ordinal());
 		}
-		return architecteDao.save(architect);
+		return architectDao.save(architect);
 	}
 
 	@Override
 	public void saveZipCodesForArchitecte(List<ZipCode> zipCodes, long id) {
-		Architecte architecte = findById(id);
+		Architect architect = findById(id);
 
 		//Ajout des nouveaux codes
 		for(ZipCode zipCode : zipCodes) {
-			if(!architecte.getZipCodes().stream().anyMatch(x -> x.getNumber().equals(zipCode.getNumber()))) {
+			if(!architect.getZipCodes().stream().anyMatch(x -> x.getNumber().equals(zipCode.getNumber()))) {
 				ZipCode existingZipCode = zipCodeDao.findByNumber(zipCode.getNumber());
 				if(null != existingZipCode) {
-					architecte.getZipCodes().add(existingZipCode);
+					architect.getZipCodes().add(existingZipCode);
 				}
 				else {
-					architecte.getZipCodes().add(zipCode);
+					architect.getZipCodes().add(zipCode);
 				}
 
 			}
 		}
 
 		//Suppression des anciens codes
-		Iterator<ZipCode> it = architecte.getZipCodes().iterator();  
+		Iterator<ZipCode> it = architect.getZipCodes().iterator();  
 		while (it.hasNext()) {
 			ZipCode zipCode = it.next();
 
@@ -75,46 +75,46 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 			}
 		}
 
-		save(architecte);
+		save(architect);
 
 	}
 
 	@Override
-	public Set<Architecte> findNearbyArchitectes(String code) {
-		QArchitecte architecte = QArchitecte.architecte;
+	public Set<Architect> findNearbyArchitectes(String code) {
+		QArchitect architect = QArchitect.architect;
 
 		ZipCode zipCode = zipCodeDao.findByNumber(code);
 
-		Predicate predicate = architecte.zipCodes.contains(zipCode)
-				.and(architecte.status.eq(ArchitectStatusEnum.VALIDATED.ordinal()));
+		Predicate predicate = architect.zipCodes.contains(zipCode)
+				.and(architect.status.eq(ArchitectStatusEnum.VALIDATED.ordinal()));
 
-		Set<Architecte> architectes = new HashSet<Architecte>();
+		Set<Architect> architects = new HashSet<Architect>();
 
-		Iterable<Architecte> result = architecteDao.findAll(predicate);
+		Iterable<Architect> result = architectDao.findAll(predicate);
 
-		for(Architecte row : result) {
-			architectes.add(row);
+		for(Architect row : result) {
+			architects.add(row);
 		}
 
-		return architectes;
+		return architects;
 	}
 
 	@Override
-	public Set<Architecte> findAll() {
+	public Set<Architect> findAll() {
 
-		Set<Architecte> architectes = new HashSet<Architecte>();
+		Set<Architect> architects = new HashSet<Architect>();
 
-		Iterable<Architecte> result = architecteDao.findAll();
+		Iterable<Architect> result = architectDao.findAll();
 
-		for(Architecte row : result) {
-			architectes.add(row);
+		for(Architect row : result) {
+			architects.add(row);
 		}
 
-		return architectes;
+		return architects;
 	}
 
 	@Override
-	public boolean isProfileComplete(Architecte architect) {
+	public boolean isProfileComplete(Architect architect) {
 		return architect.getBirthDate() != null
 				&& architect.getEmail() != null
 				&& architect.getFirstName() != null
@@ -133,7 +133,7 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 	@Override
 	@PreAuthorize("hasAuthority('admin')")
 	public void accept(long id) throws Exception {
-		Architecte architect = findById(id);
+		Architect architect = findById(id);
 		
 		if(architect.getStatus() == ArchitectStatusEnum.APPROVING.ordinal()) {
 			architect.setStatus(ArchitectStatusEnum.VALIDATED.ordinal());
@@ -147,7 +147,7 @@ public class ArchitecteServiceImpl implements ArchitecteService {
 	@Override
 	@PreAuthorize("hasAuthority('admin')")
 	public void refuse(long id) throws Exception {
-		Architecte architect = findById(id);
+		Architect architect = findById(id);
 
 		if(architect.getStatus() == ArchitectStatusEnum.APPROVING.ordinal()) {
 			architect.setStatus(ArchitectStatusEnum.REFUSED.ordinal());

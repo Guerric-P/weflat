@@ -329,7 +329,7 @@ export class ArchitecteProfileComponent implements OnInit {
         decennialInsurance: formModel.decennialInsurance,
         motivation: formModel.motivation,
         cgu: formModel.cgu,
-        iban: IBAN.electronicFormat(formModel.iban),
+        iban: formModel.iban ? IBAN.electronicFormat(formModel.iban) : null,
         zipCodes: zipCodes
       });
 

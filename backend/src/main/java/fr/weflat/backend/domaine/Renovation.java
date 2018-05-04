@@ -22,11 +22,11 @@ public class Renovation {
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_report", nullable = false)
+	@JoinColumn(name = "report_id", nullable = false)
 	private Report report;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	@JoinColumn(name = "id_position")
+	@JoinColumn(name = "position_id")
 	private Position position;
 	
 	@Column(nullable = true, name = "condition")

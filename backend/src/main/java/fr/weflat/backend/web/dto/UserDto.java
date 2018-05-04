@@ -5,7 +5,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-public class UtilisateurDto {
+public class UserDto {
 	
 	private Long id;
     private String lastName;
