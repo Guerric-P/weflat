@@ -39,6 +39,8 @@ import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked
 import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { AdminGuard } from './guards/admin.guard';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 @NgModule({
   imports: [
@@ -60,6 +62,7 @@ import { AdminGuard } from './guards/admin.guard';
     MatExpansionModule,
     HttpClientModule,
     MatIconModule,
+    MatTabsModule,
     OverlayModule,
     NgbModule.forRoot(),
     SharedModule.forRoot()

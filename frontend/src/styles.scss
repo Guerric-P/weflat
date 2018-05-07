@@ -27,18 +27,23 @@
 @import "~bootstrap/scss/utilities";
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";
-
 html {
     overflow-y: scroll;
-    //font-size: 100%;
 }
 
 body {
     padding: 0;
     margin: 0;
-    /* =14px */
 }
 
+.navbar {
+    font-size: 1.2rem;
+}
+
+a {
+    font-size: 1.2rem;
+    color: red;
+}
 
 .navbar {
     margin-bottom: 0;
@@ -92,12 +97,6 @@ footer p {
 }
 
 @include media-breakpoint-up(xs) {
-    html {
-        font-size: 0.4rem;
-    }
-}
-
-@include media-breakpoint-up(sm) {
     html {
         font-size: 0.6rem;
     }
