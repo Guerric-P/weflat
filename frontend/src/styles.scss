@@ -35,15 +35,19 @@ $fa-font-path: "~font-awesome/fonts";
 
 html {
     overflow-y: scroll;
-    font-size: 100%;
+    font-size: 67.5%;
 }
 
 body {
     padding: 0;
     margin: 0;
-    font-size: 1.4rem; /* =14px */
+    font-size: 1.2rem; /* =12px */
   }
 
+a   { 
+    font-size: 1.2rem; 
+    color: red;
+  } /* =12px */
 h1   { 
   font-size: 2.4rem; 
 } /* =24px */
@@ -109,10 +113,6 @@ h5   {
   .cursor-not-allowed {
     cursor: not-allowed !important;
   }
-
-  :host {
-    font-size: 1rem;
-    }
 
   @include media-breakpoint-up(xs) {
     html {
