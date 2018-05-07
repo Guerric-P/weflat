@@ -111,8 +111,8 @@ export class ReportEditComponent implements OnInit {
     }
 
     this.form = this.fb.group({
-      firstName: [{ value: this.report.visite.acheteur.firstName, disabled: true }, [Validators.required]],
-      lastName: [{ value: this.report.visite.acheteur.lastName, disabled: true }, [Validators.required]],
+      firstName: [{ value: this.report.visite.customer.firstName, disabled: true }, [Validators.required]],
+      lastName: [{ value: this.report.visite.customer.lastName, disabled: true }, [Validators.required]],
       visitDate: [{ value: moment(this.report.visite.visiteDate).format('YYYY-MM-DD'), disabled: true }, [Validators.required]],
       address: [{ value: formattedDate, disabled: true }, [Validators.required]],
       surface: [this.report.id ? this.report.surface : '', [Validators.required]],

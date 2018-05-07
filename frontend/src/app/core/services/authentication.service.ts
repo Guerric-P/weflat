@@ -56,13 +56,13 @@ export class AuthenticationService {
 
     get isArchitect(): boolean {
         return this.localStorageService.tokenPayload
-            ? this.localStorageService.tokenPayload.roles.map(x => x.authority).includes('architecte')
+            ? this.localStorageService.tokenPayload.roles.map(x => x.authority).includes('architect')
             : false;
     }
 
     get isCustomer(): boolean {
         return this.localStorageService.tokenPayload
-            ? this.localStorageService.tokenPayload.roles.map(x => x.authority).includes('acheteur')
+            ? this.localStorageService.tokenPayload.roles.map(x => x.authority).includes('customer')
             : false;
     }
 

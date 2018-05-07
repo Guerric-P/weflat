@@ -32,7 +32,7 @@
     </div>
     <div class="d-flex flex-row-reverse mt-2">
       <button mat-raised-button (click)="cancelClick()">Annuler</button>
-      <a mat-raised-button class="mr-2" href="mailto:{{visit.architecte.email}}">Contacter l'architecte</a>
+      <a mat-raised-button class="mr-2" href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
     </div>
   </mat-card-content>
 </mat-card>
@@ -43,7 +43,7 @@
       <div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Visite en cours</div>
     </div>
     <div class="d-flex flex-row-reverse mt-2">
-      <a mat-raised-button href="mailto:{{visit.architecte.email}}">Contacter l'architecte</a>
+      <a mat-raised-button href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
     </div>
   </mat-card-content>
 </mat-card>
@@ -54,7 +54,7 @@
       <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Compte rendu en cours de rédaction</div>
     </div>
     <div class="d-flex flex-row-reverse mt-2">
-      <a mat-raised-button href="mailto:{{visit.architecte.email}}">Contacter l'architecte</a>
+      <a mat-raised-button href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
     </div>
   </mat-card-content>
 </mat-card>
@@ -65,7 +65,7 @@
       <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Compte rendu disponible</div>
     </div>
     <div class="d-flex flex-row-reverse mt-2">
-      <a mat-raised-button href="mailto:{{visit.architecte.email}}">Contacter l'architecte</a>
+      <a mat-raised-button href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
       <button mat-raised-button color="primary" (click)="viewReport()" type="submit" class="mr-2">Ouvrir le compte rendu</button>
     </div>
   </mat-card-content>

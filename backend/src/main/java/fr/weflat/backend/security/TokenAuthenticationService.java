@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-import fr.weflat.backend.domaine.Utilisateur;
+import fr.weflat.backend.domaine.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -26,10 +26,10 @@ class TokenAuthenticationService {
 	  static void addAuthentication(HttpServletResponse res, Authentication authentication) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		Utilisateur utilisateur = (Utilisateur) authentication.getDetails();
-		map.put("displayName", utilisateur.getFirstName() + " " + utilisateur.getLastName());
+		User user = (User) authentication.getDetails();
+		map.put("displayName", user.getFirstName() + " " + user.getLastName());
 		map.put("roles", authentication.getAuthorities());
-		map.put("id", utilisateur.getId());
+		map.put("id", user.getId());
 
 
 		String JWT = Jwts.builder()

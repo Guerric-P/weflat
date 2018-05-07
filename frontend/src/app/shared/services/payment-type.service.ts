@@ -9,6 +9,6 @@ export class PaymentTypeService {
     constructor(private http: HttpClient) { }
     
     getAll(): Observable<PaymentTypeClass[]> {
-        return this.http.get<PaymentTypeClass[]>('/architectes/payment-types');
+        return this.http.get<PaymentTypeClass[]>('/architects/payment-types');
       }
 }

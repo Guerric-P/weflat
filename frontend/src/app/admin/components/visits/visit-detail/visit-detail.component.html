@@ -1,3 +1,3 @@
-<p>
-  visit-detail works!
-</p>
+<div *ngIf="visit" class="container">
+  <app-architect-detail *ngIf="visit.architect" [architect]="visit.architect"></app-architect-detail>
+</div>

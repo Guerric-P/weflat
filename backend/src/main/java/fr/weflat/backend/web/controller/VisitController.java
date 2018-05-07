@@ -1,5 +1,6 @@
 package fr.weflat.backend.web.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Produces;
@@ -14,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.weflat.backend.domaine.Architecte;
+import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.Renovation;
 import fr.weflat.backend.domaine.Report;
-import fr.weflat.backend.domaine.Visite;
+import fr.weflat.backend.domaine.Visit;
 import fr.weflat.backend.enums.VisitStatusEnum;
 import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.ReportService;
-import fr.weflat.backend.service.UtilisateurService;
-import fr.weflat.backend.service.VisiteService;
+import fr.weflat.backend.service.UserService;
+import fr.weflat.backend.service.VisitService;
 import fr.weflat.backend.web.dto.ReportDto;
 import fr.weflat.backend.web.dto.VisitCreationResponseDto;
 import fr.weflat.backend.web.dto.VisiteDto;
@@ -31,13 +32,13 @@ import ma.glasnost.orika.MapperFacade;
 @RestController
 @Produces("application/json")
 @RequestMapping("/visits")
-public class VisiteController {
+public class VisitController {
 
 	@Autowired
-	UtilisateurService utilisateurService;
+	UserService userService;
 
 	@Autowired
-	VisiteService visiteService;
+	VisitService visitService;
 
 	@Autowired
 	ReportService reportService;
@@ -52,20 +53,25 @@ public class VisiteController {
 	@RequestMapping(method = RequestMethod.POST)
 	public VisitCreationResponseDto postVisit(@RequestBody VisiteDto input, Authentication authentication) throws Exception {
 
-		Long acheteurId = null;
+		Long customerId = null;
 
 		if(authentication != null) {
-			acheteurId = (Long)((Map<String, Object>) authentication.getDetails()).get("id");
+			customerId = (Long)((Map<String, Object>) authentication.getDetails()).get("id");
 		}
 
-		Visite visit = new Visite();
+		Visit visit = new Visit();
 
-		visit = orikaMapperFacade.map(input, Visite.class);
+		visit = orikaMapperFacade.map(input, Visit.class);
 
-		visiteService.createVisit(visit, acheteurId);
+		visitService.createVisit(visit, customerId);
 
-		return new VisitCreationResponseDto(visiteService.isVisitComplete(visit), visit.getZipCode().isActive(), visit.getId());
+		return new VisitCreationResponseDto(visitService.isVisitComplete(visit), visit.getZipCode().isActive(), visit.getId());
 
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public List<VisiteDto> getAll() {
+		return orikaMapperFacade.mapAsList(visitService.findAll(), VisiteDto.class);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,41 +79,41 @@ public class VisiteController {
 	public VisitCreationResponseDto completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
-		Visite visit = visiteService.findById(id);
+		Visit visit = visitService.findById(id);
 
 		if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() && visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
 			throw new Exception("Visit non eligible for modification.");
 		} else {
 			orikaMapperFacade.map(input, visit);
-			visiteService.completeVisitCreation(visit, (long)details.get("id"));
-			return new VisitCreationResponseDto(visiteService.isVisitComplete(visit), visit.getZipCode().isActive(), visit.getId());
+			visitService.completeVisitCreation(visit, (long)details.get("id"));
+			return new VisitCreationResponseDto(visitService.isVisitComplete(visit), visit.getZipCode().isActive(), visit.getId());
 		}
 	}
 
 	@RequestMapping(path = "/{id}/pay", method = RequestMethod.POST)
 	public void payVisit(@PathVariable("id") long id, @RequestParam() String token) throws Exception {
 
-		Visite visit = visiteService.findById(id);
+		Visit visit = visitService.findById(id);
 
 		if (visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
 			throw new Exception("Visit non eligible for payment.");
 		}
 		else {
-			visiteService.pay(visit, token);
+			visitService.pay(visit, token);
 			
 			//Mails
-			for(Architecte architect : visit.getNearbyArchitectes()) {
+			for(Architect architect : visit.getNearbyArchitects()) {
 				mailService.sendVisitAvailableMail(
 						architect.getEmail(),
 						architect.getFirstName(),
-						visit.getAcheteur().getFirstName(),
+						visit.getCustomer().getFirstName(),
 						visit.formattedAddress(),
 						visit.getVisiteDate()
 						);
 			}
 			
-			mailService.sendVisitCreationMail(visit.getAcheteur().getEmail(),
-					visit.getAcheteur().getFirstName(),
+			mailService.sendVisitCreationMail(visit.getCustomer().getEmail(),
+					visit.getCustomer().getFirstName(),
 					visit.formattedAddress(),
 					visit.getVisiteDate()
 					);
@@ -118,13 +124,13 @@ public class VisiteController {
 	@RequestMapping(path = "/{id}/cancel", method = RequestMethod.POST)
 	public void cancelVisit(@PathVariable("id") long id) throws Exception {
 
-		Visite visit = visiteService.findById(id);
+		Visit visit = visitService.findById(id);
 
 		if (visit.getStatus() == VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()
 				|| visit.getStatus() == VisitStatusEnum.UNASSIGNED.ordinal()
 				|| visit.getStatus() == VisitStatusEnum.BEING_ASSIGNED.ordinal()
 				|| visit.getStatus() == VisitStatusEnum.IN_PROGRESS.ordinal()) {
-			visiteService.cancel(visit);
+			visitService.cancel(visit);
 		}
 		else {
 			throw new Exception("Visit non eligible for cancellation.");
@@ -135,22 +141,22 @@ public class VisiteController {
 	@RequestMapping(path = "/{id}/accept", method = RequestMethod.POST)
 	public void acceptVisite(@PathVariable("id") long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
-		visiteService.accept(id, (Long) details.get("id"));
+		visitService.accept(id, (Long) details.get("id"));
 		
 		//Mails
-		Visite visit = visiteService.findById(id);
+		Visit visit = visitService.findById(id);
 		mailService.sendVisitAttributionMail(
-				visit.getArchitecte().getEmail(),
-				visit.getArchitecte().getFirstName(),
-				visit.getAcheteur().getFirstName(),
+				visit.getArchitect().getEmail(),
+				visit.getArchitect().getFirstName(),
+				visit.getCustomer().getFirstName(),
 				visit.formattedAddress(),
 				visit.getVisiteDate()
 				);
 		
 		mailService.sendVisitAssignedMail(
-				visit.getAcheteur().getEmail(),
-				visit.getArchitecte().getFirstName(),
-				visit.getAcheteur().getFirstName(),
+				visit.getCustomer().getEmail(),
+				visit.getArchitect().getFirstName(),
+				visit.getCustomer().getFirstName(),
 				visit.formattedAddress(),
 				visit.getVisiteDate()
 				);
@@ -160,14 +166,14 @@ public class VisiteController {
 	@RequestMapping(path = "/{id}/refuse", method = RequestMethod.POST)
 	public void refuseVisit(@PathVariable("id") long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
-		visiteService.refuse(id, (Long) details.get("id"));
+		visitService.refuse(id, (Long) details.get("id"));
 	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/count", method = RequestMethod.GET)
 	public int getCount(Authentication authentication) {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
-		return visiteService.findAvailableVisitsByArchitectId((Long) details.get("id")).size();
+		return visitService.findAvailableVisitsByArchitectId((Long) details.get("id")).size();
 	}
 
 	@RequestMapping(path = "/{id}/report", method = RequestMethod.GET)
@@ -177,7 +183,7 @@ public class VisiteController {
 		ReportDto reportDto = null;
 
 		if(report == null) {
-			Visite visite = visiteService.findById(id);
+			Visit visite = visitService.findById(id);
 
 			reportDto = new ReportDto();
 			reportDto.setVisite(orikaMapperFacade.map(visite, VisiteDto.class));
@@ -194,9 +200,9 @@ public class VisiteController {
 	public void postReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
-		Visite visit = visiteService.findById(id);
+		Visit visit = visitService.findById(id);
 
-		if(visit.getArchitecte().getId().equals((Long) details.get("id"))) {
+		if(visit.getArchitect().getId().equals((Long) details.get("id"))) {
 			visit.setReport(orikaMapperFacade.map(input, Report.class));
 			visit.setStatus(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal());
 
@@ -205,7 +211,7 @@ public class VisiteController {
 				renovation.setReport(visit.getReport());
 			}
 
-			visiteService.save(visit);
+			visitService.save(visit);
 		} else if (visit.getReport() != null) {
 			throw new Exception("Report already exists for visit" + visit.getId());
 		} else {
@@ -220,7 +226,7 @@ public class VisiteController {
 
 		Report report = reportService.getByVisiteId(id);
 
-		if(report.getVisite().getArchitecte().getId().equals((Long) details.get("id"))) {
+		if(report.getVisite().getArchitect().getId().equals((Long) details.get("id"))) {
 			orikaMapperFacade.map(input, report);
 			report.getVisite().setStatus(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal());
 
@@ -242,18 +248,18 @@ public class VisiteController {
 	public void submitReport(@PathVariable("id") long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
-		Visite visit = visiteService.findById(id);
+		Visit visit = visitService.findById(id);
 
-		if(visit.getArchitecte().getId().equals((Long) details.get("id"))) {
+		if(visit.getArchitect().getId().equals((Long) details.get("id"))) {
 			if(visit.getStatus() == VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal()) {
 				visit.setStatus(VisitStatusEnum.REPORT_AVAILABLE.ordinal());
-				visiteService.save(visit);
+				visitService.save(visit);
 				
 				//Mail
 				mailService.sendReportReadyMail(
-						visit.getAcheteur().getEmail(),
-						visit.getArchitecte().getFirstName(),
-						visit.getAcheteur().getFirstName()
+						visit.getCustomer().getEmail(),
+						visit.getArchitect().getFirstName(),
+						visit.getCustomer().getFirstName()
 						);
 			}
 			else {

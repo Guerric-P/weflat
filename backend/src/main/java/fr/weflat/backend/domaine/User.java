@@ -13,14 +13,14 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Utilisateur {
+public abstract class User {
 	@Id
 	@Column(name = "id")
-	@SequenceGenerator(name = "utilisateur_id_seq", sequenceName = "utilisateur_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "utilisateur_id_seq")
+	@SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
 	private Long id;
 	
-	public Utilisateur() {
+	public User() {
 		super();
 	}
 
