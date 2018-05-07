@@ -1,5 +1,6 @@
 package fr.weflat.backend.service.impl;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getByEmail(String email) {
 		return userDao.findByEmail(email);
+	}
+
+	@Override
+	public void changePassword(long userId, String password) {
+		User user = findById(userId);
+		user.setPassword(new StrongPasswordEncryptor().encryptPassword(password));
+		save(user);
 	}
 	
 	

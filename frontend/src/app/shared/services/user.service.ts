@@ -7,7 +7,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  changePassword(password: string){
-    return this.http.put('/users/password', {password: password});
+  changePassword(id: number, password: string){
+    return this.http.put(`/users/${id}/password`, {password: password});
   }
 }

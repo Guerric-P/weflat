@@ -74,6 +74,6 @@ class ZipCodeErrorStateMatcher implements ErrorStateMatcher {
   }
 
   isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
-    return !this.zipCodeRegexp.test(control.value);
+    return !this.zipCodeRegexp.test(control.value) && control.value;
   }
 }

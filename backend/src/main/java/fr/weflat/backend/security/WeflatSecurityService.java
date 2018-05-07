@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.weflat.backend.domaine.Visit;
+import fr.weflat.backend.service.UserService;
 import fr.weflat.backend.service.VisitService;
 
 @Component("weflatSecurityService")
@@ -17,6 +18,9 @@ public class WeflatSecurityService {
 	
 	@Autowired
 	VisitService visitService;
+	
+	@Autowired
+	UserService userService;
 
 	@SuppressWarnings("unchecked")
 	public boolean hasAccessToArchitect(Authentication authentication, Long architectId) {
@@ -75,6 +79,21 @@ public class WeflatSecurityService {
 		return false;
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	public boolean hasAccessToUser(Authentication authentication, Long userId) {
+		if(!(authentication instanceof AnonymousAuthenticationToken)) {
+			Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
+
+			long authenticatedUserId = (long)details.get("id");
+
+			if(authentication.getAuthorities().stream().anyMatch(x -> x.getAuthority().equals("admin"))) {
+				return true;
+			}
+			else if(userId == authenticatedUserId) { 
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
