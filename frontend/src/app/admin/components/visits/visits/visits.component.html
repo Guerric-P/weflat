@@ -1,3 +1,4 @@
-<p>
-  visits works!
-</p>
+<div *ngIf="visits" class="d-flex flex-row align-items-stretch h-100">
+  <app-visits-list [visits]="visits" (visitSelected)="visitSelected($event)"></app-visits-list>
+  <app-visit-detail [visit]="selectedVisit" (updated)="updated($event)"></app-visit-detail>
+</div>

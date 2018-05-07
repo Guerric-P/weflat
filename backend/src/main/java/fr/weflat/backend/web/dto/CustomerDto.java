@@ -1,8 +1,8 @@
 package fr.weflat.backend.web.dto;
 
-public class AcheteurDto extends UtilisateurDto {
+public class CustomerDto extends UserDto {
 
-    public AcheteurDto() {
+    public CustomerDto() {
 
 	}
     

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col">{{visite.acheteur.firstName}} {{visite.acheteur.lastName}} a prévu une visite le {{visite.visiteDate | date:'medium'}}
+  <div class="col">{{visite.customer.firstName}} {{visite.customer.lastName}} a prévu une visite le {{visite.visiteDate | date:'medium'}}
     au {{visite.streetNumber}}, {{visite.route}} - {{visite.zipCode.number}} {{visite.city}}
   </div>
   <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end" *ngIf="enableAcceptRefuseButtons">

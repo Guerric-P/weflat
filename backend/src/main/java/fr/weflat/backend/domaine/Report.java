@@ -24,7 +24,7 @@ public class Report {
 	private Long id;
 	
 	@OneToOne(mappedBy = "report")
-	private Visite visite;
+	private Visit visite;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "report", orphanRemoval = true)
 	private Set<Renovation> renovations;
@@ -61,11 +61,11 @@ public class Report {
 		this.id = id;
 	}
 
-	public Visite getVisite() {
+	public Visit getVisite() {
 		return visite;
 	}
 
-	public void setVisite(Visite visite) {
+	public void setVisite(Visit visite) {
 		this.visite = visite;
 	}
 

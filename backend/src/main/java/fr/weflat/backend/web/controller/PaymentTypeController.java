@@ -15,7 +15,7 @@ import ma.glasnost.orika.MapperFacade;
 
 @RestController
 @Produces("application/json")
-@RequestMapping("/architectes/payment-types")
+@RequestMapping("/architects/payment-types")
 public class PaymentTypeController {
 	@Autowired
 	private PaymentTypeService paymentTypeService;

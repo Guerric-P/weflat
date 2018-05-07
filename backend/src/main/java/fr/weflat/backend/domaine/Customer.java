@@ -9,21 +9,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "acheteur")
-public class Acheteur extends Utilisateur {
+@Table(name = "customer")
+public class Customer extends User {
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "acheteur")
-	private Set<Visite> visites;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+	private Set<Visit> visits;
 	
 	@Column(nullable = true, name = "project")
 	private String project;
 
-	public Set<Visite> getVisites() {
-		return visites;
+	public Set<Visit> getVisits() {
+		return visits;
 	}
 
-	public void setVisites(Set<Visite> visites) {
-		this.visites = visites;
+	public void setVisits(Set<Visit> visites) {
+		this.visits = visites;
 	}
 
 	public String getProject() {

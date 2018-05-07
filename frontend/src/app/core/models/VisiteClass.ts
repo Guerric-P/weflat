@@ -4,9 +4,9 @@ import { ZipCodeClass } from "./ZipCodeClass";
 
 export class VisiteClass {
     public id: number;
-    public acheteur: AcheteurClass;
-    public architecte: ArchitecteClass;
-    public idArchitecte: number;
+    public customer: AcheteurClass;
+    public architect: ArchitecteClass;
+    public architectId: number;
     public zipCode: ZipCodeClass;
     public city: string;
     public route: string;

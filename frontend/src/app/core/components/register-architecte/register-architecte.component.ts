@@ -32,7 +32,7 @@ export class RegisterArchitecteComponent implements OnInit {
         Validators.required,
         Validators.pattern(Constantes.EMAIL_REGEX)
       ]),
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       verifyPassword: new FormControl('', [
         this.matchOtherValidator('password')
       ])

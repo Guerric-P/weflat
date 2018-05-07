@@ -1,6 +1,6 @@
 package fr.weflat.backend.web.dto;
 
-public class UtilisateurSignupDto {
+public class UserSignupDto {
     private String lastName;
     private String firstName;
     private String email;

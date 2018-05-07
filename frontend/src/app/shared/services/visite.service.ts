@@ -11,6 +11,10 @@ export class VisiteService {
         return this.http.post<any>('/visits', visite);
     }
 
+    getAll(): Observable<VisiteClass[]> {
+        return this.http.get<VisiteClass[]>('/visits').map(res => res.map(item => new VisiteClass(item)));
+    }
+
     completeCreation(visite: VisiteClass){
         return this.http.patch<any>(`/visits/${visite.id}`, visite);
     }
@@ -24,61 +28,61 @@ export class VisiteService {
     }
 
     getAvailableVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>(`/architectes/${architectId}/visits/available`).map(res => {
+        return this.http.get<VisiteClass[]>(`/architects/${architectId}/visits/available`).map(res => {
             return res.map(x => new VisiteClass(x));
         });
     }
 
     getPlannedVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>(`/architectes/${architectId}/visits/planned`).map(res => {
+        return this.http.get<VisiteClass[]>(`/architects/${architectId}/visits/planned`).map(res => {
             return res.map(x => new VisiteClass(x));
         });
     }
 
     getReportPendingVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>(`/architectes/${architectId}/visits/report-pending`).map(res => {
+        return this.http.get<VisiteClass[]>(`/architects/${architectId}/visits/report-pending`).map(res => {
             return res.map(x => new VisiteClass(x));
         });
     }
 
     getReportWrittenVisitsByArchitect(architectId: number): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>(`/architectes/${architectId}/visits/report-written`).map(res => {
+        return this.http.get<VisiteClass[]>(`/architects/${architectId}/visits/report-written`).map(res => {
             return res.map(x => new VisiteClass(x));
         });
     }
 
     getWaitingForPaymentVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>(`/acheteurs/${acheteurId}/visits/waiting-for-payment`).map(res => {
+        return this.http.get<VisiteClass[]>(`/customers/${acheteurId}/visits/waiting-for-payment`).map(res => {
             return res.map(x => new VisiteClass(x));
         });
     }
 
     getBeingAssignedVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>(`/acheteurs/${acheteurId}/visits/being-assigned`).map(res => {
+        return this.http.get<VisiteClass[]>(`/customers/${acheteurId}/visits/being-assigned`).map(res => {
             return res.map(x => new VisiteClass(x));
         });
     }
 
     getInProgressVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>(`/acheteurs/${acheteurId}/visits/in-progress`).map(res => {
+        return this.http.get<VisiteClass[]>(`/customers/${acheteurId}/visits/in-progress`).map(res => {
             return res.map(x => new VisiteClass(x));
         });
     }
 
     getReportBeingWrittenVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>(`/acheteurs/${acheteurId}/visits/report-being-written`).map(res => {
+        return this.http.get<VisiteClass[]>(`/customers/${acheteurId}/visits/report-being-written`).map(res => {
             return res.map(x => new VisiteClass(x));
         });
     }
 
     getReportWrittenVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>(`/acheteurs/${acheteurId}/visits/report-written`).map(res => {
+        return this.http.get<VisiteClass[]>(`/customers/${acheteurId}/visits/report-written`).map(res => {
             return res.map(x => new VisiteClass(x));
         });
     }
 
     getPlannedVisitsByAcheteur(acheteurId: number): Observable<VisiteClass[]> {
-        return this.http.get<VisiteClass[]>(`/acheteurs/${acheteurId}/visits/planned`).map(res => {
+        return this.http.get<VisiteClass[]>(`/customers/${acheteurId}/visits/planned`).map(res => {
             return res.map(x => new VisiteClass(x));
         });
     }

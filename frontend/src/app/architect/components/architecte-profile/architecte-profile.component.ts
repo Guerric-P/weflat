@@ -329,7 +329,7 @@ export class ArchitecteProfileComponent implements OnInit {
         decennialInsurance: formModel.decennialInsurance,
         motivation: formModel.motivation,
         cgu: formModel.cgu,
-        iban: IBAN.electronicFormat(formModel.iban),
+        iban: formModel.iban ? IBAN.electronicFormat(formModel.iban) : null,
         zipCodes: zipCodes
       });
 
@@ -356,7 +356,7 @@ export class ArchitecteProfileComponent implements OnInit {
 
   changePassword(password: string, event?: KeyboardEvent) {
     if (event) event.preventDefault();
-    this.userService.changePassword(password).subscribe(res => {
+    this.userService.changePassword(this.architecte.id, password).subscribe(res => {
       this.notificationsService.success('Merci !', 'Votre mot de passe a été changé avec succès.');
     }, err => {
       this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors du changement de mot de passe.');

@@ -66,7 +66,7 @@ export class AcheteurProfileComponent implements OnInit {
 
   changePassword(password: string, event?: KeyboardEvent) {
     if (event) event.preventDefault();
-    this.userService.changePassword(password).subscribe(res => {
+    this.userService.changePassword(this.acheteur.id, password).subscribe(res => {
       this.notificationsService.success('Merci !', 'Votre mot de passe a été changé avec succès.');
     }, err => {
       this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors du changement de mot de passe.');

@@ -15,10 +15,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "architecte")
-public class Architecte extends Utilisateur {
+@Table(name = "architect")
+public class Architect extends User {
 
-	public Architecte() {
+	public Architect() {
 		super();
 	}
 
@@ -53,42 +53,42 @@ public class Architecte extends Utilisateur {
 	private String iban;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_architect_situation", nullable = true)
+	@JoinColumn(name = "architect_situation_id", nullable = true)
 	private ArchitectSituation situation;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_architect_type", nullable = true)
+	@JoinColumn(name = "architect_type_id", nullable = true)
 	private ArchitectType type;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_payment_type", nullable = true)
+	@JoinColumn(name = "payment_type_id", nullable = true)
 	private PaymentType paymentType;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "architecte_zip_code", joinColumns = @JoinColumn(name = "id_architecte", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_zip_code", referencedColumnName = "id"))
+    @JoinTable(name = "architect_zip_code", joinColumns = @JoinColumn(name = "architect_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "zip_code_id", referencedColumnName = "id"))
 	private Set<ZipCode> zipCodes;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "architecte")
-	private Set<Visite> visites;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "architect")
+	private Set<Visit> visits;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "architecte_visite", joinColumns = @JoinColumn(name = "id_architecte", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_visite", referencedColumnName = "id"))
-	private Set<Visite> potentialVisites;
+    @JoinTable(name = "architect_visit", joinColumns = @JoinColumn(name = "architect_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "id"))
+	private Set<Visit> potentialVisits;
 
-	public Set<Visite> getPotentialVisites() {
-		return potentialVisites;
+	public Set<Visit> getPotentialVisits() {
+		return potentialVisits;
 	}
 
-	public void setPotentialVisites(Set<Visite> potentialVisites) {
-		this.potentialVisites = potentialVisites;
+	public void setPotentialVisits(Set<Visit> potentialVisites) {
+		this.potentialVisits = potentialVisites;
 	}
 
-	public Set<Visite> getVisites() {
-		return visites;
+	public Set<Visit> getVisits() {
+		return visits;
 	}
 
-	public void setVisites(Set<Visite> visites) {
-		this.visites = visites;
+	public void setVisits(Set<Visit> visites) {
+		this.visits = visites;
 	}
 
 	public Set<ZipCode> getZipCodes() {

@@ -1,3 +1,9 @@
-<p>
-  visit works!
-</p>
+<div *ngIf="visit.customer">
+  Acheteur : {{visit.customer.firstName}} {{visit.customer.lastName}}
+</div>
+<div *ngIf="visit.architect">
+  Architecte : {{visit.architect.firstName}} {{visit.architect.lastName}}
+</div>
+<div>
+  Adresse : {{visit.formattedAddress}}
+</div>

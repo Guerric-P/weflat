@@ -27,6 +27,7 @@ import { VisitsListComponent } from './components/visits/visits-list/visits-list
     MatDividerModule,
     MatExpansionModule,
     MatChipsModule,
+    MatDividerModule,
     SharedModule
   ],
   declarations: [CustomersComponent, VisitsComponent, ArchitectsComponent, ZipCodesComponent, ZipCodeComponent, ArchitectsListComponent, ArchitectDetailComponent, ArchitectComponent, VisitComponent, VisitDetailComponent, VisitsListComponent]

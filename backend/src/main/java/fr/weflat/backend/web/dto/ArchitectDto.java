@@ -6,9 +6,9 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-public class ArchitecteDto extends UtilisateurDto {
+public class ArchitectDto extends UserDto {
     
-	public ArchitecteDto() {
+	public ArchitectDto() {
 	}
 	
 	private String webSite;
