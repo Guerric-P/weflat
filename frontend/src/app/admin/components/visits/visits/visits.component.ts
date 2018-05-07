@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VisiteClass } from '../../../../core/models/VisiteClass';
 import { VisiteService } from '../../../../shared/services/visite.service';
+import * as FunctionUtils from '../../../../core/utils/functionUtils';
 
 @Component({
   selector: 'app-visits',
@@ -25,12 +26,7 @@ export class VisitsComponent implements OnInit {
   }
 
   updated(event: VisiteClass) {
-    // TODO replace with lodash compose
-    let compose = f => g => x => f(g(x));
-    let findById = array => id => array.find(x => x.id === id);
-    let findIndex = array => item => array.indexOf(item);
-    let findIndexById = array => compose(findIndex(array))(findById(array));
-    this.visits.splice(findIndexById(this.visits)(event.id), 1);
+    this.visits.splice(FunctionUtils.findIndexById(this.visits)(event.id), 1);
     this.visits = this.visits.concat([event]);
   }
 
