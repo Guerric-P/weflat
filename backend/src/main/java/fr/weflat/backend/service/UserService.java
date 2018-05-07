@@ -10,5 +10,7 @@ public interface UserService {
 	
 	User getByEmail(String email);
 	
-	void save(User utilisateur);
+	void save(User user);
+	
+	void changePassword(long userId, String password);
 }

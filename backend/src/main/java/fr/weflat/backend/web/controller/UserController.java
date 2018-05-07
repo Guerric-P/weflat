@@ -1,17 +1,14 @@
 package fr.weflat.backend.web.controller;
 
-import java.util.Map;
-
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.weflat.backend.domaine.User;
 import fr.weflat.backend.service.UserService;
 import fr.weflat.backend.web.dto.PasswordDto;
 import ma.glasnost.orika.MapperFacade;
@@ -43,14 +40,9 @@ public class UserController {
 		return orikaMapperFacade.map(utilisateurService.findById(id), UtilisateurDto.class);
 	}*/
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/password", method = RequestMethod.PUT)
-	public void changePassword(@RequestBody PasswordDto input, Authentication authentication) {
-		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
-
-		User user = userService.findById((Long) details.get("id"));
-		user.setPassword(input.getPassword());
-		userService.save(user);
+	@RequestMapping(path = "/{id}/password", method = RequestMethod.PUT)
+	public void changePassword(@PathVariable long id, @RequestBody PasswordDto input) {
+		userService.changePassword(id, input.getPassword());
 	}
 
 }

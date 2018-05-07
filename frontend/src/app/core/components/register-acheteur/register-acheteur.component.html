@@ -34,6 +34,9 @@
         <div class="mat-control">
           <mat-form-field>
             <input matInput [(ngModel)]="data.password" required class="form-control" type="password" formControlName="password" placeholder="Mot de passe">
+            <mat-error *ngIf="registerForm.controls.password.hasError('minlength')">
+              Veuillez saisir 6 caractères
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="mat-control">

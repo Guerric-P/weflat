@@ -26,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/architects", "/customers", "/visits").permitAll()// Signup and anonymous visit creation
 				.antMatchers(HttpMethod.PATCH, "/visits").permitAll()// Anonymous visit creation
 				.antMatchers(HttpMethod.GET, "/visits/count").hasAuthority("architect")
+				.antMatchers("/users/{userId:\\d+}/**").access("@weflatSecurityService.hasAccessToUser(authentication,#userId)")
 				.antMatchers("/architects/{architectId:\\d+}/**").access("@weflatSecurityService.hasAccessToArchitect(authentication,#architectId)")
 				.antMatchers("/customers/{customerId:\\d+}/**").access("@weflatSecurityService.hasAccessToCustomer(authentication,#customerId)")
 				.antMatchers("/visits/{visitId:\\d+}/**").access("@weflatSecurityService.hasAccessToVisit(authentication,#visitId)")
