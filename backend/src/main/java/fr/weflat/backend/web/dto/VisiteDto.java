@@ -27,7 +27,9 @@ public class VisiteDto {
 	private int status;
 	private String announcementUrl;
 	
-	
+	@JsonProperty(access = Access.READ_ONLY)
+	private String chargeId;
+
 	public Long getId() {
 		return id;
 	}
@@ -114,5 +116,13 @@ public class VisiteDto {
 
 	public void setAnnouncementUrl(String announcementUrl) {
 		this.announcementUrl = announcementUrl;
+	}
+	
+	public String getChargeId() {
+		return chargeId;
+	}
+
+	public void setChargeId(String chargeId) {
+		this.chargeId = chargeId;
 	}
 }
