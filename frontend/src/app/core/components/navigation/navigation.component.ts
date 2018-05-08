@@ -1,6 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, RoutesRecognized, GuardsCheckEnd } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsService } from 'angular2-notifications';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs';
@@ -9,7 +8,7 @@ import { AuthGuard } from '../../guards/auth.guard';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { ShowSigninPopupService } from '../../services/show-signin-popup.service';
 import { Constantes } from '../../../shared/common/Constantes';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MatExpansionPanel } from '@angular/material';
 
 @Component({
   selector: 'app-navigation',
@@ -36,6 +35,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   isCollapsed: boolean = true;
   @ViewChild('signinModal') signinModalTemplate: TemplateRef<any>;
   @ViewChild('signupModal') signupModalemplate: TemplateRef<any>;
+  @ViewChild('expandingFooter') expandingFooter: MatExpansionPanel;
   signinModal: MatDialogRef<any>;
   signupModal: MatDialogRef<any>;
 
@@ -159,6 +159,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
         this.route.snapshot,
         this.router.routerState.snapshot
       )
+    }
+  }
+
+  toggleFooter() {
+    if (this.expandingFooter.expanded) {
+      this.expandingFooter.close();
+    } else {
+      this.expandingFooter.open();
     }
   }
 }

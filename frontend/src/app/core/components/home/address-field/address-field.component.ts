@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SessionStorageService } from '../../../services/session-storage.service';
 import { VisiteService } from '../../../../shared/services/visite.service';
 import { DisabledZipCodePopupComponent } from '../../disabled-zip-code-popup/disabled-zip-code-popup.component';
