@@ -54,6 +54,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
           this.errorMessage = 'Vous n\'avez pas accès à cette fonctionnalité, veuillez vous connecter avec un compte approprié';
           this.displaySigninPopup();
         }
+        else {
+          this.expandingFooter.close();
+        }
       }
     });
 
