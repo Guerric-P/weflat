@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArchitecteService } from '../../../../shared/services/architecte.service';
 import { ArchitecteClass } from '../../../../core/models/ArchitecteClass';
-import * as FunctionUtils from '../../../../core/utils/functionUtils';
+import * as ArrayUtils from '../../../../core/utils/arrayUtils';
 
 @Component({
   selector: 'app-architects',
@@ -26,7 +26,7 @@ export class ArchitectsComponent implements OnInit {
   }
 
   updated(event: ArchitecteClass) {
-    this.architects.splice(FunctionUtils.findIndexById(this.architects)(event.id), 1);
+    this.architects.splice(ArrayUtils.findIndexById(this.architects)(event.id), 1);
     this.architects = this.architects.concat([event]);
   }
 

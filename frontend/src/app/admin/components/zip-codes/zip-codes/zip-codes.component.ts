@@ -4,7 +4,7 @@ import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ZipCodeClass } from '../../../../core/models/ZipCodeClass';
 import { ZipCodeService } from '../../../../shared/services/zip-code.service';
 import { NotificationsService } from 'angular2-notifications';
-import * as FunctionUtils from '../../../../core/utils/functionUtils';
+import * as ArrayUtils from '../../../../core/utils/arrayUtils';
 
 @Component({
   selector: 'app-zip-codes',
@@ -47,7 +47,7 @@ export class ZipCodesComponent implements OnInit {
 
   zipCodeDeleted(zipCode: ZipCodeClass) {
     this.zipCodeService.deleteZipCode(zipCode.id).subscribe(() => {
-      this.results.splice(FunctionUtils.findIndexById(this.results)(zipCode.id), 1);
+      this.results.splice(ArrayUtils.findIndexById(this.results)(zipCode.id), 1);
       this.notificationsService.success('Succès !', `Le code postal ${zipCode.number} a été supprimé`);
     }, err => {
       this.notificationsService.error('Erreur', 'Une erreur a eu lieu...');
