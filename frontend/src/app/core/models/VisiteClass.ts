@@ -1,6 +1,7 @@
 import { AcheteurClass } from "./AcheteurClass";
 import { ArchitecteClass } from "./ArchitecteClass";
 import { ZipCodeClass } from "./ZipCodeClass";
+import { VisitStatusEnum } from "../../shared/common/enums/VisitStatusEnum";
 
 export class VisiteClass {
     public id: number;
@@ -14,11 +15,11 @@ export class VisiteClass {
     public visiteDate: Date;
     public status: number;
     public announcementUrl: string;
+    public chargeId: string;
 
     get formattedAddress() {
         try {
-            return this.streetNumber
-                + ', '
+            return (this.streetNumber ? this.streetNumber + ', ' : '')
                 + this.route
                 + ' - '
                 + this.zipCode.number
@@ -27,6 +28,27 @@ export class VisiteClass {
         }
         catch (err) {
             // Ignore
+        }
+    }
+
+    get statusText() {
+        switch (this.status) {
+            case VisitStatusEnum.BEING_ASSIGNED:
+            return 'En cours d\'attribution';
+            case VisitStatusEnum.CANCELED:
+            return 'Annulée';
+            case VisitStatusEnum.IN_PROGRESS:
+            return 'En cours';
+            case VisitStatusEnum.REFUNDED:
+            return 'Remboursée';
+            case VisitStatusEnum.REPORT_AVAILABLE:
+            return 'Rapport disponible';
+            case VisitStatusEnum.REPORT_BEING_WRITTEN:
+            return 'Rapport en cours de rédaction';
+            case VisitStatusEnum.UNASSIGNED:
+            return 'Non assignée';
+            case VisitStatusEnum.WAITING_FOR_PAYMENT:
+            return 'En attente de paiement';
         }
     }
 
