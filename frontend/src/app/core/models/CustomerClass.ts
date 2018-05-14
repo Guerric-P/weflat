@@ -1,6 +1,6 @@
 import { UserClass } from "./UserClass";
 
-export class AcheteurClass extends UserClass {
+export class CustomerClass extends UserClass {
     public project: string;
 
     constructor(obj?: any) {

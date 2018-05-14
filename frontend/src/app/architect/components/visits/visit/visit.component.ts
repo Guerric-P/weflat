@@ -3,7 +3,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { VisiteService } from '../../../../shared/services/visite.service';
 import { LoaderService } from '../../../../core/services/loader.service';
-import { VisiteClass } from '../../../../core/models/VisiteClass';
+import { VisitClass } from '../../../../core/models/VisitClass';
 import { VisiteCounterService } from '../../../../core/services/visite-counter.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class VisitComponent implements OnInit {
     private router: Router,
     private loaderService: LoaderService) { }
 
-  @Input() visite: VisiteClass;
+  @Input() visit: VisitClass;
   @Input() enableAcceptRefuseButtons: boolean = false;
   @Input() enableReportEditButton: boolean = false;
   @Input() enableReportViewButton: boolean = false;
@@ -35,8 +35,8 @@ export class VisitComponent implements OnInit {
   accept() {
     this.acceptButtonDisabled = true;
     this.loaderService.show();
-    this.visiteService.acceptVisit(this.visite.id).subscribe(res => {
-      this.notificationService.success('Succès', `Vous avez accepté de visiter le bien de ${this.visite.customer.firstName} ${this.visite.customer.lastName}`);
+    this.visiteService.acceptVisit(this.visit.id).subscribe(res => {
+      this.notificationService.success('Succès', `Vous avez accepté de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`);
       this.acceptButtonDisabled = false;
       this.loaderService.hide();
       this.visitesUpdated();
@@ -50,8 +50,8 @@ export class VisitComponent implements OnInit {
 
   refuse() {
     this.refuseButtonDisabled = false;
-    this.visiteService.refuseVisit(this.visite.id).subscribe(res => {
-      this.notificationService.success('Succès', `Vous avez refusé de visiter le bien de ${this.visite.customer.firstName} ${this.visite.customer.lastName}`);
+    this.visiteService.refuseVisit(this.visit.id).subscribe(res => {
+      this.notificationService.success('Succès', `Vous avez refusé de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`);
       this.refuseButtonDisabled = true;
       this.visitesUpdated();
     }, err => {
@@ -67,10 +67,10 @@ export class VisitComponent implements OnInit {
   }
 
   editReport() {
-    this.router.navigate([`/architecte/visits/${this.visite.id}/report/edit`]);
+    this.router.navigate([`/architecte/visits/${this.visit.id}/report/edit`]);
   }
 
   viewReport() {
-    this.router.navigate([`/architecte/visits/${this.visite.id}/report`]);
+    this.router.navigate([`/architecte/visits/${this.visit.id}/report`]);
   }
 }

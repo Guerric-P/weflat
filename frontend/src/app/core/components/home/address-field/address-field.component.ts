@@ -4,7 +4,7 @@ import { SessionStorageService } from '../../../services/session-storage.service
 import { VisiteService } from '../../../../shared/services/visite.service';
 import { DisabledZipCodePopupComponent } from '../../disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { GooglePlaceKeys } from '../../../../shared/common/GooglePlaceKeys';
-import { VisiteClass } from '../../../models/VisiteClass';
+import { VisitClass } from '../../../models/VisitClass';
 import { ZipCodeClass } from '../../../models/ZipCodeClass';
 
 declare var google: any;
@@ -23,7 +23,7 @@ export class AddressFieldComponent implements OnInit {
 
   @ViewChild('input') input: ElementRef;
   @ViewChild('popup') popup: DisabledZipCodePopupComponent;
-  visit: VisiteClass = new VisiteClass();
+  visit: VisitClass = new VisitClass();
   place: any;
 
   ngOnInit() {

@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { AcheteurClass } from '../../core/models/AcheteurClass';
+import { CustomerClass } from '../../core/models/CustomerClass';
 
 @Injectable()
 export class AcheteurService {
 
   constructor(private http: HttpClient) { }
 
-  postAcheteur(acheteur: AcheteurClass){
+  postAcheteur(acheteur: CustomerClass){
     return this.http.post('/customers', acheteur);
   }
 
-  getAcheteur(id: number): Observable<AcheteurClass> {
-    return this.http.get<AcheteurClass>(`/customers/${id}`);
+  getAcheteur(id: number): Observable<CustomerClass> {
+    return this.http.get<CustomerClass>(`/customers/${id}`);
   }
 
-  patchAcheteur(acheteur: AcheteurClass, acheteurId: number){
+  patchAcheteur(acheteur: CustomerClass, acheteurId: number){
     return this.http.patch(`/customers/${acheteurId}`, acheteur);
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, TemplateRef } from '@angular/core';
 import { VisitStatusEnum } from '../../../../shared/common/enums/VisitStatusEnum';
-import { VisiteClass } from '../../../../core/models/VisiteClass';
+import { VisitClass } from '../../../../core/models/VisitClass';
 import { Router } from '@angular/router';
 import { VisiteService } from '../../../../shared/services/visite.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
@@ -14,7 +14,7 @@ import { AuthenticationService } from '../../../../core/services/authentication.
 })
 export class MyVisitComponent implements OnInit {
 
-  @Input() visit: VisiteClass;
+  @Input() visit: VisitClass;
   @Input() datePassed: boolean;
   @Output() canceled: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancelModal') cancelModalTemplate: TemplateRef<any>;

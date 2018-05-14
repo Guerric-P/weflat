@@ -6,7 +6,7 @@ declare var moment;
 import { AcheteurService } from '../../../shared/services/acheteur.service';
 import { UserService } from '../../../shared/services/user.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-import { AcheteurClass } from '../../../core/models/AcheteurClass';
+import { CustomerClass } from '../../../core/models/CustomerClass';
 
 @Component({
   selector: 'app-acheteur-profile',
@@ -23,7 +23,7 @@ export class AcheteurProfileComponent implements OnInit {
 
   form: FormGroup;
   passwordForm: FormGroup;
-  acheteur: AcheteurClass;
+  acheteur: CustomerClass;
   dateNow = moment().format('YYYY-MM-DD');
 
   ngOnInit() {
@@ -46,7 +46,7 @@ export class AcheteurProfileComponent implements OnInit {
     const formModel = this.form.value;
 
     if (!this.form.invalid) {
-      const acheteur = new AcheteurClass({
+      const acheteur = new CustomerClass({
         firstName: formModel.firstName,
         lastName: formModel.lastName,
         birthDate: formModel.birthDate,

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { ArchitecteService } from '../../../shared/services/architecte.service';
+import { ArchitectService } from '../../../shared/services/architecte.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Constantes } from '../../../shared/common/Constantes';
-import { ArchitecteClass } from '../../models/ArchitecteClass';
+import { ArchitectClass } from '../../models/ArchitectClass';
 
 @Component({
   selector: 'app-register-architecte',
@@ -15,13 +15,13 @@ import { ArchitecteClass } from '../../models/ArchitecteClass';
 export class RegisterArchitecteComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
-    private architecteService: ArchitecteService,
+    private architecteService: ArchitectService,
     private authenticationService: AuthenticationService,
     private router: Router) {
     this.createForm();
   }
 
-  data: ArchitecteClass = new ArchitecteClass();
+  data: ArchitectClass = new ArchitectClass();
   registerForm: FormGroup;
 
   createForm() {
