@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ArchitecteService } from '../../../../shared/services/architecte.service';
-import { ArchitecteClass } from '../../../../core/models/ArchitecteClass';
+import { ArchitectService } from '../../../../shared/services/architecte.service';
+import { ArchitectClass } from '../../../../core/models/ArchitectClass';
 import * as ArrayUtils from '../../../../core/utils/arrayUtils';
 
 @Component({
@@ -10,10 +10,10 @@ import * as ArrayUtils from '../../../../core/utils/arrayUtils';
 })
 export class ArchitectsComponent implements OnInit {
 
-  architects: ArchitecteClass[];
-  selectedArchitect: ArchitecteClass;
+  architects: ArchitectClass[];
+  selectedArchitect: ArchitectClass;
 
-  constructor(private architecteService: ArchitecteService) { }
+  constructor(private architecteService: ArchitectService) { }
 
   ngOnInit() {
     this.architecteService.getAll().subscribe(res => {
@@ -21,11 +21,11 @@ export class ArchitectsComponent implements OnInit {
     });
   }
 
-  architectSelected(architect: ArchitecteClass) {
+  architectSelected(architect: ArchitectClass) {
     this.selectedArchitect = architect;
   }
 
-  updated(event: ArchitecteClass) {
+  updated(event: ArchitectClass) {
     this.architects.splice(ArrayUtils.findIndexById(this.architects)(event.id), 1);
     this.architects = this.architects.concat([event]);
   }

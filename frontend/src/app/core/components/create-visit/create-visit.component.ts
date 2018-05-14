@@ -13,9 +13,9 @@ import { CreateVisitGuard } from '../../guards/create-visit.guard';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AcheteurService } from '../../../shared/services/acheteur.service';
 import { GooglePlaceKeys } from '../../../shared/common/GooglePlaceKeys';
-import { VisiteClass } from '../../models/VisiteClass';
+import { VisitClass } from '../../models/VisitClass';
 import { ZipCodeClass } from '../../models/ZipCodeClass';
-import { AcheteurClass } from '../../models/AcheteurClass';
+import { CustomerClass } from '../../models/CustomerClass';
 import { DatePipe } from '@angular/common';
 
 declare var google;
@@ -41,7 +41,7 @@ export class CreateVisitComponent implements OnInit {
   @ViewChild('locationStep') locationStep: CdkStep;
   @ViewChild('popup') popup: DisabledZipCodePopupComponent;
   displaySignupStep: boolean;
-  visit: VisiteClass = new VisiteClass();
+  visit: VisitClass = new VisitClass();
   place: any;
   visitCreationComplete: boolean = false;
   architectsAvailable: boolean = false;
@@ -234,7 +234,7 @@ export class CreateVisitComponent implements OnInit {
     }
     if (event.previouslySelectedStep == this.projectStep) {
       this.acheteurService.patchAcheteur(
-        new AcheteurClass(
+        new CustomerClass(
           {
             project: this.projectFormGroup.controls['project'].value
           }

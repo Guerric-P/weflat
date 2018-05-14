@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { ArchitecteClass } from '../../../../core/models/ArchitecteClass';
+import { ArchitectClass } from '../../../../core/models/ArchitectClass';
 import { ArchitectStatusEnum } from '../../../../shared/common/enums/ArchitectStatusEnum';
 
 @Component({
@@ -10,12 +10,12 @@ import { ArchitectStatusEnum } from '../../../../shared/common/enums/ArchitectSt
 export class ArchitectsListComponent implements OnInit, OnChanges {
 
 
-  @Input() architects: ArchitecteClass[];
-  @Output() architectSelected: EventEmitter<ArchitecteClass> = new EventEmitter<ArchitecteClass>();
-  createdArchitects: ArchitecteClass[];
-  approvingArchitects: ArchitecteClass[];
-  validatedArchitects: ArchitecteClass[];
-  refusedArchitects: ArchitecteClass[];
+  @Input() architects: ArchitectClass[];
+  @Output() architectSelected: EventEmitter<ArchitectClass> = new EventEmitter<ArchitectClass>();
+  createdArchitects: ArchitectClass[];
+  approvingArchitects: ArchitectClass[];
+  validatedArchitects: ArchitectClass[];
+  refusedArchitects: ArchitectClass[];
   approvingArchitectsExpanded: boolean;
   createdArchitectsExpanded: boolean;
   validatedArchitectsExpanded: boolean;
@@ -38,7 +38,7 @@ export class ArchitectsListComponent implements OnInit, OnChanges {
     this.refusedArchitects = this.architects.filter(x => x.status === ArchitectStatusEnum.REFUSED);
   }
 
-  architectClick(architect: ArchitecteClass) {
+  architectClick(architect: ArchitectClass) {
     this.architectSelected.emit(architect);
   }
 }

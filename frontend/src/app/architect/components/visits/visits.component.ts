@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VisiteService } from '../../../shared/services/visite.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-import { VisiteClass } from '../../../core/models/VisiteClass';
+import { VisitClass } from '../../../core/models/VisitClass';
 
 @Component({
   selector: 'app-visits',
@@ -12,10 +12,10 @@ export class VisitsComponent implements OnInit {
 
   constructor(private visiteService: VisiteService, private authService: AuthenticationService) { }
 
-  potentialVisites: VisiteClass[];
-  plannedVisites: VisiteClass[];
-  reportPendingVisites: VisiteClass[];
-  reportWrittenVisites: VisiteClass[];
+  potentialVisites: VisitClass[];
+  plannedVisites: VisitClass[];
+  reportPendingVisites: VisitClass[];
+  reportWrittenVisites: VisitClass[];
   potentialVisitesExpanded: boolean;
   plannedVisitesExpanded: boolean;
   reportPendingVisitesExpanded: boolean;

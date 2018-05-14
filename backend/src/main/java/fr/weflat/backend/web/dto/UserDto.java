@@ -82,14 +82,6 @@ public class UserDto {
 		this.firstName = prenom;
 	}
 
-	public Date getDateNaissance() {
-		return birthDate;
-	}
-
-	public void setDateNaissance(Date dateNaissance) {
-		this.birthDate = dateNaissance;
-	}
-
 	public String getNumeroTelephone() {
 		return telephone;
 	}

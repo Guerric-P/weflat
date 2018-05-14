@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } f
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, ValidationErrors, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
-import { ArchitecteService } from '../../../shared/services/architecte.service';
+import { ArchitectService } from '../../../shared/services/architecte.service';
 import { UserService } from '../../../shared/services/user.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { ArchitectStatusEnum } from '../../../shared/common/enums/ArchitectStatusEnum';
 import { ArchitectTypeClass } from '../../../core/models/ArchitectTypeClass';
 import { ArchitectSituationClass } from '../../../core/models/ArchitectSituationClass';
-import { ArchitecteClass } from '../../../core/models/ArchitecteClass';
+import { ArchitectClass } from '../../../core/models/ArchitectClass';
 import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent, ErrorStateMatcher, MatChipList } from '@angular/material';
 import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
@@ -32,7 +32,7 @@ export class ArchitecteProfileComponent implements OnInit {
   architectTypes: ArchitectTypeClass[];
   architectSituations: ArchitectSituationClass[];
   paymentTypes: PaymentTypeClass[];
-  architecte: ArchitecteClass;
+  architecte: ArchitectClass;
   dateNow = moment().format('YYYY-MM-DD');
   @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
   @ViewChild('googleMap') googleMap: ElementRef;
@@ -56,7 +56,7 @@ export class ArchitecteProfileComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder,
-    private architecteService: ArchitecteService,
+    private architecteService: ArchitectService,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
     private userService: UserService,
@@ -318,7 +318,7 @@ export class ArchitecteProfileComponent implements OnInit {
     if (!this.form.invalid && this.zipCodesList.chips && this.zipCodesList.chips.length) {
       const zipCodes = this.zipCodesArrayFromThis;
 
-      const architect = new ArchitecteClass({
+      const architect = new ArchitectClass({
         firstName: formModel.firstName,
         lastName: formModel.lastName,
         birthDate: formModel.birthDate,

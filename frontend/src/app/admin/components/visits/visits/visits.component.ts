@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VisiteClass } from '../../../../core/models/VisiteClass';
+import { VisitClass } from '../../../../core/models/VisitClass';
 import { VisiteService } from '../../../../shared/services/visite.service';
 import * as ArrayUtils from '../../../../core/utils/arrayUtils';
 
@@ -10,8 +10,8 @@ import * as ArrayUtils from '../../../../core/utils/arrayUtils';
 })
 export class VisitsComponent implements OnInit {
 
-  visits: VisiteClass[];
-  selectedVisit: VisiteClass;
+  visits: VisitClass[];
+  selectedVisit: VisitClass;
 
   constructor(private visiteService: VisiteService) { }
 
@@ -21,11 +21,11 @@ export class VisitsComponent implements OnInit {
     });
   }
 
-  visitSelected(visit: VisiteClass) {
+  visitSelected(visit: VisitClass) {
     this.selectedVisit = visit;
   }
 
-  updated(event: VisiteClass) {
+  updated(event: VisitClass) {
     this.visits.splice(ArrayUtils.findIndexById(this.visits)(event.id), 1);
     this.visits = this.visits.concat([event]);
   }

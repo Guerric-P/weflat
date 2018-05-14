@@ -1,12 +1,12 @@
-import { AcheteurClass } from "./AcheteurClass";
-import { ArchitecteClass } from "./ArchitecteClass";
+import { CustomerClass } from "./CustomerClass";
+import { ArchitectClass } from "./ArchitectClass";
 import { ZipCodeClass } from "./ZipCodeClass";
 import { VisitStatusEnum } from "../../shared/common/enums/VisitStatusEnum";
 
-export class VisiteClass {
+export class VisitClass {
     public id: number;
-    public customer: AcheteurClass;
-    public architect: ArchitecteClass;
+    public customer: CustomerClass;
+    public architect: ArchitectClass;
     public architectId: number;
     public zipCode: ZipCodeClass;
     public city: string;

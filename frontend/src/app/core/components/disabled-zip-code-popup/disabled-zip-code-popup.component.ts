@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
-import { VisiteClass } from '../../models/VisiteClass';
+import { VisitClass } from '../../models/VisitClass';
 import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Component({
@@ -11,7 +11,7 @@ export class DisabledZipCodePopupComponent implements OnInit {
 
   constructor(private dialog: MatDialog) { }
 
-  visit: VisiteClass;
+  visit: VisitClass;
 
   @ViewChild('noArchitectsModal') noArchitectsModalTemplate: TemplateRef<any>;
   noArchitectsModal: MatDialogRef<any>;
@@ -21,7 +21,7 @@ export class DisabledZipCodePopupComponent implements OnInit {
   ngOnInit() {
   }
 
-  open(visit: VisiteClass) {
+  open(visit: VisitClass) {
     this.visit = visit;
     this.noArchitectsModal = this.dialog.open(this.noArchitectsModalTemplate);
 

@@ -8,7 +8,7 @@
       </mat-expansion-panel-header>
       <div *ngIf="!beingAssignedVisits || !beingAssignedVisits.length">Pas de visite en cours d'attribution</div>
       <ng-container *ngFor="let visit of beingAssignedVisits">
-        <app-visit [visit]="visit" (click)="visitClick(visit)"></app-visit>
+        <app-visit-list-item [visit]="visit" (click)="visitClick(visit)"></app-visit-list-item>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-expansion-panel>
@@ -20,7 +20,7 @@
       </mat-expansion-panel-header>
       <div *ngIf="!canceledVisits || !canceledVisits.length">Pas de visite annulée</div>
       <ng-container *ngFor="let visit of canceledVisits">
-        <app-visit [visit]="visit" (click)="visitClick(visit)"></app-visit>
+        <app-visit-list-item [visit]="visit" (click)="visitClick(visit)"></app-visit-list-item>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-expansion-panel>
@@ -32,7 +32,7 @@
       </mat-expansion-panel-header>
       <div *ngIf="!inProgressVisits || !inProgressVisits.length">Pas de visite en cours</div>
       <ng-container *ngFor="let visit of inProgressVisits">
-        <app-visit [visit]="visit" (click)="visitClick(visit)"></app-visit>
+        <app-visit-list-item [visit]="visit" (click)="visitClick(visit)"></app-visit-list-item>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-expansion-panel>
@@ -44,7 +44,7 @@
       </mat-expansion-panel-header>
       <div *ngIf="!refundedVisits || !refundedVisits.length">Pas de visite remboursée</div>
       <ng-container *ngFor="let visit of refundedVisits">
-        <app-visit [visit]="visit" (click)="visitClick(visit)"></app-visit>
+        <app-visit-list-item [visit]="visit" (click)="visitClick(visit)"></app-visit-list-item>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-expansion-panel>
@@ -56,7 +56,7 @@
       </mat-expansion-panel-header>
       <div *ngIf="!reportAvailableVisits || !reportAvailableVisits.length">Pas de visite dont le rapport est disponible</div>
       <ng-container *ngFor="let visit of reportAvailableVisits">
-        <app-visit [visit]="visit" (click)="visitClick(visit)"></app-visit>
+        <app-visit-list-item [visit]="visit" (click)="visitClick(visit)"></app-visit-list-item>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-expansion-panel>
@@ -68,7 +68,7 @@
       </mat-expansion-panel-header>
       <div *ngIf="!reportBeingWrittenVisits || !reportBeingWrittenVisits.length">Pas de visite dont le rapport est en cours</div>
       <ng-container *ngFor="let visit of reportBeingWrittenVisits">
-        <app-visit [visit]="visit" (click)="visitClick(visit)"></app-visit>
+        <app-visit-list-item [visit]="visit" (click)="visitClick(visit)"></app-visit-list-item>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-expansion-panel>
@@ -80,7 +80,7 @@
       </mat-expansion-panel-header>
       <div *ngIf="!unassignedVisits || !unassignedVisits.length">Pas de visite non attribuée</div>
       <ng-container *ngFor="let visit of unassignedVisits">
-        <app-visit [visit]="visit" (click)="visitClick(visit)"></app-visit>
+        <app-visit-list-item [visit]="visit" (click)="visitClick(visit)"></app-visit-list-item>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-expansion-panel>
@@ -92,7 +92,7 @@
       </mat-expansion-panel-header>
       <div *ngIf="!waitingForPaymentVisits || !waitingForPaymentVisits.length">Pas de visite en attente de paiement</div>
       <ng-container *ngFor="let visit of waitingForPaymentVisits">
-        <app-visit [visit]="visit" (click)="visitClick(visit)"></app-visit>
+        <app-visit-list-item [visit]="visit" (click)="visitClick(visit)"></app-visit-list-item>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-expansion-panel>
