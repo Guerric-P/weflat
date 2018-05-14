@@ -1,7 +1,7 @@
 import { Directive, Input, Output, EventEmitter } from '@angular/core';
 import { environment } from 'environments/environment';
 import { NotificationsService } from 'angular2-notifications';
-import { VisiteService } from '../../shared/services/visite.service';
+import { VisitService } from '../../shared/services/visit.service';
 import { LoaderService } from '../../core/services/loader.service';
 
 @Directive({
@@ -18,7 +18,7 @@ export class PaymentDirective {
   @Input() email: string;
   @Output() paymentDone: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private visiteService: VisiteService,
+  constructor(private visiteService: VisitService,
     private notificationsService: NotificationsService,
     private loaderService: LoaderService) { }
 

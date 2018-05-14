@@ -4,7 +4,7 @@ import { AcheteurService } from './services/acheteur.service';
 import { ArchitectService } from './services/architecte.service';
 import { ZipCodesResolver } from './resolvers/zip-codes-resolver';
 import { ReportResolver } from './resolvers/report.resolver';
-import { VisiteService } from './services/visite.service';
+import { VisitService } from './services/visit.service';
 import { ArchitectSituationService } from './services/architect-situation.service';
 import { ArchitectTypeService } from './services/architect-type.service';
 import { ReportService } from './services/report.service';
@@ -48,7 +48,7 @@ export class SharedModule {
         ArchitectService,
         ZipCodesResolver,
         ReportResolver,
-        VisiteService,
+        VisitService,
         ArchitectSituationService,
         ArchitectTypeService,
         ReportService,

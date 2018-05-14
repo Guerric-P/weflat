@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { AuthGuard } from '../../../core/guards/auth.guard';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
-import { VisiteService } from '../../../shared/services/visite.service';
+import { VisitService } from '../../../shared/services/visit.service';
 import { VisiteCounterService } from '../../services/visite-counter.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class BaseBackendLayoutComponent implements OnInit {
     protected router: Router, protected route: ActivatedRoute,
     protected authGuard: AuthGuard,
     protected localStorageService: LocalStorageService,
-    protected visiteService: VisiteService,
+    protected visiteService: VisitService,
     protected visiteCounterService: VisiteCounterService) {;
  }
 

@@ -3,7 +3,7 @@
   <div class="card-header">
     Statut
   </div>
-  <div class="card-body" [class.emphasis]="statusEmphasis">
+  <div class="card-body">
     <p class="card-text">
       <span *ngIf="architect.status === ArchitectStatusEnum.CREATED">
         <span class="badge badge-info">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat
@@ -11,8 +11,8 @@
       </span>
       <span *ngIf="architect.status === ArchitectStatusEnum.APPROVING">
         <span class="badge badge-warning">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
-        <button mat-button (click)="accept()">Accepter</button>
-        <button mat-button (click)="refuse()">Refuser</button>
+        <button mat-raised-button (click)="accept()">Accepter</button>
+        <button mat-raised-button (click)="refuse()">Refuser</button>
       </span>
       <span *ngIf="architect.status === ArchitectStatusEnum.VALIDATED" class="badge badge-success">Validé</span>
       <span *ngIf="architect.status === ArchitectStatusEnum.REFUSED" class="badge badge-danger">Refusé</span>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VisitClass } from '../../../../core/models/VisitClass';
-import { VisiteService } from '../../../../shared/services/visite.service';
+import { VisitService } from '../../../../shared/services/visit.service';
 import * as ArrayUtils from '../../../../core/utils/arrayUtils';
 
 @Component({
@@ -13,7 +13,7 @@ export class VisitsComponent implements OnInit {
   visits: VisitClass[];
   selectedVisit: VisitClass;
 
-  constructor(private visiteService: VisiteService) { }
+  constructor(private visiteService: VisitService) { }
 
   ngOnInit() {
     this.visiteService.getAll().subscribe(res => {

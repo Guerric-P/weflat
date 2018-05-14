@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col">{{visite.customer.firstName}} {{visite.customer.lastName}} a prévu une visite le {{visite.visiteDate | date:'medium'}}
-    au {{visite.streetNumber}}, {{visite.route}} - {{visite.zipCode.number}} {{visite.city}}
+  <div class="col">{{visit.customer.firstName}} {{visit.customer.lastName}} a prévu une visite le {{visit.visiteDate | date:'medium'}}
+    au {{visit.streetNumber}}, {{visit.route}} - {{visit.zipCode.number}} {{visit.city}}
   </div>
   <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end" *ngIf="enableAcceptRefuseButtons">
     <button mat-raised-button color="primary" (click)="accept()" [disabled]="acceptButtonDisabled">Accepter</button>

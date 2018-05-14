@@ -13,6 +13,7 @@ export class VisitClass {
     public route: string;
     public streetNumber: string;
     public visiteDate: Date;
+    public creationDate: Date;
     public status: number;
     public announcementUrl: string;
     public chargeId: string;
