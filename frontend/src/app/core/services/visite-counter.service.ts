@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import 'rxjs/add/operator/first';
-import { VisiteService } from '../../shared/services/visite.service';
+import { VisitService } from '../../shared/services/visit.service';
 
 @Injectable()
 export class VisiteCounterService {
 
-  constructor(private visiteService: VisiteService) {
+  constructor(private visiteService: VisitService) {
     
   }
 

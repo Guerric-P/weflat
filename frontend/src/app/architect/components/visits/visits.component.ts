@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VisiteService } from '../../../shared/services/visite.service';
+import { VisitService } from '../../../shared/services/visit.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { VisitClass } from '../../../core/models/VisitClass';
 
@@ -10,7 +10,7 @@ import { VisitClass } from '../../../core/models/VisitClass';
 })
 export class VisitsComponent implements OnInit {
 
-  constructor(private visiteService: VisiteService, private authService: AuthenticationService) { }
+  constructor(private visiteService: VisitService, private authService: AuthenticationService) { }
 
   potentialVisites: VisitClass[];
   plannedVisites: VisitClass[];

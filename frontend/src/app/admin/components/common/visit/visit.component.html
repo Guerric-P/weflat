@@ -40,8 +40,23 @@
         {{visit.chargeId}}
       </div>
     </div>
+    <div *ngIf="visit.status === VisitStatusEnum.BEING_ASSIGNED" class="form-group row">
+      <button mat-raised-button color="primary" (click)="cancelClick()">Annuler</button>
+    </div>
   </div>
 </div>
+
+<ng-template #confirmModal>
+  <h5 mat-dialog-title>Êtes-vous sûr(e) ?
+    <button type="button" class="close" (click)="closeCancelModal()">
+      <span>&times;</span>
+    </button>
+  </h5>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" type="button" class="mr-2" [mat-dialog-close]="true">Oui</button>
+    <button mat-raised-button type="button" class="ml-2" [mat-dialog-close]="false">Non</button>
+  </div>
+</ng-template>
 
 <admin-architect *ngIf="visit.architect" [architect]="visit.architect"></admin-architect>
 

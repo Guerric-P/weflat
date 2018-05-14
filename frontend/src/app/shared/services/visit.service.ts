@@ -4,27 +4,27 @@ import { Observable } from "rxjs/Observable";
 import { VisitClass } from "../../core/models/VisitClass";
 
 @Injectable()
-export class VisiteService {
+export class VisitService {
     constructor(private http: HttpClient) { }
 
-    post(visite: VisitClass){
-        return this.http.post<any>('/visits', visite);
+    post(visit: VisitClass){
+        return this.http.post<any>('/visits', visit);
     }
 
     getAll(): Observable<VisitClass[]> {
         return this.http.get<VisitClass[]>('/visits').map(res => res.map(item => new VisitClass(item)));
     }
 
-    completeCreation(visite: VisitClass){
-        return this.http.patch<any>(`/visits/${visite.id}`, visite);
+    completeCreation(visit: VisitClass){
+        return this.http.patch<any>(`/visits/${visit.id}`, visit);
     }
 
-    pay(id: number, token: string){
-        return this.http.post(`/visits/${id}/pay`, null, {params: {token: token}});
+    pay(id: number, token: string): Observable<VisitClass>{
+        return this.http.post<VisitClass>(`/visits/${id}/pay`, null, {params: {token: token}}).map(res => new VisitClass(res));
     }
 
-    cancel(id: number){
-        return this.http.post(`/visits/${id}/cancel`, null);
+    cancel(id: number): Observable<VisitClass>{
+        return this.http.post<VisitClass>(`/visits/${id}/cancel`, null).map(res => new VisitClass(res));
     }
 
     getAvailableVisitsByArchitect(architectId: number): Observable<VisitClass[]> {

@@ -7,7 +7,7 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { CdkStep } from '@angular/cdk/stepper';
 import { DisabledZipCodePopupComponent } from '../disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { SessionStorageService } from '../../services/session-storage.service';
-import { VisiteService } from '../../../shared/services/visite.service';
+import { VisitService } from '../../../shared/services/visit.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { CreateVisitGuard } from '../../guards/create-visit.guard';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -53,7 +53,7 @@ export class CreateVisitComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private adapter: DateAdapter<any>,
     private sessionStorageService: SessionStorageService,
-    private visiteService: VisiteService,
+    private visiteService: VisitService,
     private notificationService: NotificationsService,
     private createVisitGuard: CreateVisitGuard,
     private router: Router,

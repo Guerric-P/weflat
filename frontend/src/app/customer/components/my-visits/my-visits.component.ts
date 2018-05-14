@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-import { VisiteService } from '../../../shared/services/visite.service';
+import { VisitService } from '../../../shared/services/visit.service';
 import { VisitClass } from '../../../core/models/VisitClass';
 
 @Component({
@@ -18,7 +18,7 @@ export class MyVisitsComponent implements OnInit {
   plannedVisits: VisitClass[];
 
   constructor(private authService: AuthenticationService,
-    private visitService: VisiteService) { }
+    private visitService: VisitService) { }
 
   ngOnInit() {
     this.loadBeingAssignedVisits();

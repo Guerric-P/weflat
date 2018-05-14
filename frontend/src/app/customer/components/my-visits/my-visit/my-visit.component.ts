@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, ViewChild, TemplateRef 
 import { VisitStatusEnum } from '../../../../shared/common/enums/VisitStatusEnum';
 import { VisitClass } from '../../../../core/models/VisitClass';
 import { Router } from '@angular/router';
-import { VisiteService } from '../../../../shared/services/visite.service';
+import { VisitService } from '../../../../shared/services/visit.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
 import { AuthenticationService } from '../../../../core/services/authentication.service';
@@ -23,7 +23,7 @@ export class MyVisitComponent implements OnInit {
 
   constructor(
     public authService: AuthenticationService,
-    private visiteService: VisiteService,
+    private visiteService: VisitService,
     private dialog: MatDialog,
     private notificationsService: NotificationsService,
     private router: Router

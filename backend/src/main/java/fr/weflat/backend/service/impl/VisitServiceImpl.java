@@ -58,6 +58,11 @@ public class VisitServiceImpl implements VisitService {
 	
 	@Value("${fr.weflat.stripe.partial-refund}")
 	Long partialRefundAmount;
+	
+	public VisitServiceImpl(@Value("${fr.weflat.stripe.private-key}") String apiKey) {
+		super();
+		Stripe.apiKey = apiKey;
+	}
 
 	@Override
 	public Long save(Visit visit) {
@@ -222,14 +227,13 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
-	public void pay(Visit visit, String token) throws Exception {
+	public Visit pay(Visit visit, String token) throws Exception {
 
 		Preconditions.checkNotNull(token);
 
 		Charge charge = null;
 
 		try {
-			Stripe.apiKey = "sk_test_ex3BOWKtQexdJh4zKFOTo36m";
 
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("amount", visitPrice);
@@ -249,6 +253,7 @@ public class VisitServiceImpl implements VisitService {
 			visit.setChargeId(charge.getId());
 			
 			save(visit);
+			
 		}
 		catch(Exception e) {
 			if(charge != null) {
@@ -258,6 +263,7 @@ public class VisitServiceImpl implements VisitService {
 		}
 
 		charge.capture();
+		return visit;
 	}
 
 	@Override
@@ -403,7 +409,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
-	public void cancel(Visit visit) throws Exception {
+	public Visit cancel(Visit visit) throws Exception {
 		if(visit.getChargeId() != null) {
 			if (visit.getStatus() == VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()
 					|| visit.getStatus() == VisitStatusEnum.UNASSIGNED.ordinal()
@@ -421,6 +427,7 @@ public class VisitServiceImpl implements VisitService {
 		}
 		visit.setNearbyArchitects(null);
 		save(visit);
+		return visit;
 	}
 	
 	@Override

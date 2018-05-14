@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
-import { VisiteService } from '../../../../shared/services/visite.service';
+import { VisitService } from '../../../../shared/services/visit.service';
 import { LoaderService } from '../../../../core/services/loader.service';
 import { VisitClass } from '../../../../core/models/VisitClass';
 import { VisiteCounterService } from '../../../../core/services/visite-counter.service';
@@ -13,7 +13,7 @@ import { VisiteCounterService } from '../../../../core/services/visite-counter.s
 })
 export class VisitComponent implements OnInit {
 
-  constructor(private visiteService: VisiteService,
+  constructor(private visiteService: VisitService,
     private notificationService: NotificationsService,
     private visiteCounterService: VisiteCounterService,
     private router: Router,
