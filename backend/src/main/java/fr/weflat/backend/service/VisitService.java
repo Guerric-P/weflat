@@ -39,6 +39,8 @@ public interface VisitService {
 	
 	Visit cancel(Visit visit) throws Exception;
 	
+	Visit changeStatusToArchitectWasPaid(Visit visit) throws Exception;
+	
 	void refund(Visit visit) throws Exception;
 	
 	void accept(Long idVisite, Long idArchitecte) throws Exception;

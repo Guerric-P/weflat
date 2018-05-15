@@ -38,4 +38,17 @@ export class VisitComponent implements OnInit {
       }
     });
   }
+
+  architectPaidClick() {
+    this.confirmModal = this.matDialog.open(this.confirmModalTemplate);
+
+    this.confirmModal.afterClosed().subscribe(res => {
+      if (res) {
+        this.visitService.architectPaid(this.visit.id).subscribe(res => {
+          this.visit = res;
+          this.updated.emit(res)
+        });
+      }
+    });
+  }
 }

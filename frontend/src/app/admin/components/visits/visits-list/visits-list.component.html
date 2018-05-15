@@ -96,5 +96,17 @@
         <mat-divider></mat-divider>
       </ng-container>
     </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="architectPaidVisitsExpanded">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Visites dont l'architecte est payé
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngIf="!architectPaidVisits || !architectPaidVisits.length">Pas de visite dont l'architecte est payé</div>
+        <ng-container *ngFor="let visit of architectPaidVisits">
+          <app-visit-list-item [visit]="visit" (click)="visitClick(visit)"></app-visit-list-item>
+          <mat-divider></mat-divider>
+        </ng-container>
+      </mat-expansion-panel>
   </mat-accordion>
 </div>

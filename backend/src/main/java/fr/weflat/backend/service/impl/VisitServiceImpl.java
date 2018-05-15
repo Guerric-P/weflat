@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -180,7 +181,8 @@ public class VisitServiceImpl implements VisitService {
 		QVisit visit = QVisit.visit;
 
 		Predicate predicate = visit.architect.id.eq(architectId)
-				.and(visit.status.eq(VisitStatusEnum.REPORT_AVAILABLE.ordinal()));
+				.and(visit.status.eq(VisitStatusEnum.REPORT_AVAILABLE.ordinal())
+						.or(visit.status.eq(VisitStatusEnum.ARCHITECT_PAID.ordinal())));
 
 		Set<Visit> visites = new HashSet<Visit>();
 
@@ -376,7 +378,8 @@ public class VisitServiceImpl implements VisitService {
 		QVisit visit = QVisit.visit;
 
 		Predicate predicate = visit.customer.id.eq(customerId)
-				.and(visit.status.eq(VisitStatusEnum.REPORT_AVAILABLE.ordinal()));
+				.and(visit.status.eq(VisitStatusEnum.REPORT_AVAILABLE.ordinal())
+						.or(visit.status.eq(VisitStatusEnum.ARCHITECT_PAID.ordinal())));
 
 		Set<Visit> visits = new HashSet<Visit>();
 
@@ -454,5 +457,13 @@ public class VisitServiceImpl implements VisitService {
 		}
 
 		return visits;
+	}
+
+	@Override
+	@PreAuthorize("hasAuthority('admin')")
+	public Visit changeStatusToArchitectWasPaid(Visit visit) throws Exception {
+		visit.setStatus(VisitStatusEnum.ARCHITECT_PAID.ordinal());
+		save(visit);
+		return visit;
 	}
 }

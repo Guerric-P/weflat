@@ -34,6 +34,12 @@ export class VisitService {
         );
     }
 
+    architectPaid(id: number): Observable<VisitClass> {
+        return this.http.post<VisitClass>(`/visits/${id}/architect-was-paid`, null).pipe(
+            map(res => new VisitClass(res))
+        );
+    }
+
     getAvailableVisitsByArchitect(architectId: number): Observable<VisitClass[]> {
         return this.http.get<VisitClass[]>(`/architects/${architectId}/visits/available`).pipe(
             map(res => {
