@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 authService.returnUrl = this.router.routerState.snapshot.url;
                 this.router.navigate(['/']);
               }
-              return Observable.throw(err.message || 'Erreur du serveur');
+              return throwError(err.message || 'Erreur du serveur');
             }
           }
         )

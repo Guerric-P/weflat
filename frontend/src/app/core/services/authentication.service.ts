@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { map, catchError, timeout } from 'rxjs/operators';
 import * as jwt_decode from 'jwt-decode';
 import { LocalStorageService } from './local-storage.service';
@@ -25,7 +25,7 @@ export class AuthenticationService {
                 return;
             }),
             catchError(x => {
-                throw new Error(x);
+                return throwError(x);
             })
         );
     }
