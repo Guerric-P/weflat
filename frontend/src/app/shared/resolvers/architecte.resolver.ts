@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ArchitectService } from '../services/architecte.service';
 import { ArchitectClass } from '../../core/models/ArchitectClass';
 import { AuthenticationService } from '../../core/services/authentication.service';

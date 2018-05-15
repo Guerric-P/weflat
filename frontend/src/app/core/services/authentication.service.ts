@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/timeout';
-import { catchError } from 'rxjs/operators/catchError';
+import { Observable, Subject } from 'rxjs';
+import { map, catchError, timeout } from 'rxjs/operators';
 import * as jwt_decode from 'jwt-decode';
-import { Subject } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
@@ -19,17 +15,19 @@ export class AuthenticationService {
     public returnUrl: string;
 
     login(username: string, password: string) {
-        return this.http.post('/login', JSON.stringify({ username: username, password: password }))
-            .map((response: any) => {
+        return this.http.post('/login', JSON.stringify({ username: username, password: password })).pipe(
+            map((response: any) => {
                 // login successful if there's a jwt token in the response
                 this.localStorageService.token = response.token;
                 this.localStorageService.tokenPayload = JSON.stringify(this.decodeJWT(response.token));
                 this.userLoggedInSubject.next();
 
                 return;
-            }).pipe(catchError(x => {
-                return ErrorObservable.create(x);
-            }));
+            }),
+            catchError(x => {
+                throw new Error(x);
+            })
+        );
     }
 
     logout() {
@@ -37,7 +35,9 @@ export class AuthenticationService {
         this.localStorageService.removeToken();
         this.localStorageService.removeTokenPayload();
         this.userLoggedOutSubject.next();
-        return this.http.get('/logout').timeout(1000);
+        return this.http.get('/logout').pipe(
+            timeout(1000)
+        );
     }
 
     private decodeJWT = function (token) {

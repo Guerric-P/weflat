@@ -97,7 +97,7 @@
             <label>Saisissez les codes postaux correspondant à votre zone d'action</label>
             <mat-form-field>
               <mat-chip-list [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
-                <mat-chip *ngFor="let zipCode of zipCodes" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable" [removable]="removable" (remove)="remove(zipCode)">
+                <mat-chip *ngFor="let zipCode of zipCodes" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable" [removable]="removable" (removed)="remove(zipCode)">
                   {{zipCode}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
