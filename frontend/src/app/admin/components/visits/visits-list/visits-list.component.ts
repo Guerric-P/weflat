@@ -19,6 +19,7 @@ export class VisitsListComponent implements OnInit {
   reportBeingWrittenVisits: VisitClass[];
   unassignedVisits: VisitClass[];
   waitingForPaymentVisits: VisitClass[];
+  architectPaidVisits: VisitClass[];
   beingAssignedVisitsExpanded: boolean;
   canceledVisitsExpanded: boolean;
   inProgressVisitsExpanded: boolean;
@@ -27,6 +28,7 @@ export class VisitsListComponent implements OnInit {
   reportBeingWrittenVisitsExpanded: boolean;
   unassignedVisitsExpanded: boolean;
   waitingForPaymentVisitsExpanded: boolean;
+  architectPaidVisitsExpanded: boolean;
 
   constructor() { }
 
@@ -47,6 +49,7 @@ export class VisitsListComponent implements OnInit {
     this.reportBeingWrittenVisits = this.visits.filter(x => x.status === VisitStatusEnum.REPORT_BEING_WRITTEN);
     this.unassignedVisits = this.visits.filter(x => x.status === VisitStatusEnum.UNASSIGNED);
     this.waitingForPaymentVisits = this.visits.filter(x => x.status === VisitStatusEnum.WAITING_FOR_PAYMENT);
+    this.architectPaidVisits = this.visits.filter(x => x.status === VisitStatusEnum.ARCHITECT_PAID);
   }
 
   visitClick(visit: VisitClass) {

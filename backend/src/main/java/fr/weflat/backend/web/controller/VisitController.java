@@ -138,6 +138,19 @@ public class VisitController {
 			throw new Exception("Visit non eligible for cancellation.");
 		}
 	}
+	
+	@RequestMapping(path = "/{id}/architect-was-paid", method = RequestMethod.POST)
+	public VisiteDto architectWasPaid(@PathVariable("id") long id) throws Exception {
+		
+		Visit visit = visitService.findById(id);
+		
+		if(visit.getStatus() == VisitStatusEnum.REPORT_AVAILABLE.ordinal()) {
+			return orikaMapperFacade.map(visitService.changeStatusToArchitectWasPaid(visit), VisiteDto.class);
+		}
+		else {
+			throw new Exception("Visit non eligible for \"architect paid\" status.");
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/{id}/accept", method = RequestMethod.POST)

@@ -50,6 +50,8 @@ export class VisitClass {
             return 'Non assignée';
             case VisitStatusEnum.WAITING_FOR_PAYMENT:
             return 'En attente de paiement';
+            case VisitStatusEnum.ARCHITECT_PAID:
+            return 'Architecte payé';
         }
     }
 
