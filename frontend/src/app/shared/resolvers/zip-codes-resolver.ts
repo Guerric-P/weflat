@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { ZipCodeClass } from "../../core/models/ZipCodeClass";
 import { ArchitectService } from "../services/architecte.service";
 import { LocalStorageService } from "../../core/services/local-storage.service";
