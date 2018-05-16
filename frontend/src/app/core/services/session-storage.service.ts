@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { VisiteClass } from '../models/VisiteClass';
+import { VisitClass } from '../models/VisitClass';
 
 @Injectable()
 export class SessionStorageService {
 
   private _place: any;
   private _visitInfos: any;
-  private _visit: VisiteClass;
+  private _visit: VisitClass;
 
   constructor() { }
 
@@ -18,11 +18,11 @@ export class SessionStorageService {
     this._place = place;
   }
 
-  get visit(): VisiteClass {
+  get visit(): VisitClass {
     return this._visit;
   }
 
-  set visit(visit: VisiteClass) {
+  set visit(visit: VisitClass) {
     this._visit = visit;
   }
 

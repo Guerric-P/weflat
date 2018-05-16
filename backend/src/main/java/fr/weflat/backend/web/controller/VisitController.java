@@ -91,7 +91,7 @@ public class VisitController {
 	}
 
 	@RequestMapping(path = "/{id}/pay", method = RequestMethod.POST)
-	public void payVisit(@PathVariable("id") long id, @RequestParam() String token) throws Exception {
+	public VisiteDto payVisit(@PathVariable("id") long id, @RequestParam() String token) throws Exception {
 
 		Visit visit = visitService.findById(id);
 
@@ -99,7 +99,7 @@ public class VisitController {
 			throw new Exception("Visit non eligible for payment.");
 		}
 		else {
-			visitService.pay(visit, token);
+			Visit paidVisit = visitService.pay(visit, token);
 			
 			//Mails
 			for(Architect architect : visit.getNearbyArchitects()) {
@@ -118,11 +118,13 @@ public class VisitController {
 					visit.getVisiteDate()
 					);
 			
+			return orikaMapperFacade.map(paidVisit, VisiteDto.class);
+			
 		}
 	}
 	
 	@RequestMapping(path = "/{id}/cancel", method = RequestMethod.POST)
-	public void cancelVisit(@PathVariable("id") long id) throws Exception {
+	public VisiteDto cancelVisit(@PathVariable("id") long id) throws Exception {
 
 		Visit visit = visitService.findById(id);
 
@@ -130,10 +132,23 @@ public class VisitController {
 				|| visit.getStatus() == VisitStatusEnum.UNASSIGNED.ordinal()
 				|| visit.getStatus() == VisitStatusEnum.BEING_ASSIGNED.ordinal()
 				|| visit.getStatus() == VisitStatusEnum.IN_PROGRESS.ordinal()) {
-			visitService.cancel(visit);
+			return orikaMapperFacade.map(visitService.cancel(visit), VisiteDto.class);
 		}
 		else {
 			throw new Exception("Visit non eligible for cancellation.");
+		}
+	}
+	
+	@RequestMapping(path = "/{id}/architect-was-paid", method = RequestMethod.POST)
+	public VisiteDto architectWasPaid(@PathVariable("id") long id) throws Exception {
+		
+		Visit visit = visitService.findById(id);
+		
+		if(visit.getStatus() == VisitStatusEnum.REPORT_AVAILABLE.ordinal()) {
+			return orikaMapperFacade.map(visitService.changeStatusToArchitectWasPaid(visit), VisiteDto.class);
+		}
+		else {
+			throw new Exception("Visit non eligible for \"architect paid\" status.");
 		}
 	}
 

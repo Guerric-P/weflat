@@ -1,18 +1,16 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpSentEvent, HttpHeaderResponse, HttpProgressEvent, HttpResponse, HttpUserEvent, HttpErrorResponse, HttpInterceptor } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/empty';
-import { tap } from 'rxjs/operators/tap';
-import { catchError } from 'rxjs/operators/catchError';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { Observable, throwError } from 'rxjs';
+
+import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { environment } from 'environments/environment';
 import { LocalStorageService } from './local-storage.service';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authService = this.injector.get(AuthenticationService);
     const authHeader = this.localStorageService.token;
     let finalReq: HttpRequest<any> = req.clone({ url: environment.baseBackendUrl + req.url });
@@ -30,7 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 authService.returnUrl = this.router.routerState.snapshot.url;
                 this.router.navigate(['/']);
               }
-              return ErrorObservable.create(err.message || 'Erreur du serveur');
+              return throwError(err.message || 'Erreur du serveur');
             }
           }
         )

@@ -1,0 +1,169 @@
+<h1>Architecte</h1>
+<div class="card">
+  <div class="card-header">
+    Statut
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      <span *ngIf="architect.status === ArchitectStatusEnum.CREATED">
+        <span class="badge badge-info">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat
+        et moi") afin qu'il soit étudié par nos équipes
+      </span>
+      <span *ngIf="architect.status === ArchitectStatusEnum.APPROVING">
+        <span class="badge badge-warning">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
+        <button mat-raised-button (click)="accept()">Accepter</button>
+        <button mat-raised-button (click)="refuse()">Refuser</button>
+      </span>
+      <span *ngIf="architect.status === ArchitectStatusEnum.VALIDATED" class="badge badge-success">Validé</span>
+      <span *ngIf="architect.status === ArchitectStatusEnum.REFUSED" class="badge badge-danger">Refusé</span>
+    </p>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-header">
+    Informations personnelles
+  </div>
+  <div class="card-body">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Prénom</label>
+      <div class="col-sm-10">
+        {{architect.firstName}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Nom</label>
+      <div class="col-sm-10">
+        {{architect.lastName}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Date de naissance</label>
+      <div class="col-sm-10">
+        {{architect.birthDate | date:'medium'}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Photo</label>
+      <div class="col-sm-10">
+        <input type="file" class="form-control-file" disabled="disabled">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">E-mail</label>
+      <div class="col-sm-10">
+        {{architect.email}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Portable</label>
+      <div class="col-sm-10">
+        {{architect.telephone}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-2">
+  <div class="card-header">
+    Zone d'action
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-4 zip-codes-container">
+        <label>Codes postaux</label>
+        <mat-chip-list>
+          <mat-chip *ngFor="let zipCode of architect.zipCodes">
+            {{zipCode.number}}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-2">
+  <div class="card-header">
+    Mon métier d'architecte
+  </div>
+  <div class="card-body">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Architecte</label>
+      <div class="col-sm-10">
+        {{architect.type?.label}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Situation</label>
+      <div class="col-sm-10">
+        {{architect.situation?.label}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Expérience</label>
+      <div class="col-sm-10">
+        {{architect.practicingSince | date:'medium'}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Site internet</label>
+      <div class="col-sm-10">
+        {{architect.webSite}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Book</label>
+      <div class="col-sm-10">
+        <input type="file" class="form-control-file" disabled="disabled">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Ordre des architectes</label>
+      <div class="col-sm-9">
+        {{architect.architectsOrder ? 'Oui' : 'Non'}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">CFAI</label>
+      <div class="col-sm-9">
+        {{architect.cfai ? 'Oui' : 'Non'}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Responsabilité civile professionnelle</label>
+      <div class="col-sm-9">
+        {{architect.professionalResponsibility ? 'Oui' : 'Non'}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-3 col-form-label">Assurance décennale</label>
+      <div class="col-sm-9">
+        {{architect.decennialInsurance ? 'Oui' : 'Non'}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mt-2">
+  <div class="card-header">
+    Weflat et moi
+  </div>
+  <div class="card-body">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Motivation</label>
+      <div class="col-md-10">
+        <textarea disabled="disabled">{{architect.motivation}}</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Paiement</label>
+      <div class="col-sm-10">
+        {{architect.paymentType?.label}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">IBAN</label>
+      <div class="col-sm-10">
+        {{formattedIBAN}}
+      </div>
+    </div>
+  </div>
+</div>

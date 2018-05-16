@@ -1,8 +1,8 @@
 import { RenovationClass } from "./RenovationClass";
-import { VisiteClass } from "./VisiteClass";
+import { VisitClass } from "./VisitClass";
 
 export class ReportClass {
-    private _visite: VisiteClass;
+    private _visite: VisitClass;
     public id: number;
 	public renovations: RenovationClass[];
 	public floor: number;
@@ -19,7 +19,7 @@ export class ReportClass {
     }
 
     set visite(obj: any) {
-        this._visite = new VisiteClass(obj);
+        this._visite = new VisitClass(obj);
     }
     
     constructor(obj?: any) {

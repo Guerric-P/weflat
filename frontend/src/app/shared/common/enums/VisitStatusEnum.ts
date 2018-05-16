@@ -6,5 +6,6 @@ export enum VisitStatusEnum {
 	REPORT_BEING_WRITTEN = 4,
 	REPORT_AVAILABLE = 5,
 	REFUNDED = 6,
-	CANCELED = 7
+	CANCELED = 7,
+	ARCHITECT_PAID = 8
 }

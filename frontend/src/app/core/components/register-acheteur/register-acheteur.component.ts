@@ -5,7 +5,7 @@ import { AcheteurService } from '../../../shared/services/acheteur.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ShowSigninPopupService } from '../../services/show-signin-popup.service';
 import { Constantes } from '../../../shared/common/Constantes';
-import { AcheteurClass } from '../../models/AcheteurClass';
+import { CustomerClass } from '../../models/CustomerClass';
 
 @Component({
   selector: 'app-register-acheteur',
@@ -22,7 +22,7 @@ export class RegisterAcheteurComponent implements OnInit {
     this.createForm();
   }
 
-  data: AcheteurClass = new AcheteurClass();
+  data: CustomerClass = new CustomerClass();
   registerForm: FormGroup;
   @Input() isEmbedded: boolean = false;
 

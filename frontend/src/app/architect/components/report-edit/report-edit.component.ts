@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
 declare var moment;
-import { VisiteService } from '../../../shared/services/visite.service';
+import { VisitService } from '../../../shared/services/visit.service';
 import { ReportService } from '../../../shared/services/report.service';
 import { ReportClass } from '../../../core/models/ReportClass';
 import { PositionClass } from '../../../core/models/PositionClass';
@@ -20,7 +20,7 @@ export class ReportEditComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
-    private visiteService: VisiteService,
+    private visiteService: VisitService,
     private reportService: ReportService,
     private dialog: MatDialog,
     private router: Router) { }

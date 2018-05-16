@@ -7,7 +7,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngIf="!approvingArchitects || !approvingArchitects.length">Pas d'architecte en attente</div>
-      <app-architect *ngFor="let architect of approvingArchitects" [architect]="architect" (click)="architectClick(architect)"></app-architect>
+      <app-architect-list-item *ngFor="let architect of approvingArchitects" [architect]="architect" (click)="architectClick(architect)"></app-architect-list-item>
     </mat-expansion-panel>
     <mat-expansion-panel [expanded]="createdArchitectsExpanded">
       <mat-expansion-panel-header>
@@ -16,7 +16,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngIf="!createdArchitects || !createdArchitects.length">Pas d'architecte au profil incomplet</div>
-      <app-architect *ngFor="let architect of createdArchitects" [architect]="architect" (click)="architectClick(architect)"></app-architect>
+      <app-architect-list-item *ngFor="let architect of createdArchitects" [architect]="architect" (click)="architectClick(architect)"></app-architect-list-item>
     </mat-expansion-panel>
     <mat-expansion-panel [expanded]="validatedArchitectsExpanded">
       <mat-expansion-panel-header>
@@ -25,7 +25,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngIf="!validatedArchitects || !validatedArchitects.length">Pas d'architecte accepté</div>
-      <app-architect *ngFor="let architect of validatedArchitects" [architect]="architect" (click)="architectClick(architect)"></app-architect>
+      <app-architect-list-item *ngFor="let architect of validatedArchitects" [architect]="architect" (click)="architectClick(architect)"></app-architect-list-item>
     </mat-expansion-panel>
     <mat-expansion-panel [expanded]="refusedArchitectsExpanded">
       <mat-expansion-panel-header>
@@ -34,7 +34,7 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngIf="!refusedArchitects || !refusedArchitects.length">Pas d'architecte refusé</div>
-      <app-architect *ngFor="let architect of refusedArchitects" [architect]="architect" (click)="architectClick(architect)"></app-architect>
+      <app-architect-list-item *ngFor="let architect of refusedArchitects" [architect]="architect" (click)="architectClick(architect)"></app-architect-list-item>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
