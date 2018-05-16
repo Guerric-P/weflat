@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } f
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, ValidationErrors, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
-import { ArchitecteService } from '../../../shared/services/architecte.service';
+import { ArchitectService } from '../../../shared/services/architecte.service';
 import { UserService } from '../../../shared/services/user.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { ArchitectStatusEnum } from '../../../shared/common/enums/ArchitectStatusEnum';
 import { ArchitectTypeClass } from '../../../core/models/ArchitectTypeClass';
 import { ArchitectSituationClass } from '../../../core/models/ArchitectSituationClass';
-import { ArchitecteClass } from '../../../core/models/ArchitecteClass';
+import { ArchitectClass } from '../../../core/models/ArchitectClass';
 import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent, ErrorStateMatcher, MatChipList } from '@angular/material';
 import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
@@ -28,10 +28,11 @@ export class ArchitecteProfileComponent implements OnInit {
 
 
   form: FormGroup;
+  passwordForm: FormGroup;
   architectTypes: ArchitectTypeClass[];
   architectSituations: ArchitectSituationClass[];
   paymentTypes: PaymentTypeClass[];
-  architecte: ArchitecteClass;
+  architecte: ArchitectClass;
   dateNow = moment().format('YYYY-MM-DD');
   @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
   @ViewChild('googleMap') googleMap: ElementRef;
@@ -55,7 +56,7 @@ export class ArchitecteProfileComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder,
-    private architecteService: ArchitecteService,
+    private architecteService: ArchitectService,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
     private userService: UserService,
@@ -76,6 +77,10 @@ export class ArchitecteProfileComponent implements OnInit {
     this.paymentTypes = this.route.snapshot.data['paymentTypes'];
 
     this.initForm();
+
+    this.passwordForm = this.fb.group({
+      password: [null, Validators.minLength(6)]
+    });
 
     this.zipCodes = this.route.snapshot.data['zipCodes'].map(x => x.number);
     this.disabledZipCodes = this.route.snapshot.data['zipCodes'].filter(x => !x.active).map(x => x.number);
@@ -313,7 +318,7 @@ export class ArchitecteProfileComponent implements OnInit {
     if (!this.form.invalid && this.zipCodesList.chips && this.zipCodesList.chips.length) {
       const zipCodes = this.zipCodesArrayFromThis;
 
-      const architect = new ArchitecteClass({
+      const architect = new ArchitectClass({
         firstName: formModel.firstName,
         lastName: formModel.lastName,
         birthDate: formModel.birthDate,
@@ -356,11 +361,13 @@ export class ArchitecteProfileComponent implements OnInit {
 
   changePassword(password: string, event?: KeyboardEvent) {
     if (event) event.preventDefault();
-    this.userService.changePassword(this.architecte.id, password).subscribe(res => {
-      this.notificationsService.success('Merci !', 'Votre mot de passe a été changé avec succès.');
-    }, err => {
-      this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors du changement de mot de passe.');
-    });
+    if (this.passwordForm.controls.password.value && this.passwordForm.valid) {
+      this.userService.changePassword(this.architecte.id, password).subscribe(res => {
+        this.notificationsService.success('Merci !', 'Votre mot de passe a été changé avec succès.');
+      }, err => {
+        this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors du changement de mot de passe.');
+      });
+    }
   }
 
   IBANValidator(c: AbstractControl): ValidationErrors | null {

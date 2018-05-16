@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
-import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { VisiteClass } from '../../models/VisiteClass';
+import { VisitClass } from '../../models/VisitClass';
+import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-disabled-zip-code-popup',
@@ -9,31 +9,34 @@ import { VisiteClass } from '../../models/VisiteClass';
 })
 export class DisabledZipCodePopupComponent implements OnInit {
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private dialog: MatDialog) { }
 
-  visit: VisiteClass;
+  visit: VisitClass;
 
   @ViewChild('noArchitectsModal') noArchitectsModalTemplate: TemplateRef<any>;
-  noArchitectsModal: NgbModalRef;
+  noArchitectsModal: MatDialogRef<any>;
   @Input() OKFunction: Function;
   @Input() cancelFunction: Function;
 
   ngOnInit() {
   }
 
-  open(visit: VisiteClass) {
+  open(visit: VisitClass) {
     this.visit = visit;
-    this.noArchitectsModal = this.modalService.open(this.noArchitectsModalTemplate);
+    this.noArchitectsModal = this.dialog.open(this.noArchitectsModalTemplate);
 
-    this.noArchitectsModal.result.then((result) => {
-      if (this.OKFunction) {
+    this.noArchitectsModal.afterClosed().subscribe((result) => {
+      if (result && this.OKFunction) {
         this.OKFunction();
       }
-    }, (reason) => {
-      if (this.cancelFunction) {
+      else if (this.cancelFunction) {
         this.cancelFunction();
       }
     });
+  }
+
+  closeModal() {
+    this.noArchitectsModal.close();
   }
 
 }

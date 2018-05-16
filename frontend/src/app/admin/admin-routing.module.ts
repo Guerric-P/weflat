@@ -5,6 +5,8 @@ import { CustomersComponent } from './components/customers/customers.component';
 import { VisitsComponent } from './components/visits/visits/visits.component';
 import { ArchitectsComponent } from './components/architects/architects/architects.component';
 import { ZipCodesComponent } from './components/zip-codes/zip-codes/zip-codes.component';
+import { ReportResolver } from '../shared/resolvers/report.resolver';
+import { ReportConsultationComponent } from '../shared/components/report/report-consultation/report-consultation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'customers', pathMatch: 'full' },
@@ -25,7 +27,12 @@ const routes: Routes = [
     path: 'zip-codes',
     component: ZipCodesComponent,
     data: { authRequired: true },
-  }
+  }, {
+    path: 'visits/:id/report',
+    component: ReportConsultationComponent,
+    resolve: { report: ReportResolver },
+    data: { authRequired: true }
+  },
 ];
 
 @NgModule({

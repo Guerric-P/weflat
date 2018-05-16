@@ -21,10 +21,9 @@ import { ShowSigninPopupService } from './services/show-signin-popup.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { AddressFieldComponent } from './components/home/address-field/address-field.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatFormField, MatFormFieldModule, MatDividerModule, MatStepperModule, MatProgressSpinnerModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MatMenuModule, MatExpansionModule, MatIconModule } from '@angular/material';
+import { MatFormField, MatFormFieldModule, MatDividerModule, MatStepperModule, MatProgressSpinnerModule, MatInputModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MatMenuModule, MatExpansionModule, MatIconModule, MatTabsModule } from '@angular/material';
 import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { SharedModule } from '../shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoaderComponent } from './components/common/loader/loader.component';
 import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
 import { ArchitecteLayoutComponent } from './layout/architecte-layout/architecte-layout.component';
@@ -39,7 +38,6 @@ import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked
 import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { AdminGuard } from './guards/admin.guard';
-import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -58,13 +56,11 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatNativeDateModule,
     MatDialogModule,
     MatMenuModule,
-    NgbModule,
     MatExpansionModule,
     HttpClientModule,
     MatIconModule,
     MatTabsModule,
     OverlayModule,
-    NgbModule.forRoot(),
     SharedModule.forRoot()
   ],
   providers: [

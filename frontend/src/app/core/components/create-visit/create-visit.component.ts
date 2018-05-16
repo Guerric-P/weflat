@@ -7,15 +7,15 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { CdkStep } from '@angular/cdk/stepper';
 import { DisabledZipCodePopupComponent } from '../disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { SessionStorageService } from '../../services/session-storage.service';
-import { VisiteService } from '../../../shared/services/visite.service';
+import { VisitService } from '../../../shared/services/visit.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { CreateVisitGuard } from '../../guards/create-visit.guard';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AcheteurService } from '../../../shared/services/acheteur.service';
 import { GooglePlaceKeys } from '../../../shared/common/GooglePlaceKeys';
-import { VisiteClass } from '../../models/VisiteClass';
+import { VisitClass } from '../../models/VisitClass';
 import { ZipCodeClass } from '../../models/ZipCodeClass';
-import { AcheteurClass } from '../../models/AcheteurClass';
+import { CustomerClass } from '../../models/CustomerClass';
 import { DatePipe } from '@angular/common';
 
 declare var google;
@@ -41,7 +41,7 @@ export class CreateVisitComponent implements OnInit {
   @ViewChild('locationStep') locationStep: CdkStep;
   @ViewChild('popup') popup: DisabledZipCodePopupComponent;
   displaySignupStep: boolean;
-  visit: VisiteClass = new VisiteClass();
+  visit: VisitClass = new VisitClass();
   place: any;
   visitCreationComplete: boolean = false;
   architectsAvailable: boolean = false;
@@ -53,7 +53,7 @@ export class CreateVisitComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private adapter: DateAdapter<any>,
     private sessionStorageService: SessionStorageService,
-    private visiteService: VisiteService,
+    private visiteService: VisitService,
     private notificationService: NotificationsService,
     private createVisitGuard: CreateVisitGuard,
     private router: Router,
@@ -234,7 +234,7 @@ export class CreateVisitComponent implements OnInit {
     }
     if (event.previouslySelectedStep == this.projectStep) {
       this.acheteurService.patchAcheteur(
-        new AcheteurClass(
+        new CustomerClass(
           {
             project: this.projectFormGroup.controls['project'].value
           }

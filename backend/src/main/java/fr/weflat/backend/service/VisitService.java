@@ -35,9 +35,11 @@ public interface VisitService {
 	
 	void completeVisitCreation(Visit visit, Long idAcheteur) throws Exception;
 	
-	void pay(Visit visit, String token) throws Exception;
+	Visit pay(Visit visit, String token) throws Exception;
 	
-	void cancel(Visit visit) throws Exception;
+	Visit cancel(Visit visit) throws Exception;
+	
+	Visit changeStatusToArchitectWasPaid(Visit visit) throws Exception;
 	
 	void refund(Visit visit) throws Exception;
 	

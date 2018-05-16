@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { AcheteurService } from '../../../shared/services/acheteur.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-import { AcheteurClass } from '../../../core/models/AcheteurClass';
+import { CustomerClass } from '../../../core/models/CustomerClass';
 
 @Component({
   selector: 'app-purchase-project',
@@ -20,7 +20,7 @@ export class PurchaseProjectComponent implements OnInit {
     private authService: AuthenticationService) { }
   
   form: FormGroup;
-  acheteur: AcheteurClass;
+  acheteur: CustomerClass;
 
   ngOnInit() {
     this.acheteur = this.route.snapshot.data['acheteur'];
@@ -34,7 +34,7 @@ export class PurchaseProjectComponent implements OnInit {
     const formModel = this.form.value;
 
     if (!this.form.invalid) {
-      const acheteur = new AcheteurClass({
+      const acheteur = new CustomerClass({
         project: formModel.project
       });
 

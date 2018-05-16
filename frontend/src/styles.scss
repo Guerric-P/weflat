@@ -17,7 +17,6 @@
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/input-group";
 @import "~bootstrap/scss/jumbotron";
-@import "~bootstrap/scss/modal";
 @import "~bootstrap/scss/nav";
 @import "~bootstrap/scss/navbar";
 @import "~bootstrap/scss/progress";
@@ -34,15 +33,6 @@ html {
 body {
     padding: 0;
     margin: 0;
-}
-
-.navbar {
-    font-size: 1.2rem;
-}
-
-a {
-    font-size: 1.2rem;
-    color: red;
 }
 
 .navbar {

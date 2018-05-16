@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { ArchitecteService } from '../services/architecte.service';
-import { ArchitecteClass } from '../../core/models/ArchitecteClass';
+import { Observable } from 'rxjs';
+import { ArchitectService } from '../services/architecte.service';
+import { ArchitectClass } from '../../core/models/ArchitectClass';
 import { AuthenticationService } from '../../core/services/authentication.service';
 
 @Injectable()
-export class ArchitecteResolver implements Resolve<ArchitecteClass> {
+export class ArchitecteResolver implements Resolve<ArchitectClass> {
 
-  constructor(private architecteService: ArchitecteService, private authenticationService: AuthenticationService) { }
+  constructor(private architecteService: ArchitectService, private authenticationService: AuthenticationService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ArchitecteClass | Observable<ArchitecteClass> | Promise<ArchitecteClass> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ArchitectClass | Observable<ArchitectClass> | Promise<ArchitectClass> {
     return this.architecteService.getArchitecte(this.authenticationService.userId);
   }
 

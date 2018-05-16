@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { AuthGuard } from '../../../core/guards/auth.guard';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
-import { VisiteService } from '../../../shared/services/visite.service';
+import { VisitService } from '../../../shared/services/visit.service';
 import { VisiteCounterService } from '../../services/visite-counter.service';
 
 @Component({
@@ -16,9 +15,8 @@ export class BaseBackendLayoutComponent implements OnInit {
   constructor(protected authService: AuthenticationService,
     protected router: Router, protected route: ActivatedRoute,
     protected authGuard: AuthGuard,
-    protected modalService: NgbModal,
     protected localStorageService: LocalStorageService,
-    protected visiteService: VisiteService,
+    protected visiteService: VisitService,
     protected visiteCounterService: VisiteCounterService) {;
  }
 
@@ -46,12 +44,6 @@ export class BaseBackendLayoutComponent implements OnInit {
   
     get displayName() {
       return this.localStorageService.tokenPayload ? this.localStorageService.tokenPayload.displayName : null;
-    }
-  
-    open(content) {
-      this.modalService.open(content).result.then((result) => {
-        this.router.navigate([`/register/${result}`]);;
-      });
     }
   
     logout() {

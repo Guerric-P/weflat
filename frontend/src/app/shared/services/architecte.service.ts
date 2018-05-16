@@ -1,29 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, } from 'rxjs/Observable';
-import { ArchitecteClass } from '../../core/models/ArchitecteClass';
+import { Observable, } from 'rxjs';
+import { map } from "rxjs/operators";
+import { ArchitectClass } from '../../core/models/ArchitectClass';
 import { ZipCodeClass } from '../../core/models/ZipCodeClass';
 
 @Injectable()
-export class ArchitecteService {
+export class ArchitectService {
 
   constructor(private http: HttpClient) { }
 
 
-  postArchitecte(architecte: ArchitecteClass) {
-    return this.http.post<ArchitecteClass>('/architects', architecte).map(res => new ArchitecteClass(res));
+  postArchitecte(architecte: ArchitectClass) {
+    return this.http.post<ArchitectClass>('/architects', architecte).pipe(
+      map(res => new ArchitectClass(res))
+    );
   }
 
-  patchArchitecte(architecte: ArchitecteClass, architecteId: number) {
-    return this.http.patch<ArchitecteClass>(`/architects/${architecteId}`, architecte).map(res => new ArchitecteClass(res));
+  patchArchitecte(architecte: ArchitectClass, architecteId: number) {
+    return this.http.patch<ArchitectClass>(`/architects/${architecteId}`, architecte).pipe(
+      map(res => new ArchitectClass(res))
+    );
   }
 
   getArchitecte(id: number) {
-    return this.http.get<ArchitecteClass>(`/architects/${id}`).map(res => new ArchitecteClass(res));
+    return this.http.get<ArchitectClass>(`/architects/${id}`).pipe(
+      map(res => new ArchitectClass(res))
+    );
   }
 
   getAll() {
-    return this.http.get<ArchitecteClass[]>('/architects').map(res => res.map(item => new ArchitecteClass(item)));
+    return this.http.get<ArchitectClass[]>('/architects').pipe(
+      map(res => res.map(item => new ArchitectClass(item)))
+    );
   }
 
   postZipCodes(zipCodes: ZipCodeClass[], id: number) {

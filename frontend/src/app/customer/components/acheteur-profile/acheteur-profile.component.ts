@@ -6,7 +6,7 @@ declare var moment;
 import { AcheteurService } from '../../../shared/services/acheteur.service';
 import { UserService } from '../../../shared/services/user.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-import { AcheteurClass } from '../../../core/models/AcheteurClass';
+import { CustomerClass } from '../../../core/models/CustomerClass';
 
 @Component({
   selector: 'app-acheteur-profile',
@@ -22,7 +22,8 @@ export class AcheteurProfileComponent implements OnInit {
     private authService: AuthenticationService) { }
 
   form: FormGroup;
-  acheteur: AcheteurClass;
+  passwordForm: FormGroup;
+  acheteur: CustomerClass;
   dateNow = moment().format('YYYY-MM-DD');
 
   ngOnInit() {
@@ -35,13 +36,17 @@ export class AcheteurProfileComponent implements OnInit {
       email: [{ value: this.acheteur.email, disabled: true }, [Validators.required, Validators.email]],
       telephone: [this.acheteur.telephone, [Validators.required, Validators.pattern(/0(6|7)\d{8}/)]]
     });
+
+    this.passwordForm = this.fb.group({
+      password: [null, Validators.minLength(6)]
+    });
   }
 
   onSubmit() {
     const formModel = this.form.value;
 
     if (!this.form.invalid) {
-      const acheteur = new AcheteurClass({
+      const acheteur = new CustomerClass({
         firstName: formModel.firstName,
         lastName: formModel.lastName,
         birthDate: formModel.birthDate,
@@ -66,10 +71,12 @@ export class AcheteurProfileComponent implements OnInit {
 
   changePassword(password: string, event?: KeyboardEvent) {
     if (event) event.preventDefault();
-    this.userService.changePassword(this.acheteur.id, password).subscribe(res => {
-      this.notificationsService.success('Merci !', 'Votre mot de passe a été changé avec succès.');
-    }, err => {
-      this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors du changement de mot de passe.');
-    });
+    if (this.passwordForm.controls.password.value && this.passwordForm.valid) {
+      this.userService.changePassword(this.acheteur.id, password).subscribe(res => {
+        this.notificationsService.success('Merci !', 'Votre mot de passe a été changé avec succès.');
+      }, err => {
+        this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors du changement de mot de passe.');
+      });
+    }
   }
 }

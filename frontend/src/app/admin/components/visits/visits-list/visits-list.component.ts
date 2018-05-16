@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
-import { VisiteClass } from '../../../../core/models/VisiteClass';
+import { VisitClass } from '../../../../core/models/VisitClass';
 import { VisitStatusEnum } from '../../../../shared/common/enums/VisitStatusEnum';
 
 @Component({
@@ -9,16 +9,17 @@ import { VisitStatusEnum } from '../../../../shared/common/enums/VisitStatusEnum
 })
 export class VisitsListComponent implements OnInit {
 
-  @Input() visits: VisiteClass[];
-  @Output() visitSelected: EventEmitter<VisiteClass> = new EventEmitter<VisiteClass>();
-  beingAssignedVisits: VisiteClass[];
-  canceledVisits: VisiteClass[];
-  inProgressVisits: VisiteClass[];
-  refundedVisits: VisiteClass[];
-  reportAvailableVisits: VisiteClass[];
-  reportBeingWrittenVisits: VisiteClass[];
-  unassignedVisits: VisiteClass[];
-  waitingForPaymentVisits: VisiteClass[];
+  @Input() visits: VisitClass[];
+  @Output() visitSelected: EventEmitter<VisitClass> = new EventEmitter<VisitClass>();
+  beingAssignedVisits: VisitClass[];
+  canceledVisits: VisitClass[];
+  inProgressVisits: VisitClass[];
+  refundedVisits: VisitClass[];
+  reportAvailableVisits: VisitClass[];
+  reportBeingWrittenVisits: VisitClass[];
+  unassignedVisits: VisitClass[];
+  waitingForPaymentVisits: VisitClass[];
+  architectPaidVisits: VisitClass[];
   beingAssignedVisitsExpanded: boolean;
   canceledVisitsExpanded: boolean;
   inProgressVisitsExpanded: boolean;
@@ -27,6 +28,7 @@ export class VisitsListComponent implements OnInit {
   reportBeingWrittenVisitsExpanded: boolean;
   unassignedVisitsExpanded: boolean;
   waitingForPaymentVisitsExpanded: boolean;
+  architectPaidVisitsExpanded: boolean;
 
   constructor() { }
 
@@ -47,9 +49,10 @@ export class VisitsListComponent implements OnInit {
     this.reportBeingWrittenVisits = this.visits.filter(x => x.status === VisitStatusEnum.REPORT_BEING_WRITTEN);
     this.unassignedVisits = this.visits.filter(x => x.status === VisitStatusEnum.UNASSIGNED);
     this.waitingForPaymentVisits = this.visits.filter(x => x.status === VisitStatusEnum.WAITING_FOR_PAYMENT);
+    this.architectPaidVisits = this.visits.filter(x => x.status === VisitStatusEnum.ARCHITECT_PAID);
   }
 
-  visitClick(visit: VisiteClass) {
+  visitClick(visit: VisitClass) {
     this.visitSelected.emit(visit);
   }
 }

@@ -65,11 +65,12 @@
               formControlName="telephone">
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row" [formGroup]="passwordForm">
           <label class="col-lg-2 col-form-label">Mot de passe</label>
           <div class="col-lg-6">
-            <input type="password" class="form-control" (keydown.enter)="changePassword(password.value, $event)" placeholder="Nouveau mot de passe"
-              #password>
+            <input type="password" class="form-control" [class.is-invalid]="passwordForm.controls.password.invalid && passwordForm.controls.password.touched"
+              [class.is-valid]="!passwordForm.controls.password.invalid && passwordForm.controls.password.touched" (keydown.enter)="changePassword(password.value, $event)"
+              placeholder="Nouveau mot de passe" #password formControlName="password">
           </div>
           <div class="col-lg-4 mt-2 mt-lg-0">
             <button type="button" mat-raised-button color="primary" (click)="changePassword(password.value)">Changer le mot de passe</button>
@@ -96,7 +97,7 @@
             <label>Saisissez les codes postaux correspondant à votre zone d'action</label>
             <mat-form-field>
               <mat-chip-list [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
-                <mat-chip *ngFor="let zipCode of zipCodes" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable" [removable]="removable" (remove)="remove(zipCode)">
+                <mat-chip *ngFor="let zipCode of zipCodes" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable" [removable]="removable" (removed)="remove(zipCode)">
                   {{zipCode}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
@@ -286,7 +287,7 @@
     <div class="form-group row mt-3">
       <div class="col-sm-12">
         <button type="submit" mat-raised-button color="primary">Soumettre mon profil</button>
-        <button type="button" mat-raised-button>Je souhaite clôturer mon compte d'architecte</button>
+        <button type="button" class="ml-2" mat-raised-button>Je souhaite clôturer mon compte d'architecte</button>
       </div>
     </div>
   </form>

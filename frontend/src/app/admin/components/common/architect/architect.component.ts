@@ -1,23 +1,22 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ArchitecteClass } from '../../../../core/models/ArchitecteClass';
+import { ArchitectClass } from '../../../../core/models/ArchitectClass';
 import { ArchitectStatusEnum } from '../../../../shared/common/enums/ArchitectStatusEnum';
-import * as IBAN from 'iban';
-import { ArchitecteService } from '../../../../shared/services/architecte.service';
+import { ArchitectService } from '../../../../shared/services/architecte.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
-  selector: 'app-architect-detail',
-  templateUrl: './architect-detail.component.html',
-  styleUrls: ['./architect-detail.component.scss']
+  selector: 'admin-architect',
+  templateUrl: './architect.component.html',
+  styleUrls: ['./architect.component.scss']
 })
-export class ArchitectDetailComponent implements OnInit {
+export class ArchitectComponent implements OnInit {
 
-  @Input() architect: ArchitecteClass;
-  @Output() updated: EventEmitter<ArchitecteClass> = new EventEmitter<ArchitecteClass>();
+  @Input() architect: ArchitectClass;
+  @Output() updated: EventEmitter<ArchitectClass> = new EventEmitter<ArchitectClass>();
   public ArchitectStatusEnum = ArchitectStatusEnum;
 
   constructor(
-    private architectService: ArchitecteService,
+    private architectService: ArchitectService,
     private notificationsService: NotificationsService
   ) { }
 
