@@ -38,7 +38,8 @@ import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked
 import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { AdminGuard } from './guards/admin.guard';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { AdminGuard } from './guards/admin.guard';
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
+    MatBadgeModule,
     MatFormFieldModule,
     MatDividerModule,
     MatStepperModule,
@@ -59,6 +61,7 @@ import { AdminGuard } from './guards/admin.guard';
     MatExpansionModule,
     HttpClientModule,
     MatIconModule,
+    MatTooltipModule,
     MatTabsModule,
     OverlayModule,
     SharedModule.forRoot()
