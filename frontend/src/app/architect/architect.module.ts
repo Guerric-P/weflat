@@ -18,6 +18,7 @@ import { MatButtonModule, MatCheckboxModule, MatInputModule, MatChipsModule, Mat
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatCardModule,
     MatButtonModule,
     MatCheckboxModule,
     MatInputModule,

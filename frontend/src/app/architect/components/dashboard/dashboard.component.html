@@ -1,40 +1,27 @@
 <!-- 3 chiffres -->
 <div class="container">
-  <h2>Mon fil d'actualites</h2>
-  <div class="alert alert-primary" role="alert">
-    Pierre souhaite visiter un bien dans le 75007. J'y vais
-  </div>
-  <div class="alert alert-danger" role="alert">
-    Attention, vous n'avez plus que 3 heures pour soumettre le compte rendu de Juliette.
-  </div>
+  <h2>Mon fil d'actualité</h2>
+  <mat-card>Pierre souhaite visiter un bien dans votre zone d'action</mat-card>
+  <br>
+  <mat-card>Attention, vous n'avez plus que 3 heures pour soumettre le compte rendu de Juliette.</mat-card>
+  <br>
 </div>
 <div class="container">
-
-
-</div>
-<div class="container">
-  <h2>Mon activite</h2>
-  <div class="container text-center mt-5">
+  <h2>Mon activité</h2>
+  <div class="container mt-5">
     <div class="row justify-content-around">
-      <div class="card text-white bg-success mb-3" style="max-width: 30rem;">
-        <div class="card-body">
-          <h1 class="card-title">5</h1>
-          <p class="card-text">visites effectuees</p>
-        </div>
-      </div>
-      <div class="card text-white bg-success mb-3" style="max-width: 30rem;">
-        <div class="card-body">
-          <h1 class="card-title">5</h1>
-          <p class="card-text">visites effectuees</p>
-        </div>
-      </div>
-      <div class="card text-white bg-success mb-3" style="max-width: 30rem;">
-        <div class="card-body">
-          <h1 class="card-title">5</h1>
-          <p class="card-text">visites effectuees</p>
-        </div>
-      </div>
-
+      <mat-card>
+        5 visites effectuées
+        <mat-card-actions>
+            <button mat-button>IMPRIMER</button>
+          </mat-card-actions>
+      </mat-card>
+      <mat-card>
+        400 € générés
+      </mat-card>
+      <mat-card class="cursor-not-allowed" matTooltip="Bientôt disponible">
+        - / - notation
+      </mat-card>
     </div>
   </div>
 </div>
