@@ -23,13 +23,11 @@ export class ZipCodesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.zipCodeService.searchZipCodes().subscribe(res => {
-      this.results = res;
-    });
+
   }
 
   onKeyUp(event: any) {
-    if (event.keyCode !== 13) {
+    if (event.keyCode !== 13 && (<string>event.target.value).length >= 2) {
       this.zipCodeService.searchZipCodes(event.target.value).subscribe(res => {
         this.results = res;
       });

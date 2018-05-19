@@ -45,7 +45,7 @@ export class CreateVisitComponent implements OnInit {
   place: any;
   visitCreationComplete: boolean = false;
   architectsAvailable: boolean = false;
-  minDate = moment().add(5, 'days').utc().format();
+  minDate = moment().add(1, 'days').format(moment.HTML5_FMT.DATETIME_LOCAL);
 
   constructor(
     public authService: AuthenticationService,
@@ -165,6 +165,10 @@ export class CreateVisitComponent implements OnInit {
     }
   }
 
+  get isVisitFilled(): boolean {
+    return !!(this.visit.visiteDate && this.visit.route && this.visit.city && this.visit.zipCode);
+  }
+
   displayAddressComponents() {
     let keys = Object.keys(GooglePlaceKeys);
 
@@ -197,7 +201,7 @@ export class CreateVisitComponent implements OnInit {
     this.visit.city = this.addressFormGroup.controls['city'].value;
     this.visit.route = this.addressFormGroup.controls['route'].value;
     this.visit.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
-    this.visit.zipCode = new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value });
+    this.visit.zipCode = this.addressFormGroup.controls['zipCode'].value ? new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value }) : null;
     this.visit.announcementUrl = this.projectFormGroup.controls['announcementUrl'].value;
     this.visit.visiteDate = moment(this.dateFormGroup.controls['datePicker'].value).toDate();
   }
@@ -205,20 +209,22 @@ export class CreateVisitComponent implements OnInit {
   async postNewVisit(enablePopup: boolean) {
     return new Promise((resolve, reject) => {
       this.loadVisit();
-      this.visiteService.post(this.visit).subscribe(res => {
-        this.visit.id = res.visitId;
-        this.visitCreationComplete = res.complete;
-        this.architectsAvailable = res.architectsAvailable;
-        if (!this.architectsAvailable && enablePopup) {
-          this.popup.open(this.visit);
-        }
-        resolve();
-      }, err => {
-        this.visitCreationComplete = false;
-        this.architectsAvailable = false;
-        this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');
-        reject();
-      });
+      if (this.isVisitFilled) {
+        this.visiteService.post(this.visit).subscribe(res => {
+          this.visit.id = res.visitId;
+          this.visitCreationComplete = res.complete;
+          this.architectsAvailable = res.architectsAvailable;
+          if (!this.architectsAvailable && enablePopup) {
+            this.popup.open(this.visit);
+          }
+          resolve();
+        }, err => {
+          this.visitCreationComplete = false;
+          this.architectsAvailable = false;
+          this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');
+          reject();
+        });
+      }
     });
   }
 
@@ -248,7 +254,7 @@ export class CreateVisitComponent implements OnInit {
     if (event.selectedStep == this.locationStep && !(this.architectsAvailable && this.visitCreationComplete)) {
       this.completeVisitCreation(false);
     }
-    if(event.selectedStep == this.paymentStep) {
+    if (event.selectedStep == this.paymentStep) {
       this.completeVisitCreation(true);
     }
   }
