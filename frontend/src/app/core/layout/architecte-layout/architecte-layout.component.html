@@ -9,7 +9,7 @@
     <a class="nav-link mt-5" routerLink="/architecte/dashboard" routerLinkActive="active">Mon tableau de bord</a>
     <a class="nav-link" routerLink="/architecte/profile" routerLinkActive="active">Mon profil</a>
     <a class="nav-link" routerLink="/architecte/visits" routerLinkActive="active">
-      <span matBadge={{visiteCounter}} matBadgeOverlap="false" *ngIf="visiteCounter">Mes visites</span>
+      <span [matBadge]="visiteCounter" matBadgeOverlap="false" [matBadgeHidden]="!visiteCounter">Mes visites</span>
     </a>
     <a class="nav-link disabled" routerLink="/architecte/messages" routerLinkActive="active">Ma messagerie</a>
   </nav>
