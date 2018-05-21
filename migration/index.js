@@ -16,11 +16,23 @@ const logger = createLogger({
     ),
     transports: [
         new transports.File({ filename: 'error.log', level: 'error' }),
-        new transports.File({ filename: 'full.log' })
+        new transports.File({ filename: 'full.log' }),
+        new transports.Console()
     ]
 });
 
 async function launch() {
+
+    logger.info('Authenticating as admin');
+
+    const adminLoginResponse = await sendLoginRequest(config.adminLogin, config.adminPassword);
+
+    adminToken = JSON.parse(adminLoginResponse).token;
+
+    logger.info('Authenticated!');
+
+    logger.info('Creating gmail client');
+
     // configure a JWT auth client
     let jwtClient = new google.auth.JWT(
         config.weflatServiceAccount,
@@ -30,39 +42,124 @@ async function launch() {
         config.weflatMail
     );
 
+    logger.info('Gmail client created!');
+
     const gmail = google.gmail({ version: "v1", auth: jwtClient });
 
-    for (let user of users) {
-        logger.info('Registering user %s %s (%s)', user.firstName, user.lastName, user.email);
+    for (let customer of users.customers) {
+        logger.info('Registering customer %s %s (%s)', customer.firstName, customer.lastName, customer.email);
         try {
-            user.password = generatePassword(6);
-            await sendLoginRequest(config.apiHost, config.apiPath, config.apiPort, 'POST', JSON.stringify(user), config.secured);
-            await sendMail(gmail, jwtClient, user.email, 'Création de votre compte', 'Votre mot de passe est : ' + user.password);
-            logger.info('Registration of user %s %s successful!', user.firstName, user.lastName);
+
+            logger.info('Generating password');
+
+            const password = generatePassword(6);
+
+            logger.info('Password generated!');
+
+            logger.info('Sending signup request...');
+
+            const signupResult = JSON.parse(await sendSignupRequest(config.apiCustomersEndpoint, JSON.stringify({
+                firstName: customer.firstName,
+                lastName: customer.lastName,
+                email: customer.email,
+                password: password
+            })));
+
+            logger.info('Signup request successful! Id is %s', signupResult.id);
+
+            logger.info('Sending patch request...');
+
+            await sendPatchUserRequest(config.apiCustomersEndpoint + '/' + signupResult.id, JSON.stringify(customer), 'Bearer ' + adminToken);
+
+            logger.info('Patch request successful!');
+
+            if (config.mails) {
+                logger.info('Sending mail to %s with password %s', customer.email, password);
+                await sendMail(gmail, jwtClient, customer.email, 'Création de votre compte', 'Votre mot de passe est : ' + password);
+                logger.info('Mail successfully sent!');
+            }
+
+            logger.info('Registration of customer %s %s successful!', customer.firstName, customer.lastName);
         }
         catch (e) {
-            logger.error('Registration of user %s %s failed...', user.firstName, user.lastName);
+            logger.error('Registration of customer %s %s failed...', customer.firstName, customer.lastName);
+        }
+    }
+
+    for (let architect of users.architects) {
+        logger.info('Registering architect %s %s (%s)', architect.firstName, architect.lastName, architect.email);
+        try {
+
+            logger.info('Generating password');
+
+            const password = generatePassword(6);
+
+            logger.info('Password generated!');
+
+            logger.info('Sending signup request...');
+
+            const signupResult = JSON.parse(await sendSignupRequest(config.apiArchitectsEndpoint, JSON.stringify({
+                firstName: architect.firstName,
+                lastName: architect.lastName,
+                email: architect.email,
+                password: password
+            })));
+
+            logger.info('Signup request successful! Id is %s', signupResult.id);
+
+            logger.info('Sending patch request...');
+
+            await sendPatchUserRequest(config.apiArchitectsEndpoint + '/' + signupResult.id, JSON.stringify(architect), 'Bearer ' + adminToken);
+
+            logger.info('Patch request successful!');
+            //await sendAdditionalFields(config.apiHost, config.apiPath, config.apiPort, 'POST', JSON.stringify(architect), config.secured);
+            if (config.mails) {
+                logger.info('Sending mail to %s with password %s', architect.email, password);
+                await sendMail(gmail, jwtClient, architect.email, 'Création de votre compte', 'Votre mot de passe est : ' + password);
+                logger.info('Mail successfully sent!');
+            }
+            logger.info('Registration of architect %s %s successful!', architect.firstName, architect.lastName);
+        }
+        catch (e) {
+            logger.error('Registration of architect %s %s failed...', architect.firstName, architect.lastName);
         }
     }
     return;
 }
 
-async function sendLoginRequest(host, path, port, method, stringData, secured) {
-    const protocol = secured ? https : http;
+async function sendLoginRequest(username, password) {
+    return sendRequest(config.apiLoginEndpoint, 'POST', JSON.stringify({ username: username, password: password }));
+}
+
+async function sendSignupRequest(path, stringData) {
+    return sendRequest(path, 'POST', stringData);
+}
+
+async function sendPatchUserRequest(path, stringData, auth) {
+    return sendRequest(path, 'PATCH', stringData, auth);
+}
+
+function sendRequest(path, method, stringData, auth) {
+    const protocol = config.secured ? https : http;
 
     return new Promise((resolve, reject) => {
 
         const options = {
-            host: host,
-            port: port,
+            host: config.apiHost,
+            port: config.apiPort,
             path: path,
-            method: 'POST',
+            method: method,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Content-Length': stringData ? Buffer.byteLength(stringData) : '0',
             },
         };
+
+        // Add authorization if present
+        if (auth) {
+            options.headers.Authorization = auth;
+        }
 
         let request = protocol.request(options, function (res) {
             res.setEncoding('utf8');
@@ -75,7 +172,7 @@ async function sendLoginRequest(host, path, port, method, stringData, secured) {
                     logger.info('The server\'s response body was %s', chunk);
                 });
                 res.on('end', function () {
-                    reject('Server ' + host + ' returned code : ' + res.statusCode + ' when trying to ' + method + ' ' + path);
+                    reject('Server ' + config.apiHost + ' returned code : ' + res.statusCode + ' when trying to ' + method + ' ' + path);
                 });
                 res.on('error', function (err) {
                     reject(err);
@@ -95,7 +192,10 @@ async function sendLoginRequest(host, path, port, method, stringData, secured) {
                 });
             }
         });
-        request.write(stringData);
+        if (stringData) {
+            request.write(stringData);
+        }
+
         request.end();
     });
 }
@@ -111,7 +211,7 @@ function sendMail(gmail, jwtClient, to, subject, message) {
         email += header += ": " + headers[header] + "\r\n";
 
     email += "\r\n" + message;
-    
+
     return gmail.users.messages.send({
         auth: jwtClient,
         userId: config.weflatMail,
