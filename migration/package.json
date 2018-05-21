@@ -1,0 +1,17 @@
+{
+  "name": "migration",
+  "version": "1.0.0",
+  "description": "Weflat users import",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Guerric Phalippou",
+  "license": "ISC",
+  "dependencies": {
+    "btoa": "^1.2.1",
+    "googleapis": "^30.0.0",
+    "password-generator": "^2.2.0",
+    "winston": "^3.0.0-rc5"
+  }
+}
