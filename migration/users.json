@@ -1,10 +1,26 @@
-[{
-		"firstName": "Guerric",
-		"lastName": "Phalippou",
-		"email": "guerricphalippou34@hotmail.com"
-	}, {
-		"firstName": "Jean",
-		"lastName": "Culé",
-		"email": "jeancule@yopmail.com"
-	}
-]
+{
+	"customers": [{
+			"firstName": "Guerric",
+			"lastName": "Phalippou",
+			"email": "guerricphalippou34@hotmail.com",
+			"telephone": "0607305863"
+		}, {
+			"firstName": "Jean",
+			"lastName": "Culé",
+			"email": "jeancule@yopmail.com",
+			"telephone": "0123456789"
+		}
+	],
+	"architects": [{
+			"firstName": "Architecte",
+			"lastName": "Bidon",
+			"email": "architectebidon@yopmail.com",
+			"telephone": "9876543210"
+		}, {
+			"firstName": "Architecte",
+			"lastName": "Bidon",
+			"email": "architectebidon2@yopmail.com",
+			"telephone": "0147852369"
+		}
+	]
+}
