@@ -112,7 +112,7 @@ async function launch() {
             await sendPatchUserRequest(config.apiArchitectsEndpoint + '/' + signupResult.id, JSON.stringify(architect), 'Bearer ' + adminToken);
 
             logger.info('Patch request successful!');
-            //await sendAdditionalFields(config.apiHost, config.apiPath, config.apiPort, 'POST', JSON.stringify(architect), config.secured);
+            
             if (config.mails) {
                 logger.info('Sending mail to %s with password %s', architect.email, password);
                 await sendMail(gmail, jwtClient, architect.email, 'Création de votre compte', 'Votre mot de passe est : ' + password);
