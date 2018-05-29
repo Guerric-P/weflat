@@ -8,10 +8,14 @@
     </a>
     <a class="nav-link mt-5" routerLink="/architecte/dashboard" routerLinkActive="active">Mon tableau de bord</a>
     <a class="nav-link" routerLink="/architecte/profile" routerLinkActive="active">Mon profil</a>
-    <a class="nav-link" routerLink="/architecte/visits" routerLinkActive="active">
-      <span matBadge={{visiteCounter}} matBadgeOverlap="false" *ngIf="visiteCounter">Mes visites</span>
+    <a class="nav-link" routerLink="/architecte/visits" routerLinkActive="active">Mes visites<span matBadge={{visiteCounter}} matBadgeOverlap="false" *ngIf="visiteCounter"></span>
     </a>
-    <a class="nav-link disabled" routerLink="/architecte/messages" routerLinkActive="active">Ma messagerie</a>
+    <span class="float-right" matTooltip="Cette fonctionnalité sera bientôt disponible.">
+    <a class="nav-link cursor-not-allowed" routerLink="/architecte/messages" routerLinkActive="disabled">Ma messagerie</a>
+    </span>
+  
+
+
   </nav>
 
   <!--Navbar-->
