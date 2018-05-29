@@ -8,8 +8,24 @@
             <h1>Quand a lieu votre visite ?</h1>
           </div>
           <div class="row justify-content-center align-items-center mt-3">
-            <mat-form-field id="visit-date">
-              <input matInput type="datetime-local" [min]="minDate" formControlName="datePicker" placeholder="Choisissez une date..." required>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker" formControlName="datePicker" [min]="minDate" placeholder="Choisissez une date...">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Heure" formControlName="hour">
+                <mat-option *ngFor="let hour of hours" [value]="hour">
+                  {{ hour }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Minute" formControlName="minute">
+                <mat-option *ngFor="let minute of minutes" [value]="minute">
+                  {{ minute }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
           <div class="row justify-content-center align-items-center">
@@ -102,7 +118,8 @@
         </div>
         <div class="row justify-content-center align-items-center mt-4">
           <button mat-raised-button matStepperPrevious>Précédent</button>
-          <button mat-raised-button color="primary" appPayment  [visitId]="visit.id" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)" (paymentDone)="paymentDone()">Payer</button>
+          <button mat-raised-button color="primary" appPayment [visitId]="visit.id" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)"
+            (paymentDone)="paymentDone()">Payer</button>
         </div>
       </div>
     </div>

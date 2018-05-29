@@ -93,25 +93,25 @@ footer p {
 }
 
 @include media-breakpoint-up(xs) {
-    html :not(nav a) {
+    html {
         font-size: 0.6rem;
     }
 }
 
 @include media-breakpoint-up(sm) {
-    html :not(nav a) {
+    html {
         font-size: 0.6rem;
     }
 }
 
 @include media-breakpoint-up(md) {
-    html :not(nav a) {
+    html {
         font-size: 0.8rem;
     }
 }
 
 @include media-breakpoint-up(lg) {
-    html :not(nav a) {
+    html {
         font-size: 1rem;
     }
 }

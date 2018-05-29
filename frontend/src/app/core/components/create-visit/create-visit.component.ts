@@ -45,7 +45,32 @@ export class CreateVisitComponent implements OnInit {
   place: any;
   visitCreationComplete: boolean = false;
   architectsAvailable: boolean = false;
-  minDate = moment().add(1, 'days').format(moment.HTML5_FMT.DATETIME_LOCAL);
+  hours = [
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21'
+  ];
+
+  minutes = [
+    '00',
+    '15',
+    '30',
+    '45'
+  ];
+
+  minDate = moment().add(1, 'days').toDate();
 
   constructor(
     public authService: AuthenticationService,
@@ -110,7 +135,9 @@ export class CreateVisitComponent implements OnInit {
     }.bind(this));
 
     this.dateFormGroup = this._formBuilder.group({
-      datePicker: ['', Validators.required]
+      datePicker: ['', Validators.required],
+      hour: ['', Validators.required],
+      minute: ['', Validators.required]
     });
 
     this.addressFormGroup = this._formBuilder.group({
@@ -203,7 +230,12 @@ export class CreateVisitComponent implements OnInit {
     this.visit.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
     this.visit.zipCode = this.addressFormGroup.controls['zipCode'].value ? new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value }) : null;
     this.visit.announcementUrl = this.projectFormGroup.controls['announcementUrl'].value;
-    this.visit.visiteDate = moment(this.dateFormGroup.controls['datePicker'].value).toDate();
+    
+    let date = <Date>this.dateFormGroup.controls['datePicker'].value;
+    let hour = this.dateFormGroup.controls['hour'].value;
+    let minute = this.dateFormGroup.controls['minute'].value;
+
+    this.visit.visiteDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute);
   }
 
   async postNewVisit(enablePopup: boolean) {
