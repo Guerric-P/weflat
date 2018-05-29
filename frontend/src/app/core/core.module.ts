@@ -37,7 +37,8 @@ import {
   MatMenuModule,
   MatExpansionModule,
   MatIconModule,
-  MatTabsModule
+  MatTabsModule,
+  MatSelectModule
 } from '@angular/material';
 import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { SharedModule } from '../shared/shared.module';
@@ -74,6 +75,7 @@ import { AdminGuard } from './guards/admin.guard';
     MatDialogModule,
     MatMenuModule,
     MatExpansionModule,
+    MatSelectModule,
     HttpClientModule,
     MatIconModule,
     MatTooltipModule,
