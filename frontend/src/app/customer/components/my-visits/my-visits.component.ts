@@ -64,4 +64,13 @@ export class MyVisitsComponent implements OnInit {
       this.plannedVisits = res;
     });
   }
+
+  get isVisitsEmpty(): boolean {
+    return !(this.beingAssignedVisits && !!this.beingAssignedVisits.length
+      && this.inProgressVisits && !!this.inProgressVisits.length
+      && this.reportBeingWrittenVisits && !!this.reportBeingWrittenVisits.length
+      && this.reportWrittenVisits && !!this.reportWrittenVisits.length
+      && this.waitingForPaymentVisits && !!this.waitingForPaymentVisits.length
+      && this.plannedVisits && !!this.plannedVisits.length);
+  }
 }

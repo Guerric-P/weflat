@@ -19,6 +19,7 @@ import fr.weflat.backend.service.CustomerService;
 import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.UserService;
 import fr.weflat.backend.service.VisitService;
+import fr.weflat.backend.web.dto.ArchitectDto;
 import fr.weflat.backend.web.dto.CustomerDto;
 import fr.weflat.backend.web.dto.UserSignupDto;
 import fr.weflat.backend.web.dto.VisiteDto;
@@ -44,23 +45,26 @@ public class CustomerController {
 	MailService mailService;
 
 	@RequestMapping(path="", method=RequestMethod.POST)
-	public void postAcheteur(@RequestBody UserSignupDto input) throws Exception {
+	public CustomerDto postAcheteur(@RequestBody UserSignupDto input) throws Exception {
 		
 		User user = userService.getByEmail(input.getEmail());
 
 		if(user == null) {
-			customerService.save(orikaMapperFacade.map(input, Customer.class));
+			Customer customer = customerService.save(orikaMapperFacade.map(input, Customer.class));
+			CustomerDto returnValue =  orikaMapperFacade.map(customer, CustomerDto.class);
+			
+			//Mail
+			try {
+				mailService.sendCustomerSignupMail(input.getEmail(), input.getFirstName());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return returnValue;
 		}
 		else {
 			throw new Exception("This email already exists.");
-		}
-
-		//Mail
-		try {
-			mailService.sendCustomerSignupMail(input.getEmail(), input.getFirstName());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
@@ -70,10 +74,10 @@ public class CustomerController {
 	}
 
 	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
-	public void patchArchitecte(@PathVariable("id") long id, @RequestBody CustomerDto input) {
+	public CustomerDto patchAcheteur(@PathVariable("id") long id, @RequestBody CustomerDto input) {
 		Customer acheteur = customerService.findById(id);
 		orikaMapperFacade.map(input, acheteur);
-		customerService.save(acheteur);
+		return orikaMapperFacade.map(customerService.save(acheteur), CustomerDto.class);
 	}
 	
 	@RequestMapping(path="/{id}/visits/waiting-for-payment", method= RequestMethod.GET)

@@ -12,7 +12,7 @@
       <span *ngIf="architect.status === ArchitectStatusEnum.APPROVING">
         <span class="badge badge-warning">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
         <button mat-raised-button (click)="accept()">Accepter</button>
-        <button mat-raised-button (click)="refuse()">Refuser</button>
+        <button class="ml-2" mat-raised-button (click)="refuse()">Refuser</button>
       </span>
       <span *ngIf="architect.status === ArchitectStatusEnum.VALIDATED" class="badge badge-success">Validé</span>
       <span *ngIf="architect.status === ArchitectStatusEnum.REFUSED" class="badge badge-danger">Refusé</span>
@@ -26,9 +26,9 @@
   <div class="card-body">
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Prénom</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{architect.firstName}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Nom</label>
