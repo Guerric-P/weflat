@@ -40,6 +40,7 @@ import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.compone
 import { AdminGuard } from './guards/admin.guard';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import {MatBadgeModule} from '@angular/material/badge';
     CoreRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatCardModule,
     MatButtonModule,
     MatInputModule,
     MatBadgeModule,
