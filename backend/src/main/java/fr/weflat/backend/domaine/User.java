@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -25,15 +27,19 @@ public abstract class User {
 	}
 
 	@Column(nullable = true, name = "last_name")
+	@NotNull()
     private String lastName;
 	
 	@Column(nullable = true, name = "first_name")
+	@NotNull()
     private String firstName;
 	
 	@Column(nullable = true, name = "email", unique = true)
     private String email;
 	
 	@Column(nullable = true, name = "password")
+	@Size(min=6)
+	@NotNull()
     private String password;
 	
 	@Column(nullable = true, name = "birth_date")

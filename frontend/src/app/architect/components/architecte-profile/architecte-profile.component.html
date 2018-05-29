@@ -7,7 +7,8 @@
       <div class="card-body" [class.emphasis]="statusEmphasis">
         <p class="card-text">
           <span *ngIf="architecte.status === ArchitectStatusEnum.CREATED">
-            <span class="badge badge-info">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat et moi") afin qu'il soit étudié par nos équipes
+            <span class="badge badge-info">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat
+            et moi") afin qu'il soit étudié par nos équipes
           </span>
           <span *ngIf="architecte.status === ArchitectStatusEnum.APPROVING">
             <span class="badge badge-warning">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
@@ -88,12 +89,15 @@
         <h2>Ma zone d'action</h2>
       </div>
       <div class="card-body">
-        <div *ngIf="disabledZipCodes && disabledZipCodes.length" [ngSwitch]="disabledZipCodes.length" class="alert alert-warning" role="alert">
+        <div *ngIf="disabledZipCodes && disabledZipCodes.length" [ngSwitch]="disabledZipCodes.length" class="alert alert-warning"
+          role="alert">
           <ng-container *ngSwitchCase="1">
-              Le code postal {{formattedDisabledZipCodes}} n'a pas été activé pour l'instant. Vous recevrez des demandes de visites pour ce code postal lorsqu'il sera activé par l'équipe Weflat.
+            Le code postal {{formattedDisabledZipCodes}} n'a pas été activé pour l'instant. Vous recevrez des demandes de visites pour
+            ce code postal lorsqu'il sera activé par l'équipe Weflat.
           </ng-container>
           <ng-container *ngSwitchDefault>
-              Les code postaux {{formattedDisabledZipCodes}} n'ont pas été activés pour l'instant. Vous recevrez des demandes de visites pour ces codes postaux lorsqu'ils seront activés par l'équipe Weflat.
+            Les code postaux {{formattedDisabledZipCodes}} n'ont pas été activés pour l'instant. Vous recevrez des demandes de visites
+            pour ces codes postaux lorsqu'ils seront activés par l'équipe Weflat.
           </ng-container>
         </div>
         <div class="row">
@@ -101,12 +105,16 @@
             <label>Saisissez les codes postaux correspondant à votre zone d'action</label>
             <mat-form-field>
               <mat-chip-list [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
-                <mat-chip *ngFor="let zipCode of zipCodes" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable" [removable]="removable" (removed)="remove(zipCode)">
+                <mat-chip *ngFor="let zipCode of zipCodes" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable" [removable]="removable"
+                  (removed)="remove(zipCode)">
                   {{zipCode}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
                 <input #zipCodeInput placeholder="Nouveau code postal..." [matChipInputFor]="zipCodesList" />
               </mat-chip-list>
+              <mat-error *ngIf="true">
+                Saisissez au moins un code postal
+              </mat-error>
             </mat-form-field>
             <button type="button" mat-raised-button (click)="fitBounds()">Recentrer la carte</button>
           </div>
@@ -257,10 +265,10 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Paiement</label>
           <div class="col-sm-10">
-            <select class="form-control" [class.is-invalid]="form.controls.paymentType.invalid && form.controls.paymentType.touched" [class.is-valid]="!form.controls.paymentType.invalid && form.controls.paymentType.touched"
-            formControlName="paymentType">
-            <option *ngFor="let paymentType of paymentTypes" [value]="paymentType.id">{{paymentType.label}}</option>
-          </select>
+            <select class="form-control" [class.is-invalid]="form.controls.paymentType.invalid && form.controls.paymentType.touched"
+              [class.is-valid]="!form.controls.paymentType.invalid && form.controls.paymentType.touched" formControlName="paymentType">
+              <option *ngFor="let paymentType of paymentTypes" [value]="paymentType.id">{{paymentType.label}}</option>
+            </select>
             <div>
               <p class="text-muted">Choisissez la méthode de paiement pour le versement de vos prestations</p>
             </div>
@@ -269,8 +277,8 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">IBAN</label>
           <div class="col-sm-10">
-            <input type="text" [class.is-invalid]="form.controls.iban.invalid && form.controls.iban.touched"
-            [class.is-valid]="!form.controls.iban.invalid && form.controls.iban.touched" formControlName="iban" class="form-control">
+            <input type="text" [class.is-invalid]="form.controls.iban.invalid && form.controls.iban.touched" [class.is-valid]="!form.controls.iban.invalid && form.controls.iban.touched"
+              formControlName="iban" class="form-control">
           </div>
         </div>
         <div class="col-sm-12 form-group row">

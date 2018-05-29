@@ -125,7 +125,6 @@ public class ArchitectServiceImpl implements ArchitectService {
 				&& architect.getSituation() != null
 				&& architect.getTelephone() != null
 				&& architect.getType() != null
-				&& architect.getWebSite() != null
 				&& architect.getZipCodes() != null
 				&& architect.getZipCodes().size() != 0;
 	}

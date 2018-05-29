@@ -1,6 +1,6 @@
 {
     "/backend/*":{
-        "target": "http://ec2-18-217-96-165.us-east-2.compute.amazonaws.com",
+        "target": "http://localhost",
         "secure": false,
         "logLevel": "debug"
     }

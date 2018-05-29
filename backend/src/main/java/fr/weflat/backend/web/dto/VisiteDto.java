@@ -12,7 +12,11 @@ public class VisiteDto {
 	}
 	
 	private Long id;
+	
+	@JsonProperty(access = Access.READ_ONLY)
 	private CustomerDto customer;
+	
+	@JsonProperty(access = Access.READ_ONLY)
 	private ArchitectDto architect;
 	private ZipCodeDto zipCode;
 	private String city;

@@ -3,6 +3,9 @@
   <div class="d-flex flex-row-reverse">
     <button mat-raised-button class="float-right" color="primary" routerLink="/create-visit">Planifier une visite</button>
   </div>
+  <div *ngIf="isVisitsEmpty" class="d-flex flex-row">
+    Vous n'avez encore aucune visite!
+  </div>
   <app-my-visit *ngFor="let visit of waitingForPaymentVisits" [visit]="visit" (canceled)="loadWaitingForPaymentVisits()"></app-my-visit>
   <app-my-visit *ngFor="let visit of beingAssignedVisits" [visit]="visit" (canceled)="loadBeingAssignedVisits()"></app-my-visit>
   <app-my-visit *ngFor="let visit of plannedVisits" [visit]="visit" [datePassed]="false"></app-my-visit>

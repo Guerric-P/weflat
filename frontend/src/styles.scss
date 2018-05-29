@@ -2,12 +2,10 @@
 
 // Angular Material
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
 // Bootstrap Required
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
-
 // Bootstrap Optional
 @import "~bootstrap/scss/alert";
 @import "~bootstrap/scss/badge";
@@ -27,108 +25,93 @@
 @import "~bootstrap/scss/tables";
 @import "~bootstrap/scss/type";
 @import "~bootstrap/scss/utilities";
-
-
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";
 
-
 html {
     overflow-y: scroll;
-    font-size: 67.5%;
+    //font-size: 67.5%; Arti: à enlever ?
 }
 
 body {
     padding: 0;
     margin: 0;
-    font-size: 1.2rem; /* =12px */
-  }
+    //font-size: 1.2rem; /* =12px */ Arti: à enlever ?
+}
 
-h1   { 
-  font-size: 2.4rem; 
-} /* =24px */
-h2   { 
-  font-size: 2.2rem; 
-} /* =24px */
-h3   { 
-  font-size: 2rem; 
-} /* =24px */
-h4   { 
-  font-size: 1.8rem; 
-} /* =24px */
-h5   { 
-  font-size: 1.6rem; 
-} /* =24px */
+/* =24px */
 
-  .navbar {
+.navbar {
     margin-bottom: 0;
-  }
-  
-  .jumbotron {
+}
+
+.jumbotron {
     padding-top: 6rem;
     padding-bottom: 6rem;
     margin-bottom: 0;
     background-color: #fff;
-  }
-  
-  footer {
+}
+
+footer {
     padding-top: 3rem;
     padding-bottom: 3rem;
-  }
-  
-  footer p {
+}
+
+footer p {
     margin-bottom: .25rem;
-  }
-  .navbar-toggler {
+}
+
+.navbar-toggler {
     border: none;
     outline: none;
-  }
-  
-  .dropdown-menu-right { 
-      right: 0; 
-      left: auto; 
-  }
-  
-  .nav > a.active {
-      color:white;
-      background:rgba(255,255,255, 0.3);
-  }
+}
 
-  .dropdown-button:after {
-      content: "";
-      display: inline-block;
-      width: 0;
-      height: 0;
-      margin-left: .255em;
-      vertical-align: .255em;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid;
-  }
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
 
-  .cursor-not-allowed {
+.nav>a.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.dropdown-button:after {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .255em;
+    vertical-align: .255em;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid;
+}
+
+.cursor-not-allowed {
     cursor: not-allowed !important;
-  }
+}
 
-  @include media-breakpoint-up(xs) {
-    html {
+@include media-breakpoint-up(xs) {
+    html :not(nav a) {
         font-size: 0.6rem;
-        }
     }
-    @include media-breakpoint-up(sm) {
-      html {
-            font-size: 0.6rem;
-        }
+}
+
+@include media-breakpoint-up(sm) {
+    html :not(nav a) {
+        font-size: 0.6rem;
     }
-      
-    @include media-breakpoint-up(md) {
-      html {
-            font-size: 0.8rem;
-        }
+}
+
+@include media-breakpoint-up(md) {
+    html :not(nav a) {
+        font-size: 0.8rem;
     }
-    
-    @include media-breakpoint-up(lg) {
-      html {
-            font-size: 1rem;
-        }
+}
+
+@include media-breakpoint-up(lg) {
+    html :not(nav a) {
+        font-size: 1rem;
     }
+}

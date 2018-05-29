@@ -14,11 +14,20 @@ import { ZipCodesResolver } from '../shared/resolvers/zip-codes-resolver';
 import { MessagesComponent } from './components/messages/messages.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatChipsModule, MatIconModule, MatExpansionModule, MatTooltipModule, MatDialogModule } from '@angular/material';
+import {
+  MatCardModule,
+  MatButtonModule,
+  MatCheckboxModule,
+  MatInputModule,
+  MatChipsModule,
+  MatIconModule,
+  MatExpansionModule,
+  MatTooltipModule,
+  MatDialogModule
+} from '@angular/material';
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   imports: [
