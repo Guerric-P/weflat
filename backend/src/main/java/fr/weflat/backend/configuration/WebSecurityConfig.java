@@ -33,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/architects/types").permitAll()
 				.antMatchers("/architects/situations").permitAll()
 				.antMatchers("/architects/payment-types").permitAll()
+				.antMatchers("/users/forgotten-password").permitAll()
+				.antMatchers("/users/reset-password").permitAll()
 				.antMatchers("/zip-codes/check-status").permitAll()
 				.antMatchers("/positions").permitAll()
 				.anyRequest().hasAuthority("admin")

@@ -47,7 +47,7 @@ public class CustomerController {
 	@RequestMapping(path="", method=RequestMethod.POST)
 	public CustomerDto postAcheteur(@RequestBody UserSignupDto input) throws Exception {
 		
-		User user = userService.getByEmail(input.getEmail());
+		User user = userService.findByEmail(input.getEmail());
 
 		if(user == null) {
 			Customer customer = customerService.save(orikaMapperFacade.map(input, Customer.class));

@@ -29,7 +29,7 @@ public class WeflatAuthenticationProvider implements AuthenticationProvider {
 		String password = (String) authentication.getCredentials();
 		List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 		
-		User user = userService.getByEmail(login.toLowerCase());
+		User user = userService.findByEmail(login.toLowerCase());
 		
 		if(user != null) {
 			boolean isPasswordValid = new StrongPasswordEncryptor().checkPassword(password, user.getPassword());

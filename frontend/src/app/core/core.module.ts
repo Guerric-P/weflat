@@ -38,8 +38,10 @@ import {
   MatExpansionModule,
   MatIconModule,
   MatTabsModule,
-  MatSelectModule
+  MatSelectModule,
+  MatCardModule
 } from '@angular/material';
+
 import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { SharedModule } from '../shared/shared.module';
 import { LoaderComponent } from './components/common/loader/loader.component';
@@ -63,6 +65,7 @@ import { AdminGuard } from './guards/admin.guard';
     CoreRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatCardModule,
     MatButtonModule,
     MatInputModule,
     MatBadgeModule,

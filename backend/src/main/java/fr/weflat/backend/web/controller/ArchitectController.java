@@ -74,7 +74,7 @@ public class ArchitectController {
 	@RequestMapping(path="", method=RequestMethod.POST)
 	public ArchitectDto postArchitecte(@RequestBody UserSignupDto input) throws Exception {
 		
-		User user = userService.getByEmail(input.getEmail());
+		User user = userService.findByEmail(input.getEmail());
 
 		if(user == null) {
 			Architect architect = orikaMapperFacade.map(input, Architect.class);
