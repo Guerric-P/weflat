@@ -52,7 +52,7 @@ public abstract class User {
 	@Column(nullable = true, name = "telephone")
     private String telephone;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",  cascade=CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval=true, cascade=CascadeType.ALL)
 	private Set<PasswordChangeRequest> passwordChangeRequests;
 
 	public Long getId() {
