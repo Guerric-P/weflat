@@ -1,17 +1,21 @@
 package fr.weflat.backend.domaine;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -47,9 +51,20 @@ public abstract class User {
 	
 	@Column(nullable = true, name = "telephone")
     private String telephone;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user",  cascade=CascadeType.REMOVE)
+	private Set<PasswordChangeRequest> passwordChangeRequests;
 
 	public Long getId() {
 		return id;
+	}
+
+	public Set<PasswordChangeRequest> getPasswordChangeRequests() {
+		return passwordChangeRequests;
+	}
+
+	public void setPasswordChangeRequests(Set<PasswordChangeRequest> passwordChangeRequests) {
+		this.passwordChangeRequests = passwordChangeRequests;
 	}
 
 	public void setId(Long id) {

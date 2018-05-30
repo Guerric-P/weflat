@@ -2,7 +2,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
     <div class="card">
       <div class="card-header">
-        Mon statut
+        <h2>Mon statut</h2>
       </div>
       <div class="card-body" [class.emphasis]="statusEmphasis">
         <p class="card-text">
@@ -13,14 +13,18 @@
           <span *ngIf="architecte.status === ArchitectStatusEnum.APPROVING">
             <span class="badge badge-warning">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
           </span>
-          <span *ngIf="architecte.status === ArchitectStatusEnum.VALIDATED" class="badge badge-success">Validé</span>
-          <span *ngIf="architecte.status === ArchitectStatusEnum.REFUSED" class="badge badge-danger">Refusé</span>
+          <span *ngIf="architecte.status === ArchitectStatusEnum.VALIDATED">
+            <span class="badge badge-success">Validé</span> Vous recevez les demandes de visite dans votre zone d'action.
+          </span> 
+          <span *ngIf="architecte.status === ArchitectStatusEnum.REFUSED">
+           <span class="badge badge-danger">Refusé</span> Votre candidature n'a pas été retenue.
+          </span>
         </p>
       </div>
     </div>
     <div class="card mt-2">
       <div class="card-header">
-        Mes informations personnelles
+        <h2>Mes informations personnelles</h2>
       </div>
       <div class="card-body">
         <div class="form-group row">
@@ -82,7 +86,7 @@
 
     <div class="card mt-2">
       <div class="card-header">
-        Ma zone d'action
+        <h2>Ma zone d'action</h2>
       </div>
       <div class="card-body">
         <div *ngIf="disabledZipCodes && disabledZipCodes.length" [ngSwitch]="disabledZipCodes.length" class="alert alert-warning"
@@ -122,7 +126,7 @@
 
     <div class="card mt-2">
       <div class="card-header">
-        Mon métier d'architecte
+        <h2>Mon métier d'architecte</h2>
       </div>
       <div class="card-body">
         <div class="form-group row">
@@ -247,7 +251,7 @@
     </div>
     <div class="card mt-2">
       <div class="card-header">
-        Weflat et moi
+        <h2>Weflat et moi</h2>
       </div>
       <div class="card-body">
         <div class="form-group row">

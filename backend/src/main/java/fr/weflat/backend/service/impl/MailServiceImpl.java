@@ -176,7 +176,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append("<p>Bonjour ");
 		messageBuilder.append(firstName);
 		messageBuilder.append(",</p>");
-		messageBuilder.append("<p>Toute l’équipe Weflat vous souhaite la bienvenue. Nous vous remercions de l’intérêt que vous portez à Weflat et l’ensemble de la communauté des architectes espérons vous satisfaire à l’occasion de votre première visite de bien immobilier.</p>");
+		messageBuilder.append("<p>Toute l’équipe Weflat vous souhaite la bienvenue. Weflat et l’ensemble de la communauté des architectes espérons vous satisfaire à l’occasion de votre première visite de bien immobilier.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");
 		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
 		
@@ -228,7 +228,6 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(" le ");
 		messageBuilder.append(format.format(date));
 		messageBuilder.append(". Rien de plus simple, l’architecte sera présent à l’adresse et l’horaire mentionné.</p>");
-		messageBuilder.append("<p>Vous pouvez d’ores et déjà discuter avec lui par mail.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");
 		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
 		
