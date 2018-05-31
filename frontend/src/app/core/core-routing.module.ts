@@ -18,6 +18,7 @@ import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked
 import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
+import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,8 @@ const routes: Routes = [
       { path: 'create-visit', canActivate: [CreateVisitGuard], component: CreateVisitComponent },
       { path: 'eula', component: EndUserLicenseAgreementComponent },
       { path: 'faq', component: FrequentlyAskedQuestionsComponent },
-      { path: 'architect-onboarding', component: ArchitectOnBoardingComponent }
+      { path: 'architect-onboarding', component: ArchitectOnBoardingComponent },
+      { path: 'forgotten-password', component: ForgottenPasswordComponent }
     ]
   }, {
     path: 'architecte',

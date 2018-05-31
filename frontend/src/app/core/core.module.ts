@@ -58,6 +58,7 @@ import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked
 import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { AdminGuard } from './guards/admin.guard';
+import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
 
 @NgModule({
   imports: [
@@ -121,7 +122,8 @@ import { AdminGuard } from './guards/admin.guard';
     EndUserLicenseAgreementComponent,
     FrequentlyAskedQuestionsComponent,
     ArchitectOnBoardingComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    ForgottenPasswordComponent
   ],
   exports: [
     LoaderComponent,

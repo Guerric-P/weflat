@@ -6,12 +6,14 @@ import java.util.Random;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.weflat.backend.dao.UserDao;
 import fr.weflat.backend.domaine.PasswordChangeRequest;
 import fr.weflat.backend.domaine.User;
+import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.PasswordChangeRequestService;
 import fr.weflat.backend.service.UserService;
 
@@ -23,6 +25,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private PasswordChangeRequestService passwordChangeRequestService;
+	
+	@Autowired
+	private MailService mailService;
+	
+	@Value("${fr.weflat.app-url}")
+	private String appUrl;
 
 	@Override
 	public 	User getByEmailAndPassword(String email, String password) {
@@ -53,25 +61,32 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void forgottenPassword(String email, String host) {
+	public void forgottenPassword(String email) throws Exception {
 		User user = findByEmail(email);
-		char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789".toCharArray();
-		StringBuilder sb = new StringBuilder(20);
-		Random random = new Random();
-		for (int i = 0; i < 40; i++) {
-		    char c = chars[random.nextInt(chars.length)];
-		    sb.append(c);
+		if(user == null) {
+			throw new Exception("Email does not exist");
 		}
-		String generatedString = sb.toString();
-	    
-	    Date currentDate = new Date();
-	    Calendar c = Calendar.getInstance();
-        c.setTime(currentDate);
-        c.add(Calendar.DATE, 1);
-        Date currentDatePlusOne = c.getTime();
+		else {
+			char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".toCharArray();
+			StringBuilder sb = new StringBuilder(20);
+			Random random = new Random();
+			for (int i = 0; i < 40; i++) {
+				char c = chars[random.nextInt(chars.length)];
+				sb.append(c);
+			}
+			String generatedString = sb.toString();
 
-        PasswordChangeRequest passwordChangeRequest = new PasswordChangeRequest(user, generatedString, currentDatePlusOne);
-		passwordChangeRequestService.save(passwordChangeRequest);
+			Date currentDate = new Date();
+			Calendar c = Calendar.getInstance();
+			c.setTime(currentDate);
+			c.add(Calendar.DATE, 1);
+			Date currentDatePlusOne = c.getTime();
+
+			PasswordChangeRequest passwordChangeRequest = new PasswordChangeRequest(user, generatedString, currentDatePlusOne);
+			passwordChangeRequestService.save(passwordChangeRequest);
+
+			mailService.sendPasswordResetMail(email, user.getFirstName(), appUrl + "/forgotten-password?hash=" + generatedString);
+		}
 	}
 
 	@Override

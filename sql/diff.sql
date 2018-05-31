@@ -17,11 +17,7 @@ CREATE TABLE weflat.password_change_request
     user_id integer NOT NULL,
     hash character varying NOT NULL,
     expiration_date timestamp without time zone,
-    PRIMARY KEY (id),
-    FOREIGN KEY (user_id)
-        REFERENCES weflat."user" (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+    PRIMARY KEY (id)
 )
 WITH (
     OIDS = FALSE

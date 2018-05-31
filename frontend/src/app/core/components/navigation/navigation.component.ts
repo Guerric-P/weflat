@@ -48,6 +48,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.routerEventsSubscription = this.router.events.subscribe((data) => {
       if (data instanceof RoutesRecognized) {
         this.routeData = data.state.root.firstChild.data;
+        if(this.signinModal) this.signinModal.close();
+        if(this.signupModal) this.signupModal.close();
       }
       if (data instanceof GuardsCheckEnd) {
         if (!data.shouldActivate) {
