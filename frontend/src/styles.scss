@@ -96,11 +96,17 @@ footer p {
     html {
         font-size: 0.6rem;
     }
+    nav a {
+        font-size: 16px;
+    }
 }
 
 @include media-breakpoint-up(sm) {
     html {
         font-size: 0.6rem;
+    }
+    nav a {
+        font-size: 16px;
     }
 }
 
@@ -108,10 +114,16 @@ footer p {
     html {
         font-size: 0.8rem;
     }
+    nav a {
+        font-size: 16px;
+    }
 }
 
 @include media-breakpoint-up(lg) {
     html {
         font-size: 1rem;
+    }
+    nav a {
+        font-size: 16px;
     }
 }
