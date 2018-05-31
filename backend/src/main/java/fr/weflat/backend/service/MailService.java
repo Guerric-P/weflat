@@ -22,4 +22,6 @@ public interface MailService {
 	void sendVisitAssignedMail(String email, String architectFirstName, String customerFirstName, String address, Date date) throws Exception;
 	
 	void sendReportReadyMail(String email, String architectFirstName, String customerFirstName) throws Exception;
+	
+	void sendPasswordResetMail(String email, String firstName, String url) throws Exception;
 }

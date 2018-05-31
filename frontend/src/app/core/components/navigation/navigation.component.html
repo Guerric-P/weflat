@@ -6,7 +6,7 @@
           <p class="text-white">A propos de Weflat</p>
           <p class="text-muted">Weflat met en relation les acheteurs et les architectes.</p>
           <a class="fa fa-facebook-official fa-inverse fa-lg" aria-hidden="true" href="https://www.facebook.com/WeflatFrance/"></a>
-          <a class="fa fa-twitter fa-inverse fa-lg" aria-hidden="true"  href="https://twitter.com/weflat"></a>
+          <a class="fa fa-twitter fa-inverse fa-lg" aria-hidden="true" href="https://twitter.com/weflat"></a>
         </div>
         <div class="col-sm-2 py-4">
           <p class="text-white">Contact</p>
@@ -40,7 +40,7 @@
   <div class="navbar navbar-light bg-faded">
     <div class="container d-flex justify-content-between">
       <a class="weflat-logo" routerLink="/">
-        <img src="assets/logofinal.png" width="70"/>
+        <img src="assets/logofinal.png" width="70" />
       </a>
       <div>
         <div *ngIf="token" class="d-inline-block" placement="bottom-right">
@@ -92,9 +92,11 @@
             <strong>requis.</strong>
           </mat-error>
         </mat-form-field>
-
         <div class="d-flex flex-row-reverse">
-          <button mat-raised-button color="primary" [disabled]="loading" type="submit">Se connecter</button>
+          <button mat-raised-button color="primary" [disabled]="loading">Se connecter</button>
+        </div>
+        <div class="d-flex flex-row-reverse">
+          <a routerLink="/forgotten-password">Mot de passe oublié ?</a>
         </div>
       </form>
     </div>

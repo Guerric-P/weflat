@@ -254,5 +254,27 @@ public class MailServiceImpl implements MailService {
 				"Le compte rendu de votre visite est disponible",
 				messageBuilder.toString());
 	}
+
+	@Override
+	public void sendPasswordResetMail(String email, String firstName, String url) throws Exception {
+StringBuilder messageBuilder = new StringBuilder();
+		
+		messageBuilder.append("<p>Bonjour ");
+		messageBuilder.append(firstName);
+		messageBuilder.append(",</p>");
+		messageBuilder.append("<p>Nous avons reçu une demande de réinitialisation de mot de passe de votre part.</p>");
+		messageBuilder.append("<p>Vous pourrez définir un nouveau mot de passe en cliquant sur le lien suivant : ");
+		messageBuilder.append("<a href=\"");
+		messageBuilder.append(url);
+		messageBuilder.append("\">");
+		messageBuilder.append(url);
+		messageBuilder.append("</a></p>");
+		messageBuilder.append("<p>Cordialement,</p>");
+		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
+		
+		sendSimpleMail(email,
+				"Réinitialisation de mot de passe",
+				messageBuilder.toString());
+	}
 }
 

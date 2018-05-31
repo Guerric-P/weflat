@@ -19,7 +19,6 @@ import fr.weflat.backend.service.CustomerService;
 import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.UserService;
 import fr.weflat.backend.service.VisitService;
-import fr.weflat.backend.web.dto.ArchitectDto;
 import fr.weflat.backend.web.dto.CustomerDto;
 import fr.weflat.backend.web.dto.UserSignupDto;
 import fr.weflat.backend.web.dto.VisiteDto;

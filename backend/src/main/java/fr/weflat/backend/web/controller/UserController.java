@@ -1,6 +1,5 @@
 package fr.weflat.backend.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,25 +42,25 @@ public class UserController {
 	}*/
 	
 	@RequestMapping(path= "/forgotten-password", method = RequestMethod.POST)
-	public void passwordForgotten(@RequestParam String email, HttpServletRequest request) throws Exception {
+	public void passwordForgotten(@RequestParam String email) throws Exception {
 		if(email == null || email.length() == 0) {
 			throw new Exception("Email parameter is required");
 		}
 		else {
-			userService.forgottenPassword(email, request.getScheme() + "://" + request.getServerName());
+			userService.forgottenPassword(email);
 		}
 	}
 	
 	@RequestMapping(path= "/reset-password", method = RequestMethod.POST)
-	public void resetPassword(@RequestParam String hash, @RequestParam String newPassword) throws Exception {
+	public void resetPassword(@RequestParam String hash, @RequestParam String password) throws Exception {
 		if(hash == null || hash.length() == 0) {
 			throw new Exception("Hash parameter is required");
 		}
-		else if (newPassword == null || newPassword.length() == 0) {
+		else if (password == null || password.length() == 0) {
 			throw new Exception("New password parameter is required");
 		}
 		else {
-			userService.resetPassword(hash, newPassword);
+			userService.resetPassword(hash, password);
 		}
 	}
 
