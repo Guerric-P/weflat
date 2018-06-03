@@ -1,68 +1,86 @@
-<div *ngIf="visit.status === VisitStatusEnum.WAITING_FOR_PAYMENT" class="card">
-  <div class="card-body">
+<mat-card *ngIf="visit.status === VisitStatusEnum.WAITING_FOR_PAYMENT" class="card">
+  <mat-card-content>
     Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
-    <div class="progress" style="height: 20px;">
+    <div class="progress text-center d-flex flex-column" style="height: 20px;">
       En attente de paiement
     </div>
-      <div class="button-row float-right mt-2">
-          <button mat-raised-button color="primary" appPayment [visitId]="visit.id" (paymentDone)="visitPaid()">Payer</button>
-          <button mat-raised-button>Modifier</button>
-          <button mat-raised-button color="warn">Annuler</button>
-      </div>
-  </div>
-</div>
-<div *ngIf="visit.status === VisitStatusEnum.BEING_ASSIGNED" class="card">
-  <div class="card-body">
+    <div class="d-flex flex-row-reverse mt-2">
+      <button mat-raised-button (click)="cancelClick()">Annuler</button>
+      <button mat-raised-button class="mr-2">Modifier</button>
+      <button mat-raised-button color="primary" appPayment [visitId]="visit.id" [email]="authService.userEmail" (paymentDone)="visitPaid()"
+        class="mr-2">Payer</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="visit.status === VisitStatusEnum.BEING_ASSIGNED" class="card">
+  <mat-card-content>
     Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Visite en cours d'attribution</div>
     </div>
-    <div class="button-row float-right mt-2">
-        <button mat-raised-button>Modifier</button>
-        <button mat-raised-button color="warn">Annuler</button>    
+    <div class="d-flex flex-row-reverse mt-2">
+      <button mat-raised-button (click)="cancelClick()">Annuler</button>
+      <button mat-raised-button class="mr-2">Modifier</button>
     </div>
-  </div>
-</div>
-<div *ngIf="visit.status === VisitStatusEnum.IN_PROGRESS && !datePassed" class="card">
-  <div class="card-body">
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="visit.status === VisitStatusEnum.IN_PROGRESS && !datePassed" class="card">
+  <mat-card-content>
     Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar" style="width: 35%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Visite attribuée</div>
     </div>
-    <div class="button-row float-right mt-2">
-        <button mat-raised-button>Modifier</button>
-        <button mat-raised-button>Contacter l'architecte</button>
-        <button mat-raised-button color="warn">Annuler</button>    
+    <div class="d-flex flex-row-reverse mt-2">
+      <button mat-raised-button (click)="cancelClick()">Annuler</button>
+      <a mat-raised-button class="mr-2" href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
     </div>
-  </div>
-</div>
-<div *ngIf="visit.status === VisitStatusEnum.IN_PROGRESS && datePassed" class="card">
-  <div class="card-body">
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="visit.status === VisitStatusEnum.IN_PROGRESS && datePassed" class="card">
+  <mat-card-content>
     Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Visite en cours</div>
     </div>
-  </div>
-</div>
-<div *ngIf="visit.status === VisitStatusEnum.REPORT_BEING_WRITTEN" class="card">
-  <div class="card-body">
+    <div class="d-flex flex-row-reverse mt-2">
+      <a mat-raised-button href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="visit.status === VisitStatusEnum.REPORT_BEING_WRITTEN" class="card">
+  <mat-card-content>
     Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Compte rendu en cours de rédaction</div>
     </div>
-    <a class="btn btn-light float-right" href="mailto:{{visit.architecte.email}}">Contacter l'architecte</a>
-  </div>
-</div>
-<div *ngIf="visit.status === VisitStatusEnum.REPORT_AVAILABLE" class="card">
-  <div class="card-body">
+    <div class="d-flex flex-row-reverse mt-2">
+      <a mat-raised-button href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="visit.status === VisitStatusEnum.REPORT_AVAILABLE" class="card">
+  <mat-card-content>
     Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
       <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Compte rendu disponible</div>
     </div>
-    <div class="button-row float-right mt-2">
-        <button mat-raised-button>Noter l'architecte</button>
-        <a mat-raised-button href="mailto:{{visit.architecte.email}}">Contacter l'architecte</a>
-        <button mat-raised-button color="primary" (click)="viewReport()" type="submit">Ouvrir le compte rendu</button>    
+    <div class="d-flex flex-row-reverse mt-2">
+      <a mat-raised-button href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
+      <button mat-raised-button color="primary" (click)="viewReport()" type="submit" class="mr-2">Ouvrir le compte rendu</button>
     </div>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #cancelModal>
+  <h5 mat-dialog-title>Êtes-vous sûr(e) ?
+    <button type="button" class="close" (click)="closeCancelModal()">
+      <span>&times;</span>
+    </button>
+  </h5>
+  <div *ngIf="visit.status !== VisitStatusEnum.IN_PROGRESS || datePassed" mat-dialog-content>Vous êtes sur le point d'annuler votre visite. Vous serez remboursé(e) intégralement.</div>
+  <div *ngIf="visit.status === VisitStatusEnum.IN_PROGRESS && !datePassed" mat-dialog-content>Vous êtes sur le point d'annuler votre visite. Vous serez remboursé(e) partiellement.</div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" type="button" class="mr-2" [mat-dialog-close]="true">Continuer</button>
+    <button mat-raised-button type="button" class="ml-2" [mat-dialog-close]="false">Annuler</button>
   </div>
-</div>
+</ng-template>

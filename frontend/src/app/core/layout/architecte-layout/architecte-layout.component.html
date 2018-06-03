@@ -8,12 +8,12 @@
     </a>
     <a class="nav-link mt-5" routerLink="/architecte/dashboard" routerLinkActive="active">Mon tableau de bord</a>
     <a class="nav-link" routerLink="/architecte/profile" routerLinkActive="active">Mon profil</a>
-    <a class="nav-link" routerLink="/architecte/visits" routerLinkActive="active">Mes visites<span matBadge={{visiteCounter}} matBadgeOverlap="false" *ngIf="visiteCounter"></span>
+    <a class="nav-link" routerLink="/architecte/visits" routerLinkActive="active">Mes visites
+      <span matBadge="{{visiteCounter}}" matBadgeColor="warn" matBadgeOverlap="false" *ngIf="visiteCounter"></span>
     </a>
-    <span class="float-right" matTooltip="Cette fonctionnalité sera bientôt disponible.">
-    <a class="nav-link cursor-not-allowed" routerLink="/architecte/messages" routerLinkActive="disabled">Ma messagerie</a>
-    </span>
-  
+    <a matTooltip="Cette fonctionnalité sera bientôt disponible." class="nav-link cursor-not-allowed" routerLinkActive="active"
+      disabled="disabled">Ma messagerie</a>
+
 
 
   </nav>
