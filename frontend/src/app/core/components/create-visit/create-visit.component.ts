@@ -17,6 +17,7 @@ import { VisitClass } from '../../models/VisitClass';
 import { ZipCodeClass } from '../../models/ZipCodeClass';
 import { CustomerClass } from '../../models/CustomerClass';
 import { DatePipe } from '@angular/common';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 declare var google;
 
@@ -45,29 +46,55 @@ export class CreateVisitComponent implements OnInit {
   place: any;
   visitCreationComplete: boolean = false;
   architectsAvailable: boolean = false;
-  hours = [
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21'
-  ];
-
-  minutes = [
-    '00',
-    '15',
-    '30',
-    '45'
+  times = [
+    { hour: 0, minute: 0, displayTime: '0:00' },
+    { hour: 0, minute: 30, displayTime: '0:30' },
+    { hour: 1, minute: 0, displayTime: '1:00' },
+    { hour: 1, minute: 30, displayTime: '1:30' },
+    { hour: 2, minute: 0, displayTime: '2:00' },
+    { hour: 2, minute: 30, displayTime: '2:30' },
+    { hour: 3, minute: 0, displayTime: '3:00' },
+    { hour: 3, minute: 30, displayTime: '3:30' },
+    { hour: 4, minute: 0, displayTime: '4:00' },
+    { hour: 4, minute: 30, displayTime: '4:30' },
+    { hour: 5, minute: 0, displayTime: '5:00' },
+    { hour: 5, minute: 30, displayTime: '5:30' },
+    { hour: 6, minute: 0, displayTime: '6:00' },
+    { hour: 6, minute: 30, displayTime: '6:30' },
+    { hour: 7, minute: 0, displayTime: '7:00' },
+    { hour: 7, minute: 30, displayTime: '7:30' },
+    { hour: 8, minute: 0, displayTime: '8:00' },
+    { hour: 8, minute: 30, displayTime: '8:30' },
+    { hour: 9, minute: 0, displayTime: '9:00' },
+    { hour: 9, minute: 30, displayTime: '9:30' },
+    { hour: 10, minute: 0, displayTime: '10:00' },
+    { hour: 10, minute: 30, displayTime: '10:30' },
+    { hour: 11, minute: 0, displayTime: '11:00' },
+    { hour: 11, minute: 30, displayTime: '11:30' },
+    { hour: 12, minute: 0, displayTime: '12:00' },
+    { hour: 12, minute: 30, displayTime: '12:30' },
+    { hour: 13, minute: 0, displayTime: '13:00' },
+    { hour: 13, minute: 30, displayTime: '13:30' },
+    { hour: 14, minute: 0, displayTime: '14:00' },
+    { hour: 14, minute: 30, displayTime: '14:30' },
+    { hour: 15, minute: 0, displayTime: '15:00' },
+    { hour: 15, minute: 30, displayTime: '15:30' },
+    { hour: 16, minute: 0, displayTime: '16:00' },
+    { hour: 16, minute: 30, displayTime: '16:30' },
+    { hour: 17, minute: 0, displayTime: '17:00' },
+    { hour: 17, minute: 30, displayTime: '17:30' },
+    { hour: 18, minute: 0, displayTime: '18:00' },
+    { hour: 18, minute: 30, displayTime: '18:30' },
+    { hour: 19, minute: 0, displayTime: '19:00' },
+    { hour: 19, minute: 30, displayTime: '19:30' },
+    { hour: 20, minute: 0, displayTime: '20:00' },
+    { hour: 20, minute: 30, displayTime: '20:30' },
+    { hour: 21, minute: 0, displayTime: '21:00' },
+    { hour: 21, minute: 30, displayTime: '21:30' },
+    { hour: 22, minute: 0, displayTime: '22:00' },
+    { hour: 22, minute: 30, displayTime: '22:30' },
+    { hour: 23, minute: 0, displayTime: '23:00' },
+    { hour: 23, minute: 30, displayTime: '23:30' }
   ];
 
   minDate = moment().add(1, 'days').toDate();
@@ -84,7 +111,12 @@ export class CreateVisitComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private acheteurService: AcheteurService,
+    private breakpointObserver: BreakpointObserver,
     private zone: NgZone) { }
+
+  get isMobile() {
+    return this.breakpointObserver.isMatched('(max-width: 767px)');
+  }
 
   ngOnInit() {
     if (this.sessionStorageService.place) {
@@ -136,8 +168,7 @@ export class CreateVisitComponent implements OnInit {
 
     this.dateFormGroup = this._formBuilder.group({
       datePicker: ['', Validators.required],
-      hour: ['', Validators.required],
-      minute: ['', Validators.required]
+      time: ['', Validators.required]
     });
 
     this.addressFormGroup = this._formBuilder.group({
@@ -230,12 +261,12 @@ export class CreateVisitComponent implements OnInit {
     this.visit.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
     this.visit.zipCode = this.addressFormGroup.controls['zipCode'].value ? new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value }) : null;
     this.visit.announcementUrl = this.projectFormGroup.controls['announcementUrl'].value;
-    
-    let date = <Date>this.dateFormGroup.controls['datePicker'].value;
-    let hour = this.dateFormGroup.controls['hour'].value;
-    let minute = this.dateFormGroup.controls['minute'].value;
 
-    this.visit.visiteDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute);
+    let date = <Date>this.dateFormGroup.controls['datePicker'].value;
+    let hour = this.dateFormGroup.controls['time'].value ? this.times[this.dateFormGroup.controls['time'].value].hour : null;
+    let minute = this.dateFormGroup.controls['time'].value ? this.times[this.dateFormGroup.controls['time'].value].minute : null;
+
+    this.visit.visiteDate = date ? new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute) : null;
   }
 
   async postNewVisit(enablePopup: boolean) {

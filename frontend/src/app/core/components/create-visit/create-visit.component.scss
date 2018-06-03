@@ -31,3 +31,18 @@
         width: 700px;
     }
 }
+
+.row-container {
+    flex-direction: row;
+    display: flex;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 500px){
+    .row-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

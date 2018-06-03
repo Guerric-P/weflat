@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -13,6 +13,8 @@ import { ArchitectClass } from '../../models/ArchitectClass';
   styleUrls: ['./register-architecte.component.scss']
 })
 export class RegisterArchitecteComponent implements OnInit {
+
+  @Input() withoutBoxShadow: boolean;
 
   constructor(private fb: FormBuilder,
     private architecteService: ArchitectService,
@@ -42,16 +44,16 @@ export class RegisterArchitecteComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(){
+  onSubmit() {
     this.architecteService.postArchitecte(this.data).subscribe(
       x => {
-        this.authenticationService.login(this.data.email, this.data.password).subscribe( x => {
+        this.authenticationService.login(this.data.email, this.data.password).subscribe(x => {
           this.authenticationService.returnUrl = null;
           this.router.navigate(['/architecte/profile']);
         });
       });
   }
-  
+
   matchOtherValidator(otherControlName: string) {
     let thisControl: FormControl;
     let otherControl: FormControl;

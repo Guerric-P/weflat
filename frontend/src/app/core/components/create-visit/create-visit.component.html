@@ -7,23 +7,16 @@
           <div class="row justify-content-center align-items-center">
             <h1>Quand a lieu votre visite ?</h1>
           </div>
-          <div class="row justify-content-center align-items-center mt-3">
+          <div class="row-container justify-content-between align-items-center mt-3">
             <mat-form-field>
               <input matInput [matDatepicker]="picker" formControlName="datePicker" [min]="minDate" placeholder="Choisissez une date...">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker [touchUi]="isMobile" #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
-              <mat-select placeholder="Heure" formControlName="hour">
-                <mat-option *ngFor="let hour of hours" [value]="hour">
-                  {{ hour }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-select placeholder="Minute" formControlName="minute">
-                <mat-option *ngFor="let minute of minutes" [value]="minute">
-                  {{ minute }}
+              <mat-select placeholder="Heure" formControlName="time">
+                <mat-option *ngFor="let time of times; let i = index;" [value]="i">
+                  {{ time.displayTime }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
