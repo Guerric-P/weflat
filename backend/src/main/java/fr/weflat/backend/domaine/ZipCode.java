@@ -47,6 +47,12 @@ public class ZipCode {
 	@Column(nullable = false, name = "active", unique = true)
 	private boolean active;
 	
+	@Column(nullable = true, name = "county")
+	private String county;
+	
+	@Column(nullable = true, name = "town")
+	private String town;
+	
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "architect_zip_code", joinColumns = @JoinColumn(name = "zip_code_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "architect_id", referencedColumnName = "id"))
 	private Set<Architect> architectes;
@@ -86,4 +92,21 @@ public class ZipCode {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
+	public String getCounty() {
+		return county;
+	}
+
+	public void setCounty(String county) {
+		this.county = county;
+	}
+
+	public String getTown() {
+		return town;
+	}
+
+	public void setTown(String town) {
+		this.town = town;
+	}
+	
 }
