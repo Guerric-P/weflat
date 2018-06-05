@@ -116,6 +116,10 @@ export class ArchitecteProfileComponent implements OnInit {
     }.bind(this))
   }
 
+  onZipCodeInputBlur(event: any) {
+    event.target.value = '';
+  }
+
   initForm() {
     this.form = this.fb.group({
       firstName: [this.architecte.firstName, Validators.required],

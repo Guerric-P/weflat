@@ -6,6 +6,7 @@ import { ArchitectService } from '../../../shared/services/architecte.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Constantes } from '../../../shared/common/Constantes';
 import { ArchitectClass } from '../../models/ArchitectClass';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-register-architecte',
@@ -19,8 +20,8 @@ export class RegisterArchitecteComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private architecteService: ArchitectService,
     private authenticationService: AuthenticationService,
-    private router: Router) {
-    this.createForm();
+    private router: Router,
+    private notificationsService: NotificationsService) {
   }
 
   data: ArchitectClass = new ArchitectClass();
@@ -42,6 +43,7 @@ export class RegisterArchitecteComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createForm();
   }
 
   onSubmit() {
@@ -50,7 +52,11 @@ export class RegisterArchitecteComponent implements OnInit {
         this.authenticationService.login(this.data.email, this.data.password).subscribe(x => {
           this.authenticationService.returnUrl = null;
           this.router.navigate(['/architecte/profile']);
+        }, err => {
+          this.notificationsService.error('Erreur', 'Une erreur est survenue...');
         });
+      }, err => {
+        this.notificationsService.error('Erreur', 'Une erreur est survenue, un compte lié à cette addresse e-mail existe-t-il déjà ?');
       });
   }
 

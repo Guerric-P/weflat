@@ -36,3 +36,7 @@
     border:0;
     background-color:transparent;
 }
+
+.mandatory-field::after {
+    content: " *";
+}

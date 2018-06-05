@@ -14,7 +14,7 @@
               <mat-datepicker [touchUi]="isMobile" #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
-              <mat-select placeholder="Heure" formControlName="time">
+              <mat-select placeholder="Choisissez une heure..." formControlName="time">
                 <mat-option *ngFor="let time of times; let i = index;" [value]="i">
                   {{ time.displayTime }}
                 </mat-option>

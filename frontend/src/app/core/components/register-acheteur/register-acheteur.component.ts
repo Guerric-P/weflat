@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { ShowSigninPopupService } from '../../services/show-signin-popup.service';
 import { Constantes } from '../../../shared/common/Constantes';
 import { CustomerClass } from '../../models/CustomerClass';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-register-acheteur',
@@ -14,12 +15,15 @@ import { CustomerClass } from '../../models/CustomerClass';
 })
 export class RegisterAcheteurComponent implements OnInit {
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private acheteurService: AcheteurService,
     private authenticationService: AuthenticationService,
     private router: Router,
-    private showSigninPopupService: ShowSigninPopupService) {
-    this.createForm();
+    private showSigninPopupService: ShowSigninPopupService,
+    private notificationsService: NotificationsService
+  ) {
+
   }
 
   data: CustomerClass = new CustomerClass();
@@ -43,6 +47,7 @@ export class RegisterAcheteurComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createForm();
   }
 
   onSubmit() {
@@ -52,7 +57,11 @@ export class RegisterAcheteurComponent implements OnInit {
           this.authenticationService.returnUrl = null;
           if (!this.isEmbedded)
             this.router.navigate(['acheteur']);
+        }, err => {
+          this.notificationsService.error('Erreur', 'Une erreur est survenue...');
         });
+      }, err => {
+        this.notificationsService.error('Erreur', 'Une erreur est survenue, un compte lié à cette addresse e-mail existe-t-il déjà ?');
       });
   }
 

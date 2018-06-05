@@ -9,6 +9,7 @@ import { ReportClass } from '../../../core/models/ReportClass';
 import { PositionClass } from '../../../core/models/PositionClass';
 import { RenovationClass } from '../../../core/models/RenovationClass';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 
 @Component({
   selector: 'app-report-edit',
@@ -17,13 +18,20 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 })
 export class ReportEditComponent implements OnInit {
 
-  constructor(private fb: FormBuilder,
+  get displayArchitectContactButton() {
+    return !this.authenticationService.isArchitect;
+  }
+
+  constructor(
+    private fb: FormBuilder,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
     private visiteService: VisitService,
     private reportService: ReportService,
     private dialog: MatDialog,
-    private router: Router) { }
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) { }
 
   form: FormGroup;
   report: ReportClass;
@@ -174,10 +182,13 @@ export class ReportEditComponent implements OnInit {
 
     if (!this.report.id) {
       this.reportService.postReport(this.report.visite.id, report).subscribe(res => {
-        this.notificationsService.success('Merci !', 'Votre rapport a été sauvegardé avec succès.');
+        this.report = res;
         this.form.markAsUntouched();
         if (callback) {
           callback();
+        }
+        else {
+          this.notificationsService.success('Merci !', 'Votre rapport a été sauvegardé avec succès.');
         }
       }, err => {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la création du rapport.');
@@ -185,10 +196,12 @@ export class ReportEditComponent implements OnInit {
     }
     else {
       this.reportService.patchReport(this.report.visite.id, report).subscribe(res => {
-        this.notificationsService.success('Merci !', 'Votre rapport a été sauvegardé avec succès.');
         this.form.markAsUntouched();
         if (callback) {
           callback();
+        }
+        else {
+          this.notificationsService.success('Merci !', 'Votre rapport a été sauvegardé avec succès.');
         }
       }, err => {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la mise à jour du rapport.');
