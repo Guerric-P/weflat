@@ -212,21 +212,28 @@ public class VisitController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/{id}/report", method = RequestMethod.POST)
-	public void postReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
+	public ReportDto postReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
 		Visit visit = visitService.findById(id);
 
 		if(visit.getArchitect().getId().equals((Long) details.get("id"))) {
-			visit.setReport(orikaMapperFacade.map(input, Report.class));
-			visit.setStatus(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal());
+			if(visit.getStatus() == VisitStatusEnum.IN_PROGRESS.ordinal()) {
+				visit.setReport(orikaMapperFacade.map(input, Report.class));
+				visit.setStatus(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal());
 
-			//deal with OneToOne mappedby relation
-			for(Renovation renovation: visit.getReport().getRenovations()) {
-				renovation.setReport(visit.getReport());
+				//deal with OneToOne mappedby relation
+				for(Renovation renovation: visit.getReport().getRenovations()) {
+					renovation.setReport(visit.getReport());
+				}
+
+				visitService.save(visit);
+				
+				return orikaMapperFacade.map(visit.getReport(), ReportDto.class);
 			}
-
-			visitService.save(visit);
+			else {
+				throw new Exception("Visit does not accept a report yet");
+			}
 		} else if (visit.getReport() != null) {
 			throw new Exception("Report already exists for visit" + visit.getId());
 		} else {
@@ -236,21 +243,29 @@ public class VisitController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/{id}/report", method = RequestMethod.PATCH)
-	public void patchReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
+	public ReportDto patchReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
 		Report report = reportService.getByVisiteId(id);
 
 		if(report.getVisite().getArchitect().getId().equals((Long) details.get("id"))) {
-			orikaMapperFacade.map(input, report);
-			report.getVisite().setStatus(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal());
+			if(report.getVisite().getStatus() == VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal()
+					|| report.getVisite().getStatus() == VisitStatusEnum.IN_PROGRESS.ordinal()) {
+				orikaMapperFacade.map(input, report);
+				report.getVisite().setStatus(VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal());
 
-			//deal with OneToOne mappedby relation
-			for(Renovation renovation: report.getRenovations()) {
-				renovation.setReport(report);
+				//deal with OneToOne mappedby relation
+				for(Renovation renovation: report.getRenovations()) {
+					renovation.setReport(report);
+				}
+
+				reportService.save(report);
+				
+				return orikaMapperFacade.map(report, ReportDto.class);
 			}
-
-			reportService.save(report);
+			else {
+				throw new Exception("Report cannot be edited");
+			}
 		}
 		else {
 			throw new AccessDeniedException("Only the architect assigned to this visit can edit the report");

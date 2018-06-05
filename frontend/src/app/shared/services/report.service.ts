@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ReportClass } from '../../core/models/ReportClass';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ReportService {
@@ -12,12 +13,12 @@ export class ReportService {
     return this.http.get<ReportClass>(`/visits/${visitId}/report`);
   }
 
-  postReport(visitId: number, report: ReportClass): Observable<any> {
-    return this.http.post(`/visits/${visitId}/report`, report, { responseType: 'text' });
+  postReport(visitId: number, report: ReportClass): Observable<ReportClass> {
+    return this.http.post(`/visits/${visitId}/report`, report).pipe(map(res => new ReportClass(res)));
   }
 
-  patchReport(visitId: number, report: ReportClass): Observable<any> {
-    return this.http.patch(`/visits/${visitId}/report`, report);
+  patchReport(visitId: number, report: ReportClass): Observable<ReportClass> {
+    return this.http.patch(`/visits/${visitId}/report`, report).pipe(map(res => new ReportClass(res)));
   }
 
   submitReport(visitId: number): Observable<any> {
