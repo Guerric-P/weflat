@@ -138,8 +138,37 @@ export class ArchitecteProfileComponent implements OnInit {
       decennialInsurance: [this.architecte.decennialInsurance, Validators.required],
       motivation: [this.architecte.motivation, Validators.required],
       cgu: [this.architecte.cgu, Validators.requiredTrue],
-      iban: [this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null, this.IBANValidator]
+      iban: [this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null, [this.requiredIfPaymentTypeIsIBAN('paymentType'), this.IBANValidator]]
     });
+  }
+
+  requiredIfPaymentTypeIsIBAN(otherControlName: string) {
+    let thisControl: FormControl;
+    let otherControl: FormControl;
+
+    return function (control: FormControl) {
+      if (!control.parent) {
+        return null;
+      }
+      // Initializing the validator.
+      if (!thisControl) {
+        thisControl = control;
+        // Get the other control from the parent
+        otherControl = control.parent.get(otherControlName) as FormControl;
+        if (!otherControl) {
+          throw new Error('matchOtherValidator(): other control is not found in parent group');
+        }
+        // If other control change, we must compute again the validity
+        otherControl.valueChanges.subscribe(() => {
+          thisControl.updateValueAndValidity();
+        });
+      }
+      if (!otherControl) {
+        return null;
+      }
+      // If "Transfert bancaire"
+      return (otherControl.value === "2" && !thisControl.value) ? { verifyIBANFailed: true } : null;
+    }
   }
 
   ngAfterViewInit(): void {
