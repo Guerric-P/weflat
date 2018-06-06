@@ -15,7 +15,7 @@ export class UserService {
     return this.http.post(`/users/forgotten-password`, null, {params: {email}});
   }
 
-  resetPassword(hash: string, password) {
+  resetPassword(hash: string, password: string) {
     return this.http.post(`/users/reset-password`, null, {params: {hash, password}})
   }
 }

@@ -18,9 +18,15 @@
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Date de naissance</label>
       <div class="col-sm-10">
-        <input type="date" class="form-control" [class.is-invalid]="form.controls.birthDate.invalid && form.controls.birthDate.touched"
-          [class.is-valid]="!form.controls.birthDate.invalid && form.controls.birthDate.touched" placeholder="Date de naissance"
-          formControlName="birthDate">
+        <div class="input-group">
+          <input [matDatepicker]="birthDatePicker" class="form-control" [class.is-invalid]="form.controls.birthDate.invalid && form.controls.birthDate.touched"
+            [class.is-valid]="!form.controls.birthDate.invalid && form.controls.birthDate.touched" placeholder="Date de naissance"
+            formControlName="birthDate">
+          <div class="input-group-append">
+            <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker [touchUi]="isMobile" #birthDatePicker></mat-datepicker>
+          </div>
+        </div>
       </div>
     </div>
     <div class="form-group row">

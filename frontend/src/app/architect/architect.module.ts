@@ -23,7 +23,8 @@ import {
   MatIconModule,
   MatExpansionModule,
   MatTooltipModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDatepickerModule
 } from '@angular/material';
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
@@ -45,6 +46,7 @@ import { SharedModule } from '../shared/shared.module';
     MatExpansionModule,
     MatTooltipModule,
     MatDialogModule,
+    MatDatepickerModule,
     SharedModule
   ],
   declarations: [
