@@ -15,9 +15,9 @@
           </span>
           <span *ngIf="architecte.status === ArchitectStatusEnum.VALIDATED">
             <span class="badge badge-success">Validé</span> Vous recevez les demandes de visite dans votre zone d'action.
-          </span> 
+          </span>
           <span *ngIf="architecte.status === ArchitectStatusEnum.REFUSED">
-           <span class="badge badge-danger">Refusé</span> Votre candidature n'a pas été retenue.
+            <span class="badge badge-danger">Refusé</span> Votre candidature n'a pas été retenue.
           </span>
         </p>
       </div>
@@ -28,36 +28,52 @@
       </div>
       <div class="card-body">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label"><span class="mandatory-field">Prénom</span></label>
+          <label class="col-sm-2 col-form-label">
+            <span class="mandatory-field">Prénom</span>
+          </label>
           <div class="col-sm-10">
             <input type="text" class="form-control name" [class.is-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
               [class.is-valid]="!form.controls.firstName.invalid && form.controls.firstName.touched" placeholder="Prénom" formControlName="firstName">
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label"><span class="mandatory-field">Nom</span></label>
+          <label class="col-sm-2 col-form-label">
+            <span class="mandatory-field">Nom</span>
+          </label>
           <div class="col-sm-10">
             <input type="text" class="form-control name" [class.is-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
               [class.is-valid]="!form.controls.lastName.invalid && form.controls.lastName.touched" placeholder="Nom" formControlName="lastName">
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label"><span class="mandatory-field">Date de naissance</span></label>
+          <label class="col-sm-2 col-form-label">
+            <span class="mandatory-field">Date de naissance</span>
+          </label>
           <div class="col-sm-10">
-            <input type="date" class="form-control" [class.is-invalid]="form.controls.birthDate.invalid && form.controls.birthDate.touched"
-              [class.is-valid]="!form.controls.birthDate.invalid && form.controls.birthDate.touched" placeholder="Date de naissance"
-              formControlName="birthDate" [max]="dateNow">
+            <div class="input-group">
+              <input [matDatepicker]="birthDatePicker" class="form-control" [class.is-invalid]="form.controls.birthDate.invalid && form.controls.birthDate.touched"
+                [class.is-valid]="!form.controls.birthDate.invalid && form.controls.birthDate.touched" placeholder="Date de naissance"
+                formControlName="birthDate" [max]="dateNow">
+              <div class="input-group-append">
+                <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker [touchUi]="isMobile" #birthDatePicker></mat-datepicker>
+              </div>
+            </div>
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label"><span class="mandatory-field">E-mail</span></label>
+          <label class="col-sm-2 col-form-label">
+            <span class="mandatory-field">E-mail</span>
+          </label>
           <div class="col-sm-10">
             <input type="email" class="form-control" [class.is-invalid]="form.controls.email.invalid && form.controls.email.touched"
               [class.is-valid]="!form.controls.email.invalid && form.controls.email.touched" placeholder="Email" formControlName="email">
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label"><span class="mandatory-field">Portable</span></label>
+          <label class="col-sm-2 col-form-label">
+            <span class="mandatory-field">Portable</span>
+          </label>
           <div class="col-sm-10">
             <input type="tel" class="form-control" [class.is-invalid]="form.controls.telephone.invalid && form.controls.telephone.touched"
               [class.is-valid]="!form.controls.telephone.invalid && form.controls.telephone.touched" placeholder="Numéro de téléphone portable"
@@ -96,7 +112,9 @@
         </div>
         <div class="row">
           <div class="col-sm-4 zip-codes-container">
-            <label><span class="mandatory-field">Saisissez les codes postaux correspondant à votre zone d'action</span></label>
+            <label>
+              <span class="mandatory-field">Saisissez les codes postaux correspondant à votre zone d'action</span>
+            </label>
             <mat-form-field>
               <mat-chip-list [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
                 <mat-chip *ngFor="let zipCode of zipCodes" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable" [removable]="removable"
@@ -104,7 +122,8 @@
                   {{zipCode}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
-                <input #zipCodeInput placeholder="Nouveau code postal..." [matChipInputFor]="zipCodesList" (blur)="onZipCodeInputBlur($event)"/>
+                <input #zipCodeInput placeholder="Nouveau code postal..." [matChipInputFor]="zipCodesList" (blur)="onZipCodeInputBlur($event)"
+                />
               </mat-chip-list>
               <mat-error *ngIf="true">
                 Saisissez au moins un code postal
@@ -124,7 +143,9 @@
       </div>
       <div class="card-body">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label"><span class="mandatory-field">Architecte</span></label>
+          <label class="col-sm-2 col-form-label">
+            <span class="mandatory-field">Architecte</span>
+          </label>
           <div class="col-sm-10">
             <select class="form-control" [class.is-invalid]="form.controls.type.invalid && form.controls.type.touched" [class.is-valid]="!form.controls.type.invalid && form.controls.type.touched"
               formControlName="type">
@@ -133,7 +154,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label"><span class="mandatory-field">Situation</span></label>
+          <label class="col-sm-2 col-form-label">
+            <span class="mandatory-field">Situation</span>
+          </label>
           <div class="col-sm-10">
             <select class="form-control" [class.is-invalid]="form.controls.situation.invalid && form.controls.situation.touched" [class.is-valid]="!form.controls.situation.invalid && form.controls.situation.touched"
               formControlName="situation">
@@ -143,11 +166,19 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label"><span class="mandatory-field">Expérience</span></label>
+          <label class="col-sm-2 col-form-label">
+            <span class="mandatory-field">Expérience</span>
+          </label>
           <div class="col-sm-10">
-            <input type="date" class="form-control" [class.is-invalid]="form.controls.practicingSince.invalid && form.controls.practicingSince.touched"
-              [class.is-valid]="!form.controls.practicingSince.invalid && form.controls.practicingSince.touched" placeholder="Mee"
-              formControlName="practicingSince" [max]="dateNow">
+            <div class="input-group">
+              <input [matDatepicker]="practicingSinceDatePicker" class="form-control" [class.is-invalid]="form.controls.practicingSince.invalid && form.controls.practicingSince.touched"
+                [class.is-valid]="!form.controls.practicingSince.invalid && form.controls.practicingSince.touched" placeholder="Expérience"
+                formControlName="practicingSince" [max]="dateNow">
+              <div class="input-group-append">
+                <mat-datepicker-toggle matSuffix [for]="practicingSinceDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker [touchUi]="isMobile" #practicingSinceDatePicker></mat-datepicker>
+              </div>
+            </div>
             <div>
               <p class="text-muted">Depuis quand exercez-vous le métier d'architecte ?</p>
             </div>
@@ -164,7 +195,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label"><span class="mandatory-field">Ordre des architectes</span></label>
+          <label class="col-sm-3 col-form-label">
+            <span class="mandatory-field">Ordre des architectes</span>
+          </label>
           <div class="col-sm-9">
             <div class="form-check-inline">
               <label class="form-check-label">
@@ -182,7 +215,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label"><span class="mandatory-field">CFAI</span></label>
+          <label class="col-sm-3 col-form-label">
+            <span class="mandatory-field">CFAI</span>
+          </label>
           <div class="col-sm-9">
             <div class="form-check-inline">
               <label class="form-check-label">
@@ -200,7 +235,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label"><span class="mandatory-field">Responsabilité civile professionnelle</span></label>
+          <label class="col-sm-3 col-form-label">
+            <span class="mandatory-field">Responsabilité civile professionnelle</span>
+          </label>
           <div class="col-sm-9">
             <div class="form-check-inline">
               <label class="form-check-label">
@@ -218,7 +255,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label"><span class="mandatory-field">Assurance décennale</span></label>
+          <label class="col-sm-3 col-form-label">
+            <span class="mandatory-field">Assurance décennale</span>
+          </label>
           <div class="col-sm-9">
             <div class="form-check-inline">
               <label class="form-check-label">
@@ -243,7 +282,9 @@
       </div>
       <div class="card-body">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label"><span class="mandatory-field">Motivation</span></label>
+          <label class="col-sm-2 col-form-label">
+            <span class="mandatory-field">Motivation</span>
+          </label>
           <div class="col-md-10">
             <textarea class="form-control" rows="3" class="form-control-file" class="form-control" [class.is-invalid]="form.controls.motivation.invalid && form.controls.motivation.touched"
               [class.is-valid]="!form.controls.motivation.invalid && form.controls.motivation.touched" placeholder="Pourquoi avoir rejoint Weflat?"
@@ -251,7 +292,9 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label"><span class="mandatory-field">Paiement</span></label>
+          <label class="col-sm-2 col-form-label">
+            <span class="mandatory-field">Paiement</span>
+          </label>
           <div class="col-sm-10">
             <select class="form-control" [class.is-invalid]="form.controls.paymentType.invalid && form.controls.paymentType.touched"
               [class.is-valid]="!form.controls.paymentType.invalid && form.controls.paymentType.touched" formControlName="paymentType">
