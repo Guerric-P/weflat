@@ -15,7 +15,8 @@
 			"firstName": "Architecte",
 			"lastName": "Bidon",
 			"email": "architectebidon@yopmail.com",
-			"telephone": "9876543210"
+			"telephone": "9876543210",
+			"accept": true
 		}, {
 			"firstName": "Architecte",
 			"lastName": "Bidon",

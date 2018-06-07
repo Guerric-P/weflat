@@ -16,6 +16,7 @@ import { LocalStorageService } from '../../../core/services/local-storage.servic
 import { ZipCodeService } from '../../../shared/services/zip-code.service';
 import * as IBAN from 'iban';
 import { PaymentTypeClass } from '../../../core/models/PaymentTypeClass';
+import { BreakpointObserver } from '@angular/cdk/layout';
 declare var moment;
 declare var google;
 
@@ -65,7 +66,9 @@ export class ArchitecteProfileComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private zipCodeService: ZipCodeService,
     private ref: ChangeDetectorRef,
-    private zone: NgZone) { }
+    private zone: NgZone,
+    private breakpointObserver: BreakpointObserver
+  ) { }
 
 
   public ArchitectStatusEnum = ArchitectStatusEnum;
@@ -114,6 +117,10 @@ export class ArchitecteProfileComponent implements OnInit {
         }
       }
     }.bind(this))
+  }
+
+  get isMobile() {
+    return this.breakpointObserver.isMatched('(max-width: 767px)');
   }
 
   onZipCodeInputBlur(event: any) {

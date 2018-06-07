@@ -109,10 +109,18 @@ async function launch() {
 
             logger.info('Sending patch request...');
 
-            await sendPatchUserRequest(config.apiArchitectsEndpoint + '/' + signupResult.id, JSON.stringify(architect), 'Bearer ' + adminToken);
+            await sendPatchUserRequest(fillTemplate(config.apiArchitectEndpoint, { id: signupResult.id }), JSON.stringify(architect), 'Bearer ' + adminToken);
 
             logger.info('Patch request successful!');
-            
+
+            if (architect.accept) {
+                logger.info('Sending accept request...');
+
+                await sendAcceptUserRequest(fillTemplate(config.apiAcceptEndpoint, { id: signupResult.id }), 'Bearer ' + adminToken);
+
+                logger.info('Accept request successful!');
+            }
+
             if (config.mails) {
                 logger.info('Sending mail to %s with password %s', architect.email, password);
                 await sendMail(gmail, jwtClient, architect.email, 'Création de votre compte', 'Votre mot de passe est : ' + password);
@@ -122,6 +130,7 @@ async function launch() {
         }
         catch (e) {
             logger.error('Registration of architect %s %s failed...', architect.firstName, architect.lastName);
+            logger.error('Details : %j', e);
         }
     }
     return;
@@ -137,6 +146,10 @@ async function sendSignupRequest(path, stringData) {
 
 async function sendPatchUserRequest(path, stringData, auth) {
     return sendRequest(path, 'PATCH', stringData, auth);
+}
+
+async function sendAcceptUserRequest(path, auth) {
+    return sendRequest(path, 'POST', null, auth);
 }
 
 function sendRequest(path, method, stringData, auth) {
@@ -219,6 +232,10 @@ function sendMail(gmail, jwtClient, to, subject, message) {
             raw: btoa(email).replace(/\+/g, '-').replace(/\//g, '_')
         }
     });
+}
+
+function fillTemplate(templateString, templateVars) {
+    return new Function("return `" + templateString + "`;").call(templateVars);
 }
 
 (async () => {
