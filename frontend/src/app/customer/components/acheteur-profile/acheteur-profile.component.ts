@@ -7,6 +7,7 @@ import { AcheteurService } from '../../../shared/services/acheteur.service';
 import { UserService } from '../../../shared/services/user.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { CustomerClass } from '../../../core/models/CustomerClass';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-acheteur-profile',
@@ -14,12 +15,15 @@ import { CustomerClass } from '../../../core/models/CustomerClass';
   styleUrls: ['./acheteur-profile.component.scss']
 })
 export class AcheteurProfileComponent implements OnInit {
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private acheteurService: AcheteurService,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
     private userService: UserService,
-    private authService: AuthenticationService) { }
+    private authService: AuthenticationService,
+    private breakpointObserver: BreakpointObserver
+  ) { }
 
   form: FormGroup;
   passwordForm: FormGroup;
@@ -40,6 +44,10 @@ export class AcheteurProfileComponent implements OnInit {
     this.passwordForm = this.fb.group({
       password: [null, Validators.minLength(6)]
     });
+  }
+
+  get isMobile() {
+    return this.breakpointObserver.isMatched('(max-width: 767px)');
   }
 
   onSubmit() {
