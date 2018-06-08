@@ -14,8 +14,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     try {
       twttr.widgets.load();
-    }
-    catch (e) {
+    } catch (e) {
       console.log('Erreur lors du chargement du widget twitter...');
     }
   }

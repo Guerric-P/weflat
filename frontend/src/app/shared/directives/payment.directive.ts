@@ -23,14 +23,14 @@ export class PaymentDirective {
     private loaderService: LoaderService) { }
 
   openStripePopup() {
-    var handler = (<any>window).StripeCheckout.configure({
+    const handler = (<any>window).StripeCheckout.configure({
       key: environment.stripePublicKey,
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       currency: 'eur',
       email: this.email,
       token: function (token: any) {
-        this.loaderService.show("Paiement en cours...");
+        this.loaderService.show('Paiement en cours...');
         this.visiteService.pay(this.visitId, token.id).subscribe(res => {
           this.notificationsService.success('Paiement effectué', 'Le paiement a réussi pour votre création de visite.');
           this.loaderService.hide();

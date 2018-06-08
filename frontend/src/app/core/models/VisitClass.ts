@@ -1,7 +1,7 @@
-import { CustomerClass } from "./CustomerClass";
-import { ArchitectClass } from "./ArchitectClass";
-import { ZipCodeClass } from "./ZipCodeClass";
-import { VisitStatusEnum } from "../../shared/common/enums/VisitStatusEnum";
+import { CustomerClass } from './CustomerClass';
+import { ArchitectClass } from './ArchitectClass';
+import { ZipCodeClass } from './ZipCodeClass';
+import { VisitStatusEnum } from '../../shared/common/enums/VisitStatusEnum';
 
 export class VisitClass {
     public id: number;
@@ -26,8 +26,7 @@ export class VisitClass {
                 + this.zipCode.number
                 + ' '
                 + this.city;
-        }
-        catch (err) {
+        } catch (err) {
             // Ignore
         }
     }

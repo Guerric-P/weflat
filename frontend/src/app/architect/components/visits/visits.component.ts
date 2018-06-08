@@ -10,8 +10,6 @@ import { VisitClass } from '../../../core/models/VisitClass';
 })
 export class VisitsComponent implements OnInit {
 
-  constructor(private visiteService: VisitService, private authService: AuthenticationService) { }
-
   potentialVisites: VisitClass[];
   plannedVisites: VisitClass[];
   reportPendingVisites: VisitClass[];
@@ -21,11 +19,13 @@ export class VisitsComponent implements OnInit {
   reportPendingVisitesExpanded: boolean;
   reportWrittenVisitesExpanded: boolean;
 
+  constructor(private visiteService: VisitService, private authService: AuthenticationService) { }
+
   ngOnInit() {
    this.loadAllVisites();
   }
 
-  loadAllVisites(){
+  loadAllVisites() {
     this.loadPlannedVisites();
     this.loadPotentialVisites();
     this.loadReportPendingVisites();
@@ -38,7 +38,7 @@ export class VisitsComponent implements OnInit {
         this.potentialVisites = res;
         this.potentialVisitesExpanded = this.potentialVisites && !!this.potentialVisites.length;
       }, err => {
-        //TODO
+        // TODO
       }
     );
   }
@@ -49,7 +49,7 @@ export class VisitsComponent implements OnInit {
         this.plannedVisites = res;
         this.plannedVisitesExpanded = this.plannedVisites && !!this.plannedVisites.length;
       }, err => {
-        //TODO
+        // TODO
       }
     );
   }
@@ -60,7 +60,7 @@ export class VisitsComponent implements OnInit {
         this.reportPendingVisites = res;
         this.reportPendingVisitesExpanded = this.reportPendingVisites && !!this.reportPendingVisites.length;
       }, err => {
-        //TODO
+        // TODO
       }
     );
   }
@@ -71,7 +71,7 @@ export class VisitsComponent implements OnInit {
         this.reportWrittenVisites = res;
         this.reportWrittenVisitesExpanded = this.reportWrittenVisites && !!this.reportWrittenVisites.length;
       }, err => {
-        //TODO
+        // TODO
       }
     );
   }

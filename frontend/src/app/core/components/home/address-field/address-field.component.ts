@@ -16,24 +16,24 @@ declare var google: any;
 })
 export class AddressFieldComponent implements OnInit {
 
-  constructor(private sessionStorageService: SessionStorageService,
-    private router: Router,
-    private zone: NgZone,
-    private visitService: VisitService) { }
-
   @ViewChild('input') input: ElementRef;
   @ViewChild('popup') popup: DisabledZipCodePopupComponent;
   visit: VisitClass = new VisitClass();
   place: any;
 
+  constructor(private sessionStorageService: SessionStorageService,
+    private router: Router,
+    private zone: NgZone,
+    private visitService: VisitService) { }
+
   ngOnInit() {
-    var options = {
+    const options = {
       types: ['address'],
       componentRestrictions: {
         country: 'fr'
       }
     };
-    var autocomplete = new google.maps.places.Autocomplete(this.input.nativeElement, options);
+    const autocomplete = new google.maps.places.Autocomplete(this.input.nativeElement, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       this.placeChanged(autocomplete);
     }.bind(this));
@@ -53,10 +53,10 @@ export class AddressFieldComponent implements OnInit {
     this.zone.run(() => {
       this.place = autocomplete.getPlace();
       this.sessionStorageService.place = this.place;
-      let keys = Object.keys(GooglePlaceKeys);
+      const keys = Object.keys(GooglePlaceKeys);
 
-      for (let key of keys) {
-        for (let component of this.place.address_components) {
+      for (const key of keys) {
+        for (const component of this.place.address_components) {
           if (component.types.includes(GooglePlaceKeys[key])) {
             if (key !== 'zipCode') {
               this.visit[key] = component.long_name;
@@ -71,8 +71,7 @@ export class AddressFieldComponent implements OnInit {
         if (!res.architectsAvailable) {
           this.popup.open(this.visit);
           this.sessionStorageService.visitInfos = res;
-        }
-        else {
+        } else {
           this.visit.id = res.visitId;
           this.sessionStorageService.visit = this.visit;
           this.sessionStorageService.visitInfos = res;

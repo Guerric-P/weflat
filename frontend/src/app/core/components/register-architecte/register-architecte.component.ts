@@ -16,6 +16,8 @@ import { NotificationsService } from 'angular2-notifications';
 export class RegisterArchitecteComponent implements OnInit {
 
   @Input() withoutBoxShadow: boolean;
+  data: ArchitectClass = new ArchitectClass();
+  registerForm: FormGroup;
 
   constructor(private fb: FormBuilder,
     private architecteService: ArchitectService,
@@ -23,9 +25,6 @@ export class RegisterArchitecteComponent implements OnInit {
     private router: Router,
     private notificationsService: NotificationsService) {
   }
-
-  data: ArchitectClass = new ArchitectClass();
-  registerForm: FormGroup;
 
   createForm() {
     this.registerForm = this.fb.group({
@@ -48,8 +47,8 @@ export class RegisterArchitecteComponent implements OnInit {
 
   onSubmit() {
     this.architecteService.postArchitecte(this.data).subscribe(
-      x => {
-        this.authenticationService.login(this.data.email, this.data.password).subscribe(x => {
+      () => {
+        this.authenticationService.login(this.data.email, this.data.password).subscribe(() => {
           this.authenticationService.returnUrl = null;
           this.router.navigate(['/architecte/profile']);
         }, err => {

@@ -33,8 +33,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           }
         )
       );
-    }
-    else{
+    } else {
       return next.handle(finalReq);
     }
   }
