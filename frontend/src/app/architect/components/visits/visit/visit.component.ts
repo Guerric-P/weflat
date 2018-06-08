@@ -35,7 +35,10 @@ export class VisitComponent implements OnInit {
     this.acceptButtonDisabled = true;
     this.loaderService.show();
     this.visiteService.acceptVisit(this.visit.id).subscribe(res => {
-      this.notificationService.success('Succès', `Vous avez accepté de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`);
+      this.notificationService.success(
+        'Succès',
+        `Vous avez accepté de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`
+      );
       this.acceptButtonDisabled = false;
       this.loaderService.hide();
       this.visitesUpdated();
@@ -50,7 +53,10 @@ export class VisitComponent implements OnInit {
   refuse() {
     this.refuseButtonDisabled = false;
     this.visiteService.refuseVisit(this.visit.id).subscribe(res => {
-      this.notificationService.success('Succès', `Vous avez refusé de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`);
+      this.notificationService.success(
+        'Succès',
+        `Vous avez refusé de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`
+      );
       this.refuseButtonDisabled = true;
       this.visitesUpdated();
     }, err => {

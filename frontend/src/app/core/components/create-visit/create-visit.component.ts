@@ -259,7 +259,8 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
     this.visit.city = this.addressFormGroup.controls['city'].value;
     this.visit.route = this.addressFormGroup.controls['route'].value;
     this.visit.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
-    this.visit.zipCode = this.addressFormGroup.controls['zipCode'].value ? new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value }) : null;
+    this.visit.zipCode = this.addressFormGroup.controls['zipCode'].value
+      ? new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value }) : null;
     this.visit.announcementUrl = this.projectFormGroup.controls['announcementUrl'].value;
 
     const date = <Date>this.dateFormGroup.controls['datePicker'].value;

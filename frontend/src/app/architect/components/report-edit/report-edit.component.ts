@@ -147,7 +147,7 @@ export class ReportEditComponent implements OnInit {
     this.sumAmounts = 0;
     this.renovations.controls.forEach(formGroup => {
       const c = formGroup.get('estimatedWork');
-      this.sumAmounts += new Number(c.value).valueOf();
+      this.sumAmounts += +c.value;
     });
   }
 
