@@ -10,7 +10,8 @@ export class ArchitecteResolver implements Resolve<ArchitectClass> {
 
   constructor(private architecteService: ArchitectService, private authenticationService: AuthenticationService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ArchitectClass | Observable<ArchitectClass> | Promise<ArchitectClass> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+    ArchitectClass | Observable<ArchitectClass> | Promise<ArchitectClass> {
     return this.architecteService.getArchitecte(this.authenticationService.userId);
   }
 

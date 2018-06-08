@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone, AfterViewInit } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -35,7 +35,7 @@ declare var google;
   templateUrl: './architecte-profile.component.html',
   styleUrls: ['./architecte-profile.component.scss']
 })
-export class ArchitecteProfileComponent implements OnInit {
+export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
 
 
   form: FormGroup;
