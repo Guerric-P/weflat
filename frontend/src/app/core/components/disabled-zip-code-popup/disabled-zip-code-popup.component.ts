@@ -9,14 +9,13 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 })
 export class DisabledZipCodePopupComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
-
   visit: VisitClass;
-
   @ViewChild('noArchitectsModal') noArchitectsModalTemplate: TemplateRef<any>;
   noArchitectsModal: MatDialogRef<any>;
   @Input() OKFunction: Function;
   @Input() cancelFunction: Function;
+
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -28,8 +27,7 @@ export class DisabledZipCodePopupComponent implements OnInit {
     this.noArchitectsModal.afterClosed().subscribe((result) => {
       if (result && this.OKFunction) {
         this.OKFunction();
-      }
-      else if (this.cancelFunction) {
+      } else if (this.cancelFunction) {
         this.cancelFunction();
       }
     });

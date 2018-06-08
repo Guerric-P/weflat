@@ -17,14 +17,6 @@ import { MatDialog, MatDialogRef, MatExpansionPanel } from '@angular/material';
 })
 export class NavigationComponent implements OnInit, OnDestroy {
 
-  constructor(private authService: AuthenticationService,
-    private router: Router, private route: ActivatedRoute,
-    private authGuard: AuthGuard,
-    private localStorageService: LocalStorageService,
-    private notificationsService: NotificationsService,
-    private showSigninPopupService: ShowSigninPopupService,
-    private dialog: MatDialog) { }
-
   private routeData;
   model: any = {};
   returnUrl: string;
@@ -32,12 +24,20 @@ export class NavigationComponent implements OnInit, OnDestroy {
   errorMessage: string;
   routerEventsSubscription: Subscription;
   showSigninPopupSubscription: Subscription;
-  isCollapsed: boolean = true;
+  isCollapsed = true;
   @ViewChild('signinModal') signinModalTemplate: TemplateRef<any>;
   @ViewChild('signupModal') signupModalemplate: TemplateRef<any>;
   @ViewChild('expandingFooter') expandingFooter: MatExpansionPanel;
   signinModal: MatDialogRef<any>;
   signupModal: MatDialogRef<any>;
+
+  constructor(private authService: AuthenticationService,
+    private router: Router, private route: ActivatedRoute,
+    private authGuard: AuthGuard,
+    private localStorageService: LocalStorageService,
+    private notificationsService: NotificationsService,
+    private showSigninPopupService: ShowSigninPopupService,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -48,15 +48,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.routerEventsSubscription = this.router.events.subscribe((data) => {
       if (data instanceof RoutesRecognized) {
         this.routeData = data.state.root.firstChild.data;
-        if(this.signinModal) this.signinModal.close();
-        if(this.signupModal) this.signupModal.close();
+        if (this.signinModal) { this.signinModal.close(); }
+        if (this.signupModal) { this.signupModal.close(); }
       }
       if (data instanceof GuardsCheckEnd) {
         if (!data.shouldActivate) {
           this.errorMessage = 'Vous n\'avez pas accès à cette fonctionnalité, veuillez vous connecter avec un compte approprié';
           this.displaySigninPopup();
-        }
-        else {
+        } else {
           this.expandingFooter.close();
         }
       }
@@ -88,8 +87,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.signupModal = this.dialog.open(content);
 
     this.signupModal.afterClosed().subscribe((result) => {
-      if (result)
+      if (result) {
         this.router.navigate([`/register/${result}`]);
+      }
     }, (reason) => {
 
     });
@@ -133,7 +133,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   redirectToPersonal() {
-    let role = this.localStorageService.tokenPayload.roles[0].authority;
+    const role = this.localStorageService.tokenPayload.roles[0].authority;
 
     switch (role) {
       case Constantes.ROLE_ACHETEUR:

@@ -15,6 +15,12 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./acheteur-profile.component.scss']
 })
 export class AcheteurProfileComponent implements OnInit {
+
+  form: FormGroup;
+  passwordForm: FormGroup;
+  acheteur: CustomerClass;
+  dateNow = moment().format('YYYY-MM-DD');
+
   constructor(
     private fb: FormBuilder,
     private acheteurService: AcheteurService,
@@ -24,11 +30,6 @@ export class AcheteurProfileComponent implements OnInit {
     private authService: AuthenticationService,
     private breakpointObserver: BreakpointObserver
   ) { }
-
-  form: FormGroup;
-  passwordForm: FormGroup;
-  acheteur: CustomerClass;
-  dateNow = moment().format('YYYY-MM-DD');
 
   ngOnInit() {
     this.acheteur = this.route.snapshot.data['acheteur'];
@@ -66,8 +67,7 @@ export class AcheteurProfileComponent implements OnInit {
       }, err => {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de l\'enregistrement de vos informations.');
       });
-    }
-    else {
+    } else {
       Object.keys(this.form.controls).forEach(field => {
         const control = this.form.get(field);
         control.markAsTouched({ onlySelf: true });
@@ -78,7 +78,7 @@ export class AcheteurProfileComponent implements OnInit {
   }
 
   changePassword(password: string, event?: KeyboardEvent) {
-    if (event) event.preventDefault();
+    if (event) { event.preventDefault(); }
     if (this.passwordForm.controls.password.value && this.passwordForm.valid) {
       this.userService.changePassword(this.acheteur.id, password).subscribe(res => {
         this.notificationsService.success('Merci !', 'Votre mot de passe a été changé avec succès.');

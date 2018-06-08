@@ -16,7 +16,7 @@ export class ArchitecteGuard implements CanActivate {
       if (this.localStorageService.tokenPayload.roles[0].authority === Constantes.ROLE_ARCHITECTE) {
         return true;
       }
-      // not logged in so redirect to login page with the return 
+      // not logged in so redirect to login page with the return
       this.authService.returnUrl = state.url;
       this.router.navigate(['/']);
       return false;

@@ -17,7 +17,7 @@ export class CreateVisitGuard implements CanActivate {
       return true;
     }
     // not logged in so redirect to login page with the return url
-    //this.authService.returnUrl = state.url;
+    // this.authService.returnUrl = state.url;
     this.router.navigate(['/']);
     return false;
   }

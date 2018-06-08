@@ -33,7 +33,9 @@ export class ZipCodesComponent implements OnInit {
       });
     }
 
-    if (event.keyCode === 13 && !this.matcher.isErrorState(event.target, null) && !this.results.find(x => x.number === event.target.value)) {
+    if (event.keyCode === 13
+      && !this.matcher.isErrorState(event.target, null)
+      && !this.results.find(x => x.number === event.target.value)) {
       this.zipCodeService.postZipCode(new ZipCodeClass({ number: event.target.value, active: false })).subscribe(res => {
         this.results.unshift(res);
         this.notificationsService.success('Succès !', `Le code postal ${res.number} a été créé`);

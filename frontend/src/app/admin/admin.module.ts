@@ -4,7 +4,16 @@ import { CustomersComponent } from './components/customers/customers.component';
 import { VisitsComponent } from './components/visits/visits/visits.component';
 import { ArchitectsComponent } from './components/architects/architects/architects.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { MatInputModule, MatSlideToggleModule, MatListModule, MatDividerModule, MatExpansionModule, MatChipsModule, MatButtonModule, MatDialogModule } from '@angular/material';
+import {
+  MatInputModule,
+  MatSlideToggleModule,
+  MatListModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatChipsModule,
+  MatButtonModule,
+  MatDialogModule
+} from '@angular/material';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ZipCodeComponent } from './components/zip-codes/zip-code/zip-code.component';

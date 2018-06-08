@@ -13,21 +13,20 @@ import { VisiteCounterService } from '../../../../core/services/visite-counter.s
 })
 export class VisitComponent implements OnInit {
 
+  @Input() visit: VisitClass;
+  @Input() enableAcceptRefuseButtons = false;
+  @Input() enableReportEditButton = false;
+  @Input() enableReportViewButton = false;
+  @Output() updated: EventEmitter<any> = new EventEmitter();
+  acceptButtonDisabled = false;
+  refuseButtonDisabled = false;
+  editButtonDisabled = false;
+
   constructor(private visiteService: VisitService,
     private notificationService: NotificationsService,
     private visiteCounterService: VisiteCounterService,
     private router: Router,
     private loaderService: LoaderService) { }
-
-  @Input() visit: VisitClass;
-  @Input() enableAcceptRefuseButtons: boolean = false;
-  @Input() enableReportEditButton: boolean = false;
-  @Input() enableReportViewButton: boolean = false;
-  @Output() updated: EventEmitter<any> = new EventEmitter();
-  acceptButtonDisabled: boolean = false;
-  refuseButtonDisabled: boolean = false;
-  editButtonDisabled: boolean = false;
-
 
   ngOnInit() {
   }

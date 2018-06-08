@@ -1,4 +1,4 @@
-import { UserClass } from "./UserClass";
+import { UserClass } from './UserClass';
 
 export class CustomerClass extends UserClass {
     public project: string;

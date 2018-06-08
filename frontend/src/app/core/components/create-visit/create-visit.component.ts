@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateAdapter, MatHorizontalStepper } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
@@ -26,7 +26,7 @@ declare var google;
   templateUrl: './create-visit.component.html',
   styleUrls: ['./create-visit.component.scss']
 })
-export class CreateVisitComponent implements OnInit {
+export class CreateVisitComponent implements OnInit, AfterViewInit {
 
   isLinear = true;
   dateFormGroup: FormGroup;
@@ -44,8 +44,8 @@ export class CreateVisitComponent implements OnInit {
   displaySignupStep: boolean;
   visit: VisitClass = new VisitClass();
   place: any;
-  visitCreationComplete: boolean = false;
-  architectsAvailable: boolean = false;
+  visitCreationComplete = false;
+  architectsAvailable = false;
   times = [
     { hour: 0, minute: 0, displayTime: '0:00' },
     { hour: 0, minute: 30, displayTime: '0:30' },
@@ -144,20 +144,20 @@ export class CreateVisitComponent implements OnInit {
     this.authService.userLoggedOut.subscribe(res => {
       this.displaySignupStep = true;
 
-      //If the selected step was above signin, return to signin step
+      // If the selected step was above signin, return to signin step
       if (this.stepper.selectedIndex > 1) {
         this.stepper.selectedIndex = 1;
       }
     });
 
-    var options = {
+    const options = {
       types: ['address'],
       componentRestrictions: {
         country: 'fr'
       }
     };
 
-    var autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, options);
+    const autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       this.place = autocomplete.getPlace();
       this.displayAddressComponents.bind(this)();
@@ -228,10 +228,10 @@ export class CreateVisitComponent implements OnInit {
   }
 
   displayAddressComponents() {
-    let keys = Object.keys(GooglePlaceKeys);
+    const keys = Object.keys(GooglePlaceKeys);
 
-    for (let key of keys) {
-      for (let component of this.place.address_components) {
+    for (const key of keys) {
+      for (const component of this.place.address_components) {
         if (component.types.includes(GooglePlaceKeys[key])) {
           this.addressFormGroup.controls[key].setValue(component.long_name);
         }
@@ -262,9 +262,9 @@ export class CreateVisitComponent implements OnInit {
     this.visit.zipCode = this.addressFormGroup.controls['zipCode'].value ? new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value }) : null;
     this.visit.announcementUrl = this.projectFormGroup.controls['announcementUrl'].value;
 
-    let date = <Date>this.dateFormGroup.controls['datePicker'].value;
-    let hour = this.dateFormGroup.controls['time'].value ? this.times[this.dateFormGroup.controls['time'].value].hour : null;
-    let minute = this.dateFormGroup.controls['time'].value ? this.times[this.dateFormGroup.controls['time'].value].minute : null;
+    const date = <Date>this.dateFormGroup.controls['datePicker'].value;
+    const hour = this.dateFormGroup.controls['time'].value ? this.times[this.dateFormGroup.controls['time'].value].hour : null;
+    const minute = this.dateFormGroup.controls['time'].value ? this.times[this.dateFormGroup.controls['time'].value].minute : null;
 
     this.visit.visiteDate = date ? new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute) : null;
   }
@@ -296,12 +296,12 @@ export class CreateVisitComponent implements OnInit {
   }
 
   selectionChanged(event: StepperSelectionEvent) {
-    if (event.selectedStep == this.projectStep) {
+    if (event.selectedStep === this.projectStep) {
       this.acheteurService.getAcheteur(this.authService.userId).subscribe(res => {
         this.projectFormGroup.controls['project'].setValue(res.project);
       });
     }
-    if (event.previouslySelectedStep == this.projectStep) {
+    if (event.previouslySelectedStep === this.projectStep) {
       this.acheteurService.patchAcheteur(
         new CustomerClass(
           {
@@ -309,15 +309,15 @@ export class CreateVisitComponent implements OnInit {
           }
         ), this.authService.userId
       ).subscribe(res => {
-        //TODO
+        // TODO
       }, err => {
-        //TODO
+        // TODO
       });
     }
-    if (event.selectedStep == this.locationStep && !(this.architectsAvailable && this.visitCreationComplete)) {
+    if (event.selectedStep === this.locationStep && !(this.architectsAvailable && this.visitCreationComplete)) {
       this.completeVisitCreation(false);
     }
-    if (event.selectedStep == this.paymentStep) {
+    if (event.selectedStep === this.paymentStep) {
       this.completeVisitCreation(true);
     }
   }
@@ -327,8 +327,7 @@ export class CreateVisitComponent implements OnInit {
       this.visitCreationComplete = false;
       if (!this.visit.id) {
         this.postNewVisit(enablePopup);
-      }
-      else {
+      } else {
         this.visiteService.completeCreation(this.visit).subscribe(res => {
           this.visitCreationComplete = res.complete;
           this.architectsAvailable = res.architectsAvailable;
