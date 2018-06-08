@@ -3,6 +3,7 @@ import { ArchitectClass } from '../../../../core/models/ArchitectClass';
 import { ArchitectStatusEnum } from '../../../../shared/common/enums/ArchitectStatusEnum';
 import { ArchitectService } from '../../../../shared/services/architecte.service';
 import { NotificationsService } from 'angular2-notifications';
+import * as IBAN from 'iban';
 
 @Component({
   selector: 'admin-architect',
