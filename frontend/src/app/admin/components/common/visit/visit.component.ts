@@ -5,7 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { VisitService } from '../../../../shared/services/visit.service';
 
 @Component({
-  selector: 'admin-visit',
+  selector: 'app-visit',
   templateUrl: './visit.component.html',
   styleUrls: ['./visit.component.scss']
 })
