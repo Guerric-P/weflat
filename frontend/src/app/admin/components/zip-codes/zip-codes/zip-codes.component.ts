@@ -6,6 +6,17 @@ import { ZipCodeService } from '../../../../shared/services/zip-code.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as ArrayUtils from '../../../../core/utils/arrayUtils';
 
+class ZipCodeErrorStateMatcher implements ErrorStateMatcher {
+  zipCodeRegexp: RegExp = /^[0-9]{5}$/;
+
+  constructor() {
+  }
+
+  isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
+    return !this.zipCodeRegexp.test(control.value) && control.value;
+  }
+}
+
 @Component({
   selector: 'app-zip-codes',
   templateUrl: './zip-codes.component.html',
@@ -60,16 +71,5 @@ export class ZipCodesComponent implements OnInit {
     }, err => {
       this.notificationsService.error('Erreur', 'Une erreur a eu lieu...');
     });
-  }
-}
-
-class ZipCodeErrorStateMatcher implements ErrorStateMatcher {
-  zipCodeRegexp: RegExp = /^[0-9]{5}$/;
-
-  constructor() {
-  }
-
-  isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
-    return !this.zipCodeRegexp.test(control.value) && control.value;
   }
 }
