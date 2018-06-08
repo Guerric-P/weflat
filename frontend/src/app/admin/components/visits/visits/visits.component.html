@@ -1,4 +1,4 @@
 <div *ngIf="visits" class="d-flex flex-row align-items-stretch h-100">
   <app-visits-list class="list" [visits]="visits" (visitSelected)="visitSelected($event)"></app-visits-list>
-  <admin-visit *ngIf="selectedVisit" class="detail" [visit]="selectedVisit" (updated)="updated($event)"></admin-visit>
+  <app-visit *ngIf="selectedVisit" class="detail" [visit]="selectedVisit" (updated)="updated($event)"></app-visit>
 </div>

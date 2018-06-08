@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { VisitClass } from '../../../../core/models/VisitClass';
 import { VisitStatusEnum } from '../../../../shared/common/enums/VisitStatusEnum';
 
@@ -7,7 +7,7 @@ import { VisitStatusEnum } from '../../../../shared/common/enums/VisitStatusEnum
   templateUrl: './visits-list.component.html',
   styleUrls: ['./visits-list.component.scss']
 })
-export class VisitsListComponent implements OnInit {
+export class VisitsListComponent implements OnInit, OnChanges {
 
   @Input() visits: VisitClass[];
   @Output() visitSelected: EventEmitter<VisitClass> = new EventEmitter<VisitClass>();
