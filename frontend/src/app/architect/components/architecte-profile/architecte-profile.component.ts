@@ -144,7 +144,10 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
       telephone: [this.architecte.telephone, [Validators.required, Validators.pattern(/0(6|7)\d{8}/)]],
       type: [this.architecte.type && this.architecte.type.id, Validators.required],
       situation: [this.architecte.situation && this.architecte.situation.id, Validators.required],
-      practicingSince: [this.architecte.practicingSince && moment(this.architecte.practicingSince).format('YYYY-MM-DD'), Validators.required],
+      practicingSince: [
+        this.architecte.practicingSince && moment(this.architecte.practicingSince).format('YYYY-MM-DD'),
+        Validators.required
+      ],
       webSite: [this.architecte.webSite, Validators.pattern(/^(http|https):\/\/[^ "]+$/)],
       architectsOrder: [this.architecte.architectsOrder, Validators.required],
       paymentType: [this.architecte.paymentType && this.architecte.paymentType.id, Validators.required],
@@ -153,7 +156,10 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
       decennialInsurance: [this.architecte.decennialInsurance, Validators.required],
       motivation: [this.architecte.motivation, Validators.required],
       cgu: [this.architecte.cgu, Validators.requiredTrue],
-      iban: [this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null, [this.requiredIfPaymentTypeIsIBAN('paymentType'), this.IBANValidator]]
+      iban: [
+        this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null,
+        [this.requiredIfPaymentTypeIsIBAN('paymentType'), this.IBANValidator]
+      ]
     });
   }
 

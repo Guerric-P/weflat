@@ -31,7 +31,10 @@ export class ArchitectComponent implements OnInit {
   accept() {
     this.architectService.accept(this.architect.id).subscribe(res => {
       this.architect.status = ArchitectStatusEnum.VALIDATED;
-      this.notificationsService.success('Architecte accepté', `L'architecte ${this.architect.firstName} ${this.architect.lastName} a bien été accepté`);
+      this.notificationsService.success(
+        'Architecte accepté',
+        `L'architecte ${this.architect.firstName} ${this.architect.lastName} a bien été accepté`
+      );
       this.updated.emit(this.architect);
     }, err => {
       this.notificationsService.error('Erreur', 'Une erreur a eu lieu...');
@@ -41,7 +44,10 @@ export class ArchitectComponent implements OnInit {
   refuse() {
     this.architectService.refuse(this.architect.id).subscribe(res => {
       this.architect.status = ArchitectStatusEnum.REFUSED;
-      this.notificationsService.success('Architecte accepté', `L'architecte ${this.architect.firstName} ${this.architect.lastName} a bien été refusé`);
+      this.notificationsService.success(
+        'Architecte accepté',
+        `L'architecte ${this.architect.firstName} ${this.architect.lastName} a bien été refusé`
+      );
       this.updated.emit(this.architect);
     }, err => {
       this.notificationsService.error('Erreur', 'Une erreur a eu lieu...');
