@@ -1,19 +1,14 @@
-import { Directive, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, HostListener, HostBinding } from '@angular/core';
 import { environment } from 'environments/environment';
 import { NotificationsService } from 'angular2-notifications';
 import { VisitService } from '../../shared/services/visit.service';
 import { LoaderService } from '../../core/services/loader.service';
 
 @Directive({
-  selector: 'button[appPayment]',
-  host: {
-    '(click)': 'openStripePopup()',
-    '[disabled]': 'buttonDisabled'
-  }
+  selector: 'button[appPayment]'
 })
 export class PaymentDirective {
 
-  buttonDisabled: boolean;
   @Input() visitId: number;
   @Input() email: string;
   @Output() paymentDone: EventEmitter<any> = new EventEmitter<any>();
@@ -22,7 +17,7 @@ export class PaymentDirective {
     private notificationsService: NotificationsService,
     private loaderService: LoaderService) { }
 
-  openStripePopup() {
+  @HostListener('click') openStripePopup() {
     const handler = (<any>window).StripeCheckout.configure({
       key: environment.stripePublicKey,
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
