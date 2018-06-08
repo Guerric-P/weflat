@@ -4,11 +4,11 @@ import { VisitClass } from './VisitClass';
 export class ReportClass {
     private _visite: VisitClass;
     public id: number;
-	public renovations: RenovationClass[];
-	public floor: number;
-	public generalRemarks: string;
-	public orientation: string; ;
-	public rooms: number;
+    public renovations: RenovationClass[];
+    public floor: number;
+    public generalRemarks: string;
+    public orientation: string; ;
+    public rooms: number;
     public surface: number;
     public expectations: string;
     public globalQualityRemarks: string;
