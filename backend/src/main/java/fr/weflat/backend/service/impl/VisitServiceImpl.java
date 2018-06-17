@@ -6,6 +6,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,15 +20,16 @@ import com.google.common.base.Preconditions;
 import com.querydsl.core.types.Predicate;
 import com.stripe.Stripe;
 import com.stripe.model.Charge;
+
 import fr.weflat.backend.dao.ArchitectDao;
 import fr.weflat.backend.dao.VisitDao;
+import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.Customer;
 import fr.weflat.backend.domaine.QVisit;
-import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.Visit;
 import fr.weflat.backend.enums.VisitStatusEnum;
-import fr.weflat.backend.service.CustomerService;
 import fr.weflat.backend.service.ArchitectService;
+import fr.weflat.backend.service.CustomerService;
 import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.VisitService;
 import fr.weflat.backend.service.ZipCodeService;
@@ -53,6 +58,9 @@ public class VisitServiceImpl implements VisitService {
 
 	@Autowired
 	MapperFacade orikaMapperFacade;
+	
+	@PersistenceContext
+	private EntityManager em;
 	
 	@Value("${fr.weflat.stripe.price}")
 	Long visitPrice;
@@ -201,7 +209,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
-	public void createVisit(Visit visit, Long customerId) throws Exception {
+	public Visit createVisit(Visit visit, Long customerId) throws Exception {
 
 		Customer customer = null;
 
@@ -226,6 +234,7 @@ public class VisitServiceImpl implements VisitService {
 		visit.setCreationDate(new Date());
 
 		save(visit);
+		return visit;
 	}
 
 	@Override
@@ -269,7 +278,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
-	public void completeVisitCreation(Visit visit, Long customerId) throws Exception {
+	public Visit completeVisitCreation(Visit visit, Long customerId) throws Exception {
 
 		Customer customer = null;
 
@@ -288,15 +297,16 @@ public class VisitServiceImpl implements VisitService {
 		}
 
 		save(visit);
+		return visit;
 
 	}
 
 	@Override
 	public boolean isVisitComplete(Visit visit) {
 		return visit.getCity() != null
-				&& visit.getStreetNumber() != null
+				&& visit.getZipCode() != null
 				&& visit.getRoute() != null
-				&& visit.getAnnouncementUrl() != null
+				&& visit.getVisiteDate() != null
 				&& visit.getCustomer() != null;
 	}
 
@@ -465,5 +475,54 @@ public class VisitServiceImpl implements VisitService {
 		visit.setStatus(VisitStatusEnum.ARCHITECT_PAID.ordinal());
 		save(visit);
 		return visit;
+	}
+
+	@Override
+	@PreAuthorize("hasAnyAuthority(['admin','customer'])")
+	public Visit modifyVisit(Visit visit) throws Exception {
+		//Hibernate.initialize(visit.getZipCode());
+		if(visit.getStatus() == VisitStatusEnum.UNASSIGNED.ordinal()
+				|| visit.getStatus() == VisitStatusEnum.BEING_ASSIGNED.ordinal()
+				|| visit.getStatus() == VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal())
+		{
+			em.detach(visit);
+			Visit existingVisit = findById(visit.getId());
+			Hibernate.initialize(existingVisit.getNearbyArchitects());
+			if(!existingVisit.getZipCode().getId().equals(visit.getZipCode().getId())
+					|| !existingVisit.getCity().equals(visit.getCity())
+					|| existingVisit.getVisiteDate().compareTo(visit.getVisiteDate()) != 0) {
+				
+				if(existingVisit.getZipCode().getId() != visit.getZipCode().getId()) {
+					Set<Architect> nearbyArchitects = architecteService.findNearbyArchitectes(visit.getZipCode().getNumber());
+					visit.setNearbyArchitects(nearbyArchitects);
+				}
+				visit.setId(null);
+				
+				em.persist(visit);
+				save(visit);	
+				delete(existingVisit);
+				
+			}
+			else {
+				em.merge(visit);
+				save(visit);
+			}
+
+			return visit;
+		}
+		else {
+			throw new Exception("Visit not alterable");
+		}
+	}
+
+	@Override
+	public void delete(Visit visite) {
+		visiteDao.delete(visite);
+	}
+
+	@Override
+	public void delete(Long id) {
+		visiteDao.delete(id);
+		
 	}
 }

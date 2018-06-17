@@ -6,6 +6,8 @@ import { VisitService } from '../../../../shared/services/visit.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
 import { AuthenticationService } from '../../../../core/services/authentication.service';
+import { EditVisitPopupComponent } from '../../edit-visit-popup/edit-visit-popup.component';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-my-visit',
@@ -26,7 +28,8 @@ export class MyVisitComponent implements OnInit {
     private visiteService: VisitService,
     private dialog: MatDialog,
     private notificationsService: NotificationsService,
-    private router: Router
+    private router: Router,
+    private overlay: Overlay
   ) { }
 
   ngOnInit() {
@@ -52,8 +55,18 @@ export class MyVisitComponent implements OnInit {
         });
       }
     });
+  }
 
+  editClick() {
+    let dialog = this.dialog.open(EditVisitPopupComponent,
+      // calc is a workaround for https://github.com/angular/material2/blob/master/src/cdk/overlay/position/global-position-strategy.ts
+      // it allows width: 100% and maxWidth: fixed amount of pixels
+      { data: { visit: this.visit }, width: 'calc(100%)', maxWidth: '500px', scrollStrategy: this.overlay.scrollStrategies.close() });
 
+      dialog.componentInstance.onUpdate.subscribe(res => {
+        this.visit = res;
+        dialog.close();
+      });
   }
 
   closeCancelModal() {
