@@ -1,0 +1,42 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title>Modifier la visite</h2>
+  <form [formGroup]="visitForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput placeholder="Adresse" formControlName="addressInput" #addressInput>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Numéro de voie" formControlName="streetNumber" required #streetNumber>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Voie" formControlName="route" required #route>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Code postal" formControlName="zipCode" required #zipCode>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Ville" formControlName="city" required #city>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" formControlName="date" [min]="minDate" required placeholder="Choisissez une date...">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker [touchUi]="isMobile" #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Choisissez une heure..." required formControlName="time">
+        <mat-option *ngFor="let time of times; let i = index;" [value]="i">
+          {{ time.displayTime }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="URL de l'annonce" formControlName="announcementUrl" #announcementUrl>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" class="mat-primary submit-button" type="submit">Valider</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button mat-dialog-close>Annuler</button>
+  </mat-dialog-actions>
+  </form>
+</div>

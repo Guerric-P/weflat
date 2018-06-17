@@ -9,7 +9,7 @@ export class VisitService {
     constructor(private http: HttpClient) { }
 
     post(visit: VisitClass) {
-        return this.http.post<any>('/visits', visit);
+        return this.http.post<VisitClass>('/visits', visit).pipe(map(res => new VisitClass(res)));
     }
 
     getAll(): Observable<VisitClass[]> {
@@ -18,8 +18,8 @@ export class VisitService {
         );
     }
 
-    completeCreation(visit: VisitClass) {
-        return this.http.patch<any>(`/visits/${visit.id}`, visit);
+    patch(visit: VisitClass, id: number) {
+        return this.http.patch<VisitClass>(`/visits/${id}`, visit).pipe(map(res => new VisitClass(res)));
     }
 
     pay(id: number, token: string): Observable<VisitClass> {

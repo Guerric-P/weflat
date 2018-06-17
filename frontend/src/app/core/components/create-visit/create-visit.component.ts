@@ -18,6 +18,7 @@ import { ZipCodeClass } from '../../models/ZipCodeClass';
 import { CustomerClass } from '../../models/CustomerClass';
 import { DatePipe } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { values } from '../../../shared/common/TimeDropDownValues';
 
 declare var google;
 
@@ -44,60 +45,18 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
   displaySignupStep: boolean;
   visit: VisitClass = new VisitClass();
   place: any;
-  visitCreationComplete = false;
-  architectsAvailable = false;
-  times = [
-    { hour: 0, minute: 0, displayTime: '0:00' },
-    { hour: 0, minute: 30, displayTime: '0:30' },
-    { hour: 1, minute: 0, displayTime: '1:00' },
-    { hour: 1, minute: 30, displayTime: '1:30' },
-    { hour: 2, minute: 0, displayTime: '2:00' },
-    { hour: 2, minute: 30, displayTime: '2:30' },
-    { hour: 3, minute: 0, displayTime: '3:00' },
-    { hour: 3, minute: 30, displayTime: '3:30' },
-    { hour: 4, minute: 0, displayTime: '4:00' },
-    { hour: 4, minute: 30, displayTime: '4:30' },
-    { hour: 5, minute: 0, displayTime: '5:00' },
-    { hour: 5, minute: 30, displayTime: '5:30' },
-    { hour: 6, minute: 0, displayTime: '6:00' },
-    { hour: 6, minute: 30, displayTime: '6:30' },
-    { hour: 7, minute: 0, displayTime: '7:00' },
-    { hour: 7, minute: 30, displayTime: '7:30' },
-    { hour: 8, minute: 0, displayTime: '8:00' },
-    { hour: 8, minute: 30, displayTime: '8:30' },
-    { hour: 9, minute: 0, displayTime: '9:00' },
-    { hour: 9, minute: 30, displayTime: '9:30' },
-    { hour: 10, minute: 0, displayTime: '10:00' },
-    { hour: 10, minute: 30, displayTime: '10:30' },
-    { hour: 11, minute: 0, displayTime: '11:00' },
-    { hour: 11, minute: 30, displayTime: '11:30' },
-    { hour: 12, minute: 0, displayTime: '12:00' },
-    { hour: 12, minute: 30, displayTime: '12:30' },
-    { hour: 13, minute: 0, displayTime: '13:00' },
-    { hour: 13, minute: 30, displayTime: '13:30' },
-    { hour: 14, minute: 0, displayTime: '14:00' },
-    { hour: 14, minute: 30, displayTime: '14:30' },
-    { hour: 15, minute: 0, displayTime: '15:00' },
-    { hour: 15, minute: 30, displayTime: '15:30' },
-    { hour: 16, minute: 0, displayTime: '16:00' },
-    { hour: 16, minute: 30, displayTime: '16:30' },
-    { hour: 17, minute: 0, displayTime: '17:00' },
-    { hour: 17, minute: 30, displayTime: '17:30' },
-    { hour: 18, minute: 0, displayTime: '18:00' },
-    { hour: 18, minute: 30, displayTime: '18:30' },
-    { hour: 19, minute: 0, displayTime: '19:00' },
-    { hour: 19, minute: 30, displayTime: '19:30' },
-    { hour: 20, minute: 0, displayTime: '20:00' },
-    { hour: 20, minute: 30, displayTime: '20:30' },
-    { hour: 21, minute: 0, displayTime: '21:00' },
-    { hour: 21, minute: 30, displayTime: '21:30' },
-    { hour: 22, minute: 0, displayTime: '22:00' },
-    { hour: 22, minute: 30, displayTime: '22:30' },
-    { hour: 23, minute: 0, displayTime: '23:00' },
-    { hour: 23, minute: 30, displayTime: '23:30' }
-  ];
+
+  times = values;
 
   minDate = moment().add(1, 'days').toDate();
+
+  get visitCreationComplete(): boolean {
+    return this.visit && this.visit.isComplete;
+  }
+
+  get architectsAvailable(): boolean {
+    return this.visit && this.visit.zipCode && this.visit.zipCode.active;
+  }
 
   constructor(
     public authService: AuthenticationService,
@@ -129,11 +88,6 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
       this.sessionStorageService.visit = undefined;
     }
 
-    if (this.sessionStorageService.visitInfos) {
-      this.visitCreationComplete = this.sessionStorageService.visitInfos.visitCreationComplete;
-      this.architectsAvailable = this.sessionStorageService.visitInfos.architectsAvailable;
-    }
-
     this.displaySignupStep = !this.authService.isLoggedIn;
 
     this.authService.userLoggedIn.subscribe(res => {
@@ -158,13 +112,13 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
     };
 
     const autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, options);
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+    google.maps.event.addListener(autocomplete, 'place_changed', () => {
       this.place = autocomplete.getPlace();
-      this.displayAddressComponents.bind(this)();
-      this.placeMarker.bind(this)();
-      this.loadVisit.bind(this)();
-      this.completeVisitCreation.bind(this)(true);
-    }.bind(this));
+      this.displayAddressComponents();
+      this.placeMarker();
+      this.loadVisit();
+      this.completeVisitCreation(true);
+    });
 
     this.dateFormGroup = this._formBuilder.group({
       datePicker: ['', Validators.required],
@@ -173,7 +127,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
 
     this.addressFormGroup = this._formBuilder.group({
       addressInput: ['', Validators.required],
-      streetNumber: [{ value: '', disabled: true }, Validators.required],
+      streetNumber: [{ value: '', disabled: true }],
       route: [{ value: '', disabled: true }, Validators.required],
       zipCode: [{ value: '', disabled: true }, Validators.required],
       city: [{ value: '', disabled: true }, Validators.required]
@@ -231,6 +185,8 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
     const keys = Object.keys(GooglePlaceKeys);
 
     for (const key of keys) {
+      this.addressFormGroup.controls[key].setValue(undefined);
+
       for (const component of this.place.address_components) {
         if (component.types.includes(GooglePlaceKeys[key])) {
           this.addressFormGroup.controls[key].setValue(component.long_name);
@@ -275,16 +231,12 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
       this.loadVisit();
       if (this.isVisitFilled) {
         this.visiteService.post(this.visit).subscribe(res => {
-          this.visit.id = res.visitId;
-          this.visitCreationComplete = res.complete;
-          this.architectsAvailable = res.architectsAvailable;
+          this.visit = res;
           if (!this.architectsAvailable && enablePopup) {
             this.popup.open(this.visit);
           }
           resolve();
         }, err => {
-          this.visitCreationComplete = false;
-          this.architectsAvailable = false;
           this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');
           reject();
         });
@@ -325,19 +277,16 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
 
   completeVisitCreation(enablePopup: boolean) {
     this.zone.run(() => {
-      this.visitCreationComplete = false;
       if (!this.visit.id) {
         this.postNewVisit(enablePopup);
       } else {
-        this.visiteService.completeCreation(this.visit).subscribe(res => {
-          this.visitCreationComplete = res.complete;
-          this.architectsAvailable = res.architectsAvailable;
+        this.visiteService.patch(this.visit, this.visit.id).subscribe(res => {
+          this.visit = res;
           if (!this.architectsAvailable && enablePopup) {
             this.popup.open(this.visit);
           }
         }, err => {
-          this.visitCreationComplete = false;
-          this.architectsAvailable = false;
+
         });
       }
     });

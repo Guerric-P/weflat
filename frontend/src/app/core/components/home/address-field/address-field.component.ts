@@ -34,19 +34,17 @@ export class AddressFieldComponent implements OnInit {
       }
     };
     const autocomplete = new google.maps.places.Autocomplete(this.input.nativeElement, options);
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+    google.maps.event.addListener(autocomplete, 'place_changed', () => {
       this.placeChanged(autocomplete);
-    }.bind(this));
+    });
 
-    this.popup.OKFunction = function() {
+    this.popup.OKFunction = () => {
       this.sessionStorageService.place = this.place;
       this.sessionStorageService.visit = this.visit;
       this.router.navigate(['/create-visit']);
-    }.bind(this);
+    };
 
-    this.popup.cancelFunction = function() {
-      (this.input.nativeElement as HTMLInputElement).value = null;
-    }.bind(this);
+    this.popup.cancelFunction = () => (this.input.nativeElement as HTMLInputElement).value = null;
   }
 
   placeChanged(autocomplete) {
@@ -68,13 +66,10 @@ export class AddressFieldComponent implements OnInit {
       }
 
       this.visitService.post(this.visit).subscribe(res => {
-        if (!res.architectsAvailable) {
+        if (!res.zipCode.active) {
           this.popup.open(this.visit);
-          this.sessionStorageService.visitInfos = res;
         } else {
-          this.visit.id = res.visitId;
-          this.sessionStorageService.visit = this.visit;
-          this.sessionStorageService.visitInfos = res;
+          this.sessionStorageService.visit = res;
           this.router.navigate(['/create-visit']);
         }
       });
