@@ -2,3 +2,22 @@
     width: 100%;
     max-width: 500px;
 }
+
+.mat-control {
+    flex: 0 0 50%;
+    max-width: 50%;
+    min-width: 180px;
+    text-align: center;
+}
+
+.row-container {
+    flex-direction: row;
+    display: flex;
+}
+
+@media (max-width: 450px){
+    .row-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
