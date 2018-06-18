@@ -61,7 +61,7 @@ export class MyVisitComponent implements OnInit {
     let dialog = this.dialog.open(EditVisitPopupComponent,
       // calc is a workaround for https://github.com/angular/material2/blob/master/src/cdk/overlay/position/global-position-strategy.ts
       // it allows width: 100% and maxWidth: fixed amount of pixels
-      { data: { visit: this.visit }, width: 'calc(100%)', maxWidth: '500px', scrollStrategy: this.overlay.scrollStrategies.close() });
+      { data: { visit: this.visit }, width: 'calc(100%)', maxWidth: '500px', scrollStrategy: this.overlay.scrollStrategies.block() });
 
       dialog.componentInstance.onUpdate.subscribe(res => {
         this.visit = res;
