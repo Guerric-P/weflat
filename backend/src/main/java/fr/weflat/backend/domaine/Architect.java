@@ -52,19 +52,19 @@ public class Architect extends User {
 	@Column(nullable = true, name = "iban")
 	private String iban;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "architect_situation_id", nullable = true)
 	private ArchitectSituation situation;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "architect_type_id", nullable = true)
 	private ArchitectType type;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "payment_type_id", nullable = true)
 	private PaymentType paymentType;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "architect_zip_code", joinColumns = @JoinColumn(name = "architect_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "zip_code_id", referencedColumnName = "id"))
 	private Set<ZipCode> zipCodes;
 

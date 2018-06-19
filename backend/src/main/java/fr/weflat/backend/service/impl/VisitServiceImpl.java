@@ -288,7 +288,7 @@ public class VisitServiceImpl implements VisitService {
 		
 		visit.setCustomer(customer);
 
-		if(visit.getZipCode() == null) {
+		if(visit.getZipCode() == null || !visit.getZipCode().isActive()) {
 			throw new Exception("No architects are available for zip code : " + visit.getZipCode().getNumber());
 		}
 		
@@ -480,7 +480,11 @@ public class VisitServiceImpl implements VisitService {
 	@Override
 	@PreAuthorize("hasAnyAuthority(['admin','customer'])")
 	public Visit modifyVisit(Visit visit) throws Exception {
-		//Hibernate.initialize(visit.getZipCode());
+
+		if(visit.getZipCode() == null || !visit.getZipCode().isActive()) {
+			throw new Exception("No architects are available for zip code : " + visit.getZipCode().getNumber());
+		}
+
 		if(visit.getStatus() == VisitStatusEnum.UNASSIGNED.ordinal()
 				|| visit.getStatus() == VisitStatusEnum.BEING_ASSIGNED.ordinal()
 				|| visit.getStatus() == VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal())
@@ -496,8 +500,9 @@ public class VisitServiceImpl implements VisitService {
 					Set<Architect> nearbyArchitects = architecteService.findNearbyArchitectes(visit.getZipCode().getNumber());
 					visit.setNearbyArchitects(nearbyArchitects);
 				}
-				visit.setId(null);
 				
+				//Save as new visit to invalidate any action attempted on previous state
+				visit.setId(null);
 				em.persist(visit);
 				save(visit);	
 				delete(existingVisit);

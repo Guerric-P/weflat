@@ -6,6 +6,7 @@ import { GooglePlaceKeys } from '../../../shared/common/GooglePlaceKeys';
 import { values } from '../../../shared/common/TimeDropDownValues';
 import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
 import { VisitService } from '../../../shared/services/visit.service';
+import { ZipCodeService } from '../../../shared/services/zip-code.service';
 declare var google;
 declare var moment;
 
@@ -41,7 +42,8 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) private data,
-    private visitService: VisitService
+    private visitService: VisitService,
+    private zipCodeService: ZipCodeService
   ) { }
 
   ngOnInit() {
@@ -96,6 +98,7 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
     let pacContainerOffsetString = element.style.top;
     let pacContainerOffset = +extractOffsetRegex.exec(pacContainerOffsetString)[1];
     let htmlOffsetString = document.documentElement.style.top;
+    if(!htmlOffsetString) return;
     let htmlOffset = +extractOffsetRegex.exec(htmlOffsetString)[1];
     pacContainerOffset -= htmlOffset;
     element.style.top = pacContainerOffset + 'px';
@@ -104,11 +107,19 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.visitForm.valid) {
-      this.loadVisit();
+      this.zipCodeService.getZipCodesStatus([new ZipCodeClass({ number: this.visitForm.controls['zipCode'].value })]).subscribe(res => {
+        if (res[0].active !== false) {
+          this.loadVisit();
 
-      this.visitService.patch(this.visit, this.visit.id).subscribe(res => {
-        this.onUpdate.emit(res);
+          this.visitService.patch(this.visit, this.visit.id).subscribe(res => {
+            this.onUpdate.emit(res);
+          });
+        }
+        else {
+          this.visitForm.controls['addressInput'].setErrors({ inactiveZipCode: true });
+        }
       });
+
     }
   }
 
