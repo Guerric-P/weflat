@@ -6,6 +6,9 @@
         <div class="mat-control">
           <mat-form-field>
             <input matInput placeholder="Adresse" formControlName="addressInput" #addressInput>
+            <mat-error *ngIf="visitForm.controls.addressInput.hasError('inactiveZipCode')">
+              Code postal non disponible
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="mat-control">
@@ -13,7 +16,6 @@
             <input matInput placeholder="Numéro de voie" formControlName="streetNumber" required #streetNumber>
           </mat-form-field>
         </div>
-
       </div>
       <div class="row-container">
         <div class="mat-control">
@@ -26,7 +28,6 @@
             <input matInput placeholder="Code postal" formControlName="zipCode" required #zipCode>
           </mat-form-field>
         </div>
-
       </div>
       <div class="row-container">
         <div class="mat-control">
@@ -41,7 +42,6 @@
             <mat-datepicker [touchUi]="isMobile" #picker></mat-datepicker>
           </mat-form-field>
         </div>
-
       </div>
       <div class="row-container">
         <div class="mat-control">
@@ -58,7 +58,6 @@
             <input matInput placeholder="URL de l'annonce" formControlName="announcementUrl" #announcementUrl>
           </mat-form-field>
         </div>
-
       </div>
     </mat-dialog-content>
     <mat-dialog-actions>
