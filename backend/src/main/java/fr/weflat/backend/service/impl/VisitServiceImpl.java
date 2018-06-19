@@ -58,16 +58,16 @@ public class VisitServiceImpl implements VisitService {
 
 	@Autowired
 	MapperFacade orikaMapperFacade;
-	
+
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	@Value("${fr.weflat.stripe.price}")
 	Long visitPrice;
-	
+
 	@Value("${fr.weflat.stripe.partial-refund}")
 	Long partialRefundAmount;
-	
+
 	public VisitServiceImpl(@Value("${fr.weflat.stripe.private-key}") String apiKey) {
 		super();
 		Stripe.apiKey = apiKey;
@@ -216,7 +216,7 @@ public class VisitServiceImpl implements VisitService {
 		if(customerId != null) {
 			customer = acheteurService.findById(customerId);
 		}
-		
+
 		visit.setCustomer(customer);
 
 		if(visit.getZipCode() != null && visit.getZipCode().isActive()) {
@@ -258,13 +258,13 @@ public class VisitServiceImpl implements VisitService {
 			Set<Architect> nearbyArchitects = architecteService.findNearbyArchitectes(visit.getZipCode().getNumber());
 
 			visit.setNearbyArchitects(nearbyArchitects);
-			
+
 			visit.setStatus(VisitStatusEnum.BEING_ASSIGNED.ordinal());
-			
+
 			visit.setChargeId(charge.getId());
-			
+
 			save(visit);
-			
+
 		}
 		catch(Exception e) {
 			if(charge != null) {
@@ -285,13 +285,13 @@ public class VisitServiceImpl implements VisitService {
 		if(customerId != null) {
 			customer = acheteurService.findById(customerId);
 		}
-		
+
 		visit.setCustomer(customer);
 
-		if(visit.getZipCode() == null || !visit.getZipCode().isActive()) {
+		if(visit.getZipCode() == null) {
 			throw new Exception("No architects are available for zip code : " + visit.getZipCode().getNumber());
 		}
-		
+
 		if(isVisitComplete(visit) && visit.getZipCode().isActive()) {
 			visit.setStatus(VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal());
 		}
@@ -354,15 +354,15 @@ public class VisitServiceImpl implements VisitService {
 				.and(visit.status.eq(VisitStatusEnum.IN_PROGRESS.ordinal()))
 				.and(visit.visiteDate.before(new Date()));;
 
-		Set<Visit> visits = new HashSet<Visit>();
+				Set<Visit> visits = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+				Iterable<Visit> result = visiteDao.findAll(predicate);
 
-		for(Visit row : result) {
-			visits.add(row);
-		}
+				for(Visit row : result) {
+					visits.add(row);
+				}
 
-		return visits;
+				return visits;
 	}
 
 	@Override
@@ -433,7 +433,7 @@ public class VisitServiceImpl implements VisitService {
 			else if (visit.getStatus() == VisitStatusEnum.IN_PROGRESS.ordinal()) {
 				partialRefund(visit);
 			}
-			
+
 			visit.setStatus(VisitStatusEnum.REFUNDED.ordinal());
 		} else {
 			visit.setStatus(VisitStatusEnum.CANCELED.ordinal());
@@ -442,7 +442,7 @@ public class VisitServiceImpl implements VisitService {
 		save(visit);
 		return visit;
 	}
-	
+
 	@Override
 	public void refund(Visit visit) throws Exception {
 		Charge.retrieve(visit.getChargeId()).refund();
@@ -453,7 +453,7 @@ public class VisitServiceImpl implements VisitService {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("amount", partialRefundAmount);
 		Charge.retrieve(visit.getChargeId()).refund(params);
-		
+
 	}
 
 	@Override
@@ -481,7 +481,8 @@ public class VisitServiceImpl implements VisitService {
 	@PreAuthorize("hasAnyAuthority(['admin','customer'])")
 	public Visit modifyVisit(Visit visit) throws Exception {
 
-		if(visit.getZipCode() == null || !visit.getZipCode().isActive()) {
+		if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() 
+				&& (visit.getZipCode() == null || !visit.getZipCode().isActive())) {
 			throw new Exception("No architects are available for zip code : " + visit.getZipCode().getNumber());
 		}
 
@@ -495,18 +496,18 @@ public class VisitServiceImpl implements VisitService {
 			if(!existingVisit.getZipCode().getId().equals(visit.getZipCode().getId())
 					|| !existingVisit.getCity().equals(visit.getCity())
 					|| existingVisit.getVisiteDate().compareTo(visit.getVisiteDate()) != 0) {
-				
+
 				if(existingVisit.getZipCode().getId() != visit.getZipCode().getId()) {
 					Set<Architect> nearbyArchitects = architecteService.findNearbyArchitectes(visit.getZipCode().getNumber());
 					visit.setNearbyArchitects(nearbyArchitects);
 				}
-				
+
 				//Save as new visit to invalidate any action attempted on previous state
 				visit.setId(null);
 				em.persist(visit);
 				save(visit);	
 				delete(existingVisit);
-				
+
 			}
 			else {
 				em.merge(visit);
@@ -528,6 +529,6 @@ public class VisitServiceImpl implements VisitService {
 	@Override
 	public void delete(Long id) {
 		visiteDao.delete(id);
-		
+
 	}
 }
