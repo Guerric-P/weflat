@@ -7,6 +7,7 @@ import { values } from '../../../shared/common/TimeDropDownValues';
 import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
 import { VisitService } from '../../../shared/services/visit.service';
 import { ZipCodeService } from '../../../shared/services/zip-code.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 declare var google;
 declare var moment;
 
@@ -39,11 +40,16 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
     return this.times.indexOf(this.times.find(x => x.hour === hours && x.minute === minutes));
   }
 
+  get isMobile() {
+    return this.breakpointObserver.isMatched('(max-width: 767px)');
+  }
+
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) private data,
     private visitService: VisitService,
-    private zipCodeService: ZipCodeService
+    private zipCodeService: ZipCodeService,
+    private breakpointObserver: BreakpointObserver
   ) { }
 
   ngOnInit() {
