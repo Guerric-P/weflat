@@ -1,7 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, RoutesRecognized, GuardsCheckEnd } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
-import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { AuthGuard } from '../../guards/auth.guard';
@@ -24,7 +23,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
   errorMessage: string;
   routerEventsSubscription: Subscription;
   showSigninPopupSubscription: Subscription;
-  isCollapsed = true;
   @ViewChild('signinModal') signinModalTemplate: TemplateRef<any>;
   @ViewChild('signupModal') signupModalemplate: TemplateRef<any>;
   @ViewChild('expandingFooter') expandingFooter: MatExpansionPanel;

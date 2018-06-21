@@ -236,7 +236,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
             this.popup.open(this.visit);
           }
           resolve();
-        }, err => {
+        }, () => {
           this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');
           reject();
         });
