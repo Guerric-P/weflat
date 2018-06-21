@@ -56,7 +56,11 @@
           Se connecter
         </button>
         <button mat-icon-button type="button" (click)="toggleFooter()">
-          <mat-icon>menu</mat-icon>
+          <div class="menu" [class.open]="this.expandingFooter.expanded">
+            <div class="bit-1"></div>
+            <div class="bit-2"></div>
+            <div class="bit-3"></div>
+          </div>
         </button>
       </div>
     </div>
