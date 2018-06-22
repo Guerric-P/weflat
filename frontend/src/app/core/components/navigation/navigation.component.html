@@ -1,6 +1,6 @@
 <header>
   <mat-expansion-panel #expandingFooter class="bg-dark">
-    <div class="container">
+    <div class="container" #footerBody>
       <div class="row">
         <div class="col-sm-6 py-4">
           <p class="text-white">A propos de Weflat</p>
@@ -55,7 +55,7 @@
         <button *ngIf="!token" type="button" (click)="openSignin(signinModal)" mat-button>
           Se connecter
         </button>
-        <button mat-icon-button type="button" (click)="toggleFooter()">
+        <button class="menu-button" [style.top]="menuButtonTopOffset" mat-icon-button type="button" (click)="toggleFooter()">
           <div class="menu" [class.open]="this.expandingFooter.expanded">
             <div class="bit-1"></div>
             <div class="bit-2"></div>
