@@ -7,10 +7,22 @@ import { MyVisitsComponent } from './components/my-visits/my-visits.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatProgressSpinnerModule, MatIconModule, MatStepperModule, MatCardModule, MatDialogModule, MatDatepickerModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatInputModule,
+  MatProgressSpinnerModule,
+  MatIconModule,
+  MatStepperModule,
+  MatCardModule,
+  MatDialogModule,
+  MatDatepickerModule,
+  MatSelectModule
+} from '@angular/material';
 import { MyVisitComponent } from './components/my-visits/my-visit/my-visit.component';
 import { SharedModule } from '../shared/shared.module';
 import { CustomerRoutingModule } from './customer-routing.module';
+import { EditVisitPopupComponent } from './components/edit-visit-popup/edit-visit-popup.component';
 
 @NgModule({
   imports: [
@@ -28,13 +40,18 @@ import { CustomerRoutingModule } from './customer-routing.module';
     MatStepperModule,
     MatDialogModule,
     MatDatepickerModule,
+    MatSelectModule,
     SharedModule
   ],
   declarations: [
     AcheteurProfileComponent,
     PurchaseProjectComponent,
     MyVisitsComponent,
-    MyVisitComponent
+    MyVisitComponent,
+    EditVisitPopupComponent
+  ],
+  entryComponents: [
+    EditVisitPopupComponent
   ]
 })
 export class CustomerModule { }

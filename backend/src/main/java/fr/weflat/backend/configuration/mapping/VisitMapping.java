@@ -17,6 +17,7 @@ public class VisitMapping implements OrikaMapperFactoryConfigurer {
     @Override
     public void configure(MapperFactory orikaMapperFactory) {
         orikaMapperFactory.classMap(Visit.class, VisiteDto.class)
+        .fieldAToB("status", "status")
                 .byDefault()
                 .register();
     }

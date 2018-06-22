@@ -1,7 +1,7 @@
-import { CustomerClass } from "./CustomerClass";
-import { ArchitectClass } from "./ArchitectClass";
-import { ZipCodeClass } from "./ZipCodeClass";
-import { VisitStatusEnum } from "../../shared/common/enums/VisitStatusEnum";
+import { CustomerClass } from './CustomerClass';
+import { ArchitectClass } from './ArchitectClass';
+import { ZipCodeClass } from './ZipCodeClass';
+import { VisitStatusEnum } from '../../shared/common/enums/VisitStatusEnum';
 
 export class VisitClass {
     public id: number;
@@ -26,36 +26,46 @@ export class VisitClass {
                 + this.zipCode.number
                 + ' '
                 + this.city;
-        }
-        catch (err) {
+        } catch (err) {
             // Ignore
         }
+    }
+
+    get isComplete(): boolean {
+        return !!this.city && !!this.route && !!this.customer && !!this.zipCode && !!this.visiteDate;
     }
 
     get statusText() {
         switch (this.status) {
             case VisitStatusEnum.BEING_ASSIGNED:
-            return 'En cours d\'attribution';
+                return 'En cours d\'attribution';
             case VisitStatusEnum.CANCELED:
-            return 'Annulée';
+                return 'Annulée';
             case VisitStatusEnum.IN_PROGRESS:
-            return 'En cours';
+                return 'En cours';
             case VisitStatusEnum.REFUNDED:
-            return 'Remboursée';
+                return 'Remboursée';
             case VisitStatusEnum.REPORT_AVAILABLE:
-            return 'Rapport disponible';
+                return 'Rapport disponible';
             case VisitStatusEnum.REPORT_BEING_WRITTEN:
-            return 'Rapport en cours de rédaction';
+                return 'Rapport en cours de rédaction';
             case VisitStatusEnum.UNASSIGNED:
-            return 'Non assignée';
+                return 'Non assignée';
             case VisitStatusEnum.WAITING_FOR_PAYMENT:
-            return 'En attente de paiement';
+                return 'En attente de paiement';
             case VisitStatusEnum.ARCHITECT_PAID:
-            return 'Architecte payé';
+                return 'Architecte payé';
         }
     }
 
     constructor(obj?: any) {
-        Object.assign(this, obj);
+        for (let key in obj) {
+            if (key === 'visiteDate' || key === 'creationDate') {
+                this[key] = new Date(obj[key]);
+            }
+            else {
+                this[key] = obj[key];
+            }
+        }
     }
 }

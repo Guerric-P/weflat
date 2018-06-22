@@ -4,11 +4,11 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class ShowSigninPopupService {
 
-  constructor() { }
-
   private showSigninPopupSubject = new Subject<number>();
 
   showSigninPopupObservable$ = this.showSigninPopupSubject.asObservable();
+
+  constructor() { }
 
   showSigninPopup() {
     this.showSigninPopupSubject.next();

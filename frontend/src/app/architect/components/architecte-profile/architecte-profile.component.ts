@@ -1,5 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, ValidationErrors, FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone, AfterViewInit } from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  AbstractControl,
+  ValidatorFn,
+  ValidationErrors,
+  FormControl,
+  FormGroupDirective,
+  NgForm
+} from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 import { ArchitectService } from '../../../shared/services/architecte.service';
@@ -25,7 +35,7 @@ declare var google;
   templateUrl: './architecte-profile.component.html',
   styleUrls: ['./architecte-profile.component.scss']
 })
-export class ArchitecteProfileComponent implements OnInit {
+export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
 
 
   form: FormGroup;
@@ -38,13 +48,13 @@ export class ArchitecteProfileComponent implements OnInit {
   @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
   @ViewChild('googleMap') googleMap: ElementRef;
   @ViewChild('zipCodesList') zipCodesList: MatChipList;
-  index: number = 0;
+  index = 0;
   zipCodes = [];
   disabledZipCodes: string[];
-  visible: boolean = true;
-  selectable: boolean = true;
-  removable: boolean = true;
-  addOnBlur: boolean = true;
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
   separatorKeysCodes = [ENTER];
   map: any;
   markers: any = {};
@@ -55,6 +65,7 @@ export class ArchitecteProfileComponent implements OnInit {
     isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean =>
       !this.zipCodes || !this.zipCodes.length
   }
+  public ArchitectStatusEnum = ArchitectStatusEnum;
 
   constructor(private fb: FormBuilder,
     private architecteService: ArchitectService,
@@ -69,9 +80,6 @@ export class ArchitecteProfileComponent implements OnInit {
     private zone: NgZone,
     private breakpointObserver: BreakpointObserver
   ) { }
-
-
-  public ArchitectStatusEnum = ArchitectStatusEnum;
 
   ngOnInit() {
     this.architecte = this.route.snapshot.data['architecte'];
@@ -88,20 +96,20 @@ export class ArchitecteProfileComponent implements OnInit {
     this.zipCodes = this.route.snapshot.data['zipCodes'].map(x => x.number);
     this.disabledZipCodes = this.route.snapshot.data['zipCodes'].filter(x => !x.active).map(x => x.number);
 
-    var options = {
+    const options = {
       types: ['(regions)'],
       componentRestrictions: {
         country: 'fr'
       }
     };
 
-    var autocomplete = new google.maps.places.Autocomplete(this.zipCodeInput.nativeElement, options);
+    const autocomplete = new google.maps.places.Autocomplete(this.zipCodeInput.nativeElement, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
-      var place = autocomplete.getPlace();
+      const place = autocomplete.getPlace();
       if (place && place.address_components) {
-        for (var i = 0; i < place.address_components.length; i++) {
-          for (var j = 0; j < place.address_components[i].types.length; j++) {
-            if (place.address_components[i].types[j] == "postal_code") {
+        for (let i = 0; i < place.address_components.length; i++) {
+          for (let j = 0; j < place.address_components[i].types.length; j++) {
+            if (place.address_components[i].types[j] === 'postal_code') {
               if ((place.address_components[i].long_name || '').trim()) {
                 if (!this.markers[place.address_components[i].long_name.trim()]) {
                   this.loadZipCode(place.address_components[i].long_name.trim(), place);
@@ -136,7 +144,10 @@ export class ArchitecteProfileComponent implements OnInit {
       telephone: [this.architecte.telephone, [Validators.required, Validators.pattern(/0(6|7)\d{8}/)]],
       type: [this.architecte.type && this.architecte.type.id, Validators.required],
       situation: [this.architecte.situation && this.architecte.situation.id, Validators.required],
-      practicingSince: [this.architecte.practicingSince && moment(this.architecte.practicingSince).format('YYYY-MM-DD'), Validators.required],
+      practicingSince: [
+        this.architecte.practicingSince && moment(this.architecte.practicingSince).format('YYYY-MM-DD'),
+        Validators.required
+      ],
       webSite: [this.architecte.webSite, Validators.pattern(/^(http|https):\/\/[^ "]+$/)],
       architectsOrder: [this.architecte.architectsOrder, Validators.required],
       paymentType: [this.architecte.paymentType && this.architecte.paymentType.id, Validators.required],
@@ -145,7 +156,10 @@ export class ArchitecteProfileComponent implements OnInit {
       decennialInsurance: [this.architecte.decennialInsurance, Validators.required],
       motivation: [this.architecte.motivation, Validators.required],
       cgu: [this.architecte.cgu, Validators.requiredTrue],
-      iban: [this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null, [this.requiredIfPaymentTypeIsIBAN('paymentType'), this.IBANValidator]]
+      iban: [
+        this.architecte.iban ? IBAN.printFormat(this.architecte.iban) : null,
+        [this.requiredIfPaymentTypeIsIBAN('paymentType'), this.IBANValidator]
+      ]
     });
   }
 
@@ -174,7 +188,7 @@ export class ArchitecteProfileComponent implements OnInit {
         return null;
       }
       // If "Transfert bancaire"
-      return (otherControl.value === "2" && !thisControl.value) ? { verifyIBANFailed: true } : null;
+      return (otherControl.value === '2' && !thisControl.value) ? { verifyIBANFailed: true } : null;
     }
   }
 
@@ -198,7 +212,7 @@ export class ArchitecteProfileComponent implements OnInit {
   }
 
   placeMarker(zipCode: string, place: any, cb?: any) {
-    var marker = new google.maps.Marker({
+    const marker = new google.maps.Marker({
       position: new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng()),
       map: this.map
     });
@@ -229,7 +243,7 @@ export class ArchitecteProfileComponent implements OnInit {
       northeastLng = this.northeast.lng;
     }
 
-    let map = this && this.map || this.map;
+    const map = this && this.map || this.map;
 
     map.fitBounds(
       new google.maps.LatLngBounds(
@@ -245,13 +259,13 @@ export class ArchitecteProfileComponent implements OnInit {
   }
 
   add(event: MatChipInputEvent): void {
-    let input = event.input;
-    let value = event.value;
+    const input = event.input;
+    const value = event.value;
 
     // Add our person
     if ((value || '').trim()) {
       this.zipCodes.push(value.trim());
-      //Check zip codes status
+      // Check zip codes status
     }
 
     // Reset the input value
@@ -269,7 +283,7 @@ export class ArchitecteProfileComponent implements OnInit {
   }
 
   remove(zipCode: any): void {
-    let index = this.zipCodes.indexOf(zipCode);
+    const index = this.zipCodes.indexOf(zipCode);
 
     if (index >= 0) {
       this.zipCodes.splice(index, 1);
@@ -289,8 +303,7 @@ export class ArchitecteProfileComponent implements OnInit {
     new google.maps.Geocoder().geocode({ 'address': zipCode, 'region': 'fr' }, function (results, status) {
       if (status === 'OK') {
         return this.placeMarker(zipCode, results[0], cb);
-      }
-      else {
+      } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
     }.bind(this));
@@ -298,7 +311,7 @@ export class ArchitecteProfileComponent implements OnInit {
 
   getZipCodes() {
     this.zipCodes.forEach(element => {
-      var place: any = this.getZipCodeLocation(element, function () {
+      const place: any = this.getZipCodeLocation(element, function () {
         if (this.southwest && this.northeast && (this.southwest.lat !== this.northeast.lat || this.southwest.lng !== this.northeast.lng)) {
           this.fitBounds(this.southwest.lat, this.southwest.lng, this.northeast.lat, this.northeast.lng, this);
         }
@@ -313,13 +326,13 @@ export class ArchitecteProfileComponent implements OnInit {
   }
 
   computeBoundingRect() {
-    let keys = Object.keys(this.markers);
+    const keys = Object.keys(this.markers);
     this.northeast = undefined;
     this.southwest = undefined;
 
-    for (let key of keys) {
-      let lat = this.markers[key].position.lat();
-      let lng = this.markers[key].position.lng();
+    for (const key of keys) {
+      const lat = this.markers[key].position.lat();
+      const lng = this.markers[key].position.lng();
 
       if (this.northeast === undefined) {
         this.northeast = { lat: lat, lng: lng };
@@ -345,7 +358,7 @@ export class ArchitecteProfileComponent implements OnInit {
   get zipCodesArrayFromThis() {
     const zipCodes: ZipCodeClass[] = new Array<ZipCodeClass>();
 
-    for (let zipCode of this.zipCodes) {
+    for (const zipCode of this.zipCodes) {
       zipCodes.push(new ZipCodeClass({ number: zipCode }));
     }
 
@@ -388,8 +401,7 @@ export class ArchitecteProfileComponent implements OnInit {
       }, err => {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de l\'enregistrement de vos informations.');
       });
-    }
-    else {
+    } else {
       Object.keys(this.form.controls).forEach(field => {
         const control = this.form.get(field);
         control.markAsTouched({ onlySelf: true });
@@ -400,7 +412,7 @@ export class ArchitecteProfileComponent implements OnInit {
   }
 
   changePassword(password: string, event?: KeyboardEvent) {
-    if (event) event.preventDefault();
+    if (event) { event.preventDefault(); }
     if (this.passwordForm.controls.password.value && this.passwordForm.valid) {
       this.userService.changePassword(this.architecte.id, password).subscribe(res => {
         this.notificationsService.success('Merci !', 'Votre mot de passe a été changé avec succès.');

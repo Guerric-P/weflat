@@ -15,7 +15,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { ReportConsultationComponent } from '../shared/components/report/report-consultation/report-consultation.component';
 import { PaymentTypeResolver } from '../shared/resolvers/payment-type.resolver';
 
-const routes: Routes  = [
+const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, data: { authRequired: true } },
   {
@@ -29,7 +29,15 @@ const routes: Routes  = [
       }, data: { authRequired: true }
   },
   { path: 'visits', component: VisitsComponent, data: { authRequired: true } },
-  { path: 'visits/:id/report/edit', component: ReportEditComponent, resolve: { report: ReportResolver, positions: PositionResolver }, data: { authRequired: true } },
+  {
+    path: 'visits/:id/report/edit',
+    component: ReportEditComponent,
+    resolve: {
+      report: ReportResolver,
+      positions: PositionResolver
+    },
+    data: { authRequired: true }
+  },
   { path: 'visits/:id/report', component: ReportConsultationComponent, resolve: { report: ReportResolver }, data: { authRequired: true } },
   { path: 'messages', component: MessagesComponent, data: { authRequired: true } }
 ];

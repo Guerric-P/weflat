@@ -5,7 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { VisitService } from '../../../../shared/services/visit.service';
 
 @Component({
-  selector: 'admin-visit',
+  selector: 'app-visit',
   templateUrl: './visit.component.html',
   styleUrls: ['./visit.component.scss']
 })
@@ -23,7 +23,7 @@ export class VisitComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
   }
 
   cancelClick() {
@@ -31,9 +31,9 @@ export class VisitComponent implements OnInit {
 
     this.confirmModal.afterClosed().subscribe(res => {
       if (res) {
-        this.visitService.cancel(this.visit.id).subscribe(res => {
-          this.visit = res;
-          this.updated.emit(res)
+        this.visitService.cancel(this.visit.id).subscribe(visit => {
+          this.visit = visit;
+          this.updated.emit(visit)
         });
       }
     });
@@ -44,9 +44,9 @@ export class VisitComponent implements OnInit {
 
     this.confirmModal.afterClosed().subscribe(res => {
       if (res) {
-        this.visitService.architectPaid(this.visit.id).subscribe(res => {
-          this.visit = res;
-          this.updated.emit(res)
+        this.visitService.architectPaid(this.visit.id).subscribe(visit => {
+          this.visit = visit;
+          this.updated.emit(visit)
         });
       }
     });

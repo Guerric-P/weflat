@@ -92,6 +92,11 @@ footer p {
     cursor: not-allowed !important;
 }
 
+//Google Autocomplete
+.pac-container {
+    z-index: 10000 !important;
+}
+
 /*@include media-breakpoint-up(xs) {
     html {
         font-size: 0.6rem;
@@ -126,4 +131,4 @@ footer p {
     nav a {
         font-size: 16px;
     }
-}Arti: à enlever ?*/ 
+}Arti: à enlever ?*/

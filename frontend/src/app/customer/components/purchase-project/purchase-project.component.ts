@@ -13,14 +13,14 @@ import { CustomerClass } from '../../../core/models/CustomerClass';
 })
 export class PurchaseProjectComponent implements OnInit {
 
+  form: FormGroup;
+  acheteur: CustomerClass;
+
   constructor(private fb: FormBuilder,
     private acheteurService: AcheteurService,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
     private authService: AuthenticationService) { }
-  
-  form: FormGroup;
-  acheteur: CustomerClass;
 
   ngOnInit() {
     this.acheteur = this.route.snapshot.data['acheteur'];
@@ -43,8 +43,7 @@ export class PurchaseProjectComponent implements OnInit {
       }, err => {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de l\'enregistrement de vos informations.');
       });
-    }
-    else {
+    } else {
       Object.keys(this.form.controls).forEach(field => {
         const control = this.form.get(field);
         control.markAsTouched({ onlySelf: true });

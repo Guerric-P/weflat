@@ -35,11 +35,11 @@ public class Visit {
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "report_id")
 	private Report report;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "zip_code_id", nullable = false)
 	private ZipCode zipCode;
 	
@@ -52,7 +52,7 @@ public class Visit {
 	@Column(nullable = true, name = "street_number")
 	private String streetNumber;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "architect_visit", joinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "architect_id", referencedColumnName = "id"))
 	private Set<Architect> nearbyArchitects;
 	
@@ -170,8 +170,8 @@ public class Visit {
 		return nearbyArchitects;
 	}
 
-	public void setNearbyArchitects(Set<Architect> nearbyArchitectes) {
-		this.nearbyArchitects = nearbyArchitectes;
+	public void setNearbyArchitects(Set<Architect> nearbyArchitects) {
+		this.nearbyArchitects = nearbyArchitects;
 	}
 
 	public String getAnnouncementUrl() {

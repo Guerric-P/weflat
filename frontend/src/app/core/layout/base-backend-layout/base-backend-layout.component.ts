@@ -12,70 +12,71 @@ import { VisiteCounterService } from '../../services/visite-counter.service';
   styleUrls: ['./base-backend-layout.component.scss']
 })
 export class BaseBackendLayoutComponent implements OnInit {
+
+  authRequired;
+  visiteCounter: number;
+  leftMenuHidden = true;
+
   constructor(protected authService: AuthenticationService,
     protected router: Router, protected route: ActivatedRoute,
     protected authGuard: AuthGuard,
     protected localStorageService: LocalStorageService,
     protected visiteService: VisitService,
-    protected visiteCounterService: VisiteCounterService) {;
- }
+    protected visiteCounterService: VisiteCounterService) {
+  }
 
-    authRequired;
-    visiteCounter: number;
-    leftMenuHidden: boolean = true;
-  
-    ngOnInit() {
-      this.authRequired = this.router.routerState.root.firstChild.data;
-      this.router.events.subscribe((data) => {
-        if (data instanceof RoutesRecognized) {
-          this.setAuthRequired(data.state.root.firstChild.data);
-          this.leftMenuHidden = true;
-        }
-      });
-    }
-  
-    setAuthRequired(data) {
-      this.authRequired = data && data.authRequired ? true : false;
-    }
-  
-    get token() {
-      return this.localStorageService.token;
-    }
-  
-    get displayName() {
-      return this.localStorageService.tokenPayload ? this.localStorageService.tokenPayload.displayName : null;
-    }
-  
-    logout() {
-  
-      this.authService.logout().subscribe(res => {
-        this.redirectIfAuthRequired();
-      }, err => {
-        this.redirectIfAuthRequired();
-      });
-      
-    }
-
-    redirectIfAuthRequired() {
-      if (this.authRequired) {
-        this.authGuard.canActivate(
-          this.route.snapshot,
-          this.router.routerState.snapshot
-        )
+  ngOnInit() {
+    this.authRequired = this.router.routerState.root.firstChild.data;
+    this.router.events.subscribe((data) => {
+      if (data instanceof RoutesRecognized) {
+        this.setAuthRequired(data.state.root.firstChild.data);
+        this.leftMenuHidden = true;
       }
-    }
-  
-    dismissLeftMenu(){
-      this.leftMenuHidden = true;
-    }
-  
-    showLeftMenu(){
-      this.leftMenuHidden = false;
-    }
+    });
+  }
 
-    scrollToTop(){
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
+  setAuthRequired(data) {
+    this.authRequired = data && data.authRequired ? true : false;
+  }
+
+  get token() {
+    return this.localStorageService.token;
+  }
+
+  get displayName() {
+    return this.localStorageService.tokenPayload ? this.localStorageService.tokenPayload.displayName : null;
+  }
+
+  logout() {
+
+    this.authService.logout().subscribe(res => {
+      this.redirectIfAuthRequired();
+    }, err => {
+      this.redirectIfAuthRequired();
+    });
+
+  }
+
+  redirectIfAuthRequired() {
+    if (this.authRequired) {
+      this.authGuard.canActivate(
+        this.route.snapshot,
+        this.router.routerState.snapshot
+      )
     }
+  }
+
+  dismissLeftMenu() {
+    this.leftMenuHidden = true;
+  }
+
+  showLeftMenu() {
+    this.leftMenuHidden = false;
+  }
+
+  scrollToTop() {
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  }
 
 
 }

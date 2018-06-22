@@ -7,12 +7,13 @@ import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
     private userLoggedInSubject: Subject<any> = new Subject<any>();
     private userLoggedOutSubject: Subject<any> = new Subject<any>();
 
     public returnUrl: string;
+
+    constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
     login(username: string, password: string) {
         return this.http.post('/login', JSON.stringify({ username: username, password: password })).pipe(

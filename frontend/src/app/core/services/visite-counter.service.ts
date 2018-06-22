@@ -6,14 +6,14 @@ import { VisitService } from '../../shared/services/visit.service';
 @Injectable()
 export class VisiteCounterService {
 
-  constructor(private visiteService: VisitService) {
-
-  }
-
   private counterChangedSource = new Subject<number>();
 
   // Observable string streams
   counterChanged$ = this.counterChangedSource.asObservable();
+
+  constructor(private visiteService: VisitService) {
+
+  }
 
   // Service message commands
   announceCount() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateAdapter, MatHorizontalStepper } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
@@ -18,6 +18,7 @@ import { ZipCodeClass } from '../../models/ZipCodeClass';
 import { CustomerClass } from '../../models/CustomerClass';
 import { DatePipe } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { values } from '../../../shared/common/TimeDropDownValues';
 
 declare var google;
 
@@ -26,7 +27,7 @@ declare var google;
   templateUrl: './create-visit.component.html',
   styleUrls: ['./create-visit.component.scss']
 })
-export class CreateVisitComponent implements OnInit {
+export class CreateVisitComponent implements OnInit, AfterViewInit {
 
   isLinear = true;
   dateFormGroup: FormGroup;
@@ -44,60 +45,18 @@ export class CreateVisitComponent implements OnInit {
   displaySignupStep: boolean;
   visit: VisitClass = new VisitClass();
   place: any;
-  visitCreationComplete: boolean = false;
-  architectsAvailable: boolean = false;
-  times = [
-    { hour: 0, minute: 0, displayTime: '0:00' },
-    { hour: 0, minute: 30, displayTime: '0:30' },
-    { hour: 1, minute: 0, displayTime: '1:00' },
-    { hour: 1, minute: 30, displayTime: '1:30' },
-    { hour: 2, minute: 0, displayTime: '2:00' },
-    { hour: 2, minute: 30, displayTime: '2:30' },
-    { hour: 3, minute: 0, displayTime: '3:00' },
-    { hour: 3, minute: 30, displayTime: '3:30' },
-    { hour: 4, minute: 0, displayTime: '4:00' },
-    { hour: 4, minute: 30, displayTime: '4:30' },
-    { hour: 5, minute: 0, displayTime: '5:00' },
-    { hour: 5, minute: 30, displayTime: '5:30' },
-    { hour: 6, minute: 0, displayTime: '6:00' },
-    { hour: 6, minute: 30, displayTime: '6:30' },
-    { hour: 7, minute: 0, displayTime: '7:00' },
-    { hour: 7, minute: 30, displayTime: '7:30' },
-    { hour: 8, minute: 0, displayTime: '8:00' },
-    { hour: 8, minute: 30, displayTime: '8:30' },
-    { hour: 9, minute: 0, displayTime: '9:00' },
-    { hour: 9, minute: 30, displayTime: '9:30' },
-    { hour: 10, minute: 0, displayTime: '10:00' },
-    { hour: 10, minute: 30, displayTime: '10:30' },
-    { hour: 11, minute: 0, displayTime: '11:00' },
-    { hour: 11, minute: 30, displayTime: '11:30' },
-    { hour: 12, minute: 0, displayTime: '12:00' },
-    { hour: 12, minute: 30, displayTime: '12:30' },
-    { hour: 13, minute: 0, displayTime: '13:00' },
-    { hour: 13, minute: 30, displayTime: '13:30' },
-    { hour: 14, minute: 0, displayTime: '14:00' },
-    { hour: 14, minute: 30, displayTime: '14:30' },
-    { hour: 15, minute: 0, displayTime: '15:00' },
-    { hour: 15, minute: 30, displayTime: '15:30' },
-    { hour: 16, minute: 0, displayTime: '16:00' },
-    { hour: 16, minute: 30, displayTime: '16:30' },
-    { hour: 17, minute: 0, displayTime: '17:00' },
-    { hour: 17, minute: 30, displayTime: '17:30' },
-    { hour: 18, minute: 0, displayTime: '18:00' },
-    { hour: 18, minute: 30, displayTime: '18:30' },
-    { hour: 19, minute: 0, displayTime: '19:00' },
-    { hour: 19, minute: 30, displayTime: '19:30' },
-    { hour: 20, minute: 0, displayTime: '20:00' },
-    { hour: 20, minute: 30, displayTime: '20:30' },
-    { hour: 21, minute: 0, displayTime: '21:00' },
-    { hour: 21, minute: 30, displayTime: '21:30' },
-    { hour: 22, minute: 0, displayTime: '22:00' },
-    { hour: 22, minute: 30, displayTime: '22:30' },
-    { hour: 23, minute: 0, displayTime: '23:00' },
-    { hour: 23, minute: 30, displayTime: '23:30' }
-  ];
+
+  times = values;
 
   minDate = moment().add(1, 'days').toDate();
+
+  get visitCreationComplete(): boolean {
+    return this.visit && this.visit.isComplete;
+  }
+
+  get architectsAvailable(): boolean {
+    return this.visit && this.visit.zipCode && this.visit.zipCode.active;
+  }
 
   constructor(
     public authService: AuthenticationService,
@@ -129,11 +88,6 @@ export class CreateVisitComponent implements OnInit {
       this.sessionStorageService.visit = undefined;
     }
 
-    if (this.sessionStorageService.visitInfos) {
-      this.visitCreationComplete = this.sessionStorageService.visitInfos.visitCreationComplete;
-      this.architectsAvailable = this.sessionStorageService.visitInfos.architectsAvailable;
-    }
-
     this.displaySignupStep = !this.authService.isLoggedIn;
 
     this.authService.userLoggedIn.subscribe(res => {
@@ -144,27 +98,27 @@ export class CreateVisitComponent implements OnInit {
     this.authService.userLoggedOut.subscribe(res => {
       this.displaySignupStep = true;
 
-      //If the selected step was above signin, return to signin step
+      // If the selected step was above signin, return to signin step
       if (this.stepper.selectedIndex > 1) {
         this.stepper.selectedIndex = 1;
       }
     });
 
-    var options = {
+    const options = {
       types: ['address'],
       componentRestrictions: {
         country: 'fr'
       }
     };
 
-    var autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, options);
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+    const autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, options);
+    google.maps.event.addListener(autocomplete, 'place_changed', () => {
       this.place = autocomplete.getPlace();
-      this.displayAddressComponents.bind(this)();
-      this.placeMarker.bind(this)();
-      this.loadVisit.bind(this)();
-      this.completeVisitCreation.bind(this)(true);
-    }.bind(this));
+      this.displayAddressComponents();
+      this.placeMarker();
+      this.loadVisit();
+      this.completeVisitCreation(true);
+    });
 
     this.dateFormGroup = this._formBuilder.group({
       datePicker: ['', Validators.required],
@@ -173,7 +127,7 @@ export class CreateVisitComponent implements OnInit {
 
     this.addressFormGroup = this._formBuilder.group({
       addressInput: ['', Validators.required],
-      streetNumber: [{ value: '', disabled: true }, Validators.required],
+      streetNumber: [{ value: '', disabled: true }],
       route: [{ value: '', disabled: true }, Validators.required],
       zipCode: [{ value: '', disabled: true }, Validators.required],
       city: [{ value: '', disabled: true }, Validators.required]
@@ -228,10 +182,12 @@ export class CreateVisitComponent implements OnInit {
   }
 
   displayAddressComponents() {
-    let keys = Object.keys(GooglePlaceKeys);
+    const keys = Object.keys(GooglePlaceKeys);
 
-    for (let key of keys) {
-      for (let component of this.place.address_components) {
+    for (const key of keys) {
+      this.addressFormGroup.controls[key].setValue(undefined);
+
+      for (const component of this.place.address_components) {
         if (component.types.includes(GooglePlaceKeys[key])) {
           this.addressFormGroup.controls[key].setValue(component.long_name);
         }
@@ -259,12 +215,13 @@ export class CreateVisitComponent implements OnInit {
     this.visit.city = this.addressFormGroup.controls['city'].value;
     this.visit.route = this.addressFormGroup.controls['route'].value;
     this.visit.streetNumber = this.addressFormGroup.controls['streetNumber'].value;
-    this.visit.zipCode = this.addressFormGroup.controls['zipCode'].value ? new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value }) : null;
+    this.visit.zipCode = this.addressFormGroup.controls['zipCode'].value
+      ? new ZipCodeClass({ number: this.addressFormGroup.controls['zipCode'].value }) : null;
     this.visit.announcementUrl = this.projectFormGroup.controls['announcementUrl'].value;
 
-    let date = <Date>this.dateFormGroup.controls['datePicker'].value;
-    let hour = this.dateFormGroup.controls['time'].value ? this.times[this.dateFormGroup.controls['time'].value].hour : null;
-    let minute = this.dateFormGroup.controls['time'].value ? this.times[this.dateFormGroup.controls['time'].value].minute : null;
+    const date = <Date>this.dateFormGroup.controls['datePicker'].value;
+    const hour = this.dateFormGroup.controls['time'].value ? this.times[this.dateFormGroup.controls['time'].value].hour : null;
+    const minute = this.dateFormGroup.controls['time'].value ? this.times[this.dateFormGroup.controls['time'].value].minute : null;
 
     this.visit.visiteDate = date ? new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute) : null;
   }
@@ -274,16 +231,12 @@ export class CreateVisitComponent implements OnInit {
       this.loadVisit();
       if (this.isVisitFilled) {
         this.visiteService.post(this.visit).subscribe(res => {
-          this.visit.id = res.visitId;
-          this.visitCreationComplete = res.complete;
-          this.architectsAvailable = res.architectsAvailable;
+          this.visit = res;
           if (!this.architectsAvailable && enablePopup) {
             this.popup.open(this.visit);
           }
           resolve();
-        }, err => {
-          this.visitCreationComplete = false;
-          this.architectsAvailable = false;
+        }, () => {
           this.notificationService.error('Erreur', 'Un problème est survenu lors de la création de la visite.');
           reject();
         });
@@ -296,12 +249,12 @@ export class CreateVisitComponent implements OnInit {
   }
 
   selectionChanged(event: StepperSelectionEvent) {
-    if (event.selectedStep == this.projectStep) {
+    if (event.selectedStep === this.projectStep) {
       this.acheteurService.getAcheteur(this.authService.userId).subscribe(res => {
         this.projectFormGroup.controls['project'].setValue(res.project);
       });
     }
-    if (event.previouslySelectedStep == this.projectStep) {
+    if (event.previouslySelectedStep === this.projectStep) {
       this.acheteurService.patchAcheteur(
         new CustomerClass(
           {
@@ -309,35 +262,31 @@ export class CreateVisitComponent implements OnInit {
           }
         ), this.authService.userId
       ).subscribe(res => {
-        //TODO
+        // TODO
       }, err => {
-        //TODO
+        // TODO
       });
     }
-    if (event.selectedStep == this.locationStep && !(this.architectsAvailable && this.visitCreationComplete)) {
+    if (event.selectedStep === this.locationStep && !(this.architectsAvailable && this.visitCreationComplete)) {
       this.completeVisitCreation(false);
     }
-    if (event.selectedStep == this.paymentStep) {
+    if (event.selectedStep === this.paymentStep) {
       this.completeVisitCreation(true);
     }
   }
 
   completeVisitCreation(enablePopup: boolean) {
     this.zone.run(() => {
-      this.visitCreationComplete = false;
       if (!this.visit.id) {
         this.postNewVisit(enablePopup);
-      }
-      else {
-        this.visiteService.completeCreation(this.visit).subscribe(res => {
-          this.visitCreationComplete = res.complete;
-          this.architectsAvailable = res.architectsAvailable;
+      } else {
+        this.visiteService.patch(this.visit, this.visit.id).subscribe(res => {
+          this.visit = res;
           if (!this.architectsAvailable && enablePopup) {
             this.popup.open(this.visit);
           }
         }, err => {
-          this.visitCreationComplete = false;
-          this.architectsAvailable = false;
+
         });
       }
     });

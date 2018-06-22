@@ -8,7 +8,7 @@ export class AcheteurService {
 
   constructor(private http: HttpClient) { }
 
-  postAcheteur(acheteur: CustomerClass){
+  postAcheteur(acheteur: CustomerClass) {
     return this.http.post('/customers', acheteur);
   }
 
@@ -16,7 +16,7 @@ export class AcheteurService {
     return this.http.get<CustomerClass>(`/customers/${id}`);
   }
 
-  patchAcheteur(acheteur: CustomerClass, acheteurId: number){
+  patchAcheteur(acheteur: CustomerClass, acheteurId: number) {
     return this.http.patch(`/customers/${acheteurId}`, acheteur);
   }
 

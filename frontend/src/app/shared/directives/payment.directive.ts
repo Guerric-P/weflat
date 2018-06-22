@@ -1,19 +1,14 @@
-import { Directive, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, HostListener, HostBinding } from '@angular/core';
 import { environment } from 'environments/environment';
 import { NotificationsService } from 'angular2-notifications';
 import { VisitService } from '../../shared/services/visit.service';
 import { LoaderService } from '../../core/services/loader.service';
 
 @Directive({
-  selector: 'button[appPayment]',
-  host: {
-    '(click)': 'openStripePopup()',
-    '[disabled]': 'buttonDisabled'
-  }
+  selector: 'button[appPayment]'
 })
 export class PaymentDirective {
 
-  buttonDisabled: boolean;
   @Input() visitId: number;
   @Input() email: string;
   @Output() paymentDone: EventEmitter<any> = new EventEmitter<any>();
@@ -22,15 +17,15 @@ export class PaymentDirective {
     private notificationsService: NotificationsService,
     private loaderService: LoaderService) { }
 
-  openStripePopup() {
-    var handler = (<any>window).StripeCheckout.configure({
+  @HostListener('click') openStripePopup() {
+    const handler = (<any>window).StripeCheckout.configure({
       key: environment.stripePublicKey,
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       currency: 'eur',
       email: this.email,
       token: function (token: any) {
-        this.loaderService.show("Paiement en cours...");
+        this.loaderService.show('Paiement en cours...');
         this.visiteService.pay(this.visitId, token.id).subscribe(res => {
           this.notificationsService.success('Paiement effectué', 'Le paiement a réussi pour votre création de visite.');
           this.loaderService.hide();

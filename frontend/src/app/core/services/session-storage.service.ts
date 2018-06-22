@@ -25,13 +25,4 @@ export class SessionStorageService {
   set visit(visit: VisitClass) {
     this._visit = visit;
   }
-
-  get visitInfos(): any {
-    return this._visitInfos;
-  }
-
-  set visitInfos(visitInfos: any) {
-    this._visitInfos = visitInfos;
-  }
-
 }

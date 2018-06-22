@@ -6,6 +6,17 @@ import { ZipCodeService } from '../../../../shared/services/zip-code.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as ArrayUtils from '../../../../core/utils/arrayUtils';
 
+class ZipCodeErrorStateMatcher implements ErrorStateMatcher {
+  zipCodeRegexp: RegExp = /^[0-9]{5}$/;
+
+  constructor() {
+  }
+
+  isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
+    return !this.zipCodeRegexp.test(control.value) && control.value;
+  }
+}
+
 @Component({
   selector: 'app-zip-codes',
   templateUrl: './zip-codes.component.html',
@@ -33,7 +44,9 @@ export class ZipCodesComponent implements OnInit {
       });
     }
 
-    if (event.keyCode === 13 && !this.matcher.isErrorState(event.target, null) && !this.results.find(x => x.number === event.target.value)) {
+    if (event.keyCode === 13
+      && !this.matcher.isErrorState(event.target, null)
+      && !this.results.find(x => x.number === event.target.value)) {
       this.zipCodeService.postZipCode(new ZipCodeClass({ number: event.target.value, active: false })).subscribe(res => {
         this.results.unshift(res);
         this.notificationsService.success('Succès !', `Le code postal ${res.number} a été créé`);
@@ -58,16 +71,5 @@ export class ZipCodesComponent implements OnInit {
     }, err => {
       this.notificationsService.error('Erreur', 'Une erreur a eu lieu...');
     });
-  }
-}
-
-class ZipCodeErrorStateMatcher implements ErrorStateMatcher {
-  zipCodeRegexp: RegExp = /^[0-9]{5}$/;
-
-  constructor() {
-  }
-
-  isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
-    return !this.zipCodeRegexp.test(control.value) && control.value;
   }
 }

@@ -13,21 +13,20 @@ import { VisiteCounterService } from '../../../../core/services/visite-counter.s
 })
 export class VisitComponent implements OnInit {
 
+  @Input() visit: VisitClass;
+  @Input() enableAcceptRefuseButtons = false;
+  @Input() enableReportEditButton = false;
+  @Input() enableReportViewButton = false;
+  @Output() updated: EventEmitter<any> = new EventEmitter();
+  acceptButtonDisabled = false;
+  refuseButtonDisabled = false;
+  editButtonDisabled = false;
+
   constructor(private visiteService: VisitService,
     private notificationService: NotificationsService,
     private visiteCounterService: VisiteCounterService,
     private router: Router,
     private loaderService: LoaderService) { }
-
-  @Input() visit: VisitClass;
-  @Input() enableAcceptRefuseButtons: boolean = false;
-  @Input() enableReportEditButton: boolean = false;
-  @Input() enableReportViewButton: boolean = false;
-  @Output() updated: EventEmitter<any> = new EventEmitter();
-  acceptButtonDisabled: boolean = false;
-  refuseButtonDisabled: boolean = false;
-  editButtonDisabled: boolean = false;
-
 
   ngOnInit() {
   }
@@ -36,7 +35,10 @@ export class VisitComponent implements OnInit {
     this.acceptButtonDisabled = true;
     this.loaderService.show();
     this.visiteService.acceptVisit(this.visit.id).subscribe(res => {
-      this.notificationService.success('Succès', `Vous avez accepté de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`);
+      this.notificationService.success(
+        'Succès',
+        `Vous avez accepté de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`
+      );
       this.acceptButtonDisabled = false;
       this.loaderService.hide();
       this.visitesUpdated();
@@ -51,7 +53,10 @@ export class VisitComponent implements OnInit {
   refuse() {
     this.refuseButtonDisabled = false;
     this.visiteService.refuseVisit(this.visit.id).subscribe(res => {
-      this.notificationService.success('Succès', `Vous avez refusé de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`);
+      this.notificationService.success(
+        'Succès',
+        `Vous avez refusé de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`
+      );
       this.refuseButtonDisabled = true;
       this.visitesUpdated();
     }, err => {
