@@ -28,6 +28,11 @@ a {
 
 /** Menu button **/
 
+.menu-button {
+    position: relative;
+    transition: top 225ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .menu {
     width: 24px;
     height: 24px;
@@ -45,7 +50,7 @@ a {
     width: 50%;
     transform-origin: left bottom;
     height: 10%;
-    background: #2E313C;
+    background-color: #2E313C;
     transition: transform 0.3s, top 0.3s;
 }
 
@@ -57,7 +62,7 @@ a {
     width: 50%;
     transform-origin: right bottom;
     height: 10%;
-    background: #2E313C;
+    background-color: #2E313C;
     transition: transform 0.3s, top 0.3s;
 }
 
@@ -67,7 +72,7 @@ a {
     top: 50%;
     left: 50%;
     height: 10%;
-    background: #2E313C;
+    background-color: #2E313C;
     transform: translate(-50%, -50%);
     transition: transform 0.3s 0.3s, width 0.3s 0.6s;
 }
@@ -80,7 +85,7 @@ a {
     width: 50%;
     transform-origin: left top;
     height: 10%;
-    background: #2E313C;
+    background-color: #2E313C;
     transition: transform 0.3s, bottom 0.3s;
 }
 
@@ -92,7 +97,7 @@ a {
     width: 50%;
     transform-origin: right top;
     height: 10%;
-    background: #2E313C;
+    background-color: #2E313C;
     transition: transform 0.3s, bottom 0.3s;
 }
 
@@ -101,6 +106,7 @@ a {
     width: 64%;
     transform: rotate(45deg);
     transform-origin: left bottom;
+    background-color: #FFFFFF;
     transition: transform 0.3s 0.3s, width 0.3s 0.3s, top 0.3s 0.3s;
 }
 
@@ -109,12 +115,14 @@ a {
     width: 64%;
     transform: rotate(-45deg);
     transform-origin: right bottom;
+    background-color: #FFFFFF;
     transition: transform 0.3s 0.3s, width 0.3s 0.3s, top 0.3s 0.3s;
 }
 
 .menu.open .bit-2 {
     width: 10%;
     transform: translate(-50%, -50%) rotate(45deg);
+    background-color: #FFFFFF;
     transition: transform 0.3s 0.3s, width 0.3s;
 }
 
@@ -123,6 +131,7 @@ a {
     width: 64%;
     transform: rotate(-45deg);
     transform-origin: left top;
+    background-color: #FFFFFF;
     transition: transform 0.3s 0.3s, width 0.3s 0.3s, bottom 0.3s 0.3s;
 }
 
@@ -131,5 +140,6 @@ a {
     width: 64%;
     transform: rotate(45deg);
     transform-origin: right top;
+    background-color: #FFFFFF;
     transition: transform 0.3s 0.3s, width 0.3s 0.3s, bottom 0.3s 0.3s;
 }
