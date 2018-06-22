@@ -1,6 +1,5 @@
-import { Component, OnInit, TemplateRef, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, OnDestroy, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, RoutesRecognized, GuardsCheckEnd } from '@angular/router';
-import { NotificationsService } from 'angular2-notifications';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { AuthGuard } from '../../guards/auth.guard';
@@ -26,6 +25,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   @ViewChild('signinModal') signinModalTemplate: TemplateRef<any>;
   @ViewChild('signupModal') signupModalemplate: TemplateRef<any>;
   @ViewChild('expandingFooter') expandingFooter: MatExpansionPanel;
+  @ViewChild('footerBody') footerBody: ElementRef;
   signinModal: MatDialogRef<any>;
   signupModal: MatDialogRef<any>;
 
@@ -33,7 +33,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private router: Router, private route: ActivatedRoute,
     private authGuard: AuthGuard,
     private localStorageService: LocalStorageService,
-    private notificationsService: NotificationsService,
     private showSigninPopupService: ShowSigninPopupService,
     private dialog: MatDialog) { }
 
@@ -81,6 +80,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     return this.localStorageService.tokenPayload.displayName;
   }
 
+  get menuButtonTopOffset() {
+    return this.expandingFooter.expanded ? -this.footerBody.nativeElement.parentElement.getBoundingClientRect().height + 'px' : '0px';
+  }
+
   openSignup(content) {
     this.signupModal = this.dialog.open(content);
 
@@ -96,10 +99,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
   openSignin(content) {
     this.signinModal = this.dialog.open(content);
 
-    this.signinModal.afterClosed().subscribe((result) => {
+    this.signinModal.afterClosed().subscribe(() => {
       this.errorMessage = null;
       this.authService.returnUrl = null;
-    }, (reason) => {
+    }, () => {
       this.errorMessage = null;
       this.authService.returnUrl = null;
     });
@@ -117,14 +120,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.disabled = true;
     this.authService.login(this.model.username, this.model.password)
       .subscribe(
-        data => {
+        () => {
           this.signinModal.close();
           if (this.authService.returnUrl) {
             this.router.navigate([this.authService.returnUrl]);
             this.authService.returnUrl = null;
           }
         },
-        error => {
+        () => {
           this.errorMessage = 'Erreur lors de l\'authentification';
           this.disabled = false;
         });
@@ -148,9 +151,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   logout() {
 
-    this.authService.logout().subscribe(res => {
+    this.authService.logout().subscribe(() => {
       this.redirectIfAuthRequired();
-    }, err => {
+    }, () => {
       this.redirectIfAuthRequired();
     });
 
