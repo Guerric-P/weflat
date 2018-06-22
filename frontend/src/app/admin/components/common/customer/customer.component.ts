@@ -2,7 +2,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { CustomerClass } from '../../../../core/models/CustomerClass';
 
 @Component({
-  selector: 'admin-customer',
+  selector: 'app-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.scss']
 })

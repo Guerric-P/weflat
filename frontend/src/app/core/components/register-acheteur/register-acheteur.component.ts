@@ -15,6 +15,10 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class RegisterAcheteurComponent implements OnInit {
 
+  data: CustomerClass = new CustomerClass();
+  registerForm: FormGroup;
+  @Input() isEmbedded = false;
+
   constructor(
     private fb: FormBuilder,
     private acheteurService: AcheteurService,
@@ -25,10 +29,6 @@ export class RegisterAcheteurComponent implements OnInit {
   ) {
 
   }
-
-  data: CustomerClass = new CustomerClass();
-  registerForm: FormGroup;
-  @Input() isEmbedded: boolean = false;
 
   createForm() {
     this.registerForm = this.fb.group({
@@ -52,11 +52,12 @@ export class RegisterAcheteurComponent implements OnInit {
 
   onSubmit() {
     this.acheteurService.postAcheteur(this.data).subscribe(
-      x => {
-        this.authenticationService.login(this.data.email, this.data.password).subscribe(x => {
+      () => {
+        this.authenticationService.login(this.data.email, this.data.password).subscribe(() => {
           this.authenticationService.returnUrl = null;
-          if (!this.isEmbedded)
+          if (!this.isEmbedded) {
             this.router.navigate(['acheteur']);
+          }
         }, err => {
           this.notificationsService.error('Erreur', 'Une erreur est survenue...');
         });

@@ -2,7 +2,8 @@ a {
     cursor: pointer;
 }
 
-.collapse, .collapse.show {
+.collapse,
+.collapse.show {
     display: block !important;
     transition: all .25s ease-in-out;
 }
@@ -18,9 +19,117 @@ a {
 }
 
 .popup {
-    max-width:400px;
+    max-width: 400px;
 }
 
 .close {
     margin-bottom: 0.5rem;
+}
+
+/** Menu button **/
+
+.menu {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    z-index: 0;
+    margin: 15% auto;
+    display: inline-block;
+}
+
+.menu .bit-1::before {
+    content: '';
+    left: 0;
+    top: 16.67%;
+    position: absolute;
+    width: 50%;
+    transform-origin: left bottom;
+    height: 10%;
+    background: #2E313C;
+    transition: transform 0.3s, top 0.3s;
+}
+
+.menu .bit-1::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 16.67%;
+    width: 50%;
+    transform-origin: right bottom;
+    height: 10%;
+    background: #2E313C;
+    transition: transform 0.3s, top 0.3s;
+}
+
+.menu .bit-2 {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    height: 10%;
+    background: #2E313C;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s 0.3s, width 0.3s 0.6s;
+}
+
+.menu .bit-3::before {
+    content: '';
+    position: absolute;
+    bottom: 16.67%;
+    left: 0;
+    width: 50%;
+    transform-origin: left top;
+    height: 10%;
+    background: #2E313C;
+    transition: transform 0.3s, bottom 0.3s;
+}
+
+.menu .bit-3::after {
+    content: '';
+    position: absolute;
+    bottom: 16.67%;
+    right: 0;
+    width: 50%;
+    transform-origin: right top;
+    height: 10%;
+    background: #2E313C;
+    transition: transform 0.3s, bottom 0.3s;
+}
+
+.menu.open .bit-1:before {
+    top: -2.93%;
+    width: 64%;
+    transform: rotate(45deg);
+    transform-origin: left bottom;
+    transition: transform 0.3s 0.3s, width 0.3s 0.3s, top 0.3s 0.3s;
+}
+
+.menu.open .bit-1:after {
+    top: -2.93%;
+    width: 64%;
+    transform: rotate(-45deg);
+    transform-origin: right bottom;
+    transition: transform 0.3s 0.3s, width 0.3s 0.3s, top 0.3s 0.3s;
+}
+
+.menu.open .bit-2 {
+    width: 10%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition: transform 0.3s 0.3s, width 0.3s;
+}
+
+.menu.open .bit-3:before {
+    bottom: -2.93%;
+    width: 64%;
+    transform: rotate(-45deg);
+    transform-origin: left top;
+    transition: transform 0.3s 0.3s, width 0.3s 0.3s, bottom 0.3s 0.3s;
+}
+
+.menu.open .bit-3:after {
+    bottom: -2.93%;
+    width: 64%;
+    transform: rotate(45deg);
+    transform-origin: right top;
+    transition: transform 0.3s 0.3s, width 0.3s 0.3s, bottom 0.3s 0.3s;
 }

@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../../../core/services/authentication.
 export class ReportConsultationComponent implements OnInit {
 
   report: ReportClass;
-  estimatedWorkSum: number = 0;
+  estimatedWorkSum = 0;
 
   get displayArchitectContactButton() {
     return !this.authenticationService.isArchitect;
@@ -25,7 +25,7 @@ export class ReportConsultationComponent implements OnInit {
   ngOnInit() {
     this.report = new ReportClass(this.route.snapshot.data['report']);
 
-    for (let renovation of this.report.renovations) {
+    for (const renovation of this.report.renovations) {
       this.estimatedWorkSum += renovation.estimatedWork;
     }
   }

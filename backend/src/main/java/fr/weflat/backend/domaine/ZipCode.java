@@ -2,15 +2,12 @@ package fr.weflat.backend.domaine;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -53,11 +50,10 @@ public class ZipCode {
 	@Column(nullable = true, name = "town")
 	private String town;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "architect_zip_code", joinColumns = @JoinColumn(name = "zip_code_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "architect_id", referencedColumnName = "id"))
+	@ManyToMany(mappedBy = "zipCodes")
 	private Set<Architect> architectes;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "zipCode")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "zipCode", orphanRemoval=false)
 	private Set<Visit> visites;
 	
 	public Set<Visit> getVisites() {

@@ -9,7 +9,8 @@ export class PositionResolver implements Resolve<PositionClass[]> {
 
   constructor(private positionService: PositionService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): PositionClass[] | Observable<PositionClass[]> | Promise<PositionClass[]> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+    PositionClass[] | Observable<PositionClass[]> | Promise<PositionClass[]> {
     return this.positionService.getPositions();
   }
 

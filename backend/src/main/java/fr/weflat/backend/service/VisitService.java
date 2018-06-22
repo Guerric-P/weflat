@@ -7,6 +7,10 @@ import fr.weflat.backend.domaine.Visit;
 public interface VisitService {
 	Long save(Visit visite);
 	
+	void delete(Visit visite);
+	
+	void delete(Long id);
+	
 	Set<Visit> findAvailableVisitsByArchitectId(Long idArchitecte);
 	
 	Set<Visit> findPlannedVisitsByArchitectId(Long idArchitecte);
@@ -31,9 +35,11 @@ public interface VisitService {
 	
 	Set<Visit> findAll();
 	
-	void createVisit(Visit visit, Long idAcheteur) throws Exception;
+	Visit createVisit(Visit visit, Long idAcheteur) throws Exception;
 	
-	void completeVisitCreation(Visit visit, Long idAcheteur) throws Exception;
+	Visit modifyVisit(Visit visit) throws Exception;
+	
+	Visit completeVisitCreation(Visit visit, Long idAcheteur) throws Exception;
 	
 	Visit pay(Visit visit, String token) throws Exception;
 	

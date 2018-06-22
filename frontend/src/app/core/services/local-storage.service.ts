@@ -9,38 +9,37 @@ export class LocalStorageService {
     return localStorage.getItem('jwtToken');
   }
 
-  set token(token: string){
-    if(token){
+  set token(token: string) {
+    if (token) {
       localStorage.setItem('jwtToken', token);
     }
   }
 
   get tokenPayload(): any {
-    let tokenPayload = localStorage.getItem('tokenPayload');
+    const tokenPayload = localStorage.getItem('tokenPayload');
     if (tokenPayload) {
       return JSON.parse(tokenPayload);
-    }
-    else {
+    } else {
       return null;
     }
   }
 
   set tokenPayload(payload: any) {
-    if(payload){
-      if(typeof payload === 'object'){
+    if (payload) {
+      if (typeof payload === 'object') {
         localStorage.setItem('tokenPayload', JSON.stringify(payload));
       }
-      if(typeof payload === 'string'){
+      if (typeof payload === 'string') {
         localStorage.setItem('tokenPayload', payload);
       }
     }
   }
 
-  removeToken(){
+  removeToken() {
     localStorage.removeItem('jwtToken');
   }
 
-  removeTokenPayload(){
+  removeTokenPayload() {
     localStorage.removeItem('tokenPayload');
   }
 

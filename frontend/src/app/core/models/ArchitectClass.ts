@@ -1,11 +1,11 @@
-import { UserClass } from "./UserClass";
-import { ArchitectTypeClass } from "./ArchitectTypeClass";
-import { ZipCodeClass } from "./ZipCodeClass";
-import { VisitClass } from "./VisitClass";
-import { ArchitectSituationClass } from "./ArchitectSituationClass";
-import { PaymentTypeClass } from "./PaymentTypeClass";
+import { UserClass } from './UserClass';
+import { ArchitectTypeClass } from './ArchitectTypeClass';
+import { ZipCodeClass } from './ZipCodeClass';
+import { VisitClass } from './VisitClass';
+import { ArchitectSituationClass } from './ArchitectSituationClass';
+import { PaymentTypeClass } from './PaymentTypeClass';
 
-export class ArchitectClass extends UserClass{
+export class ArchitectClass extends UserClass {
     public webSite: String;
     public architectsOrder: boolean;
     public cfai: boolean;

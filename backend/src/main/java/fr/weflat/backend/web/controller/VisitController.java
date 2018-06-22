@@ -25,7 +25,6 @@ import fr.weflat.backend.service.ReportService;
 import fr.weflat.backend.service.UserService;
 import fr.weflat.backend.service.VisitService;
 import fr.weflat.backend.web.dto.ReportDto;
-import fr.weflat.backend.web.dto.VisitCreationResponseDto;
 import fr.weflat.backend.web.dto.VisiteDto;
 import ma.glasnost.orika.MapperFacade;
 
@@ -51,7 +50,7 @@ public class VisitController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
-	public VisitCreationResponseDto postVisit(@RequestBody VisiteDto input, Authentication authentication) throws Exception {
+	public VisiteDto postVisit(@RequestBody VisiteDto input, Authentication authentication) throws Exception {
 
 		Long customerId = null;
 
@@ -63,9 +62,7 @@ public class VisitController {
 
 		visit = orikaMapperFacade.map(input, Visit.class);
 
-		visitService.createVisit(visit, customerId);
-
-		return new VisitCreationResponseDto(visitService.isVisitComplete(visit), visit.getZipCode().isActive(), visit.getId());
+		return orikaMapperFacade.map(visitService.createVisit(visit, customerId), VisiteDto.class);
 
 	}
 	
@@ -76,18 +73,30 @@ public class VisitController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(path = "/{id}", method = RequestMethod.PATCH)
-	public VisitCreationResponseDto completeVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
+	public VisiteDto patchVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
 		Visit visit = visitService.findById(id);
 
-		if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() && visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()) {
+		if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() 
+				&& visit.getStatus() != VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal()
+				&& visit.getStatus() != VisitStatusEnum.BEING_ASSIGNED.ordinal()) {
 			throw new Exception("Visit non eligible for modification.");
 		} else {
 			orikaMapperFacade.map(input, visit);
-			visitService.completeVisitCreation(visit, (long)details.get("id"));
-			return new VisitCreationResponseDto(visitService.isVisitComplete(visit), visit.getZipCode().isActive(), visit.getId());
+			
+			if(visit.getStatus() != VisitStatusEnum.BEING_ASSIGNED.ordinal()) {
+				return orikaMapperFacade.map(visitService.completeVisitCreation(visit, (long)details.get("id")), VisiteDto.class);
+			}
+			else {
+				return orikaMapperFacade.map(visitService.modifyVisit(visit), VisiteDto.class);
+			}
 		}
+	}
+	
+	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable("id") long id) {
+		visitService.delete(id);
 	}
 
 	@RequestMapping(path = "/{id}/pay", method = RequestMethod.POST)

@@ -6,6 +6,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,15 +20,16 @@ import com.google.common.base.Preconditions;
 import com.querydsl.core.types.Predicate;
 import com.stripe.Stripe;
 import com.stripe.model.Charge;
+
 import fr.weflat.backend.dao.ArchitectDao;
 import fr.weflat.backend.dao.VisitDao;
+import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.Customer;
 import fr.weflat.backend.domaine.QVisit;
-import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.Visit;
 import fr.weflat.backend.enums.VisitStatusEnum;
-import fr.weflat.backend.service.CustomerService;
 import fr.weflat.backend.service.ArchitectService;
+import fr.weflat.backend.service.CustomerService;
 import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.VisitService;
 import fr.weflat.backend.service.ZipCodeService;
@@ -53,13 +58,16 @@ public class VisitServiceImpl implements VisitService {
 
 	@Autowired
 	MapperFacade orikaMapperFacade;
-	
+
+	@PersistenceContext
+	private EntityManager em;
+
 	@Value("${fr.weflat.stripe.price}")
 	Long visitPrice;
-	
+
 	@Value("${fr.weflat.stripe.partial-refund}")
 	Long partialRefundAmount;
-	
+
 	public VisitServiceImpl(@Value("${fr.weflat.stripe.private-key}") String apiKey) {
 		super();
 		Stripe.apiKey = apiKey;
@@ -201,14 +209,14 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
-	public void createVisit(Visit visit, Long customerId) throws Exception {
+	public Visit createVisit(Visit visit, Long customerId) throws Exception {
 
 		Customer customer = null;
 
 		if(customerId != null) {
 			customer = acheteurService.findById(customerId);
 		}
-		
+
 		visit.setCustomer(customer);
 
 		if(visit.getZipCode() != null && visit.getZipCode().isActive()) {
@@ -226,6 +234,7 @@ public class VisitServiceImpl implements VisitService {
 		visit.setCreationDate(new Date());
 
 		save(visit);
+		return visit;
 	}
 
 	@Override
@@ -249,13 +258,13 @@ public class VisitServiceImpl implements VisitService {
 			Set<Architect> nearbyArchitects = architecteService.findNearbyArchitectes(visit.getZipCode().getNumber());
 
 			visit.setNearbyArchitects(nearbyArchitects);
-			
+
 			visit.setStatus(VisitStatusEnum.BEING_ASSIGNED.ordinal());
-			
+
 			visit.setChargeId(charge.getId());
-			
+
 			save(visit);
-			
+
 		}
 		catch(Exception e) {
 			if(charge != null) {
@@ -269,34 +278,35 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
-	public void completeVisitCreation(Visit visit, Long customerId) throws Exception {
+	public Visit completeVisitCreation(Visit visit, Long customerId) throws Exception {
 
 		Customer customer = null;
 
 		if(customerId != null) {
 			customer = acheteurService.findById(customerId);
 		}
-		
+
 		visit.setCustomer(customer);
 
 		if(visit.getZipCode() == null) {
 			throw new Exception("No architects are available for zip code : " + visit.getZipCode().getNumber());
 		}
-		
+
 		if(isVisitComplete(visit) && visit.getZipCode().isActive()) {
 			visit.setStatus(VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal());
 		}
 
 		save(visit);
+		return visit;
 
 	}
 
 	@Override
 	public boolean isVisitComplete(Visit visit) {
 		return visit.getCity() != null
-				&& visit.getStreetNumber() != null
+				&& visit.getZipCode() != null
 				&& visit.getRoute() != null
-				&& visit.getAnnouncementUrl() != null
+				&& visit.getVisiteDate() != null
 				&& visit.getCustomer() != null;
 	}
 
@@ -344,15 +354,15 @@ public class VisitServiceImpl implements VisitService {
 				.and(visit.status.eq(VisitStatusEnum.IN_PROGRESS.ordinal()))
 				.and(visit.visiteDate.before(new Date()));;
 
-		Set<Visit> visits = new HashSet<Visit>();
+				Set<Visit> visits = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+				Iterable<Visit> result = visiteDao.findAll(predicate);
 
-		for(Visit row : result) {
-			visits.add(row);
-		}
+				for(Visit row : result) {
+					visits.add(row);
+				}
 
-		return visits;
+				return visits;
 	}
 
 	@Override
@@ -423,7 +433,7 @@ public class VisitServiceImpl implements VisitService {
 			else if (visit.getStatus() == VisitStatusEnum.IN_PROGRESS.ordinal()) {
 				partialRefund(visit);
 			}
-			
+
 			visit.setStatus(VisitStatusEnum.REFUNDED.ordinal());
 		} else {
 			visit.setStatus(VisitStatusEnum.CANCELED.ordinal());
@@ -432,7 +442,7 @@ public class VisitServiceImpl implements VisitService {
 		save(visit);
 		return visit;
 	}
-	
+
 	@Override
 	public void refund(Visit visit) throws Exception {
 		Charge.retrieve(visit.getChargeId()).refund();
@@ -443,7 +453,7 @@ public class VisitServiceImpl implements VisitService {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("amount", partialRefundAmount);
 		Charge.retrieve(visit.getChargeId()).refund(params);
-		
+
 	}
 
 	@Override
@@ -465,5 +475,60 @@ public class VisitServiceImpl implements VisitService {
 		visit.setStatus(VisitStatusEnum.ARCHITECT_PAID.ordinal());
 		save(visit);
 		return visit;
+	}
+
+	@Override
+	@PreAuthorize("hasAnyAuthority(['admin','customer'])")
+	public Visit modifyVisit(Visit visit) throws Exception {
+
+		if(visit.getStatus() != VisitStatusEnum.UNASSIGNED.ordinal() 
+				&& (visit.getZipCode() == null || !visit.getZipCode().isActive())) {
+			throw new Exception("No architects are available for zip code : " + visit.getZipCode().getNumber());
+		}
+
+		if(visit.getStatus() == VisitStatusEnum.UNASSIGNED.ordinal()
+				|| visit.getStatus() == VisitStatusEnum.BEING_ASSIGNED.ordinal()
+				|| visit.getStatus() == VisitStatusEnum.WAITING_FOR_PAYMENT.ordinal())
+		{
+			em.detach(visit);
+			Visit existingVisit = findById(visit.getId());
+			Hibernate.initialize(existingVisit.getNearbyArchitects());
+			if(!existingVisit.getZipCode().getId().equals(visit.getZipCode().getId())
+					|| !existingVisit.getCity().equals(visit.getCity())
+					|| existingVisit.getVisiteDate().compareTo(visit.getVisiteDate()) != 0) {
+
+				if(existingVisit.getZipCode().getId() != visit.getZipCode().getId()) {
+					Set<Architect> nearbyArchitects = architecteService.findNearbyArchitectes(visit.getZipCode().getNumber());
+					visit.setNearbyArchitects(nearbyArchitects);
+				}
+
+				//Save as new visit to invalidate any action attempted on previous state
+				visit.setId(null);
+				em.persist(visit);
+				save(visit);	
+				delete(existingVisit);
+
+			}
+			else {
+				em.merge(visit);
+				save(visit);
+			}
+
+			return visit;
+		}
+		else {
+			throw new Exception("Visit not alterable");
+		}
+	}
+
+	@Override
+	public void delete(Visit visite) {
+		visiteDao.delete(visite);
+	}
+
+	@Override
+	public void delete(Long id) {
+		visiteDao.delete(id);
+
 	}
 }

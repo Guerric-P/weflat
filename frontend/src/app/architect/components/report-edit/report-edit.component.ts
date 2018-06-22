@@ -18,6 +18,16 @@ import { AuthenticationService } from '../../../core/services/authentication.ser
 })
 export class ReportEditComponent implements OnInit {
 
+  form: FormGroup;
+  report: ReportClass;
+  positions: PositionClass[];
+  sumAmounts: number;
+  mandatoryPositions: PositionClass[];
+  mandatoryPositionsIds: number[];
+  submitConfirmModal: MatDialogRef<any>;
+  @ViewChild('submitConfirmModal') submitConfirmModalTemplate: TemplateRef<any>;
+  renovations: FormArray;
+
   get displayArchitectContactButton() {
     return !this.authenticationService.isArchitect;
   }
@@ -32,16 +42,6 @@ export class ReportEditComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService
   ) { }
-
-  form: FormGroup;
-  report: ReportClass;
-  positions: PositionClass[];
-  sumAmounts: number;
-  mandatoryPositions: PositionClass[];
-  mandatoryPositionsIds: number[];
-  submitConfirmModal: MatDialogRef<any>;
-  @ViewChild('submitConfirmModal') submitConfirmModalTemplate: TemplateRef<any>;
-  renovations: FormArray;
 
   ngOnInit() {
     this.report = this.route.snapshot.data['report'];
@@ -61,9 +61,9 @@ export class ReportEditComponent implements OnInit {
     const controls: any[] = [];
 
     if (this.report.renovations && this.report.renovations.length) {
-      for (let renovation of this.report.renovations) {
+      for (const renovation of this.report.renovations) {
 
-        //Add saved mandatory positions
+        // Add saved mandatory positions
         if (renovation.position.mandatory) {
           controls.push({
             id: [renovation.id],
@@ -74,10 +74,10 @@ export class ReportEditComponent implements OnInit {
           });
         }
 
-        const missingMandatoryRows = this.mandatoryPositions.filter(x => !this.report.renovations.map(x => x.position.id).includes(x.id));
+        const missingMandatoryRows = this.mandatoryPositions.filter(x => !this.report.renovations.map(y => y.position.id).includes(x.id));
 
-        //Add unsaved mandatory positions
-        for (let position of missingMandatoryRows) {
+        // Add unsaved mandatory positions
+        for (const position of missingMandatoryRows) {
           controls.push({
             id: [null],
             position: [{ value: position.id, disabled: true }, [Validators.required]],
@@ -88,8 +88,8 @@ export class ReportEditComponent implements OnInit {
         }
       }
 
-      for (let renovation of this.report.renovations) {
-        //Add saved optional positions
+      for (const renovation of this.report.renovations) {
+        // Add saved optional positions
         if (!renovation.position.mandatory) {
           controls.push({
             id: [renovation.id],
@@ -100,10 +100,9 @@ export class ReportEditComponent implements OnInit {
           });
         }
       }
-    }
-    else {
-      //Add unsaved mandatory positions
-      for (let position of this.mandatoryPositions) {
+    } else {
+      // Add unsaved mandatory positions
+      for (const position of this.mandatoryPositions) {
         controls.push({
           id: [null],
           position: [{ value: position.id, disabled: true }, [Validators.required]],
@@ -114,7 +113,7 @@ export class ReportEditComponent implements OnInit {
       }
     }
 
-    for (let control of controls) {
+    for (const control of controls) {
       controlsConfig.push(this.fb.group(control));
     }
 
@@ -136,7 +135,7 @@ export class ReportEditComponent implements OnInit {
 
     this.renovations = <FormArray>this.form.controls['renovations'];
 
-    //Initialize sumAmounts
+    // Initialize sumAmounts
     this.formChanged();
 
     this.form.valueChanges.subscribe(() => {
@@ -148,7 +147,7 @@ export class ReportEditComponent implements OnInit {
     this.sumAmounts = 0;
     this.renovations.controls.forEach(formGroup => {
       const c = formGroup.get('estimatedWork');
-      this.sumAmounts += new Number(c.value).valueOf();
+      this.sumAmounts += +c.value;
     });
   }
 
@@ -186,21 +185,18 @@ export class ReportEditComponent implements OnInit {
         this.form.markAsUntouched();
         if (callback) {
           callback();
-        }
-        else {
+        } else {
           this.notificationsService.success('Merci !', 'Votre rapport a été sauvegardé avec succès.');
         }
       }, err => {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la création du rapport.');
       });
-    }
-    else {
+    } else {
       this.reportService.patchReport(this.report.visite.id, report).subscribe(res => {
         this.form.markAsUntouched();
         if (callback) {
           callback();
-        }
-        else {
+        } else {
           this.notificationsService.success('Merci !', 'Votre rapport a été sauvegardé avec succès.');
         }
       }, err => {
@@ -227,8 +223,7 @@ export class ReportEditComponent implements OnInit {
             this.submitForm();
           }
         });
-      }
-      else {
+      } else {
         this.touchAll(this.form);
         this.notificationsService.error('Rapport incomplet', 'Veuillez remplir la totalité du rapport avant soumission.')
       }
@@ -240,9 +235,9 @@ export class ReportEditComponent implements OnInit {
       const c = formGroup.get(field);
       if (c instanceof FormGroup || c instanceof FormArray) {
         this.touchAll(c, func, opts);
-      }
-      else
+      } else {
         c[func](opts);
+      }
     });
   }
 
