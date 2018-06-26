@@ -4,7 +4,6 @@ import {
   FormBuilder,
   Validators,
   AbstractControl,
-  ValidatorFn,
   ValidationErrors,
   FormControl,
   FormGroupDirective,
@@ -22,11 +21,12 @@ import { ArchitectClass } from '../../../core/models/ArchitectClass';
 import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent, ErrorStateMatcher, MatChipList } from '@angular/material';
 import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
-import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { ZipCodeService } from '../../../shared/services/zip-code.service';
 import * as IBAN from 'iban';
 import { PaymentTypeClass } from '../../../core/models/PaymentTypeClass';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { GoogleService } from '../../../core/services/google.service';
+import { Observable } from 'rxjs';
 declare var moment;
 declare var google;
 
@@ -45,8 +45,8 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   paymentTypes: PaymentTypeClass[];
   architecte: ArchitectClass;
   dateNow = moment().format('YYYY-MM-DD');
-  @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
   @ViewChild('googleMap') googleMap: ElementRef;
+  @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
   @ViewChild('zipCodesList') zipCodesList: MatChipList;
   index = 0;
   zipCodes = [];
@@ -67,14 +67,14 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   }
   public ArchitectStatusEnum = ArchitectStatusEnum;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private architecteService: ArchitectService,
     private notificationsService: NotificationsService,
+    private googleService: GoogleService,
     private route: ActivatedRoute,
     private userService: UserService,
     private authService: AuthenticationService,
-    private notificationService: NotificationsService,
-    private localStorageService: LocalStorageService,
     private zipCodeService: ZipCodeService,
     private ref: ChangeDetectorRef,
     private zone: NgZone,
@@ -103,28 +103,30 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
       }
     };
 
-    const autocomplete = new google.maps.places.Autocomplete(this.zipCodeInput.nativeElement, options);
-    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-      const place = autocomplete.getPlace();
-      if (place && place.address_components) {
-        for (let i = 0; i < place.address_components.length; i++) {
-          for (let j = 0; j < place.address_components[i].types.length; j++) {
-            if (place.address_components[i].types[j] === 'postal_code') {
-              if ((place.address_components[i].long_name || '').trim()) {
-                if (!this.markers[place.address_components[i].long_name.trim()]) {
-                  this.loadZipCode(place.address_components[i].long_name.trim(), place);
+    this.googleService.executeAfterGoogleMapsIsLoaded(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.zipCodeInput.nativeElement, options);
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (place && place.address_components) {
+          for (let i = 0; i < place.address_components.length; i++) {
+            for (let j = 0; j < place.address_components[i].types.length; j++) {
+              if (place.address_components[i].types[j] === 'postal_code') {
+                if ((place.address_components[i].long_name || '').trim()) {
+                  if (!this.markers[place.address_components[i].long_name.trim()]) {
+                    this.loadZipCode(place.address_components[i].long_name.trim(), place);
+                  }
                 }
-              }
 
-              // Reset the input value
-              if (this.zipCodeInput.nativeElement) {
-                this.zipCodeInput.nativeElement.value = '';
+                // Reset the input value
+                if (this.zipCodeInput.nativeElement) {
+                  this.zipCodeInput.nativeElement.value = '';
+                }
               }
             }
           }
         }
-      }
-    }.bind(this))
+      })
+    });
   }
 
   get isMobile() {
@@ -193,14 +195,13 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (!this.map) {
+    this.googleService.executeAfterGoogleMapsIsLoaded(() => {
       this.map = new google.maps.Map(this.googleMap.nativeElement, {
         zoom: 10,
         center: new google.maps.LatLng(45.767519, 4.832526)
       });
-    }
-
-    this.getZipCodes();
+      this.getZipCodes();
+    });
   }
 
   get formattedDisabledZipCodes() {
@@ -300,22 +301,22 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   }
 
   getZipCodeLocation(zipCode: string, cb: any) {
-    new google.maps.Geocoder().geocode({ 'address': zipCode, 'region': 'fr' }, function (results, status) {
-      if (status === 'OK') {
+    new google.maps.Geocoder().geocode({ 'address': zipCode, 'region': 'fr' }, (results, status) => {
+      if (status === google.maps.GeocoderStatus.OK) {
         return this.placeMarker(zipCode, results[0], cb);
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
-    }.bind(this));
+    });
   }
 
   getZipCodes() {
     this.zipCodes.forEach(element => {
-      const place: any = this.getZipCodeLocation(element, function () {
+      const place: any = this.getZipCodeLocation(element, () => {
         if (this.southwest && this.northeast && (this.southwest.lat !== this.northeast.lat || this.southwest.lng !== this.northeast.lng)) {
-          this.fitBounds(this.southwest.lat, this.southwest.lng, this.northeast.lat, this.northeast.lng, this);
+          this.fitBounds(this.southwest.lat, this.southwest.lng, this.northeast.lat, this.northeast.lng);
         }
-      }.bind(this));
+      });
     });
   }
 

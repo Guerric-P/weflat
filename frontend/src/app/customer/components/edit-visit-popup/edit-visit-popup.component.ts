@@ -8,8 +8,9 @@ import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
 import { VisitService } from '../../../shared/services/visit.service';
 import { ZipCodeService } from '../../../shared/services/zip-code.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-declare var google;
+import { GoogleService } from '../../../core/services/google.service';
 declare var moment;
+declare var google;
 
 @Component({
   selector: 'app-edit-visit-popup',
@@ -49,16 +50,19 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) private data,
     private visitService: VisitService,
     private zipCodeService: ZipCodeService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private googleService: GoogleService
   ) { }
 
   ngOnInit() {
 
     this.visit = this.data.visit;
 
-    const autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, this.options);
-    google.maps.event.addListener(autocomplete, 'place_changed', () => {
-      this.displayAddressComponents(autocomplete.getPlace());
+    this.googleService.executeAfterGoogleMapsIsLoaded(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, this.options);
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        this.displayAddressComponents(autocomplete.getPlace());
+      });
     });
 
     this.visitForm = this.fb.group({
@@ -104,7 +108,7 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
     let pacContainerOffsetString = element.style.top;
     let pacContainerOffset = +extractOffsetRegex.exec(pacContainerOffsetString)[1];
     let htmlOffsetString = document.documentElement.style.top;
-    if(!htmlOffsetString) return;
+    if (!htmlOffsetString) return;
     let htmlOffset = +extractOffsetRegex.exec(htmlOffsetString)[1];
     pacContainerOffset -= htmlOffset;
     element.style.top = pacContainerOffset + 'px';
