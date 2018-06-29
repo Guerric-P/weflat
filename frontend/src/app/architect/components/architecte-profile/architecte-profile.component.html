@@ -115,16 +115,21 @@
             <label>
               <span class="mandatory-field">Saisissez les codes postaux correspondant à votre zone d'action</span>
             </label>
-            <mat-form-field>
-              <mat-chip-list [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
-                <mat-chip *ngFor="let zipCode of zipCodes" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable" [removable]="removable"
-                  (removed)="remove(zipCode)">
-                  {{zipCode}}
+              <mat-chip-list *ngFor="let county of sortedZipCodes | keys" [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
+                <mat-chip *ngFor="let zipCode of sortedZipCodes[county]" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable"
+                  [removable]="removable" (removed)="remove(zipCode)">
+                  {{zipCode.number}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
-                <input #zipCodeInput placeholder="Nouveau code postal..." [matChipInputFor]="zipCodesList" (blur)="onZipCodeInputBlur($event)"
-                />
               </mat-chip-list>
+            <mat-form-field>
+              <input matInput #zipCodeInput placeholder="Nouveau code postal..." [matAutocomplete]="autoComplete" (input)="zipCodeInputChanged($event)"
+                (blur)="onZipCodeInputBlur($event)" />
+              <mat-autocomplete #autoComplete="matAutocomplete" (optionSelected)="zipCodeSelected($event)">
+                <mat-option *ngFor="let prediction of filteredAutoCompletePredictions" [value]="prediction.structured_formatting.main_text">
+                  <span>{{prediction.description}}</span>
+                </mat-option>
+              </mat-autocomplete>
               <mat-error *ngIf="true">
                 Saisissez au moins un code postal
               </mat-error>

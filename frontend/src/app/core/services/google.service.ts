@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class GoogleService {
     return this.mapLoadedBehaviorSubject.getValue();
   }
 
-  addMapsScript(): boolean | Observable<boolean> {
+  addMapsScript() {
     if (!this.isMapLoaded && !document.querySelectorAll(`[src="${environment.googleMapsUrl}"]`).length) {
       document.body.appendChild(Object.assign(
         document.createElement('script'), {
@@ -23,27 +24,14 @@ export class GoogleService {
           src: environment.googleMapsUrl,
           onload: () => this.mapLoadedBehaviorSubject.next(true)
         }));
-
-      return this.mapLoadedBehaviorSubject.asObservable();
-    } else if (!this.isMapLoaded && document.querySelectorAll(`[src="${environment.googleMapsUrl}"]`).length) {
-      return this.mapLoadedBehaviorSubject.asObservable();
-    } else {
-      return this.isMapLoaded;
     }
   }
 
-  executeAfterGoogleMapsIsLoaded(func: Function) {
-    const booleanOrObservable = this.addMapsScript();
 
-    if (booleanOrObservable instanceof Observable) {
-      booleanOrObservable.subscribe(res => {
-        if (res) {
-          func();
-        }
-      });
-    }
-    else if (booleanOrObservable) {
-      func();
-    }
+  loadGoogleMapsLibrary() {
+    this.addMapsScript();
+    return this.mapLoadedBehaviorSubject.asObservable().pipe(
+      filter(x => x)
+    );
   }
 }

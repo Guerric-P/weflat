@@ -53,6 +53,12 @@ public class ZipCode {
 	@ManyToMany(mappedBy = "zipCodes")
 	private Set<Architect> architectes;
 	
+	@Column(nullable = true, name = "longitude")
+	private double longitude;
+	
+	@Column(nullable = true, name = "latitude")
+	private double latitude;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "zipCode", orphanRemoval=false)
 	private Set<Visit> visites;
 	
@@ -103,6 +109,22 @@ public class ZipCode {
 
 	public void setTown(String town) {
 		this.town = town;
+	}
+	
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 	
 }

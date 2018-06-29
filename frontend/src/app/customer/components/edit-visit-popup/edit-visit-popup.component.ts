@@ -58,7 +58,7 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
 
     this.visit = this.data.visit;
 
-    this.googleService.executeAfterGoogleMapsIsLoaded(() => {
+    this.googleService.loadGoogleMapsLibrary().subscribe(() => {
       const autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, this.options);
       google.maps.event.addListener(autocomplete, 'place_changed', () => {
         this.displayAddressComponents(autocomplete.getPlace());
@@ -117,7 +117,7 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.visitForm.valid) {
-      this.zipCodeService.getZipCodesStatus([new ZipCodeClass({ number: this.visitForm.controls['zipCode'].value })]).subscribe(res => {
+      this.zipCodeService.getZipCodesdetails([new ZipCodeClass({ number: this.visitForm.controls['zipCode'].value })]).subscribe(res => {
         if (res[0].active !== false) {
           this.loadVisit();
 

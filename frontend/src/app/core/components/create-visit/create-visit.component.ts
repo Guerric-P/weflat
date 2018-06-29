@@ -112,7 +112,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
       }
     };
 
-    this.googleService.executeAfterGoogleMapsIsLoaded(() => {
+    this.googleService.loadGoogleMapsLibrary().subscribe(() => {
       const autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, options);
       google.maps.event.addListener(autocomplete, 'place_changed', () => {
         this.place = autocomplete.getPlace();
@@ -169,7 +169,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.googleService.executeAfterGoogleMapsIsLoaded(() => {
+    this.googleService.loadGoogleMapsLibrary().subscribe(() => {
       if (!this.map) {
         this.map = new google.maps.Map(this.googleMap.nativeElement, {
           zoom: 10,
