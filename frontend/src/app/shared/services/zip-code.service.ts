@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ZipCodeClass } from '../../core/models/ZipCodeClass';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ZipCodeService {
 
   constructor(private http: HttpClient) { }
 
-  getZipCodesStatus(zipCodes: ZipCodeClass[]): Observable<ZipCodeClass[]> {
-    return this.http.post<ZipCodeClass[]>('/zip-codes/check-status', zipCodes);
+  getZipCodesdetails(zipCodes: ZipCodeClass[]): Observable<ZipCodeClass[]> {
+    return this.http.post<ZipCodeClass[]>('/zip-codes/details', zipCodes).pipe(
+      map(res => res.map(x => new ZipCodeClass(x)))
+    );
   }
 
   searchZipCodes(query?: string): Observable<ZipCodeClass[]> {

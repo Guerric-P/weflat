@@ -40,7 +40,9 @@ export class ArchitectService {
   }
 
   getZipCodes(id: number): Observable<ZipCodeClass[]> {
-    return this.http.get<ZipCodeClass[]>(`/architects/${id}/zip-codes`);
+    return this.http.get<ZipCodeClass[]>(`/architects/${id}/zip-codes`).pipe(
+      map(res => res.map(x => new ZipCodeClass(x)))
+    );
   }
 
   accept(id: number): Observable<any> {

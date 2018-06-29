@@ -6,6 +6,8 @@ public class ZipCodeDto {
 	private boolean active;
 	private String county;
 	private String town;
+	private double latitude;
+	private double longitude;
 	
 	public ZipCodeDto() {
 	}
@@ -49,5 +51,21 @@ public class ZipCodeDto {
 
 	public void setTown(String town) {
 		this.town = town;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
 	}
 }

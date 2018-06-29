@@ -23,6 +23,7 @@ import { ZipCodeService } from './services/zip-code.service';
 import { MatTooltipModule, MatButtonModule } from '@angular/material';
 import { PaymentTypeService } from './services/payment-type.service';
 import { PaymentTypeResolver } from './resolvers/payment-type.resolver';
+import { KeysPipe } from './pipes/keys.pipe';
 
 @NgModule({
   imports: [
@@ -32,11 +33,13 @@ import { PaymentTypeResolver } from './resolvers/payment-type.resolver';
   ],
   declarations: [
     PaymentDirective,
-    ReportConsultationComponent
+    ReportConsultationComponent,
+    KeysPipe
   ],
   exports: [
     PaymentDirective,
-    ReportConsultationComponent
+    ReportConsultationComponent,
+    KeysPipe
   ]
 })
 export class SharedModule {

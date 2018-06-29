@@ -56,7 +56,7 @@ public class ZipCodeController {
 				);
 	}
 	
-	@RequestMapping(path="/check-status", method=RequestMethod.POST)
+	@RequestMapping(path="/details", method=RequestMethod.POST)
 	public List<ZipCodeDto> checkZipCodesStatus(@RequestBody Set<ZipCodeDto> input) {
 		return orikaMapperFacade.mapAsList(
 				zipCodeService

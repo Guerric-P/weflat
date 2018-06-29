@@ -37,7 +37,7 @@ export class AddressFieldComponent implements OnInit {
       }
     };
 
-    this.googleService.executeAfterGoogleMapsIsLoaded(() => {
+    this.googleService.loadGoogleMapsLibrary().subscribe(() => {
       const autocomplete = new google.maps.places.Autocomplete(this.input.nativeElement, options);
       google.maps.event.addListener(autocomplete, 'place_changed', () => {
         this.placeChanged(autocomplete);
