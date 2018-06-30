@@ -257,25 +257,11 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
     this.ref.detectChanges();
   }
 
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    // Add our person
-    if ((value || '').trim()) {
-      this.zipCodes.push(new ZipCodeClass({ number: value.trim() }));
-      // Check zip codes status
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
   remove(zipCode: ZipCodeClass): void {
 
-    this.zipCodes[arrayUtils.findIndex(this.zipCodes)(zipCode)].marker.setMap(null);
+    debugger;
+
+    this.zipCodes[arrayUtils.findIndexById(this.zipCodes)(zipCode.id)].marker.setMap(null);
 
     const index = this.zipCodes.indexOf(zipCode);
 
@@ -317,7 +303,9 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
 
   loadCounty(number: string) {
     this.zipCodeService.searchZipCodes(number).subscribe(res => {
-      for(let zipCode of res) {
+      const filteredZipCodes = res.filter(x => !this.zipCodes.find(y => y.number === x.number));
+
+      for (let zipCode of filteredZipCodes) {
         this.zipCodes.push(zipCode);
         this.addMarkerToZipCode(zipCode);
         this.placeMarker(zipCode);
@@ -419,7 +407,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   zipCodeSelected(event: MatAutocompleteSelectedEvent) {
 
     // zip code
-    if(event.option.value.length === 5) {
+    if (event.option.value.length === 5 && !this.zipCodes.find(x => x.number === event.option.value)) {
       this.loadZipCode(event.option.value);
     }
     // county
