@@ -278,7 +278,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadCounty(number: string) {
+  loadMultipleZipCodes(number: string) {
     this.zipCodeService.searchZipCodes(number).subscribe(res => {
       const filteredZipCodes = res.filter(x => !this.zipCodes.find(y => y.number === x.number));
 
@@ -361,12 +361,20 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
         this.zone.run(() => {
           if (result) {
             this.autocompletePredictions = result;
-            if (event.target.value.length === 2 && event.target.value.match(/^[0-9]{2}$/)) {
+            if (event.target.value.match(/^[0-9]{2}$/)) {
               this.autocompletePredictions.unshift({
                 structured_formatting: {
                   main_text: event.target.value
                 },
                 description: 'Département ' + event.target.value
+              });
+            }
+            else if (event.target.value.match(/^[0-9]{3,4}$/)) {
+              this.autocompletePredictions.unshift({
+                structured_formatting: {
+                  main_text: event.target.value
+                },
+                description: 'Commence par ' + event.target.value
               });
             }
           }
@@ -388,9 +396,11 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
       this.loadZipCode(event.option.value);
     }
     // county
-    else if (event.option.value.length === 2) {
-      this.loadCounty(event.option.value);
+    else if (event.option.value.length >= 2) {
+      this.loadMultipleZipCodes(event.option.value);
     }
+
+    this.zipCodeInput.nativeElement.value = '';
   }
 
   removeCountyClick(event: MouseEvent, county: string) {

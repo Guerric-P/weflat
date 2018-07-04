@@ -115,7 +115,7 @@
           </ng-container>
         </div>
         <div class="row">
-          <div class="col-sm-4 zip-codes-container">
+          <div class="col-lg-4 zip-codes-container">
             <label>
               <span class="mandatory-field">Saisissez les codes postaux correspondant à votre zone d'action</span>
             </label>
@@ -138,7 +138,7 @@
                 </mat-chip-list>
               </mat-expansion-panel>
             </mat-accordion>
-            <mat-form-field>
+            <mat-form-field class="mt-3">
               <input matInput #zipCodeInput placeholder="Nouveau code postal..." [matAutocomplete]="autoComplete" (input)="zipCodeInputChanged($event)"
                 (blur)="onZipCodeInputBlur($event)" />
               <mat-autocomplete #autoComplete="matAutocomplete" (optionSelected)="zipCodeSelected($event)">
@@ -152,7 +152,7 @@
             </mat-form-field>
             <button type="button" mat-raised-button (click)="fitBounds()">Recentrer la carte</button>
           </div>
-          <div class="col-sm-8 google-maps-container" #googleMap>
+          <div class="col-lg-8 google-maps-container" #googleMap>
           </div>
         </div>
       </div>
