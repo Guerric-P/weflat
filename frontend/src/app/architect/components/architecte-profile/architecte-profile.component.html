@@ -99,9 +99,13 @@
         <h2>Ma zone d'action</h2>
       </div>
       <div class="card-body">
-        <div *ngIf="disabledZipCodes && disabledZipCodes.length" [ngSwitch]="disabledZipCodes.length" class="alert alert-warning"
+        <div *ngIf="disabledZipCodes && disabledZipCodes.length" [ngSwitch]="true" class="alert alert-warning"
           role="alert">
-          <ng-container *ngSwitchCase="1">
+          <ng-container *ngSwitchCase="disabledZipCodes.length >= 10">
+              Certains codes postaux n'ont pas été activés pour l'instant. Vous recevrez des demandes de visites pour
+              ces code postaux lorsqu'ils seront activés par l'équipe Weflat.
+            </ng-container>
+          <ng-container *ngSwitchCase="disabledZipCodes.length === 1">
             Le code postal {{formattedDisabledZipCodes}} n'a pas été activé pour l'instant. Vous recevrez des demandes de visites pour
             ce code postal lorsqu'il sera activé par l'équipe Weflat.
           </ng-container>
@@ -115,11 +119,13 @@
             <label>
               <span class="mandatory-field">Saisissez les codes postaux correspondant à votre zone d'action</span>
             </label>
-
             <mat-accordion>
               <mat-expansion-panel *ngFor="let county of sortedZipCodes | keys">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
+                    <button (click)="removeCountyClick($event, county)" mat-icon-button type="button">
+                      <mat-icon>close</mat-icon>
+                    </button>
                     {{ sortedZipCodes[county][0].county }} ({{ sortedZipCodes[county][0].number.substring(0, 2) }})
                   </mat-panel-title>
                 </mat-expansion-panel-header>
@@ -130,9 +136,6 @@
                     <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                   </mat-chip>
                 </mat-chip-list>
-                <mat-action-row>
-                  <button mat-button color="primary" (click)="nextStep()">Next</button>
-                </mat-action-row>
               </mat-expansion-panel>
             </mat-accordion>
             <mat-form-field>
