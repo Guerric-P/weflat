@@ -40,3 +40,7 @@
 .mandatory-field::after {
     content: " *";
 }
+
+.mat-expansion-panel-header-title {
+    align-items: center;
+}

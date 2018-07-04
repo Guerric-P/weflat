@@ -104,31 +104,6 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
     this.googleService.loadGoogleMapsLibrary().subscribe(() => {
       this.autoCompleteService = new google.maps.places.AutocompleteService()
     });
-
-    /*this.googleService.loadGoogleMapsLibrary().subscribe(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.zipCodeInput.nativeElement, options);
-      google.maps.event.addListener(autocomplete, 'place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (place && place.address_components) {
-          for (let i = 0; i < place.address_components.length; i++) {
-            for (let j = 0; j < place.address_components[i].types.length; j++) {
-              if (place.address_components[i].types[j] === 'postal_code') {
-                if ((place.address_components[i].long_name || '').trim()) {
-                  if (!this.zipCodes.find(x => x.number === place.address_components[i].long_name.trim())) {
-                    this.zone.run(() => this.loadZipCode(place.address_components[i].long_name.trim()));
-                  }
-                }
-
-                // Reset the input value
-                if (this.zipCodeInput.nativeElement) {
-                  this.zipCodeInput.nativeElement.value = '';
-                }
-              }
-            }
-          }
-        }
-      })
-    });*/
   }
 
   get isMobile() {
@@ -156,6 +131,10 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
 
   get filteredAutoCompletePredictions() {
     return this.autocompletePredictions.filter(x => !x.types || x.types.includes('postal_code'));
+  }
+
+  fitBounds() {
+    this.map.fitBounds(this.bounds);
   }
 
   onZipCodeInputBlur(event: any) {
@@ -258,8 +237,6 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   }
 
   remove(zipCode: ZipCodeClass): void {
-
-    debugger;
 
     this.zipCodes[arrayUtils.findIndexById(this.zipCodes)(zipCode.id)].marker.setMap(null);
 
@@ -383,8 +360,8 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
       this.autoCompleteService.getPlacePredictions(this.options, (result, status) => {
         this.zone.run(() => {
           if (result) {
-            console.log(this.autocompletePredictions = result);
-            if (event.target.value.length === 2) {
+            this.autocompletePredictions = result;
+            if (event.target.value.length === 2 && event.target.value.match(/^[0-9]{2}$/)) {
               this.autocompletePredictions.unshift({
                 structured_formatting: {
                   main_text: event.target.value
@@ -414,5 +391,10 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
     else if (event.option.value.length === 2) {
       this.loadCounty(event.option.value);
     }
+  }
+
+  removeCountyClick(event: MouseEvent, county: string) {
+    this.zipCodes.filter(x => x.number.substring(0, 2) === county).map(y => this.remove(y));
+    event.stopPropagation();
   }
 }
