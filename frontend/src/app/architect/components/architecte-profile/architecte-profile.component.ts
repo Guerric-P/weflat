@@ -272,7 +272,6 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
 
       let zipCode = res[0];
       this.zipCodes.push(zipCode);
-      this.addMarkerToZipCode(zipCode);
       this.placeMarker(zipCode);
       this.map.fitBounds(this.bounds);
     });
@@ -284,7 +283,6 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
 
       for (let zipCode of filteredZipCodes) {
         this.zipCodes.push(zipCode);
-        this.addMarkerToZipCode(zipCode);
         this.placeMarker(zipCode);
       }
       this.map.fitBounds(this.bounds);
