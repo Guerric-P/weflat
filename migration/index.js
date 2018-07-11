@@ -123,7 +123,20 @@ async function launch() {
 
             if (config.mails) {
                 logger.info('Sending mail to %s with password %s', architect.email, password);
-                await sendMail(gmail, jwtClient, architect.email, 'Création de votre compte', 'Votre mot de passe est : ' + password);
+				
+					const mailTemplate = `<p>Bonjour ${architect.firstName},</p>
+<p>Nous sommes très heureux de t'annoncer le lancement de la nouvelle plateforme <a href=https://www.weflat.fr>www.weflat.fr</a>. Le nombre croissant de visites couplé aux retours très positifs des acheteurs nous ont permis d'améliorer le service. Qu'est-ce que cela change pour vous ?</p>
+<ul>
+<li>Les architectes bénéficient d'espaces personnels</li>
+<li>Les comptes rendus sont désormais à remplir directement sur le site web</li>
+<li>Le paiement des prestations est automatisé</li>
+</ul>
+<p>Nous espérons que la nouvelle version répondra à l'ensemble de vos attentes. N'hésitez pas a nous faire des retours pour que nous puissions améliorer continuellement le produit - nous avons déjà plusieurs fonctionnalités en cours de développement (calendrier, plan 2D, API pour faciliter les partenariats...)</p>
+<p>Nous t'avons attribué un mot de passe temporaire te permettant de te connecter a la nouvelle plateforme. Ton mot de passe est : ${password}. Pour des raisons de sécurité, merci de le modifier dans la section "Mon profil".</p>
+<p>PS: Merci d'ignorer le précédent mail de bienvenue.</p>
+<p>Cordialement,<br>L'équipe Weflat &hearts;</p>`;
+				
+                await sendMail(gmail, jwtClient, architect.email, mailTemplate);
                 logger.info('Mail successfully sent!');
             }
             logger.info('Registration of architect %s %s successful!', architect.firstName, architect.lastName);
@@ -214,9 +227,11 @@ function sendRequest(path, method, stringData, auth) {
 }
 
 function sendMail(gmail, jwtClient, to, subject, message) {
+	
     let headers = {
         "To": to,
-        "Subject": subject
+        "Subject": subject,
+		"Content-Type": "text/html; charset=UTF-8"
     }
 
     let email = '';
