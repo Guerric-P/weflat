@@ -37,6 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/users/reset-password").permitAll()
 				.antMatchers("/zip-codes/details").permitAll()
 				.antMatchers("/zip-codes/search").permitAll()
+				.antMatchers("/visits/price").permitAll()
+				.antMatchers("/visits/partial-refund-amount").permitAll()
 				.antMatchers("/positions").permitAll()
 				.anyRequest().hasAuthority("admin")
 				.and()

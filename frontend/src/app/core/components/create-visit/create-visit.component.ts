@@ -20,6 +20,7 @@ import { DatePipe } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { values } from '../../../shared/common/TimeDropDownValues';
 import { GoogleService } from '../../services/google.service';
+import { bufferCount, map } from 'rxjs/operators';
 declare var google;
 
 @Component({
@@ -45,6 +46,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
   displaySignupStep: boolean;
   visit: VisitClass = new VisitClass();
   place: any;
+  price: number;
 
   times = values;
 
@@ -158,6 +160,10 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
       this.displayAddressComponents();
       this.addressFormGroup.controls['addressInput'].setValue(this.place.formatted_address);
     }
+
+    this.visiteService.getPrice().pipe(bufferCount(2), map(arr => arr[arr.length - 1])).subscribe(res => {
+      this.price = res;
+    });
 
     this.adapter.setLocale('fr');
   }
@@ -277,6 +283,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
       this.completeVisitCreation(false);
     }
     if (event.selectedStep === this.paymentStep) {
+      //Second event to skip the previous value and get the fresh one
       this.completeVisitCreation(true);
     }
   }

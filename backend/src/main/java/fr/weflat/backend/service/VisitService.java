@@ -56,5 +56,9 @@ public interface VisitService {
 	boolean isVisitComplete(Visit visit);
 
 	void partialRefund(Visit visit) throws Exception;
+	
+	Long getVisitPrice();
+	
+	Long getVisitPartialRefundAmount();
 
 }

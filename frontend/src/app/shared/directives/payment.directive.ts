@@ -1,8 +1,8 @@
-import { Directive, Input, Output, EventEmitter, HostListener, HostBinding } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, HostListener } from '@angular/core';
 import { environment } from 'environments/environment';
-import { NotificationsService } from 'angular2-notifications';
 import { VisitService } from '../../shared/services/visit.service';
 import { LoaderService } from '../../core/services/loader.service';
+import { NotificationsService } from '../../../../node_modules/angular2-notifications';
 
 @Directive({
   selector: 'button[appPayment]'
@@ -12,10 +12,13 @@ export class PaymentDirective {
   @Input() visitId: number;
   @Input() email: string;
   @Output() paymentDone: EventEmitter<any> = new EventEmitter<any>();
+  @Input() price: number;
 
-  constructor(private visiteService: VisitService,
-    private notificationsService: NotificationsService,
-    private loaderService: LoaderService) { }
+  constructor(
+    private visiteService: VisitService,
+    private loaderService: LoaderService,
+    private notificationsService: NotificationsService
+  ) { }
 
   @HostListener('click') openStripePopup() {
     const handler = (<any>window).StripeCheckout.configure({
@@ -24,20 +27,20 @@ export class PaymentDirective {
       locale: 'auto',
       currency: 'eur',
       email: this.email,
-      token: function (token: any) {
+      token: (token: any) => {
         this.loaderService.show('Paiement en cours...');
         this.visiteService.pay(this.visitId, token.id).subscribe(res => {
           this.notificationsService.success('Paiement effectué', 'Le paiement a réussi pour votre création de visite.');
           this.loaderService.hide();
           this.paymentDone.emit();
         });
-      }.bind(this)
+      }
     });
 
     handler.open({
       name: 'Weflat',
       description: 'Règlement de la prestation',
-      amount: 15000
+      amount: this.price
     });
   }
 }

@@ -531,4 +531,14 @@ public class VisitServiceImpl implements VisitService {
 		visiteDao.delete(id);
 
 	}
+
+	@Override
+	public Long getVisitPrice() {
+		return visitPrice;
+	}
+
+	@Override
+	public Long getVisitPartialRefundAmount() {
+		return partialRefundAmount;
+	}
 }

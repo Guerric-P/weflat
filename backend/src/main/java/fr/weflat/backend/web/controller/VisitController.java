@@ -310,4 +310,14 @@ public class VisitController {
 			throw new AccessDeniedException("Only the architect assigned to this visit can submit the report");
 		}
 	}
+	
+	@RequestMapping(path = "/price", method = RequestMethod.GET)
+	public Long getVisitPrice() {
+		return visitService.getVisitPrice();
+	}
+	
+	@RequestMapping(path = "/partial-refund-amount", method = RequestMethod.GET)
+	public Long getPartialRefundAmount() {
+		return visitService.getVisitPartialRefundAmount();
+	}
 }

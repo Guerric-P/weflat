@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { VisitClass } from '../../core/models/VisitClass';
 
 @Injectable()
 export class VisitService {
-    constructor(private http: HttpClient) { }
+    private priceSubject: Subject<number> = new Subject<number>();
+    private partialRefundAmountSubject: Subject<number> = new Subject<number>();
+
+    constructor(private http: HttpClient) {
+        //Cache price and partial refund amount
+        this.getPrice();
+        this.getPartialRefundAmount();
+    }
 
     post(visit: VisitClass) {
         return this.http.post<VisitClass>('/visits', visit).pipe(map(res => new VisitClass(res)));
@@ -130,5 +137,21 @@ export class VisitService {
 
     getVisitCounter(): Observable<number> {
         return this.http.get<number>('/visits/count');
+    }
+
+    getPrice(): Observable<number> {
+        this.http.get<number>('/visits/price').subscribe(res => {
+            this.priceSubject.next(res);
+        });
+
+        return this.priceSubject.asObservable();
+    }
+
+    getPartialRefundAmount(): Observable<number> {
+        this.http.get<number>('/visits/partial-refund-amount').subscribe(res => {
+            this.partialRefundAmountSubject.next(res);
+        });
+
+        return this.partialRefundAmountSubject.asObservable();
     }
 }

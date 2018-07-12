@@ -8,6 +8,8 @@ import { NotificationsService } from 'angular2-notifications';
 import { AuthenticationService } from '../../../../core/services/authentication.service';
 import { EditVisitPopupComponent } from '../../edit-visit-popup/edit-visit-popup.component';
 import { Overlay } from '@angular/cdk/overlay';
+import { Observable } from 'rxjs';
+import { count } from '../../../../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-my-visit',
@@ -18,7 +20,9 @@ export class MyVisitComponent implements OnInit {
 
   @Input() visit: VisitClass;
   @Input() datePassed: boolean;
-  @Output() canceled: EventEmitter<any> = new EventEmitter<any>();
+  @Input() price: number
+  @Input() partialRefundAmount: number;
+  @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancelModal') cancelModalTemplate: TemplateRef<any>;
   cancelModal: MatDialogRef<any>;
   VisitStatusEnum = VisitStatusEnum;
@@ -33,9 +37,11 @@ export class MyVisitComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
   }
 
   visitPaid() {
+    this.change.emit();
   }
 
   viewReport() {
@@ -49,7 +55,7 @@ export class MyVisitComponent implements OnInit {
       if (value) {
         this.visiteService.cancel(this.visit.id).subscribe(res => {
           this.notificationsService.success('Visite supprimée', 'Votre visite a bien été supprimée.');
-          this.canceled.emit();
+          this.change.emit();
         }, err => {
 
         });
@@ -63,10 +69,10 @@ export class MyVisitComponent implements OnInit {
       // it allows width: 100% and maxWidth: fixed amount of pixels
       { data: { visit: this.visit }, width: 'calc(100%)', maxWidth: '500px', scrollStrategy: this.overlay.scrollStrategies.block() });
 
-      dialog.componentInstance.onUpdate.subscribe(res => {
-        this.visit = res;
-        dialog.close();
-      });
+    dialog.componentInstance.onUpdate.subscribe(res => {
+      this.visit = res;
+      dialog.close();
+    });
   }
 
   closeCancelModal() {
