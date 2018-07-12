@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { VisitService } from '../../../shared/services/visit.service';
 import { VisitClass } from '../../../core/models/VisitClass';
+import { bufferCount, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-visits',
@@ -16,11 +17,24 @@ export class MyVisitsComponent implements OnInit {
   reportWrittenVisits: VisitClass[];
   waitingForPaymentVisits: VisitClass[];
   plannedVisits: VisitClass[];
+  partialRefundAmount: number;
+  price: number;
 
   constructor(private authService: AuthenticationService,
     private visitService: VisitService) { }
 
   ngOnInit() {
+    this.loadVisits();
+    this.visitService.getPartialRefundAmount().subscribe(res => {
+      this.partialRefundAmount = res / 100;
+    });
+    //Second event to skip the previous value and get the fresh one
+    this.visitService.getPrice().pipe(bufferCount(2), map(arr => arr[arr.length - 1])).subscribe(res => {
+      this.price = res;
+    });
+  }
+
+  loadVisits() {
     this.loadBeingAssignedVisits();
     this.loadInProgressVisits();
     this.loadPlannedVisits();
