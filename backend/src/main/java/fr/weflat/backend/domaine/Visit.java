@@ -71,6 +71,12 @@ public class Visit {
 	@Column(nullable = true, name = "charge_id")
 	private String chargeId;
 	
+	@Column(nullable = true, name = "paid_amount")
+	private Long paidAmount;
+	
+	@Column(nullable = true, name = "refunded_amount")
+	private Long refundedAmount;
+	
 	public String getChargeId() {
 		return chargeId;
 	}
@@ -182,6 +188,22 @@ public class Visit {
 		this.announcementUrl = announcementUrl;
 	}
 	
+	public Long getPaidAmount() {
+		return paidAmount;
+	}
+
+	public void setPaidAmount(Long paidAmount) {
+		this.paidAmount = paidAmount;
+	}
+
+	public Long getRefundedAmount() {
+		return refundedAmount;
+	}
+
+	public void setRefundedAmount(Long refundedAmount) {
+		this.refundedAmount = refundedAmount;
+	}
+
 	public String formattedAddress() {
 		if(streetNumber != null) {
 			return streetNumber + ", " + route + " - " + zipCode.getNumber() + " " + city;

@@ -262,6 +262,8 @@ public class VisitServiceImpl implements VisitService {
 			visit.setStatus(VisitStatusEnum.BEING_ASSIGNED.ordinal());
 
 			visit.setChargeId(charge.getId());
+			
+			visit.setPaidAmount(visitPrice);
 
 			save(visit);
 
@@ -445,15 +447,20 @@ public class VisitServiceImpl implements VisitService {
 
 	@Override
 	public void refund(Visit visit) throws Exception {
-		Charge.retrieve(visit.getChargeId()).refund();
+		Charge charge = Charge.retrieve(visit.getChargeId());
+		visit.setRefundedAmount(charge.getAmount());
+		save(visit);
+		charge.refund();
 	}
 
 	@Override
 	public void partialRefund(Visit visit) throws Exception {
+		Charge charge = Charge.retrieve(visit.getChargeId());
+		visit.setRefundedAmount(partialRefundAmount);
+		save(visit);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("amount", partialRefundAmount);
-		Charge.retrieve(visit.getChargeId()).refund(params);
-
+		charge.refund(params);
 	}
 
 	@Override
