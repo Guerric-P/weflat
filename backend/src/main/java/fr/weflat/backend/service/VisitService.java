@@ -60,5 +60,9 @@ public interface VisitService {
 	Long getVisitPrice();
 	
 	Long getVisitPartialRefundAmount();
+	
+	Long getAmountEarned(Long architectId);
+	
+	Long getDoneVisitsCount(Long architectId);
 
 }

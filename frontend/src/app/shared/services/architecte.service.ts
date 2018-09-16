@@ -4,6 +4,7 @@ import { Observable, } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ArchitectClass } from '../../core/models/ArchitectClass';
 import { ZipCodeClass } from '../../core/models/ZipCodeClass';
+import { DashboardClass } from '../../core/models/DashboardClass';
 
 @Injectable()
 export class ArchitectService {
@@ -51,5 +52,11 @@ export class ArchitectService {
 
   refuse(id: number): Observable<any> {
     return this.http.post(`/architects/${id}/refuse`, null);
+  }
+
+  getDashboard(id: number): Observable<DashboardClass> {
+    return this.http.get<DashboardClass>(`/architects/${id}/dashboard`).pipe(
+      map(res => new DashboardClass(res))
+    );
   }
 }
