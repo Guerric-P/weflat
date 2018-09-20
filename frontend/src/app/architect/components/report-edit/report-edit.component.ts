@@ -20,6 +20,7 @@ export class ReportEditComponent implements OnInit {
 
   form: FormGroup;
   report: ReportClass;
+  visitId: number;
   positions: PositionClass[];
   sumAmounts: number;
   mandatoryPositions: PositionClass[];
@@ -46,6 +47,7 @@ export class ReportEditComponent implements OnInit {
   ngOnInit() {
     this.report = this.route.snapshot.data['report'];
     this.positions = this.route.snapshot.data['positions'];
+    this.visitId = +this.route.snapshot.params['id'];
     this.mandatoryPositions = this.positions.filter(x => x.mandatory);
     this.mandatoryPositionsIds = this.mandatoryPositions.map(x => x.id);
 
@@ -180,7 +182,7 @@ export class ReportEditComponent implements OnInit {
     });
 
     if (!this.report.id) {
-      this.reportService.postReport(this.report.visite.id, report).subscribe(res => {
+      this.reportService.postReport(this.visitId, report).subscribe(res => {
         this.report = res;
         this.form.markAsUntouched();
         if (callback) {
@@ -192,7 +194,7 @@ export class ReportEditComponent implements OnInit {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la création du rapport.');
       });
     } else {
-      this.reportService.patchReport(this.report.visite.id, report).subscribe(res => {
+      this.reportService.patchReport(this.visitId, report).subscribe(res => {
         this.form.markAsUntouched();
         if (callback) {
           callback();
@@ -206,7 +208,7 @@ export class ReportEditComponent implements OnInit {
   }
 
   submitForm() {
-    this.reportService.submitReport(this.report.visite.id).subscribe(res => {
+    this.reportService.submitReport(this.visitId).subscribe(res => {
       this.router.navigate(['/architecte/visits']);
     }, err => {
       this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la soumission du rapport.');
