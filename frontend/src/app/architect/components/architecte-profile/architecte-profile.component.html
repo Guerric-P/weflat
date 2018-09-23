@@ -350,8 +350,8 @@
     </div>
     <div class="form-group row mt-3">
       <div class="col-sm-12">
-        <button type="submit" mat-raised-button color="primary">Soumettre mon profil</button>
-        <button type="button" class="ml-2" mat-raised-button>Je souhaite clôturer mon compte d'architecte</button>
+        <button type="submit" mat-raised-button color="primary">{{architecte.status === ArchitectStatusEnum.CREATED ? 'Soumettre mon profil' : 'Enregistrer'}}</button>
+        <a class="ml-2" mat-raised-button href="mailto:contact@weflat.fr?subject=Demande%20de%20cl%C3%B4ture%20de%20compte&body=Bonjour%2C%0A%0AJe%20souhaite%20supprimer%20mon%20profil%20Weflat%20pour%20la%20raison%20suivante%20%3A">Je souhaite clôturer mon compte d'architecte</a>
       </div>
     </div>
   </form>

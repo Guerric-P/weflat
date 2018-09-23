@@ -18,6 +18,7 @@ export class RegisterArchitecteComponent implements OnInit {
   @Input() withoutBoxShadow: boolean;
   data: ArchitectClass = new ArchitectClass();
   registerForm: FormGroup;
+  submitButtonDisabled = false;
 
   constructor(private fb: FormBuilder,
     private architecteService: ArchitectService,
@@ -46,18 +47,27 @@ export class RegisterArchitecteComponent implements OnInit {
   }
 
   onSubmit() {
-    this.architecteService.postArchitecte(this.data).subscribe(
-      () => {
-        this.authenticationService.login(this.data.email, this.data.password).subscribe(() => {
-          this.authenticationService.returnUrl = null;
-          this.router.navigate(['/architecte/profile']);
+    if (this.registerForm.valid) {
+      this.submitButtonDisabled = true;
+      this.architecteService.postArchitecte(this.data).subscribe(
+        () => {
+          this.authenticationService.login(this.data.email, this.data.password).subscribe(() => {
+            this.authenticationService.returnUrl = null;
+            this.router.navigate(['/architecte/profile']);
+          }, err => {
+            this.notificationsService.error('Erreur', 'Une erreur est survenue...');
+            this.submitButtonDisabled = false;
+          });
         }, err => {
-          this.notificationsService.error('Erreur', 'Une erreur est survenue...');
+          this.notificationsService.error('Erreur', 'Une erreur est survenue, un compte lié à cette addresse e-mail existe-t-il déjà ?');
+          this.submitButtonDisabled = false;
         });
-      }, err => {
-        this.notificationsService.error('Erreur', 'Une erreur est survenue, un compte lié à cette addresse e-mail existe-t-il déjà ?');
-      });
+    }
+    else {
+      this.notificationsService.error('Erreur', 'Il y a une ou plusieurs erreur(s) dans le formulaire d\'inscription, vérifiez votre saisie');
+    }
   }
+
 
   matchOtherValidator(otherControlName: string) {
     let thisControl: FormControl;

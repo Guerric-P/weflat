@@ -18,6 +18,7 @@ export class RegisterAcheteurComponent implements OnInit {
   data: CustomerClass = new CustomerClass();
   registerForm: FormGroup;
   @Input() isEmbedded = false;
+  submitButtonDisabled = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,7 +39,6 @@ export class RegisterAcheteurComponent implements OnInit {
         Validators.required,
         Validators.pattern(Constantes.EMAIL_REGEX)
       ]),
-      book: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       verifyPassword: new FormControl('', [
         this.matchOtherValidator('password')
@@ -51,19 +51,27 @@ export class RegisterAcheteurComponent implements OnInit {
   }
 
   onSubmit() {
-    this.acheteurService.postAcheteur(this.data).subscribe(
-      () => {
-        this.authenticationService.login(this.data.email, this.data.password).subscribe(() => {
-          this.authenticationService.returnUrl = null;
-          if (!this.isEmbedded) {
-            this.router.navigate(['acheteur']);
-          }
+    if (this.registerForm.valid) {
+      this.submitButtonDisabled = true;
+      this.acheteurService.postAcheteur(this.data).subscribe(
+        () => {
+          this.authenticationService.login(this.data.email, this.data.password).subscribe(() => {
+            this.authenticationService.returnUrl = null;
+            if (!this.isEmbedded) {
+              this.router.navigate(['acheteur']);
+            }
+          }, err => {
+            this.notificationsService.error('Erreur', 'Une erreur est survenue...');
+            this.submitButtonDisabled = false;
+          });
         }, err => {
-          this.notificationsService.error('Erreur', 'Une erreur est survenue...');
+          this.notificationsService.error('Erreur', 'Une erreur est survenue, un compte lié à cette addresse e-mail existe-t-il déjà ?');
+          this.submitButtonDisabled = false;
         });
-      }, err => {
-        this.notificationsService.error('Erreur', 'Une erreur est survenue, un compte lié à cette addresse e-mail existe-t-il déjà ?');
-      });
+    }
+    else {
+      this.notificationsService.error('Erreur', 'Il y a une ou plusieurs erreur(s) dans le formulaire d\'inscription, vérifiez votre saisie');
+    }
   }
 
   matchOtherValidator(otherControlName: string) {
