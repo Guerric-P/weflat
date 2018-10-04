@@ -5,7 +5,7 @@ public class RenovationDto {
 	
 	private PositionDto position;
 	
-	private int condition;
+	private Long condition;
 	
 	private String remarks;
 	
@@ -27,11 +27,11 @@ public class RenovationDto {
 		this.position = position;
 	}
 
-	public int getCondition() {
+	public Long getCondition() {
 		return condition;
 	}
 
-	public void setCondition(int condition) {
+	public void setCondition(Long condition) {
 		this.condition = condition;
 	}
 

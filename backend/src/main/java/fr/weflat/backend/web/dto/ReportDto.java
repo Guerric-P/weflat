@@ -6,15 +6,15 @@ import java.util.Set;
 public class ReportDto {
 	private Long id;
 	private Set<RenovationDto> renovations = new HashSet<RenovationDto>();
-	private int floor;
+	private Long floor;
 	private String generalRemarks;
 	private String orientation;
-	private int rooms;
-	private int surface;
+	private Long rooms;
+	private Long surface;
 	private VisiteDto visite;
 	private String expectations;
 	private String globalQualityRemarks;
-	private int globalCondition;
+	private Long globalCondition;
 	
 	public Long getId() {
 		return id;
@@ -32,11 +32,11 @@ public class ReportDto {
 		this.renovations = renovations;
 	}
 
-	public int getFloor() {
+	public Long getFloor() {
 		return floor;
 	}
 
-	public void setFloor(int floor) {
+	public void setFloor(Long floor) {
 		this.floor = floor;
 	}
 
@@ -56,19 +56,19 @@ public class ReportDto {
 		this.orientation = orientation;
 	}
 
-	public int getRooms() {
+	public Long getRooms() {
 		return rooms;
 	}
 
-	public void setRooms(int rooms) {
+	public void setRooms(Long rooms) {
 		this.rooms = rooms;
 	}
 
-	public int getSurface() {
+	public Long getSurface() {
 		return surface;
 	}
 
-	public void setSurface(int surface) {
+	public void setSurface(Long surface) {
 		this.surface = surface;
 	}
 
@@ -96,11 +96,11 @@ public class ReportDto {
 		this.globalQualityRemarks = globalQualityRemarks;
 	}
 
-	public int getGlobalCondition() {
+	public Long getGlobalCondition() {
 		return globalCondition;
 	}
 
-	public void setGlobalCondition(int globalCondition) {
+	public void setGlobalCondition(Long globalCondition) {
 		this.globalCondition = globalCondition;
 	}
 }

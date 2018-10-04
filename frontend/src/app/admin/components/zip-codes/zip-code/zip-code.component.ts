@@ -10,7 +10,7 @@ import { MatSlideToggleChange } from '@angular/material';
 export class ZipCodeComponent implements OnInit {
 
   @Output() deleted: EventEmitter<ZipCodeClass> = new EventEmitter<ZipCodeClass>();
-  @Output() changed: EventEmitter<ZipCodeClass> = new EventEmitter<ZipCodeClass>();
+  @Output() changed = new EventEmitter<ZipCodeClass>();
   @Input() zipCode: ZipCodeClass;
 
   constructor() { }
@@ -23,6 +23,6 @@ export class ZipCodeComponent implements OnInit {
   }
 
   onValueChanged(event: MatSlideToggleChange) {
-    this.changed.emit(Object.assign(this.zipCode, {active: event.checked}));
+    this.changed.emit(Object.assign({}, this.zipCode, { active: event.checked }));
   }
 }

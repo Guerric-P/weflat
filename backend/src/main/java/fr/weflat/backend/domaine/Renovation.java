@@ -30,7 +30,7 @@ public class Renovation {
 	private Position position;
 	
 	@Column(nullable = true, name = "condition")
-	private int condition;
+	private Long condition;
 	
 	@Column(nullable = true, name = "remarks")
 	private String remarks;
@@ -62,11 +62,11 @@ public class Renovation {
 		this.position = position;
 	}
 
-	public int getCondition() {
+	public Long getCondition() {
 		return condition;
 	}
 
-	public void setCondition(int condition) {
+	public void setCondition(Long condition) {
 		this.condition = condition;
 	}
 

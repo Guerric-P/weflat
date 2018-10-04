@@ -1,7 +1,11 @@
 package fr.weflat.backend.service.impl;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.types.Predicate;
 
 import fr.weflat.backend.dao.ZipCodeDao;
+import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.QZipCode;
 import fr.weflat.backend.domaine.ZipCode;
+import fr.weflat.backend.service.ArchitectService;
+import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.ZipCodeService;
 
 @Service
@@ -19,10 +26,12 @@ import fr.weflat.backend.service.ZipCodeService;
 public class ZipCodeServiceImpl implements ZipCodeService {
 	@Autowired
 	private ZipCodeDao zipCodeDao;
-
-	public ZipCode findById(long id) {
-		return zipCodeDao.findOne(id);
-	}
+	
+	@Autowired
+	private MailService mailService;
+	
+	@Autowired
+	private ArchitectService architectService;
 
 	@Override
 	public ZipCode findById(Long id) {
@@ -65,7 +74,7 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	}
 
 	@Override
-	public Set<ZipCode> getZipCodesByNumbersStartingWith(String string) {
+	public Set<ZipCode> getZipCodesByNumbersStartingWith(String string) {	
 		QZipCode zipCode = QZipCode.zipCode;
 
 		Predicate predicate = zipCode.number.startsWith(string);
@@ -84,5 +93,38 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	@Override
 	public void deleteById(long id) {
 		zipCodeDao.delete(id);
+	}
+	
+	@Override
+	public Set<ZipCode> bulkUpdate(Set<ZipCode> zipCodesToSave) throws Exception {
+		Set<ZipCode> zipCodesFromDatabase = getZipCodesByNumbers(zipCodesToSave.stream().map(x -> x.getNumber()).collect(Collectors.toSet()));
+		
+		Collection<ZipCode> mergedZipCodes = Stream.of(zipCodesFromDatabase, zipCodesToSave)
+				.flatMap(Set::stream)
+				.collect(Collectors.toMap(ZipCode::getNumber, z -> z, (ZipCode x, ZipCode y) -> {
+					if(x.getId() != null) {
+						x.setNumber(y.getNumber());
+						x.setActive(y.isActive());
+						return x;
+					} else if (y.getId() != null) {
+						y.setNumber(x.getNumber());
+						y.setActive(x.isActive());
+						return y;
+					}
+					else {
+						return null;
+					}
+				}))
+				.values();
+		
+		Iterable<ZipCode> result = zipCodeDao.save(mergedZipCodes);
+		
+		Set<ZipCode> activatedZipCodes = mergedZipCodes.stream().filter(x -> x.isActive() == true).collect(Collectors.toSet());
+		
+		Set<Architect> architects = architectService.findValidatedArchitectsHavingZipCodes(activatedZipCodes);
+		
+		mailService.sendZipCodeActivatedMail(architects, mergedZipCodes);
+
+		return StreamSupport.stream(result.spliterator(), false).collect(Collectors.toSet());
 	}
 }

@@ -8,8 +8,6 @@ import { NotificationsService } from 'angular2-notifications';
 import { AuthenticationService } from '../../../../core/services/authentication.service';
 import { EditVisitPopupComponent } from '../../edit-visit-popup/edit-visit-popup.component';
 import { Overlay } from '@angular/cdk/overlay';
-import { Observable } from 'rxjs';
-import { count } from '../../../../../../node_modules/rxjs/operators';
 
 @Component({
   selector: 'app-my-visit',
@@ -26,6 +24,7 @@ export class MyVisitComponent implements OnInit {
   @ViewChild('cancelModal') cancelModalTemplate: TemplateRef<any>;
   cancelModal: MatDialogRef<any>;
   VisitStatusEnum = VisitStatusEnum;
+  cancelButtonDisabled: boolean = false;
 
   constructor(
     public authService: AuthenticationService,
@@ -37,7 +36,7 @@ export class MyVisitComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    console.log('partialRefundAmount', this.partialRefundAmount);
   }
 
   visitPaid() {
@@ -53,11 +52,13 @@ export class MyVisitComponent implements OnInit {
 
     this.cancelModal.afterClosed().subscribe(value => {
       if (value) {
+        this.cancelButtonDisabled = true;
         this.visiteService.cancel(this.visit.id).subscribe(res => {
           this.notificationsService.success('Visite supprimée', 'Votre visite a bien été supprimée.');
           this.change.emit();
+          this.cancelButtonDisabled = false;
         }, err => {
-
+          this.cancelButtonDisabled = false;
         });
       }
     });
