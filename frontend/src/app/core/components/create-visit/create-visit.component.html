@@ -50,6 +50,7 @@
         <div class="row justify-content-center align-items-center">
           <mat-form-field id="url">
             <input type="url" matInput placeholder="URL de l'annonce du bien que vous allez visiter" formControlName="announcementUrl">
+            <mat-error *ngIf="projectFormGroup.get('announcementUrl').invalid">Merci de renseigner l'adresse complète (ex: http://... ou https://...)</mat-error>
           </mat-form-field>
         </div>
         <div class="row justify-content-center align-items-center">

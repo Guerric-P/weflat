@@ -10,5 +10,4 @@ public enum PositionEnum {
 	KITCHEN,
 	CEILING,
 	HOLLOWARE,
-	OTHER
 }

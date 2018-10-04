@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BinaryOperator;
 import java.util.stream.StreamSupport;
 
 import javax.persistence.EntityManager;
@@ -95,7 +94,7 @@ public class VisitServiceImpl implements VisitService {
 				visit.setStatus(VisitStatusEnum.IN_PROGRESS.ordinal());
 				visiteDao.save(visit);
 
-				StringBuilder messageBuilder = new StringBuilder();
+				/*StringBuilder messageBuilder = new StringBuilder();
 				messageBuilder.append(architect.getFirstName());
 				messageBuilder.append(" ");
 				messageBuilder.append(architect.getLastName());
@@ -112,7 +111,7 @@ public class VisitServiceImpl implements VisitService {
 
 				mailService.sendSimpleMail(visit.getCustomer().getEmail(),
 						"Un architecte a accepté votre visite !",
-						messageBuilder.toString());
+						messageBuilder.toString());*/
 			}
 			else {
 				throw new Exception("Architect is already assigned");
@@ -456,6 +455,12 @@ public class VisitServiceImpl implements VisitService {
 		visit.setRefundedAmount(charge.getAmount());
 		save(visit);
 		charge.refund();
+		mailService.sendFullRefundMail(
+				visit.getCustomer().getEmail(),
+				visit.getCustomer().getFirstName(),
+				visit.getVisiteDate(),
+				visit.formattedAddress()
+				);
 	}
 
 	@Override
@@ -466,6 +471,13 @@ public class VisitServiceImpl implements VisitService {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("amount", partialRefundAmount);
 		charge.refund(params);
+		mailService.sendPartialRefundMail(
+				visit.getCustomer().getEmail(),
+				visit.getCustomer().getFirstName(),
+				visit.getVisiteDate(),
+				visit.formattedAddress(),
+				partialRefundAmount
+				);
 	}
 
 	@Override

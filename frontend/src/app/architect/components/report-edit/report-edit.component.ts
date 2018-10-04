@@ -66,7 +66,7 @@ export class ReportEditComponent implements OnInit {
       for (const renovation of this.report.renovations) {
 
         // Add saved mandatory positions
-        if (renovation.position.mandatory) {
+        if (renovation.position && renovation.position.mandatory) {
           controls.push({
             id: [renovation.id],
             position: [{ value: renovation.position.id, disabled: true }, [Validators.required]],
@@ -76,7 +76,7 @@ export class ReportEditComponent implements OnInit {
           });
         }
 
-        const missingMandatoryRows = this.mandatoryPositions.filter(x => !this.report.renovations.map(y => y.position.id).includes(x.id));
+        const missingMandatoryRows = this.mandatoryPositions.filter(x => !this.report.renovations.map(y => y.position ? y.position.id : null).includes(x.id));
 
         // Add unsaved mandatory positions
         for (const position of missingMandatoryRows) {
@@ -92,10 +92,10 @@ export class ReportEditComponent implements OnInit {
 
       for (const renovation of this.report.renovations) {
         // Add saved optional positions
-        if (!renovation.position.mandatory) {
+        if (renovation.position === null || !renovation.position.mandatory) {
           controls.push({
             id: [renovation.id],
-            position: [renovation.position.id, [Validators.required]],
+            position: [renovation.position ? renovation.position.id : null, [Validators.required]],
             condition: [renovation.condition, [Validators.required]],
             estimatedWork: [renovation.estimatedWork, [Validators.required]],
             remarks: [renovation.remarks, [Validators.required]]

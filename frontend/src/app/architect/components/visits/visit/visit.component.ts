@@ -52,16 +52,19 @@ export class VisitComponent implements OnInit {
 
   refuse() {
     this.refuseButtonDisabled = false;
+    this.loaderService.show();
     this.visiteService.refuseVisit(this.visit.id).subscribe(res => {
       this.notificationService.success(
         'Succès',
         `Vous avez refusé de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`
       );
       this.refuseButtonDisabled = true;
+      this.loaderService.hide();
       this.visitesUpdated();
     }, err => {
       this.notificationService.error('Erreur', 'Une erreur a eu lieu');
       this.refuseButtonDisabled = true;
+      this.loaderService.hide();
       this.visitesUpdated();
     });
   }

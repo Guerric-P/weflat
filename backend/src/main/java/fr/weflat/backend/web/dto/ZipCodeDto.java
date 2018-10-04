@@ -16,6 +16,11 @@ public class ZipCodeDto {
 		this.number = number;
 	}
 	
+	public ZipCodeDto(String number, boolean active) {
+		this.number = number;
+		this.active = active;
+	}
+	
 	public Long getId() {
 		return id;
 	}
