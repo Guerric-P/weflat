@@ -23,6 +23,7 @@ import {
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { HelpModalComponent } from './components/help-modal/help-modal.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { SharedModule } from '../shared/shared.module';
     VisitsComponent,
     VisitComponent,
     ReportEditComponent,
-    MessagesComponent
+    MessagesComponent,
+    HelpModalComponent
   ]
 })
 export class ArchitectModule { }
