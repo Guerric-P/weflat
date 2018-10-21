@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { VisitService } from '../../../shared/services/visit.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { VisitClass } from '../../../core/models/VisitClass';
+import { MatDialogRef, MatDialog } from '@angular/material';
+import { HelpHowToVisitModalComponent } from '../help-how-to-visit-modal/help-how-to-visit-modal.component';
 
 @Component({
   selector: 'app-visits',
@@ -18,8 +20,13 @@ export class VisitsComponent implements OnInit {
   plannedVisitesExpanded: boolean;
   reportPendingVisitesExpanded: boolean;
   reportWrittenVisitesExpanded: boolean;
+  helpDialog: MatDialogRef<HelpHowToVisitModalComponent>;
 
-  constructor(private visiteService: VisitService, private authService: AuthenticationService) { }
+  constructor(
+    private visiteService: VisitService,
+    private authService: AuthenticationService,
+    private dialog: MatDialog
+    ) { }
 
   ngOnInit() {
    this.loadAllVisites();
@@ -74,5 +81,10 @@ export class VisitsComponent implements OnInit {
         // TODO
       }
     );
+  }
+
+  openHelpDialog(event: MouseEvent) {
+    this.helpDialog = this.dialog.open(HelpHowToVisitModalComponent);
+    event.stopPropagation();
   }
 }

@@ -17,16 +17,19 @@ export class VisitComponent implements OnInit {
   @Input() enableAcceptRefuseButtons = false;
   @Input() enableReportEditButton = false;
   @Input() enableReportViewButton = false;
+  @Input() enableHelpButton = false;
   @Output() updated: EventEmitter<any> = new EventEmitter();
   acceptButtonDisabled = false;
   refuseButtonDisabled = false;
   editButtonDisabled = false;
 
-  constructor(private visiteService: VisitService,
+  constructor(
+    private visiteService: VisitService,
     private notificationService: NotificationsService,
     private visiteCounterService: VisiteCounterService,
     private router: Router,
-    private loaderService: LoaderService) { }
+    private loaderService: LoaderService
+  ) { }
 
   ngOnInit() {
   }

@@ -23,7 +23,8 @@ import {
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { HelpModalComponent } from './components/help-modal/help-modal.component';
+import { HelpReportEditionModalComponent } from './components/help-report-edition-modal/help-report-edition-modal.component';
+import { HelpHowToVisitModalComponent } from './components/help-how-to-visit-modal/help-how-to-visit-modal.component';
 
 @NgModule({
   imports: [
@@ -52,7 +53,12 @@ import { HelpModalComponent } from './components/help-modal/help-modal.component
     VisitComponent,
     ReportEditComponent,
     MessagesComponent,
-    HelpModalComponent
+    HelpReportEditionModalComponent,
+    HelpHowToVisitModalComponent
+  ],
+  entryComponents: [
+    HelpReportEditionModalComponent,
+    HelpHowToVisitModalComponent
   ]
 })
 export class ArchitectModule { }

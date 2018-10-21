@@ -20,11 +20,9 @@ export class AppComponent implements OnInit {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      if ((<any>window).gtag) {
-        (<any>window).gtag('config', (<any>window).googleId, {
-          'page_path': evt.urlAfterRedirects
-        });
-      }
+      (<any>window).gtag('config', (<any>window).googleId, {
+        'page_path': evt.urlAfterRedirects
+      });
 
       window.scrollTo(0, 0);
     });
