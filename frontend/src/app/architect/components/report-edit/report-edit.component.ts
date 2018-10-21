@@ -10,6 +10,7 @@ import { PositionClass } from '../../../core/models/PositionClass';
 import { RenovationClass } from '../../../core/models/RenovationClass';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { AuthenticationService } from '../../../core/services/authentication.service';
+import { HelpReportEditionModalComponent } from '../help-report-edition-modal/help-report-edition-modal.component';
 
 @Component({
   selector: 'app-report-edit',
@@ -26,6 +27,7 @@ export class ReportEditComponent implements OnInit {
   mandatoryPositions: PositionClass[];
   mandatoryPositionsIds: number[];
   submitConfirmModal: MatDialogRef<any>;
+  helpModal: MatDialogRef<HelpReportEditionModalComponent>;
   @ViewChild('submitConfirmModal') submitConfirmModalTemplate: TemplateRef<any>;
   renovations: FormArray;
 
@@ -37,7 +39,6 @@ export class ReportEditComponent implements OnInit {
     private fb: FormBuilder,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
-    private visiteService: VisitService,
     private reportService: ReportService,
     private dialog: MatDialog,
     private router: Router,
@@ -76,7 +77,8 @@ export class ReportEditComponent implements OnInit {
           });
         }
 
-        const missingMandatoryRows = this.mandatoryPositions.filter(x => !this.report.renovations.map(y => y.position ? y.position.id : null).includes(x.id));
+        const missingMandatoryRows = this.mandatoryPositions
+          .filter(x => !this.report.renovations.map(y => y.position ? y.position.id : null).includes(x.id));
 
         // Add unsaved mandatory positions
         for (const position of missingMandatoryRows) {
@@ -262,5 +264,9 @@ export class ReportEditComponent implements OnInit {
 
   closeSubmitConfirmModal() {
     this.submitConfirmModal.close();
+  }
+
+  openHelpDialog() {
+    this.helpModal = this.dialog.open(HelpReportEditionModalComponent);
   }
 }
