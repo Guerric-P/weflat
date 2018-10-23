@@ -24,8 +24,7 @@
             ],
             "scripts": [
               "node_modules/moment/moment.js",
-              "node_modules/moment/locale/fr.js",
-              "src/scripts/analytics.js"
+              "node_modules/moment/locale/fr.js"
             ]
           },
           "configurations": {
@@ -45,8 +44,8 @@
                   "with": "src/environments/environment.test.ts"
                 },
                 {
-                  "replace": "src/scripts/analytics.js",
-                  "with": "src/scripts/analytics-test.js"
+                  "replace": "src/index.html",
+                  "with": "src/index.test.html"
                 }
               ]
             },
@@ -66,8 +65,8 @@
                   "with": "src/environments/environment.prod.ts"
                 },
                 {
-                  "replace": "src/scripts/analytics.js",
-                  "with": "src/scripts/analytics-prod.js"
+                  "replace": "src/index.html",
+                  "with": "src/index.prod.html"
                 }
               ]
             }
