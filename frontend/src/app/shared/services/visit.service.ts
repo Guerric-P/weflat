@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 import { VisitClass } from '../../core/models/VisitClass';
 
 @Injectable()
 export class VisitService {
-    private priceSubject: Subject<number> = new Subject<number>();
-    private partialRefundAmountSubject: Subject<number> = new Subject<number>();
+    private priceSubject: BehaviorSubject<number>;
+    private partialRefundAmountSubject: BehaviorSubject<number>;
+    private priceSubjectReady: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private partialRefundAmountSubjectReady: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient) {
         //Cache price and partial refund amount
-        this.getPrice();
-        this.getPartialRefundAmount();
+        this.refreshPrice();
+        this.refreshPartialRefundAmount();
     }
 
     post(visit: VisitClass) {
@@ -139,19 +141,39 @@ export class VisitService {
         return this.http.get<number>('/visits/count');
     }
 
-    getPrice(): Observable<number> {
+    refreshPrice() {
         this.http.get<number>('/visits/price').subscribe(res => {
-            this.priceSubject.next(res);
+            if (!this.priceSubject) {
+                this.priceSubject = new BehaviorSubject<number>(res);
+                this.priceSubjectReady.next(true);
+            } else {
+                this.priceSubject.next(res);
+            }
         });
-
-        return this.priceSubject.asObservable();
     }
 
-    getPartialRefundAmount(): Observable<number> {
-        this.http.get<number>('/visits/partial-refund-amount').subscribe(res => {
-            this.partialRefundAmountSubject.next(res);
-        });
+    getPrice(): Observable<Observable<number>> {
+        return this.priceSubjectReady.pipe(
+            filter(x => x),
+            map(() => this.priceSubject.asObservable())
+        );
+    }
 
-        return this.partialRefundAmountSubject.asObservable();
+    refreshPartialRefundAmount() {
+        this.http.get<number>('/visits/partial-refund-amount').subscribe(res => {
+            if (!this.partialRefundAmountSubject) {
+                this.partialRefundAmountSubject = new BehaviorSubject<number>(res);
+                this.partialRefundAmountSubjectReady.next(true);
+            } else {
+                this.partialRefundAmountSubject.next(res);
+            }
+        });
+    }
+
+    getPartialRefundAmount(): Observable<Observable<number>> {
+        return this.partialRefundAmountSubjectReady.pipe(
+            filter(x => x),
+            map(() => this.partialRefundAmountSubject.asObservable())
+        );
     }
 }

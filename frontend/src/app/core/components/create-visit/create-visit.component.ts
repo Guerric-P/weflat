@@ -161,8 +161,10 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
       this.addressFormGroup.controls['addressInput'].setValue(this.place.formatted_address);
     }
 
-    this.visiteService.getPrice().pipe(bufferCount(2), map(arr => arr[arr.length - 1])).subscribe(res => {
-      this.price = res;
+    this.visiteService.getPrice().subscribe(res => {
+      res.subscribe(x => {
+        this.price = x;
+      });
     });
 
     this.adapter.setLocale('fr');

@@ -37,6 +37,7 @@ export class MyVisitComponent implements OnInit {
 
   ngOnInit() {
     console.log('partialRefundAmount', this.partialRefundAmount);
+    console.log('partialRefundAmount', this.price);
   }
 
   visitPaid() {
