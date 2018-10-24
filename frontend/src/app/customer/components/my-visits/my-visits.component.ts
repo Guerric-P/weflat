@@ -26,11 +26,14 @@ export class MyVisitsComponent implements OnInit {
   ngOnInit() {
     this.loadVisits();
     this.visitService.getPartialRefundAmount().subscribe(res => {
-      this.partialRefundAmount = res / 100;
+      res.subscribe(x => {
+        this.partialRefundAmount = x / 100;
+      });
     });
-    //Second event to skip the previous value and get the fresh one
-    this.visitService.getPrice().pipe(bufferCount(2), map(arr => arr[arr.length - 1])).subscribe(res => {
-      this.price = res;
+    this.visitService.getPrice().subscribe(res => {
+      res.subscribe(x => {
+        this.price = x;
+      })
     });
   }
 

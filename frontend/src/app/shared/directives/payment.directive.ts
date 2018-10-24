@@ -1,4 +1,4 @@
-import { Directive, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Directive, Input, Output, EventEmitter, HostListener, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
 import { VisitService } from '../../shared/services/visit.service';
 import { LoaderService } from '../../core/services/loader.service';
@@ -7,12 +7,13 @@ import { NotificationsService } from '../../../../node_modules/angular2-notifica
 @Directive({
   selector: 'button[appPayment]'
 })
-export class PaymentDirective {
+export class PaymentDirective implements OnInit {
 
   @Input() visitId: number;
   @Input() email: string;
   @Output() paymentDone: EventEmitter<any> = new EventEmitter<any>();
   @Input() price: number;
+  handler: any;
 
   constructor(
     private visiteService: VisitService,
@@ -20,8 +21,8 @@ export class PaymentDirective {
     private notificationsService: NotificationsService
   ) { }
 
-  @HostListener('click') openStripePopup() {
-    const handler = (<any>window).StripeCheckout.configure({
+  ngOnInit(): void {
+    this.handler = (<any>window).StripeCheckout.configure({
       key: environment.stripePublicKey,
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
@@ -36,8 +37,10 @@ export class PaymentDirective {
         });
       }
     });
+  }
 
-    handler.open({
+  @HostListener('click') openStripePopup() {
+    this.handler.open({
       name: 'Weflat',
       description: 'Règlement de la prestation',
       amount: this.price
