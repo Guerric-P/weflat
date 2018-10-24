@@ -2,10 +2,13 @@ package fr.weflat.backend.service.impl;
 
 import java.io.File;
 import java.net.URL;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -26,6 +29,8 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+import fr.weflat.backend.domaine.Architect;
+import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.service.MailService;
 
 @Service
@@ -42,7 +47,7 @@ public class MailServiceImpl implements MailService {
 	
 	private Credential creds;
 	
-	private DateFormat format = DateFormat.getDateInstance();
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy à HH:mm");
 
 	@Async
 	public CompletableFuture<Void> sendSimpleMail(String email, String subject, String text) throws Exception {
@@ -109,22 +114,6 @@ public class MailServiceImpl implements MailService {
 	}
 
 	@Override
-	public void sendVerifiedArchitectMail(String email, String firstName) throws Exception {
-		StringBuilder messageBuilder = new StringBuilder();
-		messageBuilder.append("<p>Bonjour ");
-		messageBuilder.append(firstName);
-		messageBuilder.append(",</p>");
-		messageBuilder.append("<p>Toute l’equipe Weflat est très heureuse de vous accueillir au sein de la communauté des architectes Weflat. Vous recevrez désormais les demandes de visites Weflat.</p>");
-		messageBuilder.append("<p>N’hésitez pas à nous contacter directement par email à l’adresse <a href=\"mailto:contact@weflat.fr\">contact@weflat.fr</a> pour toute question supplémentaire.</p>");
-		messageBuilder.append("<p>Cordialement,</p>");
-		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
-		
-		sendSimpleMail(email,
-				"Votre inscription Weflat a été approuvée",
-				messageBuilder.toString());
-	}
-
-	@Override
 	public void sendVisitAttributionMail(String email, String architectFirstName,
 			String customerFirstName, String address, Date date) throws Exception {
 		StringBuilder messageBuilder = new StringBuilder();
@@ -135,7 +124,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(customerFirstName);
 		messageBuilder.append(" vous a été attribuée.</p>");
 		messageBuilder.append("<p>Pour rappel, la visite a lieu le </p>");
-		messageBuilder.append(format.format(date));
+		messageBuilder.append(sdf.format(date));
 		messageBuilder.append(" à l’adresse suivante : ");
 		messageBuilder.append(address);
 		messageBuilder.append(".</p>");
@@ -158,7 +147,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append("<p>");
 		messageBuilder.append(customerFirstName);
 		messageBuilder.append(" souhaite visiter un bien immobilier dans votre zone d’action le ");
-		messageBuilder.append(format.format(date));
+		messageBuilder.append(sdf.format(date));
 		messageBuilder.append(". Connectez-vous à votre compte personnel weflat pour accompagner cet acheteur.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");
 		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
@@ -197,7 +186,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append("<p>Voici le récapitulatif de votre demande:</p>");
 		messageBuilder.append("<ul>");
 		messageBuilder.append("<li>");
-		messageBuilder.append(format.format(date));
+		messageBuilder.append(sdf.format(date));
 		messageBuilder.append("</li>");
 		messageBuilder.append("<li>");
 		messageBuilder.append(address);
@@ -226,7 +215,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(" vous accompagnera lors de votre visite du bien situé au ");
 		messageBuilder.append(address);
 		messageBuilder.append(" le ");
-		messageBuilder.append(format.format(date));
+		messageBuilder.append(sdf.format(date));
 		messageBuilder.append(". Rien de plus simple, l’architecte sera présent à l’adresse et l’horaire mentionné.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");
 		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
@@ -257,7 +246,7 @@ public class MailServiceImpl implements MailService {
 
 	@Override
 	public void sendPasswordResetMail(String email, String firstName, String url) throws Exception {
-StringBuilder messageBuilder = new StringBuilder();
+		StringBuilder messageBuilder = new StringBuilder();
 		
 		messageBuilder.append("<p>Bonjour ");
 		messageBuilder.append(firstName);
@@ -275,6 +264,108 @@ StringBuilder messageBuilder = new StringBuilder();
 		sendSimpleMail(email,
 				"Réinitialisation de mot de passe",
 				messageBuilder.toString());
+	}
+	
+	@Override
+	public void sendFullRefundMail(String email, String firstName, Date date, String address) throws Exception {
+		StringBuilder messageBuilder = new StringBuilder();
+		
+		messageBuilder.append("<p>Bonjour ");
+		messageBuilder.append(firstName);
+		messageBuilder.append(",</p>");
+		messageBuilder.append("<p>Nous vous confirmons avoir procédé à un remboursement intégral concernant votre demande de visite planifiée le ");
+		messageBuilder.append(sdf.format(date));
+		messageBuilder.append(" à l'adresse suivante: ");
+		messageBuilder.append(address);
+		messageBuilder.append(".</p>");
+		messageBuilder.append("<p>A bientôt.</p>");
+		messageBuilder.append("<p>Cordialement,</p>");
+		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
+		
+		sendSimpleMail(email,
+				"Remboursement total",
+				messageBuilder.toString());
+	}
+	
+	@Override
+	public void sendPartialRefundMail(String email, String firstName, Date date, String address, Long amount) throws Exception {
+		StringBuilder messageBuilder = new StringBuilder();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy à HH:mm");
+		String formattedDate = sdf.format(date);
+		
+		messageBuilder.append("<p>Bonjour ");
+		messageBuilder.append(firstName);
+		messageBuilder.append(",</p>");
+		messageBuilder.append("<p>Nous vous confirmons avoir procédé à un remboursement partiel de ");
+		messageBuilder.append(amount/100);
+		messageBuilder.append(" € concernant votre demande de visite planifiée le ");
+		messageBuilder.append(formattedDate);
+		messageBuilder.append(" à l'adresse suivante: ");
+		messageBuilder.append(address);
+		messageBuilder.append(".</p>");
+		messageBuilder.append("<p>A bientôt.</p>");
+		messageBuilder.append("<p>Cordialement,</p>");
+		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
+		
+		sendSimpleMail(email,
+				"Remboursement partiel",
+				messageBuilder.toString());
+	}
+	
+	@Override
+	public void sendWelcomeValidatedArchitectMail(String email, String firstName) throws Exception {
+		StringBuilder messageBuilder = new StringBuilder();
+		
+		messageBuilder.append("<p>Bonjour ");
+		messageBuilder.append(firstName);
+		messageBuilder.append(",</p>");
+		messageBuilder.append("<p>Félicitations ! Tu fais partie de la communauté des architectes Weflat et tu vas pouvoir désormais visiter des biens immobiliers dans ta zone d'action avec des acheteurs potentiels.</p>");
+		messageBuilder.append("<p>");
+		messageBuilder.append("Lors de ta première visite, nous te recommandons de lire attentivement les infos présentes dans ton espace personnel.");
+		messageBuilder.append("<ul>");
+		messageBuilder.append("<li>Comment bien visiter avec un acheteur? Cliquer sur \"Aide\" dans Mes visites > Mes visites programmées.</li>");
+		messageBuilder.append("<li>Comment bien remplir le compte rendu? Cliquer sur \"Aide\", bouton accessible lors de la rédaction de chaque compte rendu.</li>");
+		messageBuilder.append("</ul>");
+		messageBuilder.append("</p>");
+		messageBuilder.append("<p>Au regard de ton profil, nous sommes certains que tu atteindras les standards d'exigences Weflat et que tu aideras également à les dépasser.</p>");
+		messageBuilder.append("<p>Bonnes visites !</p>");
+		messageBuilder.append("<p>Pour toute autre question, n'hésite pas à nous contacter directement par mail <a href=\"contact@weflat.fr\">contact@weflat.fr</a></p>");
+		messageBuilder.append("<p>Cordialement,");
+		messageBuilder.append("<br>");
+		messageBuilder.append("L'équipe Weflat &hearts;</p>");
+		
+		sendSimpleMail(email,
+				"Votre inscription Weflat a été approuvée",
+				messageBuilder.toString());
+	}
+	
+	@Override
+	public void sendZipCodeActivatedMail(Set<Architect> architects, Collection<ZipCode> zipCodes) throws Exception {
+		String stringifiedZipCodes = zipCodes.stream().map(x -> x.getNumber()).collect(Collectors.joining(", "));
+		
+		for(Architect architect: architects) {
+			StringBuilder messageBuilder = new StringBuilder();
+			
+			messageBuilder.append("<p>Bonjour ");
+			messageBuilder.append(architect.getFirstName());
+			messageBuilder.append(",</p>");
+			messageBuilder.append("<p>Par le passé, Weflat ne couvrait pas une partie voire la totalité de ta zone d'action. Nous sommes heureux de t'annoncer que les zones suivantes sont désormais éligibles à des visites Weflat :</p>");
+			messageBuilder.append("<p>");
+			messageBuilder.append(stringifiedZipCodes);
+			messageBuilder.append(".</p>");
+			messageBuilder.append("<p>Aucune action n'est requise de ta part, tu seras notifié de nouvelles demandes de visites et tu devras accepter ou refuser l'attribution.</p>");
+			messageBuilder.append("<p>Bonnes visites !</p>");
+			messageBuilder.append("<p>Cordialement,</p>");
+			messageBuilder.append("<br>");
+			messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
+			
+			String body = messageBuilder.toString();
+			
+			sendSimpleMail(architect.getEmail(),
+				"Une nouvelle zone est ouverte !",
+				body);
+		}
+		
 	}
 }
 

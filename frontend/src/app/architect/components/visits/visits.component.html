@@ -29,12 +29,15 @@
     </mat-expansion-panel>
     <mat-expansion-panel [expanded]="plannedVisitesExpanded">
       <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title class="align-items-center">
           Mes visites programmées
+          <button (click)="openHelpDialog($event)" mat-icon-button type="button">
+            <mat-icon>help_outline</mat-icon>
+          </button>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <div *ngIf="!plannedVisites || !plannedVisites.length">Vous n'avez aucune visite programmée</div>
-      <app-visit *ngFor="let visite of plannedVisites" [visit]="visite" (updated)="loadAllVisites()"></app-visit>
+      <app-visit *ngFor="let visite of plannedVisites" [visit]="visite" [enableHelpButton]="true" (updated)="loadAllVisites()"></app-visit>
     </mat-expansion-panel>
   </mat-accordion>
 </div>

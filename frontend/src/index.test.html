@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script>
+    var googleId = 'UA-127701707-1';
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${googleId}`;
+    head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', googleId);
+  </script>
+
+
+  <meta charset="utf-8">
+  <title>Weflat</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body,
+    html {
+      height: 100%;
+    }
+
+    #loader {
+      height: 100%;
+      width: 100%;
+      opacity: 50%;
+      background-color: #f8f9fa;
+      position: relative;
+    }
+
+    #loader img {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -16px;
+      margin-left: -16px;
+      animation: spin 2s infinite;
+      height: 32px;
+      width: 32px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: scale(1) rotate(0deg);
+        animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+      }
+
+      50% {
+        transform: scale(2) rotate(360deg);
+        animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+      }
+
+      100% {
+        transform: scale(1) rotate(720deg);
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+  <app-root>
+    <div id="loader">
+      <img src="assets/favicon.png" alt="loading">
+    </div>
+  </app-root>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+</body>
+
+</html>

@@ -1,12 +1,12 @@
 #cardclickable {
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border:none;
+    border: none;
     /* animation */
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-    
+
 #cardclickable::after {
     content: "";
     z-index: -1;
@@ -19,7 +19,7 @@
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-    
+
 #cardclickable:hover {
     -webkit-transform: scale(1.01, 1.01);
     transform: scale(1.01, 1.01);
@@ -31,7 +31,25 @@
 }
 
 .card {
-/* Add shadows to create the "card" effect */
+    /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border:none;
+    border: none;
+}
+
+$architect-witness-height: 64px;
+.img-big {
+    width: $architect-witness-height;
+    height: $architect-witness-height;
+    border-radius: 50%;
+}
+
+.architect-witness {
+    height: $architect-witness-height;
+    display: flex;
+    flex-direction: row;
+}
+
+.architect-witness-title-containe {
+    display: flex;
+    flex-direction: column;
 }

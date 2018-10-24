@@ -47,8 +47,14 @@ public class ZipCodeController {
 		zipCodeService.deleteById(id);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public ZipCodeDto postZipCode(@RequestBody ZipCodeDto input) {
+	@RequestMapping(method=RequestMethod.POST, params="!bulk")
+	public Object postZipCodeBulkParamNotPresent(@RequestBody ZipCodeDto input) {
+		return postZipCodeBulkParamFalse(input);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, params="bulk=false")
+	public Object postZipCodeBulkParamFalse(@RequestBody ZipCodeDto input) {
+
 		return orikaMapperFacade.map(
 				zipCodeService.save(
 						orikaMapperFacade.map(input, ZipCode.class)
@@ -56,7 +62,17 @@ public class ZipCodeController {
 				);
 	}
 	
-	@RequestMapping(path="/check-status", method=RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.POST, params="bulk=true")
+	public List<ZipCodeDto> bulkPostZipCodes(@RequestBody List<ZipCodeDto> input) throws Exception {
+
+		//Custom mapping to bypass the Orika mapping designed to prevent insertions from non-admin users
+		Set<ZipCode> mappedInput = input.stream().map(x -> new ZipCode(x.getNumber(), x.isActive())).collect(Collectors.toSet());
+		
+		return orikaMapperFacade.mapAsList(zipCodeService.bulkUpdate(mappedInput), ZipCodeDto.class);
+
+	}
+	
+	@RequestMapping(path="/details", method=RequestMethod.POST)
 	public List<ZipCodeDto> checkZipCodesStatus(@RequestBody Set<ZipCodeDto> input) {
 		return orikaMapperFacade.mapAsList(
 				zipCodeService

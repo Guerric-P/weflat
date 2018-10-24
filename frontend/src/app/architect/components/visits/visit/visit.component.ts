@@ -17,16 +17,19 @@ export class VisitComponent implements OnInit {
   @Input() enableAcceptRefuseButtons = false;
   @Input() enableReportEditButton = false;
   @Input() enableReportViewButton = false;
+  @Input() enableHelpButton = false;
   @Output() updated: EventEmitter<any> = new EventEmitter();
   acceptButtonDisabled = false;
   refuseButtonDisabled = false;
   editButtonDisabled = false;
 
-  constructor(private visiteService: VisitService,
+  constructor(
+    private visiteService: VisitService,
     private notificationService: NotificationsService,
     private visiteCounterService: VisiteCounterService,
     private router: Router,
-    private loaderService: LoaderService) { }
+    private loaderService: LoaderService
+  ) { }
 
   ngOnInit() {
   }
@@ -52,16 +55,19 @@ export class VisitComponent implements OnInit {
 
   refuse() {
     this.refuseButtonDisabled = false;
+    this.loaderService.show();
     this.visiteService.refuseVisit(this.visit.id).subscribe(res => {
       this.notificationService.success(
         'Succès',
         `Vous avez refusé de visiter le bien de ${this.visit.customer.firstName} ${this.visit.customer.lastName}`
       );
       this.refuseButtonDisabled = true;
+      this.loaderService.hide();
       this.visitesUpdated();
     }, err => {
       this.notificationService.error('Erreur', 'Une erreur a eu lieu');
       this.refuseButtonDisabled = true;
+      this.loaderService.hide();
       this.visitesUpdated();
     });
   }

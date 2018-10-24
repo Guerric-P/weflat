@@ -42,6 +42,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.test.ts"
+                },
+                {
+                  "replace": "src/index.html",
+                  "with": "src/index.test.html"
                 }
               ]
             },
@@ -59,6 +63,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/index.html",
+                  "with": "src/index.prod.html"
                 }
               ]
             }
@@ -67,7 +75,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "weflat:build"
+            "browserTarget": "weflat:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "test": {

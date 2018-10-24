@@ -2,10 +2,16 @@
   <div class="container">
     <form [formGroup]="form" (ngSubmit)="saveForm()" novalidate>
       <button mat-raised-button type="button" (click)="backClick()">Retour</button>
-      <span class="float-right" matTooltip="Cette fonctionnalité sera bientôt disponible.">
-        <button mat-raised-button color="primary" disabled="disabled" class="cursor-not-allowed" type="button">Télécharger au format pdf</button>
+      <span class="float-right">
+        <button mat-raised-button matTooltip="Cette fonctionnalité sera bientôt disponible." color="primary" disabled="disabled"
+          class="cursor-not-allowed" type="button">Télécharger
+          au format pdf</button>
+        <button (click)="openHelpDialog()" mat-icon-button type="button">
+          <mat-icon>help_outline</mat-icon>
+        </button>
       </span>
-      <a *ngIf="displayArchitectContactButton" mat-raised-button class="mr-2 float-right" href="mailto:{{report.visite.architect.email}}">Contacter l'architecte</a>
+      <a *ngIf="displayArchitectContactButton" mat-raised-button class="mr-2 float-right" href="mailto:{{report.visite.architect.email}}">Contacter
+        l'architecte</a>
       <h2 class="mt-3">Mon compte rendu</h2>
       <div class="card mt-2">
         <div class="card-header">
@@ -32,7 +38,8 @@
             <label for="inputlastname3" class="col-sm-2 col-form-label">Ses attentes</label>
             <div class="col-md-10">
               <textarea class="form-control" rows="3" [class.is-invalid]="form.controls.expectations.invalid && form.controls.expectations.touched"
-                [class.is-valid]="!form.controls.expectations.invalid && form.controls.expectations.touched" placeholder="Les attentes de l'acheteur vis a vis de ce bien et de son projet d'achat. PI son projet d'achat est ..."
+                [class.is-valid]="!form.controls.expectations.invalid && form.controls.expectations.touched"
+                placeholder="Les attentes de l'acheteur vis a vis de ce bien et de son projet d'achat. PI son projet d'achat est ..."
                 required formControlName="expectations"></textarea>
             </div>
           </div>
@@ -71,8 +78,8 @@
             <label class="col-sm-2 col-form-label">Pièces</label>
             <div class="col-sm-10">
               <div class="form-group">
-                <select class="form-control" [class.is-invalid]="form.controls.rooms.invalid && form.controls.rooms.touched" [class.is-valid]="!form.controls.rooms.invalid && form.controls.rooms.touched"
-                  formControlName="rooms">
+                <select class="form-control" [class.is-invalid]="form.controls.rooms.invalid && form.controls.rooms.touched"
+                  [class.is-valid]="!form.controls.rooms.invalid && form.controls.rooms.touched" formControlName="rooms">
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -86,8 +93,8 @@
             <label class="col-sm-2 col-form-label">Etage</label>
             <div class="col-sm-10">
               <div class="form-group">
-                <select class="form-control" [class.is-invalid]="form.controls.floor.invalid && form.controls.floor.touched" [class.is-valid]="!form.controls.floor.invalid && form.controls.floor.touched"
-                  formControlName="floor">
+                <select class="form-control" [class.is-invalid]="form.controls.floor.invalid && form.controls.floor.touched"
+                  [class.is-valid]="!form.controls.floor.invalid && form.controls.floor.touched" formControlName="floor">
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -101,8 +108,8 @@
             <label class="col-sm-2 col-form-label">Orientation</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" [class.is-invalid]="form.controls.orientation.invalid && form.controls.orientation.touched"
-                [class.is-valid]="!form.controls.orientation.invalid && form.controls.orientation.touched" formControlName="orientation"
-                placeholder="Orientation">
+                [class.is-valid]="!form.controls.orientation.invalid && form.controls.orientation.touched"
+                formControlName="orientation" placeholder="Orientation">
             </div>
           </div>
         </div>
@@ -125,39 +132,42 @@
               <tr *ngFor="let renovation of renovations.controls;let i = index" [formGroupName]="i">
                 <th class="d-inline-block col-2" scope="row">
                   <select class="custom-select" [class.is-valid]="renovation.get('position').touched && !renovation.get('position').invalid"
-                    [class.is-invalid]="renovation.get('position').touched && renovation.get('position').invalid" formControlName="position">
+                    [class.is-invalid]="renovation.get('position').touched && renovation.get('position').invalid"
+                    formControlName="position">
                     <option *ngFor="let position of positions" [disabled]="position.mandatory" [value]="position.id">{{position.label}}</option>
+                    <option [value]="null">Autres</option>
                   </select>
                 </th>
                 <td class="d-inline-block col-2">
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" [class.is-valid]="renovation.get('condition').touched && !renovation.get('condition').invalid"
-                      [class.is-invalid]="renovation.get('condition').touched && renovation.get('condition').invalid" formControlName="condition"
-                      [value]="0" id="good-{{i}}">
+                      [class.is-invalid]="renovation.get('condition').touched && renovation.get('condition').invalid"
+                      formControlName="condition" [value]="0" id="good-{{i}}">
                     <label class="custom-control-label" for="good-{{i}}">Bon</label>
                   </div>
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" [class.is-valid]="renovation.get('condition').touched && !renovation.get('condition').invalid"
-                      [class.is-invalid]="renovation.get('condition').touched && renovation.get('condition').invalid" formControlName="condition"
-                      [value]="1" id="average-{{i}}">
+                      [class.is-invalid]="renovation.get('condition').touched && renovation.get('condition').invalid"
+                      formControlName="condition" [value]="1" id="average-{{i}}">
                     <label class="custom-control-label" for="average-{{i}}">Moyen</label>
                   </div>
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" [class.is-valid]="renovation.get('condition').touched && !renovation.get('condition').invalid"
-                      [class.is-invalid]="renovation.get('condition').touched && renovation.get('condition').invalid" formControlName="condition"
-                      [value]="2" id="bad-{{i}}">
+                      [class.is-invalid]="renovation.get('condition').touched && renovation.get('condition').invalid"
+                      formControlName="condition" [value]="2" id="bad-{{i}}">
                     <label class="custom-control-label" for="bad-{{i}}">Mauvais</label>
                   </div>
                 </td>
                 <td class="d-inline-block col-3">
-                  <input type="number" min="0" step="100" data-number-to-fixed="2" class="form-control" [class.is-valid]="renovation.get('estimatedWork').touched && !renovation.get('estimatedWork').invalid"
+                  <input type="number" min="0" step="100" data-number-to-fixed="2" class="form-control"
+                    [class.is-valid]="renovation.get('estimatedWork').touched && !renovation.get('estimatedWork').invalid"
                     [class.is-invalid]="renovation.get('estimatedWork').touched && renovation.get('estimatedWork').invalid"
                     formControlName="estimatedWork" placeholder="Montant en euros">
                 </td>
                 <td class="d-inline-block col-4">
                   <textarea class="form-control" rows="3" [class.is-valid]="renovation.get('remarks').touched && !renovation.get('remarks').invalid"
-                    [class.is-invalid]="renovation.get('remarks').touched && renovation.get('remarks').invalid" formControlName="remarks"
-                    placeholder="Remarques"></textarea>
+                    [class.is-invalid]="renovation.get('remarks').touched && renovation.get('remarks').invalid"
+                    formControlName="remarks" placeholder="Remarques"></textarea>
                 </td>
                 <td class="d-inline-block col-1">
                   <button type="button" class="close" (click)="removeRenovation(i);" *ngIf="!mandatoryPositionsIds.includes(renovation.get('position').value)">
@@ -179,26 +189,26 @@
                 <td class="d-inline-block col-2">
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" [class.is-valid]="form.controls.globalCondition.touched && !form.controls.globalCondition.invalid"
-                      [class.is-invalid]="form.controls.globalCondition.touched && form.controls.globalCondition.invalid" formControlName="globalCondition"
-                      [value]="0" id="good">
+                      [class.is-invalid]="form.controls.globalCondition.touched && form.controls.globalCondition.invalid"
+                      formControlName="globalCondition" [value]="0" id="good">
                     <label class="custom-control-label" for="good">Bon</label>
                   </div>
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" [class.is-valid]="form.controls.globalCondition.touched && !form.controls.globalCondition.invalid"
-                      [class.is-invalid]="form.controls.globalCondition.touched && form.controls.globalCondition.invalid" formControlName="globalCondition"
-                      [value]="1" id="average">
+                      [class.is-invalid]="form.controls.globalCondition.touched && form.controls.globalCondition.invalid"
+                      formControlName="globalCondition" [value]="1" id="average">
                     <label class="custom-control-label" for="average">Moyen</label>
                   </div>
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" [class.is-valid]="form.controls.globalCondition.touched && !form.controls.globalCondition.invalid"
-                      [class.is-invalid]="form.controls.globalCondition.touched && form.controls.globalCondition.invalid" formControlName="globalCondition"
-                      [value]="2" id="bad">
+                      [class.is-invalid]="form.controls.globalCondition.touched && form.controls.globalCondition.invalid"
+                      formControlName="globalCondition" [value]="2" id="bad">
                     <label class="custom-control-label" for="bad">Mauvais</label>
                   </div>
                 </td>
                 <td class="d-inline-block col-3">
-                  <input type="text" class="form-control" placeholder="Somme auto-modifiable" [ngModel]="sumAmounts" [ngModelOptions]="{standalone: true}"
-                    disabled="disabled">
+                  <input type="text" class="form-control" placeholder="Somme auto-modifiable" [ngModel]="sumAmounts"
+                    [ngModelOptions]="{standalone: true}" disabled="disabled">
                 </td>
                 <td class="d-inline-block col-4">
                   <textarea class="form-control" rows="3" [class.is-valid]="form.controls.globalQualityRemarks.touched && !form.controls.globalQualityRemarks.invalid"
@@ -219,8 +229,8 @@
             <label class="col-sm-2 col-form-label">Remarques générales</label>
             <div class="col-md-10">
               <textarea class="form-control" rows="3" [class.is-invalid]="form.controls.generalRemarks.invalid && form.controls.generalRemarks.touched"
-                [class.is-valid]="!form.controls.generalRemarks.invalid && form.controls.generalRemarks.touched" formControlName="generalRemarks"
-                placeholder="Les remarques générales" required></textarea>
+                [class.is-valid]="!form.controls.generalRemarks.invalid && form.controls.generalRemarks.touched"
+                formControlName="generalRemarks" placeholder="Les remarques générales" required></textarea>
             </div>
           </div>
         </div>

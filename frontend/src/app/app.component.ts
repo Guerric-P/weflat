@@ -16,11 +16,15 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-      this.router.events.subscribe((evt) => {
-          if (!(evt instanceof NavigationEnd)) {
-              return;
-          }
-          window.scrollTo(0, 0);
+    this.router.events.subscribe((evt) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      }
+      (<any>window).gtag('config', (<any>window).googleId, {
+        'page_path': evt.urlAfterRedirects
       });
+
+      window.scrollTo(0, 0);
+    });
   }
 }

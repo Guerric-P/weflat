@@ -1,16 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ArchitecteProfileComponent } from './components/architecte-profile/architecte-profile.component';
-import { ArchitecteResolver } from '../shared/resolvers/architecte.resolver';
-import { ArchitectTypeResolver } from '../shared/resolvers/architect-type.resolver';
-import { ArchitectSituationResolver } from '../shared/resolvers/architect-situation.resolver';
 import { VisitsComponent } from './components/visits/visits.component';
 import { ReportEditComponent } from './components/report-edit/report-edit.component';
-import { ReportResolver } from '../shared/resolvers/report.resolver';
-import { PositionResolver } from '../shared/resolvers/position.resolver';
-import { ZipCodesResolver } from '../shared/resolvers/zip-codes-resolver';
 import { MessagesComponent } from './components/messages/messages.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,11 +17,14 @@ import {
   MatExpansionModule,
   MatTooltipModule,
   MatDialogModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import { VisitComponent } from './components/visits/visit/visit.component';
 import { ArchitectRoutingModule } from './architect-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { HelpReportEditionModalComponent } from './components/help-report-edition-modal/help-report-edition-modal.component';
+import { HelpHowToVisitModalComponent } from './components/help-how-to-visit-modal/help-how-to-visit-modal.component';
 
 @NgModule({
   imports: [
@@ -47,6 +43,7 @@ import { SharedModule } from '../shared/shared.module';
     MatTooltipModule,
     MatDialogModule,
     MatDatepickerModule,
+    MatAutocompleteModule,
     SharedModule
   ],
   declarations: [
@@ -55,7 +52,13 @@ import { SharedModule } from '../shared/shared.module';
     VisitsComponent,
     VisitComponent,
     ReportEditComponent,
-    MessagesComponent
+    MessagesComponent,
+    HelpReportEditionModalComponent,
+    HelpHowToVisitModalComponent
+  ],
+  entryComponents: [
+    HelpReportEditionModalComponent,
+    HelpHowToVisitModalComponent
   ]
 })
 export class ArchitectModule { }

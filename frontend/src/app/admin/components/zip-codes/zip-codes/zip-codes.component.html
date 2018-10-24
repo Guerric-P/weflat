@@ -2,7 +2,8 @@
   <mat-form-field>
     <input matInput type="text" [ngModel]="inputValue" (keyup)="onKeyUp($event)" [errorStateMatcher]="matcher" placeholder="Choisissez un code postal">
   </mat-form-field>
-
+  <button class="ml-1" type="button" [disabled]="!changedZipCodes || !changedZipCodes.length" mat-raised-button (click)="validateClick()">{{ validateButtonLabel }}</button>
+  <button class="ml-1" type="button" [disabled]="!changedZipCodes || !changedZipCodes.length" mat-raised-button (click)="cancelClick()">Annuler</button>
   <mat-list>
     <mat-list-item *ngFor="let result of results">
       <app-zip-code [zipCode]="result" (deleted)="zipCodeDeleted($event)" (changed)="zipCodeChanged($event)"></app-zip-code>
@@ -10,3 +11,19 @@
     </mat-list-item>
   </mat-list>
 </div>
+
+<ng-template #confirmModal>
+  <h5 mat-dialog-title>Êtes-vous sûr(e) ?
+    <button type="button" class="close" (click)="closeCancelModal()">
+      <span>&times;</span>
+    </button>
+  </h5>
+  <div mat-dialog-content>
+    Valider {{confirmLabel}} ? 
+    Un mail sera envoyé aux architectes validés ayant au moins un des codes postaux activés dans leur profil.
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="primary" type="button" class="mr-2" [mat-dialog-close]="true">Oui</button>
+    <button mat-raised-button type="button" class="ml-2" [mat-dialog-close]="false">Non</button>
+  </div>
+</ng-template>

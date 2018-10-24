@@ -46,6 +46,8 @@ public class ZipCodeMapping implements OrikaMapperFactoryConfigurer {
 				dto.setNumber(source.getNumber());
 				dto.setCounty(source.getCounty());
 				dto.setTown(source.getTown());
+				dto.setLatitude(source.getLatitude());
+				dto.setLongitude(source.getLongitude());
 				return dto;
 			}
 

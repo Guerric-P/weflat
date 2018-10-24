@@ -71,7 +71,8 @@ public class Architect extends User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "architect")
 	private Set<Visit> visits;
 	
-	@ManyToMany(mappedBy="nearbyArchitects")
+	@ManyToMany()
+	@JoinTable(name = "architect_visit", joinColumns = @JoinColumn(name = "architect_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "visit_id", referencedColumnName = "id"))
 	private Set<Visit> potentialVisits;
 
 	public Set<Visit> getPotentialVisits() {

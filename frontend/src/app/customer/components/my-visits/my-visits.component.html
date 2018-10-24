@@ -6,10 +6,10 @@
   <div *ngIf="isVisitsEmpty" class="d-flex flex-row">
     Vous n'avez encore aucune visite!
   </div>
-  <app-my-visit *ngFor="let visit of waitingForPaymentVisits" [visit]="visit" (canceled)="loadWaitingForPaymentVisits()"></app-my-visit>
-  <app-my-visit *ngFor="let visit of beingAssignedVisits" [visit]="visit" (canceled)="loadBeingAssignedVisits()"></app-my-visit>
-  <app-my-visit *ngFor="let visit of plannedVisits" [visit]="visit" [datePassed]="false"></app-my-visit>
-  <app-my-visit *ngFor="let visit of inProgressVisits" [visit]="visit" [datePassed]="true"></app-my-visit>
-  <app-my-visit *ngFor="let visit of reportBeingWrittenVisits" [visit]="visit"></app-my-visit>
-  <app-my-visit *ngFor="let visit of reportWrittenVisits" [visit]="visit"></app-my-visit>
+  <app-my-visit *ngFor="let visit of waitingForPaymentVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
+  <app-my-visit *ngFor="let visit of beingAssignedVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
+  <app-my-visit *ngFor="let visit of plannedVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" [datePassed]="false" (change)="loadVisits()"></app-my-visit>
+  <app-my-visit *ngFor="let visit of inProgressVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" [datePassed]="true" (change)="loadVisits()"></app-my-visit>
+  <app-my-visit *ngFor="let visit of reportBeingWrittenVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
+  <app-my-visit *ngFor="let visit of reportWrittenVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
 </div>

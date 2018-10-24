@@ -24,6 +24,7 @@ import fr.weflat.backend.service.UserService;
 import fr.weflat.backend.service.VisitService;
 import fr.weflat.backend.service.ZipCodeService;
 import fr.weflat.backend.web.dto.ArchitectDto;
+import fr.weflat.backend.web.dto.DashboardDto;
 import fr.weflat.backend.web.dto.UserSignupDto;
 import fr.weflat.backend.web.dto.VisiteDto;
 import fr.weflat.backend.web.dto.ZipCodeDto;
@@ -143,5 +144,16 @@ public class ArchitectController {
 	@RequestMapping(path = "/{id}/refuse", method= RequestMethod.POST)
 	public void refuseArchitect(@PathVariable("id") long id) throws Exception {
 		architectService.refuse(id);
+	}
+	
+	@RequestMapping(path = "/{id}/dashboard", method=RequestMethod.GET)
+	public DashboardDto getDashboard(@PathVariable("id") long id) {
+		
+		DashboardDto dto = new DashboardDto();
+		dto.setAmountEarned(visitService.getAmountEarned(id));
+		dto.setDoneVisitsCount(visitService.getDoneVisitsCount(id));
+		dto.setNewVisits(orikaMapperFacade.mapAsList(visitService.findAvailableVisitsByArchitectId(id), VisiteDto.class));
+		
+		return dto;
 	}
 }

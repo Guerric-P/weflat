@@ -18,10 +18,13 @@ export class MyVisitComponent implements OnInit {
 
   @Input() visit: VisitClass;
   @Input() datePassed: boolean;
-  @Output() canceled: EventEmitter<any> = new EventEmitter<any>();
+  @Input() price: number
+  @Input() partialRefundAmount: number;
+  @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('cancelModal') cancelModalTemplate: TemplateRef<any>;
   cancelModal: MatDialogRef<any>;
   VisitStatusEnum = VisitStatusEnum;
+  cancelButtonDisabled: boolean = false;
 
   constructor(
     public authService: AuthenticationService,
@@ -33,9 +36,11 @@ export class MyVisitComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('partialRefundAmount', this.partialRefundAmount);
   }
 
   visitPaid() {
+    this.change.emit();
   }
 
   viewReport() {
@@ -47,11 +52,13 @@ export class MyVisitComponent implements OnInit {
 
     this.cancelModal.afterClosed().subscribe(value => {
       if (value) {
+        this.cancelButtonDisabled = true;
         this.visiteService.cancel(this.visit.id).subscribe(res => {
           this.notificationsService.success('Visite supprimée', 'Votre visite a bien été supprimée.');
-          this.canceled.emit();
+          this.change.emit();
+          this.cancelButtonDisabled = false;
         }, err => {
-
+          this.cancelButtonDisabled = false;
         });
       }
     });
@@ -63,10 +70,10 @@ export class MyVisitComponent implements OnInit {
       // it allows width: 100% and maxWidth: fixed amount of pixels
       { data: { visit: this.visit }, width: 'calc(100%)', maxWidth: '500px', scrollStrategy: this.overlay.scrollStrategies.block() });
 
-      dialog.componentInstance.onUpdate.subscribe(res => {
-        this.visit = res;
-        dialog.close();
-      });
+    dialog.componentInstance.onUpdate.subscribe(res => {
+      this.visit = res;
+      dialog.close();
+    });
   }
 
   closeCancelModal() {

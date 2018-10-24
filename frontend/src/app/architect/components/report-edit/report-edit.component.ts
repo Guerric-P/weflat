@@ -10,6 +10,7 @@ import { PositionClass } from '../../../core/models/PositionClass';
 import { RenovationClass } from '../../../core/models/RenovationClass';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { AuthenticationService } from '../../../core/services/authentication.service';
+import { HelpReportEditionModalComponent } from '../help-report-edition-modal/help-report-edition-modal.component';
 
 @Component({
   selector: 'app-report-edit',
@@ -20,11 +21,13 @@ export class ReportEditComponent implements OnInit {
 
   form: FormGroup;
   report: ReportClass;
+  visitId: number;
   positions: PositionClass[];
   sumAmounts: number;
   mandatoryPositions: PositionClass[];
   mandatoryPositionsIds: number[];
   submitConfirmModal: MatDialogRef<any>;
+  helpModal: MatDialogRef<HelpReportEditionModalComponent>;
   @ViewChild('submitConfirmModal') submitConfirmModalTemplate: TemplateRef<any>;
   renovations: FormArray;
 
@@ -36,7 +39,6 @@ export class ReportEditComponent implements OnInit {
     private fb: FormBuilder,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
-    private visiteService: VisitService,
     private reportService: ReportService,
     private dialog: MatDialog,
     private router: Router,
@@ -46,6 +48,7 @@ export class ReportEditComponent implements OnInit {
   ngOnInit() {
     this.report = this.route.snapshot.data['report'];
     this.positions = this.route.snapshot.data['positions'];
+    this.visitId = +this.route.snapshot.params['id'];
     this.mandatoryPositions = this.positions.filter(x => x.mandatory);
     this.mandatoryPositionsIds = this.mandatoryPositions.map(x => x.id);
 
@@ -64,7 +67,7 @@ export class ReportEditComponent implements OnInit {
       for (const renovation of this.report.renovations) {
 
         // Add saved mandatory positions
-        if (renovation.position.mandatory) {
+        if (renovation.position && renovation.position.mandatory) {
           controls.push({
             id: [renovation.id],
             position: [{ value: renovation.position.id, disabled: true }, [Validators.required]],
@@ -74,7 +77,8 @@ export class ReportEditComponent implements OnInit {
           });
         }
 
-        const missingMandatoryRows = this.mandatoryPositions.filter(x => !this.report.renovations.map(y => y.position.id).includes(x.id));
+        const missingMandatoryRows = this.mandatoryPositions
+          .filter(x => !this.report.renovations.map(y => y.position ? y.position.id : null).includes(x.id));
 
         // Add unsaved mandatory positions
         for (const position of missingMandatoryRows) {
@@ -90,10 +94,10 @@ export class ReportEditComponent implements OnInit {
 
       for (const renovation of this.report.renovations) {
         // Add saved optional positions
-        if (!renovation.position.mandatory) {
+        if (renovation.position === null || !renovation.position.mandatory) {
           controls.push({
             id: [renovation.id],
-            position: [renovation.position.id, [Validators.required]],
+            position: [renovation.position ? renovation.position.id : null, [Validators.required]],
             condition: [renovation.condition, [Validators.required]],
             estimatedWork: [renovation.estimatedWork, [Validators.required]],
             remarks: [renovation.remarks, [Validators.required]]
@@ -180,7 +184,7 @@ export class ReportEditComponent implements OnInit {
     });
 
     if (!this.report.id) {
-      this.reportService.postReport(this.report.visite.id, report).subscribe(res => {
+      this.reportService.postReport(this.visitId, report).subscribe(res => {
         this.report = res;
         this.form.markAsUntouched();
         if (callback) {
@@ -192,7 +196,7 @@ export class ReportEditComponent implements OnInit {
         this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la création du rapport.');
       });
     } else {
-      this.reportService.patchReport(this.report.visite.id, report).subscribe(res => {
+      this.reportService.patchReport(this.visitId, report).subscribe(res => {
         this.form.markAsUntouched();
         if (callback) {
           callback();
@@ -206,7 +210,7 @@ export class ReportEditComponent implements OnInit {
   }
 
   submitForm() {
-    this.reportService.submitReport(this.report.visite.id).subscribe(res => {
+    this.reportService.submitReport(this.visitId).subscribe(res => {
       this.router.navigate(['/architecte/visits']);
     }, err => {
       this.notificationsService.error('Désolé...', 'Une erreur a eu lieu lors de la soumission du rapport.');
@@ -260,5 +264,9 @@ export class ReportEditComponent implements OnInit {
 
   closeSubmitConfirmModal() {
     this.submitConfirmModal.close();
+  }
+
+  openHelpDialog() {
+    this.helpModal = this.dialog.open(HelpReportEditionModalComponent);
   }
 }
