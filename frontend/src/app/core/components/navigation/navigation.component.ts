@@ -69,7 +69,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   displaySigninPopup() {
-    setTimeout.bind(this)(this.openSignin(this.signinModalTemplate), 1);
+    setTimeout(() => this.openSignin(this.signinModalTemplate));
   }
 
   get token() {

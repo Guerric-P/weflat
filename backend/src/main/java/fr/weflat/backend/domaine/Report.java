@@ -30,7 +30,7 @@ public class Report {
 	private Set<Renovation> renovations;
 	
 	@Column(nullable = true, name = "floor")
-	private int floor;
+	private Long floor;
 	
 	@Column(nullable = true, name = "general_remarks")
 	private String generalRemarks;
@@ -39,10 +39,10 @@ public class Report {
 	private String orientation;
 	
 	@Column(nullable = true, name = "rooms")
-	private int rooms;
+	private Long rooms;
 	
 	@Column(nullable = true, name = "surface")
-	private int surface;
+	private Long surface;
 
 	@Column(nullable = true, name = "expectations")
 	private String expectations;
@@ -51,7 +51,7 @@ public class Report {
 	private String globalQualityRemarks;
 	
 	@Column(nullable = true, name = "global_condition")
-	private int globalCondition;
+	private Long globalCondition;
 	
 	public Long getId() {
 		return id;
@@ -77,11 +77,11 @@ public class Report {
 		this.renovations = renovations;
 	}
 
-	public int getFloor() {
+	public Long getFloor() {
 		return floor;
 	}
 
-	public void setFloor(int floor) {
+	public void setFloor(Long floor) {
 		this.floor = floor;
 	}
 
@@ -101,19 +101,19 @@ public class Report {
 		this.orientation = orientation;
 	}
 
-	public int getRooms() {
+	public Long getRooms() {
 		return rooms;
 	}
 
-	public void setRooms(int rooms) {
+	public void setRooms(Long rooms) {
 		this.rooms = rooms;
 	}
 
-	public int getSurface() {
+	public Long getSurface() {
 		return surface;
 	}
 
-	public void setSurface(int surface) {
+	public void setSurface(Long surface) {
 		this.surface = surface;
 	}
 
@@ -133,11 +133,11 @@ public class Report {
 		this.globalQualityRemarks = globalQualityRemarks;
 	}
 
-	public int getGlobalCondition() {
+	public Long getGlobalCondition() {
 		return globalCondition;
 	}
 
-	public void setGlobalCondition(int globalCondition) {
+	public void setGlobalCondition(Long globalCondition) {
 		this.globalCondition = globalCondition;
 	}
 }

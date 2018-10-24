@@ -16,4 +16,6 @@ public interface ZipCodeService {
 	Set<ZipCode> getZipCodesByNumbersStartingWith(String string);
 	
 	void deleteById(long id);
+
+	Set<ZipCode> bulkUpdate(Set<ZipCode> zipCodes) throws Exception;
 }

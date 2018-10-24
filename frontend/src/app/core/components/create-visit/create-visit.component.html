@@ -50,6 +50,7 @@
         <div class="row justify-content-center align-items-center">
           <mat-form-field id="url">
             <input type="url" matInput placeholder="URL de l'annonce du bien que vous allez visiter" formControlName="announcementUrl">
+            <mat-error *ngIf="projectFormGroup.get('announcementUrl').invalid">Merci de renseigner l'adresse complète (ex: http://... ou https://...)</mat-error>
           </mat-form-field>
         </div>
         <div class="row justify-content-center align-items-center">
@@ -111,7 +112,7 @@
         </div>
         <div class="row justify-content-center align-items-center mt-4">
           <button mat-raised-button matStepperPrevious class="mr-1">Précédent</button>
-          <button mat-raised-button color="primary" class="ml-1" appPayment [visitId]="visit.id" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)"
+          <button mat-raised-button color="primary" class="ml-1" appPayment [visitId]="visit.id" [price]="price" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)"
             (paymentDone)="paymentDone()">Payer</button>
         </div>
       </div>

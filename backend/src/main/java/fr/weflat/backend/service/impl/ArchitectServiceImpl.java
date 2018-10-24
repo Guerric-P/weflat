@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.transaction.Transactional;
 
@@ -17,9 +19,11 @@ import fr.weflat.backend.dao.ArchitectDao;
 import fr.weflat.backend.dao.ZipCodeDao;
 import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.QArchitect;
+import fr.weflat.backend.domaine.QZipCode;
 import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.enums.ArchitectStatusEnum;
 import fr.weflat.backend.service.ArchitectService;
+import fr.weflat.backend.service.MailService;
 
 @Service
 @Transactional
@@ -30,6 +34,9 @@ public class ArchitectServiceImpl implements ArchitectService {
 
 	@Autowired
 	private ZipCodeDao zipCodeDao;
+	
+	@Autowired
+	private MailService mailService;
 
 	@Override
 	public Architect findById(long id) {
@@ -137,6 +144,7 @@ public class ArchitectServiceImpl implements ArchitectService {
 		if(architect.getStatus() == ArchitectStatusEnum.APPROVING.ordinal()) {
 			architect.setStatus(ArchitectStatusEnum.VALIDATED.ordinal());
 			save(architect);
+			mailService.sendWelcomeValidatedArchitectMail(architect.getEmail(), architect.getFirstName());
 		}
 		else {
 			throw new Exception("Architect is not in pending state.");
@@ -156,6 +164,17 @@ public class ArchitectServiceImpl implements ArchitectService {
 			throw new Exception("Architect is not in pending state.");
 		}
 		
+	}
+	
+	@Override
+	public Set<Architect> findValidatedArchitectsHavingZipCodes(Set<ZipCode> inputZipCodes) {
+		QZipCode zipCode = QZipCode.zipCode;
+
+		Predicate predicate = zipCode.id.in(inputZipCodes.stream().map(x -> x.getId()).filter(x -> x != null).collect(Collectors.toList()));
+		
+		Iterable<ZipCode> zipCodes = zipCodeDao.findAll(predicate);
+		
+		return StreamSupport.stream(zipCodes.spliterator(), false).flatMap(x -> x.getArchitectes().stream()).filter(x -> x.getStatus() == ArchitectStatusEnum.VALIDATED.ordinal()).distinct().collect(Collectors.toSet());
 	}
 
 }

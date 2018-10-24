@@ -1,4 +1,5 @@
 export enum PositionEnum {
+    OTHER = null,
     WALL = 1,
     GROUND = 2,
     ELECTRICITY = 3,
@@ -7,6 +8,5 @@ export enum PositionEnum {
     WC = 6,
     KITCHEN = 7,
     CEILING = 8,
-    HOLLOWARE = 9,
-    OTHER = 10
+    HOLLOWARE = 9
 }

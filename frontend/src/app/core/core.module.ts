@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterArchitecteComponent } from './components/register-architecte/register-architecte.component';
 import { RegisterAcheteurComponent } from './components/register-acheteur/register-acheteur.component';
@@ -24,7 +24,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatTooltipModule,
   MatBadgeModule,
-  MatFormField,
   MatFormFieldModule,
   MatDividerModule,
   MatStepperModule,
@@ -50,7 +49,6 @@ import { ArchitecteLayoutComponent } from './layout/architecte-layout/architecte
 import { AcheteurLayoutComponent } from './layout/acheteur-layout/acheteur-layout.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { BaseBackendLayoutComponent } from './layout/base-backend-layout/base-backend-layout.component';
-import { HttpClient } from 'selenium-webdriver/http';
 import { VisiteCounterService } from './services/visite-counter.service';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { EndUserLicenseAgreementComponent } from './components/end-user-license-agreement/end-user-license-agreement.component';

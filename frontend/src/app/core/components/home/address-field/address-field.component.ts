@@ -6,8 +6,8 @@ import { DisabledZipCodePopupComponent } from '../../disabled-zip-code-popup/dis
 import { GooglePlaceKeys } from '../../../../shared/common/GooglePlaceKeys';
 import { VisitClass } from '../../../models/VisitClass';
 import { ZipCodeClass } from '../../../models/ZipCodeClass';
-
-declare var google: any;
+import { GoogleService } from '../../../services/google.service';
+declare var google;
 
 @Component({
   selector: 'app-address-field',
@@ -21,10 +21,13 @@ export class AddressFieldComponent implements OnInit {
   visit: VisitClass = new VisitClass();
   place: any;
 
-  constructor(private sessionStorageService: SessionStorageService,
+  constructor(
+    private sessionStorageService: SessionStorageService,
     private router: Router,
     private zone: NgZone,
-    private visitService: VisitService) { }
+    private visitService: VisitService,
+    private googleService: GoogleService
+  ) { }
 
   ngOnInit() {
     const options = {
@@ -33,9 +36,12 @@ export class AddressFieldComponent implements OnInit {
         country: 'fr'
       }
     };
-    const autocomplete = new google.maps.places.Autocomplete(this.input.nativeElement, options);
-    google.maps.event.addListener(autocomplete, 'place_changed', () => {
-      this.placeChanged(autocomplete);
+
+    this.googleService.loadGoogleMapsLibrary().subscribe(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.input.nativeElement, options);
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        this.placeChanged(autocomplete);
+      });
     });
 
     this.popup.OKFunction = () => {

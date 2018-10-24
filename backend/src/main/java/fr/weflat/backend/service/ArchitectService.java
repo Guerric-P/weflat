@@ -23,4 +23,6 @@ public interface ArchitectService {
 	void accept(long id) throws Exception;
 	
 	void refuse(long id) throws Exception;
+
+	Set<Architect> findValidatedArchitectsHavingZipCodes(Set<ZipCode> zipCodes);
 }

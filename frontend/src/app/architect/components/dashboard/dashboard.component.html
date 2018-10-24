@@ -1,31 +1,43 @@
-<!-- 3 chiffres -->
-<div class="card">
+<div class="container">
+  <!-- 3 chiffres -->
+
+  <div class="card">
     <div class="card-header">
       <h2>Mon fil d'actualité</h2>
     </div>
     <div class="card-body">
-    <mat-card>Pierre souhaite visiter un bien dans votre zone d'action</mat-card>
-    <br>
-    <mat-card>Attention, vous n'avez plus que 3 heures pour soumettre le compte rendu de Juliette.</mat-card>
-    <br>
+      <mat-card *ngFor="let visit of dashboard.newVisits">{{visit.customer.firstName}} souhaite visiter un bien dans
+        votre zone d'action <button mat-button routerLink="/architecte/visits">VOIR</button></mat-card>
+
+      <div *ngIf="!dashboard.newVisits || !dashboard.newVisits.length">Votre fil d'actualités est vide pour
+        l'instant...</div>
     </div>
-</div>
-<div class="container">
-  <h2>Mon activité</h2>
-  <div class="container mt-5">
-    <div class="row justify-content-around">
-      <mat-card>
-        5 visites effectuées
-        <mat-card-actions>
-            <button mat-button>VOIR</button>
-          </mat-card-actions>
-      </mat-card>
-      <mat-card>
-        400 € générés
-      </mat-card>
-      <mat-card class="cursor-not-allowed" matTooltip="Bientôt disponible">
-        - / - notation
-      </mat-card>
+  </div>
+  <!--<br>
+      <mat-card>Attention, vous n'avez plus que 3 heures pour soumettre le compte rendu de Juliette.</mat-card>
+      <br>-->
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Mon activité</h2>
+    </div>
+    <div class="card-body">
+      <div class="container mt-5">
+        <div class="row justify-content-around">
+          <mat-card>
+            {{dashboard.doneVisitsCount}} visite(s) effectuée(s)
+            <mat-card-actions>
+              <button mat-button routerLink="/architecte/visits">VOIR</button>
+            </mat-card-actions>
+          </mat-card>
+          <mat-card>
+            {{dashboard.amountEarned}} € générés
+          </mat-card>
+          <mat-card class="cursor-not-allowed" matTooltip="Bientôt disponible">
+            - / - notation
+          </mat-card>
+        </div>
+      </div>
     </div>
   </div>
 </div>

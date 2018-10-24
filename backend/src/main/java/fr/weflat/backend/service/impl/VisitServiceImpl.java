@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.StreamSupport;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -67,6 +68,9 @@ public class VisitServiceImpl implements VisitService {
 
 	@Value("${fr.weflat.stripe.partial-refund}")
 	Long partialRefundAmount;
+	
+	@Value("${fr.weflat.architect-remuneration}")
+	Long architectRemuneration;
 
 	public VisitServiceImpl(@Value("${fr.weflat.stripe.private-key}") String apiKey) {
 		super();
@@ -90,7 +94,7 @@ public class VisitServiceImpl implements VisitService {
 				visit.setStatus(VisitStatusEnum.IN_PROGRESS.ordinal());
 				visiteDao.save(visit);
 
-				StringBuilder messageBuilder = new StringBuilder();
+				/*StringBuilder messageBuilder = new StringBuilder();
 				messageBuilder.append(architect.getFirstName());
 				messageBuilder.append(" ");
 				messageBuilder.append(architect.getLastName());
@@ -107,7 +111,7 @@ public class VisitServiceImpl implements VisitService {
 
 				mailService.sendSimpleMail(visit.getCustomer().getEmail(),
 						"Un architecte a accepté votre visite !",
-						messageBuilder.toString());
+						messageBuilder.toString());*/
 			}
 			else {
 				throw new Exception("Architect is already assigned");
@@ -262,6 +266,8 @@ public class VisitServiceImpl implements VisitService {
 			visit.setStatus(VisitStatusEnum.BEING_ASSIGNED.ordinal());
 
 			visit.setChargeId(charge.getId());
+			
+			visit.setCustomerPaidAmount(visitPrice);
 
 			save(visit);
 
@@ -445,15 +451,33 @@ public class VisitServiceImpl implements VisitService {
 
 	@Override
 	public void refund(Visit visit) throws Exception {
-		Charge.retrieve(visit.getChargeId()).refund();
+		Charge charge = Charge.retrieve(visit.getChargeId());
+		visit.setRefundedAmount(charge.getAmount());
+		save(visit);
+		charge.refund();
+		mailService.sendFullRefundMail(
+				visit.getCustomer().getEmail(),
+				visit.getCustomer().getFirstName(),
+				visit.getVisiteDate(),
+				visit.formattedAddress()
+				);
 	}
 
 	@Override
 	public void partialRefund(Visit visit) throws Exception {
+		Charge charge = Charge.retrieve(visit.getChargeId());
+		visit.setRefundedAmount(partialRefundAmount);
+		save(visit);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("amount", partialRefundAmount);
-		Charge.retrieve(visit.getChargeId()).refund(params);
-
+		charge.refund(params);
+		mailService.sendPartialRefundMail(
+				visit.getCustomer().getEmail(),
+				visit.getCustomer().getFirstName(),
+				visit.getVisiteDate(),
+				visit.formattedAddress(),
+				partialRefundAmount
+				);
 	}
 
 	@Override
@@ -473,6 +497,7 @@ public class VisitServiceImpl implements VisitService {
 	@PreAuthorize("hasAuthority('admin')")
 	public Visit changeStatusToArchitectWasPaid(Visit visit) throws Exception {
 		visit.setStatus(VisitStatusEnum.ARCHITECT_PAID.ordinal());
+		visit.setArchitectPaidAmount(architectRemuneration);
 		save(visit);
 		return visit;
 	}
@@ -530,5 +555,42 @@ public class VisitServiceImpl implements VisitService {
 	public void delete(Long id) {
 		visiteDao.delete(id);
 
+	}
+
+	@Override
+	public Long getVisitPrice() {
+		return visitPrice;
+	}
+
+	@Override
+	public Long getVisitPartialRefundAmount() {
+		return partialRefundAmount;
+	}
+
+	@Override
+	public Long getAmountEarned(Long architectId) {
+		QVisit visit = QVisit.visit;
+
+		Predicate predicate = visit.architect.id.eq(architectId);
+		
+		Iterable<Visit> visits = visiteDao.findAll(predicate);
+		
+		return StreamSupport.stream(visits.spliterator(), false).mapToLong(x -> x.getArchitectPaidAmount() == null ? 0 : x.getArchitectPaidAmount()).sum();
+	}
+
+	@Override
+	public Long getDoneVisitsCount(Long architectId) {
+		QVisit visit = QVisit.visit;
+
+		Predicate predicate = visit.architect.id.eq(architectId)
+				.and(visit.status.in(
+						VisitStatusEnum.ARCHITECT_PAID.ordinal(),
+						VisitStatusEnum.REPORT_AVAILABLE.ordinal()
+						)
+						);
+		
+		Iterable<Visit> visits = visiteDao.findAll(predicate);
+		
+		return StreamSupport.stream(visits.spliterator(), false).count();
 	}
 }

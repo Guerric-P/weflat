@@ -99,9 +99,13 @@
         <h2>Ma zone d'action</h2>
       </div>
       <div class="card-body">
-        <div *ngIf="disabledZipCodes && disabledZipCodes.length" [ngSwitch]="disabledZipCodes.length" class="alert alert-warning"
+        <div *ngIf="disabledZipCodes && disabledZipCodes.length" [ngSwitch]="true" class="alert alert-warning"
           role="alert">
-          <ng-container *ngSwitchCase="1">
+          <ng-container *ngSwitchCase="disabledZipCodes.length >= 10">
+              Certains codes postaux n'ont pas été activés pour l'instant. Vous recevrez des demandes de visites pour
+              ces code postaux lorsqu'ils seront activés par l'équipe Weflat.
+            </ng-container>
+          <ng-container *ngSwitchCase="disabledZipCodes.length === 1">
             Le code postal {{formattedDisabledZipCodes}} n'a pas été activé pour l'instant. Vous recevrez des demandes de visites pour
             ce code postal lorsqu'il sera activé par l'équipe Weflat.
           </ng-container>
@@ -111,27 +115,44 @@
           </ng-container>
         </div>
         <div class="row">
-          <div class="col-sm-4 zip-codes-container">
+          <div class="col-lg-4 zip-codes-container">
             <label>
               <span class="mandatory-field">Saisissez les codes postaux correspondant à votre zone d'action</span>
             </label>
-            <mat-form-field>
-              <mat-chip-list [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
-                <mat-chip *ngFor="let zipCode of zipCodes" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable" [removable]="removable"
-                  (removed)="remove(zipCode)">
-                  {{zipCode}}
-                  <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                </mat-chip>
-                <input #zipCodeInput placeholder="Nouveau code postal..." [matChipInputFor]="zipCodesList" (blur)="onZipCodeInputBlur($event)"
-                />
-              </mat-chip-list>
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let county of sortedZipCodes | keys">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <button (click)="removeCountyClick($event, county)" mat-icon-button type="button">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                    {{ sortedZipCodes[county][0].county }} ({{ sortedZipCodes[county][0].number.substring(0, 2) }})
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-chip-list [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
+                  <mat-chip *ngFor="let zipCode of sortedZipCodes[county]" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable"
+                    [removable]="removable" (removed)="remove(zipCode)">
+                    {{zipCode.number}}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-form-field class="mt-3">
+              <input matInput #zipCodeInput placeholder="Nouveau code postal..." [matAutocomplete]="autoComplete" (input)="zipCodeInputChanged($event)"
+                (blur)="onZipCodeInputBlur($event)" />
+              <mat-autocomplete #autoComplete="matAutocomplete" (optionSelected)="zipCodeSelected($event)">
+                <mat-option *ngFor="let prediction of filteredAutoCompletePredictions" [value]="prediction.structured_formatting.main_text">
+                  <span>{{prediction.description}}</span>
+                </mat-option>
+              </mat-autocomplete>
               <mat-error *ngIf="true">
                 Saisissez au moins un code postal
               </mat-error>
             </mat-form-field>
             <button type="button" mat-raised-button (click)="fitBounds()">Recentrer la carte</button>
           </div>
-          <div class="col-sm-8 google-maps-container" #googleMap>
+          <div class="col-lg-8 google-maps-container" #googleMap>
           </div>
         </div>
       </div>
@@ -329,8 +350,8 @@
     </div>
     <div class="form-group row mt-3">
       <div class="col-sm-12">
-        <button type="submit" mat-raised-button color="primary">Soumettre mon profil</button>
-        <button type="button" class="ml-2" mat-raised-button>Je souhaite clôturer mon compte d'architecte</button>
+        <button type="submit" mat-raised-button color="primary">{{architecte.status === ArchitectStatusEnum.CREATED ? 'Soumettre mon profil' : 'Enregistrer'}}</button>
+        <a class="ml-2" mat-raised-button href="mailto:contact@weflat.fr?subject=Demande%20de%20cl%C3%B4ture%20de%20compte&body=Bonjour%2C%0A%0AJe%20souhaite%20supprimer%20mon%20profil%20Weflat%20pour%20la%20raison%20suivante%20%3A">Je souhaite clôturer mon compte d'architecte</a>
       </div>
     </div>
   </form>

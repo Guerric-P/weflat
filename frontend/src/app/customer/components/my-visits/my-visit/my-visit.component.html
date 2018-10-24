@@ -7,7 +7,7 @@
     <div class="d-flex flex-row-reverse mt-2">
       <button mat-raised-button (click)="cancelClick()">Annuler</button>
       <button mat-raised-button (click)="editClick()" class="mr-2">Modifier</button>
-      <button mat-raised-button color="primary" appPayment [visitId]="visit.id" [email]="authService.userEmail" (paymentDone)="visitPaid()"
+      <button mat-raised-button color="primary" appPayment [visitId]="visit.id" [price]="price" [email]="authService.userEmail" (paymentDone)="visitPaid()"
         class="mr-2">Payer</button>
     </div>
   </mat-card-content>
@@ -19,7 +19,7 @@
       <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Visite en cours d'attribution</div>
     </div>
     <div class="d-flex flex-row-reverse mt-2">
-      <button mat-raised-button (click)="cancelClick()">Annuler</button>
+      <button [disabled]="cancelButtonDisabled" mat-raised-button (click)="cancelClick()">Annuler</button>
       <button mat-raised-button (click)="editClick()" class="mr-2">Modifier</button>
     </div>
   </mat-card-content>
@@ -31,7 +31,7 @@
       <div class="progress-bar" role="progressbar" style="width: 35%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Visite attribuée</div>
     </div>
     <div class="d-flex flex-row-reverse mt-2">
-      <button mat-raised-button (click)="cancelClick()">Annuler</button>
+      <button [disabled]="cancelButtonDisabled" mat-raised-button (click)="cancelClick()">Annuler</button>
       <a mat-raised-button class="mr-2" href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
     </div>
   </mat-card-content>
@@ -78,7 +78,7 @@
     </button>
   </h5>
   <div *ngIf="visit.status !== VisitStatusEnum.IN_PROGRESS || datePassed" mat-dialog-content>Vous êtes sur le point d'annuler votre visite. Vous serez remboursé(e) intégralement.</div>
-  <div *ngIf="visit.status === VisitStatusEnum.IN_PROGRESS && !datePassed" mat-dialog-content>Vous êtes sur le point d'annuler votre visite. Vous serez remboursé(e) partiellement.</div>
+  <div *ngIf="visit.status === VisitStatusEnum.IN_PROGRESS && !datePassed" mat-dialog-content>Vous êtes sur le point d'annuler votre visite. Vous serez remboursé(e) d'un montant de {{ partialRefundAmount | currency:'EUR' }}.</div>
   <div mat-dialog-actions>
     <button mat-raised-button color="primary" type="button" class="mr-2" [mat-dialog-close]="true">Continuer</button>
     <button mat-raised-button type="button" class="ml-2" [mat-dialog-close]="false">Annuler</button>

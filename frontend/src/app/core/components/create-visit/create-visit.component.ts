@@ -19,7 +19,8 @@ import { CustomerClass } from '../../models/CustomerClass';
 import { DatePipe } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { values } from '../../../shared/common/TimeDropDownValues';
-
+import { GoogleService } from '../../services/google.service';
+import { bufferCount, map } from 'rxjs/operators';
 declare var google;
 
 @Component({
@@ -45,6 +46,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
   displaySignupStep: boolean;
   visit: VisitClass = new VisitClass();
   place: any;
+  price: number;
 
   times = values;
 
@@ -71,6 +73,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private acheteurService: AcheteurService,
     private breakpointObserver: BreakpointObserver,
+    private googleService: GoogleService,
     private zone: NgZone) { }
 
   get isMobile() {
@@ -111,14 +114,17 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
       }
     };
 
-    const autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, options);
-    google.maps.event.addListener(autocomplete, 'place_changed', () => {
-      this.place = autocomplete.getPlace();
-      this.displayAddressComponents();
-      this.placeMarker();
-      this.loadVisit();
-      this.completeVisitCreation(true);
+    this.googleService.loadGoogleMapsLibrary().subscribe(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.addressInput.nativeElement, options);
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        this.place = autocomplete.getPlace();
+        this.displayAddressComponents();
+        this.placeMarker();
+        this.loadVisit();
+        this.completeVisitCreation(true);
+      });
     });
+
 
     this.dateFormGroup = this._formBuilder.group({
       datePicker: ['', Validators.required],
@@ -155,6 +161,10 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
       this.addressFormGroup.controls['addressInput'].setValue(this.place.formatted_address);
     }
 
+    this.visiteService.getPrice().pipe(bufferCount(2), map(arr => arr[arr.length - 1])).subscribe(res => {
+      this.price = res;
+    });
+
     this.adapter.setLocale('fr');
   }
 
@@ -165,16 +175,18 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (!this.map) {
-      this.map = new google.maps.Map(this.googleMap.nativeElement, {
-        zoom: 10,
-        center: new google.maps.LatLng(45.767519, 4.832526)
-      });
-    }
+    this.googleService.loadGoogleMapsLibrary().subscribe(() => {
+      if (!this.map) {
+        this.map = new google.maps.Map(this.googleMap.nativeElement, {
+          zoom: 10,
+          center: new google.maps.LatLng(45.767519, 4.832526)
+        });
+      }
 
-    if (this.place) {
-      this.placeMarker();
-    }
+      if (this.place) {
+        this.placeMarker();
+      }
+    });
   }
 
   get isVisitFilled(): boolean {
@@ -271,6 +283,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
       this.completeVisitCreation(false);
     }
     if (event.selectedStep === this.paymentStep) {
+      //Second event to skip the previous value and get the fresh one
       this.completeVisitCreation(true);
     }
   }
