@@ -45,6 +45,9 @@ public class MailServiceImpl implements MailService {
 	@Value("${fr.weflat.email.scope}")
 	private String scope;
 	
+	@Value("${fr.weflat.app-url}")
+	private String appUrl;
+	
 	private Credential creds;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy à HH:mm");
@@ -79,6 +82,8 @@ public class MailServiceImpl implements MailService {
 			message.setFrom(new InternetAddress(((JavaMailSenderImpl)javaMailSender).getUsername()));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject(subject);
+			
+			text = "<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"" + appUrl + "/assets/weflat_noir.png\" />" + text;
 			message.setContent(text, "text/html; charset=UTF-8");
 
 			javaMailSender.send((MimeMessage)message);

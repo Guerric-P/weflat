@@ -75,7 +75,7 @@ async function launch() {
 
             if (config.mails) {
                 logger.info('Sending mail to %s with password %s', customer.email, password);
-                await sendMail(gmail, jwtClient, customer.email, 'Création de votre compte', 'Votre mot de passe est : ' + password);
+                await sendMail(gmail, jwtClient, customer.email, 'Création de votre compte', '<p>Votre mot de passe est : ' + password + "</p>");
                 logger.info('Mail successfully sent!');
             }
 
@@ -136,7 +136,7 @@ async function launch() {
 <p>PS: Merci d'ignorer le précédent mail de bienvenue.</p>
 <p>Cordialement,<br>L'équipe Weflat &hearts;</p>`;
 				
-                await sendMail(gmail, jwtClient, architect.email, mailTemplate);
+                await sendMail(gmail, jwtClient, architect.email, 'Création de votre compte', mailTemplate);
                 logger.info('Mail successfully sent!');
             }
             logger.info('Registration of architect %s %s successful!', architect.firstName, architect.lastName);
@@ -238,7 +238,7 @@ function sendMail(gmail, jwtClient, to, subject, message) {
     for (var header in headers)
         email += header += ": " + headers[header] + "\r\n";
 
-    email += "\r\n" + message;
+    email += "\r\n" + "<img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"" + (config.secured ? "https://" : "http://") + config.apiHost + "/assets/weflat_noir.png\" />" + message;
 
     return gmail.users.messages.send({
         auth: jwtClient,
