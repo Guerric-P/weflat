@@ -49,14 +49,7 @@
 <!--les arguments 2-->
 <div class="container mt-5">
   <div class="row justify-content-around">
-    <div class="col-sm-4">
-      <div class="card border-light text-white">
-        <img class="card-img" src="assets/living_350px.jpg" alt="Card image">
-        <div class="card-img-overlay">
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-7">
+    <div class="col-sm-7 order-sm-2">
       <h1>3 étapes.
         <span class="text-muted"> Seulement.</span>
       </h1>
@@ -74,6 +67,13 @@
         construit par Weflat. Aucune de vos questions ne resteront sans réponses: atouts, contraintes, proposition
         d'aménagement
         sous plan 2D, estimation du budget des travaux de rénovation...</p>
+    </div>
+    <div class="col-sm-4 order-sm-1">
+      <div class="card border-light text-white">
+        <img class="card-img" src="assets/living_350px.jpg" alt="Card image">
+        <div class="card-img-overlay">
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -103,11 +103,11 @@
 
 <!-- Architectes -->
 <div class="container text-right mt-5">
-  <div id="cardclickable" routerLink="/architect-onboarding" class="card bg-dark text-white">
-    <img class="card-img" src="assets/living2_1140px.jpg">
+  <div routerLink="/architect-onboarding" class="card bg-dark text-white clickable-card">
+    <img class="card-img" [src]="architectOnboardingButtonImgSrc">
     <div class="card-img-overlay">
-      <h1 class="card-title">Vous êtes architecte?</h1>
-      <h4 class="card-text">Rejoignez la communauté pour compléter vos revenus <br> et développer votre réseau</h4>
+      <h1 class="card-title">Vous êtes architecte ?</h1>
+      <h4 class="card-text">Rejoignez la communauté pour compléter vos revenus et développer votre réseau</h4>
     </div>
   </div>
 </div>
