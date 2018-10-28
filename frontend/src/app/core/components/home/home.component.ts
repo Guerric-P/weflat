@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 declare var twttr: any;
 
@@ -8,8 +9,9 @@ declare var twttr: any;
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  private architectOnboardingButtonImgSrc;
 
-  constructor() { }
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
     try {
@@ -17,5 +19,9 @@ export class HomeComponent implements OnInit {
     } catch (e) {
       console.log('Erreur lors du chargement du widget twitter...');
     }
+
+    this.breakpointObserver.observe('(max-width: 767px)').subscribe(res => {
+      this.architectOnboardingButtonImgSrc = res.matches ? 'assets/living2_767px.jpg' : 'assets/living2_1140px.jpg';
+    });
   }
 }

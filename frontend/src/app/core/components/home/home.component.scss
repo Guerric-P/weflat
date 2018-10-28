@@ -1,4 +1,4 @@
-#cardclickable {
+.clickable-card {
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border: none;
@@ -7,7 +7,7 @@
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-#cardclickable::after {
+.clickable-card::after {
     content: "";
     z-index: -1;
     top: 0;
@@ -20,13 +20,13 @@
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-#cardclickable:hover {
+.clickable-card:hover {
     -webkit-transform: scale(1.01, 1.01);
     transform: scale(1.01, 1.01);
     cursor: pointer;
 }
 
-#cardclickable:hover::after {
+.clickable-card:hover::after {
     opacity: 1;
 }
 
