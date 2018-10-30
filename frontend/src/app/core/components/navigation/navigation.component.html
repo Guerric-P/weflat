@@ -43,7 +43,7 @@
         <img src="assets/logofinal.png" width="70" />
       </a>
       <div>
-        <div *ngIf="token" class="d-inline-block" placement="bottom-right">
+        <div *ngIf="isLoggedIn" class="d-inline-block" placement="bottom-right">
           <button mat-button type="button" class="dropdown-button" [matMenuTriggerFor]="personalMenu">
             {{displayName}}
           </button>
@@ -52,7 +52,7 @@
             <button mat-menu-item (click)="logout()">Déconnexion</button>
           </mat-menu>
         </div>
-        <button *ngIf="!token" type="button" (click)="openSignin(signinModal)" mat-button>
+        <button *ngIf="!isLoggedIn" type="button" (click)="openSignin(signinModal)" mat-button>
           Se connecter
         </button>
         <button class="menu-button" [style.top]="menuButtonTopOffset" mat-icon-button type="button" (click)="toggleFooter()">

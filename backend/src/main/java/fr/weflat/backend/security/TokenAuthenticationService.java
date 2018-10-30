@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,10 +19,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 class TokenAuthenticationService {
-	  static final long EXPIRATIONTIME = 864_000_000; // 10 days
+	  static final int EXPIRATIONTIME = 864_000; // 10 days
 	  static final String SECRET = "ThisIsASecret";
-	  static final String TOKEN_PREFIX = "Bearer";
-	  static final String HEADER_STRING = "Authorization";
 
 	  static void addAuthentication(HttpServletResponse res, Authentication authentication) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -35,34 +34,44 @@ class TokenAuthenticationService {
 		String JWT = Jwts.builder()
 	        .setSubject(authentication.getName())
 	        .addClaims(map)
-	        .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
+	        .setExpiration(new Date(System.currentTimeMillis() + (EXPIRATIONTIME * 1000)))
 	        .signWith(SignatureAlgorithm.HS512, SECRET)
 	        .compact();
-	    res.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
 	    res.setContentType("application/json");
-	    res.getWriter().write("{\"token\": \"" + JWT + "\"}");
+	    Cookie cookie = new Cookie("weflat_token", JWT);
+	    //cookie.setSecure(true);
+	    cookie.setMaxAge(EXPIRATIONTIME);
+	    //cookie.setHttpOnly(true);
+	    cookie.setPath("/");
+	    res.addCookie(cookie);
 	  }
 
 	  static Authentication getAuthentication(HttpServletRequest request) {
-	    String token = request.getHeader(HEADER_STRING);
+	    Cookie[] cookies = request.getCookies();
+	    String token = null;
+	    for(Cookie cookie: cookies) {
+	    	if(cookie.getName().equals("weflat_token")) {
+	    		token = cookie.getValue();
+	    	}
+	    }
 	    if (token != null) {
 	      // parse the token.
 	      String user = Jwts.parser()
 	          .setSigningKey(SECRET)
-	          .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+	          .parseClaimsJws(token)
 	          .getBody()
 	          .getSubject();
 	      
 	      Long id = Jwts.parser()
 	          .setSigningKey(SECRET)
-	          .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+	          .parseClaimsJws(token)
 	          .getBody()
 	          .get("id", Long.class);
 	      
 	      @SuppressWarnings("unchecked")
 	      List<Map<String, String>> roles = Jwts.parser()
 		      .setSigningKey(SECRET)
-		      .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+		      .parseClaimsJws(token)
 		      .getBody()
 		      .get("roles", List.class);
 	      
