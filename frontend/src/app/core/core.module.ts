@@ -15,7 +15,6 @@ import { AuthenticationService } from './services/authentication.service';
 import { ErrorInterceptor } from './services/http-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoaderService } from './services/loader.service';
-import { LocalStorageService } from './services/local-storage.service';
 import { SessionStorageService } from './services/session-storage.service';
 import { ShowSigninPopupService } from './services/show-signin-popup.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -92,7 +91,6 @@ import { ForgottenPasswordComponent } from './components/forgotten-password/forg
     AcheteurGuard,
     AdminGuard,
     CreateVisitGuard,
-    LocalStorageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
