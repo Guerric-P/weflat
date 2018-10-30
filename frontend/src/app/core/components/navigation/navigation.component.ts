@@ -3,7 +3,6 @@ import { Router, ActivatedRoute, RoutesRecognized, GuardsCheckEnd } from '@angul
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { AuthGuard } from '../../guards/auth.guard';
-import { LocalStorageService } from '../../services/local-storage.service';
 import { ShowSigninPopupService } from '../../services/show-signin-popup.service';
 import { Constantes } from '../../../shared/common/Constantes';
 import { MatDialog, MatDialogRef, MatExpansionPanel } from '@angular/material';
@@ -29,12 +28,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
   signinModal: MatDialogRef<any>;
   signupModal: MatDialogRef<any>;
 
-  constructor(private authService: AuthenticationService,
+  constructor(
+    private authService: AuthenticationService,
     private router: Router, private route: ActivatedRoute,
     private authGuard: AuthGuard,
-    private localStorageService: LocalStorageService,
     private showSigninPopupService: ShowSigninPopupService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog
+    ) { }
 
   ngOnInit() {
 
@@ -72,12 +72,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
     setTimeout(() => this.openSignin(this.signinModalTemplate));
   }
 
-  get token() {
-    return this.localStorageService.token;
+  get isLoggedIn() {
+    return this.authService.isLoggedIn;
   }
 
   get displayName() {
-    return this.localStorageService.tokenPayload.displayName;
+    return this.authService.displayName;
   }
 
   get menuButtonTopOffset() {
@@ -134,7 +134,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   redirectToPersonal() {
-    const role = this.localStorageService.tokenPayload.roles[0].authority;
+    const role = this.authService.tokenPayload.roles[0].authority;
 
     switch (role) {
       case Constantes.ROLE_ACHETEUR:

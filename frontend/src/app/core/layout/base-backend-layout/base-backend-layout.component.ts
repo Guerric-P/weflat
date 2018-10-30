@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { AuthGuard } from '../../../core/guards/auth.guard';
-import { LocalStorageService } from '../../../core/services/local-storage.service';
 import { VisitService } from '../../../shared/services/visit.service';
 import { VisiteCounterService } from '../../services/visite-counter.service';
 
@@ -20,7 +19,6 @@ export class BaseBackendLayoutComponent implements OnInit {
   constructor(protected authService: AuthenticationService,
     protected router: Router, protected route: ActivatedRoute,
     protected authGuard: AuthGuard,
-    protected localStorageService: LocalStorageService,
     protected visiteService: VisitService,
     protected visiteCounterService: VisiteCounterService) {
   }
@@ -39,21 +37,21 @@ export class BaseBackendLayoutComponent implements OnInit {
     this.authRequired = data && data.authRequired ? true : false;
   }
 
-  get token() {
-    return this.localStorageService.token;
+  get isLoggedIn() {
+    return this.authService.isLoggedIn;
   }
 
   get displayName() {
-    return this.localStorageService.tokenPayload ? this.localStorageService.tokenPayload.displayName : null;
+    return this.authService.displayName;
   }
 
   logout() {
 
-    this.authService.logout().subscribe(res => {
+    this.authService.logout().subscribe(() => {
       this.redirectIfAuthRequired();
-    }, err => {
-      this.redirectIfAuthRequired();
-    });
+    }, () => {
+        this.redirectIfAuthRequired();
+      });
 
   }
 
