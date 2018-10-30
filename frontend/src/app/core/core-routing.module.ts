@@ -30,7 +30,8 @@ const routes: Routes = [
       { path: 'eula', component: EndUserLicenseAgreementComponent },
       { path: 'faq', component: FrequentlyAskedQuestionsComponent },
       { path: 'architect-onboarding', component: ArchitectOnBoardingComponent },
-      { path: 'forgotten-password', component: ForgottenPasswordComponent }
+      { path: 'forgotten-password', component: ForgottenPasswordComponent },
+      { path: 'architectes', redirectTo: 'architect-onboarding' }
     ]
   }, {
     path: 'architecte',
@@ -51,7 +52,7 @@ const routes: Routes = [
     data: { authRequired: true },
     loadChildren: '../admin/admin.module#AdminModule'
   },
-  { path: '**', component: ErrorComponent }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

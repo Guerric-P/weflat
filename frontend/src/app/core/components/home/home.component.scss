@@ -53,3 +53,7 @@ $architect-witness-height: 64px;
     display: flex;
     flex-direction: column;
 }
+
+.mildly-transparent-bg {
+    background-color: rgba(0, 0, 0, 0.75);
+}
