@@ -80,7 +80,7 @@
 
 
 <!--Chiffres-->
-<div class="container text-center mt-5">
+<div class="container text-center spacer">
   <h1>Weflat oeuvre pour de meilleurs
     <br> achats immobiliers</h1>
   <div class="container mt-3">
@@ -102,27 +102,27 @@
 </div>
 
 <!-- Architectes -->
-<div class="container text-right mt-5">
+<div class="container text-right spacer">
   <div routerLink="/architect-onboarding" class="card bg-dark text-white clickable-card">
     <img class="card-img" [src]="architectOnboardingButtonImgSrc">
     <div class="card-img-overlay">
-      <h1 class="card-title">Vous êtes architecte ?</h1>
-      <h4 class="card-text">Rejoignez la communauté pour compléter vos revenus et développer votre réseau</h4>
+      <h1 class="card-title"><span class="mildly-transparent-bg">Vous êtes architecte ?</span></h1>
+      <h4 class="card-text"><span class="mildly-transparent-bg">Rejoignez la communauté pour compléter vos revenus et développer votre réseau</span></h4>
     </div>
   </div>
 </div>
 
 <!-- Arguments -->
-<div class="container mt-5 text-center">
+<div class="container spacer text-center">
   <h1>Un coup de coeur mérite toujours un
     <br>coup d'oeil d'architecte</h1>
 
-  <mat-tab-group class="demo-tab-group mt-5">
+  <mat-tab-group mat-stretch-tabs class="mt-5">
     <mat-tab label="Tab 1">
       <ng-template mat-tab-label>
         <i class="material-icons">mood</i>
       </ng-template>
-      <div class="demo-tab-content mt-5">
+      <div class="mt-5">
         <h1>150€</h1>
         <p>Le tarif est fixe et transparent</p>
       </div>
@@ -131,7 +131,7 @@
       <ng-template mat-tab-label>
         <mat-icon>query_builder</mat-icon>
       </ng-template>
-      <div class="demo-tab-content mt-5">
+      <div class="mt-5">
         <h1>J+1</h1>
         <p>Nos architectes peuvent intervenir dès le lendemain</p>
       </div>
@@ -140,7 +140,7 @@
       <ng-template mat-tab-label>
         <mat-icon>send</mat-icon>
       </ng-template>
-      <div class="demo-tab-content mt-5">
+      <div class="mt-5">
         <h1>12H</h1>
         <p>Le compte rendu est transmis quelques heures après la visite</p>
       </div>
@@ -149,25 +149,16 @@
       <ng-template mat-tab-label>
         <mat-icon>build</mat-icon>
       </ng-template>
-      <div class="demo-tab-content mt-5">
+      <div class="mt-5">
         <h1>+20</h1>
         <p>L'estimation du budget des travaux détaille la liste exhaustive des poste de rénovation</p>
       </div>
     </mat-tab>
     <mat-tab label="Tab 5">
       <ng-template mat-tab-label>
-        <mat-icon>explore</mat-icon>
-      </ng-template>
-      <div class="demo-tab-content mt-5">
-        <h1>2D</h1>
-        <p>Un plan 2D illustre le potentiel du bien immobilier</p>
-      </div>
-    </mat-tab>
-    <mat-tab label="Tab 6">
-      <ng-template mat-tab-label>
         <mat-icon>call</mat-icon>
       </ng-template>
-      <div class="demo-tab-content mt-5">
+      <div class="mt-5">
         <h1>7J/7</h1>
         <p>Notre équipe d’assistance est à votre disposition à tout moment</p>
       </div>
@@ -175,11 +166,11 @@
   </mat-tab-group>
 
   <!-- Temoignages -->
-  <div class="container mt-5">
+  <div class="container spacer">
     <h1 class="mb-5">Ils nous font confiance</h1>
     <div class="row justify-content-around">
       <div class="col-sm-6">
-        <h2>Acheteurs</h2>
+        <h2 class="mb-3">Acheteurs</h2>
         <blockquote class="twitter-tweet" data-lang="en">
           <p lang="fr" dir="ltr">
             <a href="https://twitter.com/weflat?ref_src=twsrc%5Etfw">@weflat</a> Après cette visite, je n&#39;imagine
@@ -196,7 +187,7 @@
         </blockquote>
       </div>
       <div class="col-sm-6">
-        <h2>Architectes</h2>
+        <h2 class="mb-3">Architectes</h2>
         <div class="architect-witness mb-2">
           <img class="img-big mr-2" src="assets/jpfuda.jpg">
           <div class="architect-witness-title-container">
