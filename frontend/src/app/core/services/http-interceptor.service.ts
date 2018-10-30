@@ -5,21 +5,18 @@ import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { environment } from 'environments/environment';
-import { LocalStorageService } from './local-storage.service';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+
+  constructor(private router: Router, private injector: Injector) { }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authService = this.injector.get(AuthenticationService);
-    const authHeader = this.localStorageService.token;
-    let finalReq: HttpRequest<any> = req.clone({ url: environment.baseBackendUrl + req.url });
+    const finalReq: HttpRequest<any> = req.clone({ url: environment.baseBackendUrl + req.url });
 
     if (req.url !== '/login') {
-      if (authHeader) {
-        finalReq = finalReq.clone({ headers: req.headers.set('Authorization', 'Bearer ' + authHeader) });
-      }
-
       return next.handle(finalReq).pipe(
         catchError(
           err => {
@@ -36,10 +33,9 @@ export class ErrorInterceptor implements HttpInterceptor {
         )
       );
     } else {
-      return next.handle(finalReq);
+      return next.handle(finalReq).pipe(
+        tap(() => authService.initialize())
+      );
     }
   }
-
-  constructor(private router: Router, private localStorageService: LocalStorageService, private injector: Injector) { }
-
 }
