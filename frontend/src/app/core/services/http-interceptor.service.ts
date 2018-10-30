@@ -34,7 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       );
     } else {
       return next.handle(finalReq).pipe(
-        tap(() => authService.initialize())
+        tap(() => authService.loadTokenFromCookie())
       );
     }
   }

@@ -21,7 +21,7 @@ export class AuthenticationService {
     public returnUrl: string;
 
     constructor(private http: HttpClient) {
-        this.initialize();
+        this.loadTokenFromCookie();
     }
 
     login(username: string, password: string) {
@@ -52,7 +52,7 @@ export class AuthenticationService {
         );
     }
 
-    initialize() {
+    loadTokenFromCookie() {
         const token = this.getCookie('weflat_token');
         if (token) {
             this._isLoggedIn = true;
