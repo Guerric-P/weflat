@@ -22,12 +22,13 @@ export class ErrorInterceptor implements HttpInterceptor {
           err => {
             if (err instanceof HttpErrorResponse) {
               if (err.status === 401 || err.status === 403) {
-
+                authService.loadTokenFromCookie();
+                if (!authService.isLoggedIn) {
+                  this.router.navigate(['/']);
+                }
                 // TODO add ping method to check if user is logged in
-                /*authService.returnUrl = this.router.routerState.snapshot.url;
-                this.router.navigate(['/']);*/
               }
-              return throwError(err.message || 'Erreur du serveur');
+              return throwError(err);
             }
           }
         )
