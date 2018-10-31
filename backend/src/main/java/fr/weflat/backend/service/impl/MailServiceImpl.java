@@ -7,9 +7,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -51,6 +53,11 @@ public class MailServiceImpl implements MailService {
 	private Credential creds;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy à HH:mm");
+
+	@PostConstruct
+	public void initializeSdf(){
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+	}
 
 	@Async
 	public CompletableFuture<Void> sendSimpleMail(String email, String subject, String text) throws Exception {
