@@ -9,13 +9,6 @@ export class AuthenticationService {
 
     private userLoggedInSubject: Subject<any> = new Subject<any>();
     private userLoggedOutSubject: Subject<any> = new Subject<any>();
-    private _isLoggedIn = false;
-    private _isArchitect = false;
-    private _isAdmin = false;
-    private _isCustomer = false;
-    private _userId: number;
-    private _userEmail: string;
-    private _displayName: string;
     private _tokenPayload: any;
 
     public returnUrl: string;
@@ -42,9 +35,7 @@ export class AuthenticationService {
         // remove user from local storage to log user out
         return this.http.get('/logout').pipe(
             timeout(1000),
-            catchError(() => {
-                return of();
-            }),
+            catchError(() => of(undefined)),
             tap(() => {
                 this.reset();
                 this.userLoggedOutSubject.next();
@@ -55,45 +46,32 @@ export class AuthenticationService {
     loadTokenFromCookie() {
         const token = this.getCookie('weflat_token');
         if (token) {
-            this._isLoggedIn = true;
             const tokenPayload = jwt_decode(token);
             this._tokenPayload = tokenPayload;
-            this._isAdmin = tokenPayload.roles.map(x => x.authority).includes('admin');
-            this._isCustomer = tokenPayload.roles.map(x => x.authority).includes('customer');
-            this._isArchitect = tokenPayload.roles.map(x => x.authority).includes('architect');
-            this._userId = tokenPayload.id;
-            this._userEmail = tokenPayload.sub;
-            this._displayName = tokenPayload.displayName;
         } else {
             this.reset();
         }
     }
 
     reset() {
-        this._isLoggedIn = false;
+        this.resetCookie('weflat_token');
         this._tokenPayload = null;
-        this._isAdmin = false;
-        this._isCustomer = false;
-        this._isArchitect = false;
-        this._userId = null;
-        this._userEmail = null;
-        this._displayName = null;
     }
 
     get isLoggedIn(): boolean {
-        return this._isLoggedIn;
+        return !!this._tokenPayload;
     }
 
     get isAdmin(): boolean {
-        return this._isAdmin;
+        return this._tokenPayload.roles.map(x => x.authority).includes('admin');
     }
 
     get isArchitect(): boolean {
-        return this._isArchitect;
+        return this._tokenPayload.roles.map(x => x.authority).includes('architect');
     }
 
     get isCustomer(): boolean {
-        return this._isCustomer;
+        return this._tokenPayload.roles.map(x => x.authority).includes('customer');
     }
 
     get userLoggedIn(): Observable<any> {
@@ -105,15 +83,15 @@ export class AuthenticationService {
     }
 
     get userId(): number {
-        return this._userId;
+        return this._tokenPayload.id;
     }
 
     get userEmail(): string {
-        return this._userEmail;
+        return this._tokenPayload.sub;
     }
 
     get displayName(): string {
-        return this._displayName;
+        return this._tokenPayload.displayName;
     }
 
     get tokenPayload(): any {
@@ -127,4 +105,8 @@ export class AuthenticationService {
             return parts.pop().split(';').shift();
         }
     }
+
+    resetCookie(name) {
+        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    };
 }
