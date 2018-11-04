@@ -93,7 +93,7 @@
           <tbody>
             <tr *ngFor="let renovation of report.renovations">
               <th class="d-inline-block col-2" scope="row">
-                {{renovation.position.label}}
+                {{renovation.position ? renovation.position.label : 'Autres'}}
               </th>
               <td class="d-inline-block col-2">
                 <ng-container [ngSwitch]="renovation.condition">
@@ -103,7 +103,7 @@
                 </ng-container>
               </td>
               <td class="d-inline-block col-3">
-                {{renovation.estimatedWork}}
+                {{ renovation.estimatedWork }}
               </td>
               <td class="d-inline-block col-4">
                 {{ renovation.remarks }}
