@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ArchitecteLayoutComponent } from './private-layout.component';
+import { ArchitecteLayoutComponent } from './architecte-layout.component';
 
 describe('PrivateLayoutComponent', () => {
   let component: ArchitecteLayoutComponent;

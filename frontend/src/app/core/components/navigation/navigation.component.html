@@ -81,7 +81,7 @@
       </div>
       <form (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
         <mat-form-field class="w-100">
-          <input type="email" matInput class="form-control" placeholder="Adresse e-mail" name="username" [(ngModel)]="model.username"
+          <input type="email" matInput placeholder="Adresse e-mail" name="username" [(ngModel)]="model.username"
             #username="ngModel" required>
           <mat-error *ngIf="f.submitted && !username.valid">
             L'adresse e-mail est
@@ -89,7 +89,7 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="w-100">
-          <input type="password" matInput class="form-control" placeholder="Mot de passe" name="password" [(ngModel)]="model.password"
+          <input type="password" matInput placeholder="Mot de passe" name="password" [(ngModel)]="model.password"
             #password="ngModel" required>
           <mat-error *ngIf="f.submitted && !username.valid">
             Le mot de passe est

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, TemplateRef, PLATFORM_ID, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorageService } from '../../../services/session-storage.service';
 import { VisitService } from '../../../../shared/services/visit.service';
@@ -7,6 +7,7 @@ import { GooglePlaceKeys } from '../../../../shared/common/GooglePlaceKeys';
 import { VisitClass } from '../../../models/VisitClass';
 import { ZipCodeClass } from '../../../models/ZipCodeClass';
 import { GoogleService } from '../../../services/google.service';
+import { isPlatformBrowser } from '@angular/common';
 declare var google;
 
 @Component({
@@ -20,14 +21,18 @@ export class AddressFieldComponent implements OnInit {
   @ViewChild('popup') popup: DisabledZipCodePopupComponent;
   visit: VisitClass = new VisitClass();
   place: any;
+  isBrowser: boolean;
 
   constructor(
     private sessionStorageService: SessionStorageService,
     private router: Router,
     private zone: NgZone,
     private visitService: VisitService,
-    private googleService: GoogleService
-  ) { }
+    private googleService: GoogleService,
+    @Inject(PLATFORM_ID) platformId: string
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit() {
     const options = {

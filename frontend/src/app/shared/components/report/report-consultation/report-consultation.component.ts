@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ReportClass } from '../../../../core/models/ReportClass';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../../../../core/services/authentication.service';
@@ -19,7 +20,8 @@ export class ReportConsultationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -31,6 +33,6 @@ export class ReportConsultationComponent implements OnInit {
   }
 
   backClick() {
-    window.history.back();
+    this.location.back();
   }
 }

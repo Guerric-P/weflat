@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { environment } from 'environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,11 @@ import { filter } from 'rxjs/operators';
 export class GoogleService {
 
   private mapLoadedBehaviorSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private isBrowser: boolean;
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) platformId: string) {
+    this.isBrowser = isPlatformBrowser(platformId)
+  }
 
   get isMapLoaded() {
     return this.mapLoadedBehaviorSubject.getValue();
@@ -29,7 +33,9 @@ export class GoogleService {
 
 
   loadGoogleMapsLibrary() {
-    this.addMapsScript();
+    if (this.isBrowser) {
+      this.addMapsScript();
+    }
     return this.mapLoadedBehaviorSubject.asObservable().pipe(
       filter(x => x)
     );
