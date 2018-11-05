@@ -13,7 +13,7 @@ registerLocaleData(localeFr);
 @NgModule({
   imports: [
     CoreModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
   ],
