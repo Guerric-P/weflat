@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -12,19 +13,25 @@ export class AppComponent implements OnInit {
     timeOut: 5000,
     showProgressBar: false
   }
+  isBrowser: boolean;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) platformId: string,
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-      (<any>window).gtag('config', (<any>window).googleId, {
-        'page_path': evt.urlAfterRedirects
-      });
-
-      window.scrollTo(0, 0);
+      if (this.isBrowser) {
+        (<any>window).gtag('config', (<any>window).googleId, {
+          'page_path': evt.urlAfterRedirects
+        });
+      }
     });
   }
 }
