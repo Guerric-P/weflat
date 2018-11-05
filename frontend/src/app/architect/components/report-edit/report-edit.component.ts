@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
 declare var moment;
-import { VisitService } from '../../../shared/services/visit.service';
+import { Location } from '@angular/common';
 import { ReportService } from '../../../shared/services/report.service';
 import { ReportClass } from '../../../core/models/ReportClass';
 import { PositionClass } from '../../../core/models/PositionClass';
@@ -42,7 +42,8 @@ export class ReportEditComponent implements OnInit {
     private reportService: ReportService,
     private dialog: MatDialog,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -259,7 +260,7 @@ export class ReportEditComponent implements OnInit {
   }
 
   backClick() {
-    window.history.back();
+    this.location.back();
   }
 
   closeSubmitConfirmModal() {
