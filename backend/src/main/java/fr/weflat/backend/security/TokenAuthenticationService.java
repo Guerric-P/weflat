@@ -22,7 +22,7 @@ class TokenAuthenticationService {
 	  static final int EXPIRATIONTIME = 864_000; // 10 days
 	  static final String SECRET = "ThisIsASecret";
 
-	  static void addAuthentication(HttpServletResponse res, Authentication authentication, boolean secureCookie) throws IOException {
+	  static void addAuthentication(HttpServletResponse res, Authentication authentication) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		User user = (User) authentication.getDetails();
@@ -39,7 +39,6 @@ class TokenAuthenticationService {
 	        .compact();
 	    res.setContentType("application/json");
 	    Cookie cookie = new Cookie("weflat_token", JWT);
-	    cookie.setSecure(secureCookie);
 	    cookie.setMaxAge(EXPIRATIONTIME);
 	    cookie.setPath("/");
 	    res.addCookie(cookie);
