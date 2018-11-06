@@ -23,8 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     if (this.request) {
       // Server side: forward the cookies
-      const initiatingRequest: any = this.injector.get('REQUEST');
-      const rawCookies = !!initiatingRequest.headers['cookie'] ? initiatingRequest.headers['cookie'] : '';
+      const rawCookies = !!this.request.headers['cookie'] ? this.request.headers['cookie'] : '';
       update.setHeaders = { 'cookie': rawCookies };
     }
 
