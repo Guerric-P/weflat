@@ -46,6 +46,9 @@ class TokenAuthenticationService {
 
 	  static Authentication getAuthentication(HttpServletRequest request) {
 	    Cookie[] cookies = request.getCookies();
+	    if(cookies == null) {
+	    	return null;
+	    }
 	    String token = null;
 	    for(Cookie cookie: cookies) {
 	    	if(cookie.getName().equals("weflat_token")) {

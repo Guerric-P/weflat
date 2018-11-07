@@ -7,6 +7,7 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
 import { join } from 'path';
 
 // Faster server renders w/ Prod mode (dev mode never needed)
@@ -16,6 +17,7 @@ import * as cookieparser from 'cookie-parser';
 import * as request from 'request';
 
 const app = express();
+app.use(bodyParser.json());
 app.use(cookieparser());
 
 // https://github.com/angular/angular/issues/15730
@@ -46,31 +48,44 @@ app.get('*.*', express.static(DIST_FOLDER, {
   maxAge: '1y'
 }));
 
-app.get('/backend/*', (req, res) => {
+app.all('/backend/*', (req, res) => {
   const newurl = 'http://localhost' + req.path;
-  request(newurl).pipe(res);
+  console.log(req.body);
+  const cookies = [];
+  for (const name in req.cookies) {
+    if (req.cookies.hasOwnProperty(name)) {
+      cookies.push(`${name}=${req.cookies[name]}`);
+    }
+  }
+  const serializedCookies = cookies.join('; ');
+  console.log(serializedCookies);
+
+  request(
+    {
+      method: req.method,
+      uri: newurl,
+      json: true,
+      body: req.body,
+      headers: { 'Cookie': serializedCookies }
+    },
+    function (error, response, body) {
+      // body is the decompressed response body
+      console.log('error', error);
+      console.log('server encoded the data as: ' + (response.headers['content-encoding'] || 'identity'))
+      console.log('the decoded data is: ' + body)
+    })
+    .pipe(res);
 });
 
 // All regular routes use the Universal engine
 app.get('*', (req, res) => {
-  // tslint:disable-next-line:no-console
-  console.time(`GET: ${req.originalUrl}`);
   res.render(
     'index', {
-      req: req,
-      res: res,
-      providers: [
-        {
-          provide: 'REQUEST', useValue: (req)
-        },
-        {
-          provide: 'RESPONSE', useValue: (res)
-        },
-      ]
+      req,
+      res
     },
     (err, html) => {
-      // tslint:disable-next-line:no-console
-      console.timeEnd(`GET: ${req.originalUrl}`);
+      //console.log(`GET: ${req.originalUrl}`);
       if (!!err) { throw err; }
       res.send(html);
     }
