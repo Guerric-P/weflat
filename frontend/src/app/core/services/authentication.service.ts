@@ -1,9 +1,11 @@
-import { Injectable, PLATFORM_ID, Inject, Injector } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject, Injector, Optional } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, Subject, throwError, of } from 'rxjs';
 import { map, catchError, timeout, tap } from 'rxjs/operators';
 import * as jwt_decode from 'jwt-decode';
 import { isPlatformBrowser } from '@angular/common';
+import { Request, Response } from 'express';
+import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 
 @Injectable()
 export class AuthenticationService {
@@ -18,8 +20,11 @@ export class AuthenticationService {
     constructor(
         private http: HttpClient,
         @Inject(PLATFORM_ID) platformId: string,
-        private injector: Injector
+        @Optional() @Inject(REQUEST) private request: Request,
+        @Optional() @Inject(RESPONSE) private response: Response
     ) {
+        //console.log(request);
+        //console.log(response);
         this.isBrowser = isPlatformBrowser(platformId);
         this.loadTokenFromCookie();
     }
@@ -109,14 +114,13 @@ export class AuthenticationService {
         let value;
         if (this.isBrowser) {
             value = '; ' + document.cookie;
+            const parts = value.split('; ' + name + '=');
+            if (parts.length === 2) {
+                return parts.pop().split(';').shift();
+            }
         } else {
-            const initiatingRequest: any = this.injector.get('REQUEST');
-            const rawCookies = !!initiatingRequest.headers['cookie'] ? initiatingRequest.headers['cookie'] : '';
-            value = '; ' + rawCookies;
-        }
-        const parts = value.split('; ' + name + '=');
-        if (parts.length === 2) {
-            return parts.pop().split(';').shift();
+            const cookie = this.request.cookies[name];
+            return cookie;
         }
     }
 
@@ -124,8 +128,7 @@ export class AuthenticationService {
         if (this.isBrowser) {
             document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         } else {
-            const response: any = this.injector.get('RESPONSE');
-            response.clearCookie(name);
+            this.response.clearCookie(name);
         }
     };
 }
