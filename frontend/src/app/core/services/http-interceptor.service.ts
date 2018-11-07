@@ -5,8 +5,9 @@ import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { environment } from 'environments/environment';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { APP_BASE_HREF } from '@angular/common';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { Request } from 'express';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -14,20 +15,30 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     private injector: Injector,
-    @Optional() @Inject('REQUEST') private request: any
+    @Optional() @Inject(REQUEST) private request: Request
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authService = this.injector.get(AuthenticationService);
-    const update: any  = { url: `${this.request ? this.request.protocol + '://' + this.request.get('host') : ''}${environment.baseBackendUrl}${req.url}` };
+    const url = `${this.request ? this.request.protocol + '://' + this.request.get('host') : ''}${environment.baseBackendUrl}${req.url}`
+
+    let headers = new HttpHeaders();
 
     if (this.request) {
       // Server side: forward the cookies
-      const rawCookies = !!this.request.headers['cookie'] ? this.request.headers['cookie'] : '';
-      update.setHeaders = { 'cookie': rawCookies };
+      const cookies = this.request.cookies;
+      const cookiesArray = [];
+      for (const name in cookies) {
+        if (cookies.hasOwnProperty(name)) {
+          cookiesArray.push(`${name}=${cookies[name]}`);
+        }
+      }
+      headers = headers.append('Cookie', cookiesArray.join('; '));
     }
 
-    const finalReq: HttpRequest<any> = req.clone(update);
+    headers = headers.append('Content-Type', 'application/json');
+
+    const finalReq: HttpRequest<any> = req.clone({ url, headers });
 
     if (req.url !== '/login') {
       return next.handle(finalReq).pipe(
