@@ -63,15 +63,15 @@ export class AuthenticationService {
     }
 
     get isAdmin(): boolean {
-        return this._tokenPayload.roles.map(x => x.authority).includes('admin');
+        return this._tokenPayload && this._tokenPayload.roles.map(x => x.authority).includes('admin');
     }
 
     get isArchitect(): boolean {
-        return this._tokenPayload.roles.map(x => x.authority).includes('architect');
+        return this._tokenPayload && this._tokenPayload.roles.map(x => x.authority).includes('architect');
     }
 
     get isCustomer(): boolean {
-        return this._tokenPayload.roles.map(x => x.authority).includes('customer');
+        return this._tokenPayload && this._tokenPayload.roles.map(x => x.authority).includes('customer');
     }
 
     get userLoggedIn(): Observable<any> {
@@ -83,15 +83,15 @@ export class AuthenticationService {
     }
 
     get userId(): number {
-        return this._tokenPayload.id;
+        return this._tokenPayload && this._tokenPayload.id;
     }
 
     get userEmail(): string {
-        return this._tokenPayload.sub;
+        return this._tokenPayload && this._tokenPayload.sub;
     }
 
     get displayName(): string {
-        return this._tokenPayload.displayName;
+        return this._tokenPayload && this._tokenPayload.displayName;
     }
 
     get tokenPayload(): any {
