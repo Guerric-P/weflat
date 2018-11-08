@@ -50,7 +50,6 @@ app.get('*.*', express.static(DIST_FOLDER, {
 
 app.all('/backend/*', (req, res) => {
   const newurl = 'http://' + req.hostname + req.path;
-  console.log(req.hostname);
   const cookies = [];
   for (const name in req.cookies) {
     if (req.cookies.hasOwnProperty(name)) {
@@ -58,7 +57,6 @@ app.all('/backend/*', (req, res) => {
     }
   }
   const serializedCookies = cookies.join('; ');
-  console.log(serializedCookies);
 
   request(
     {
@@ -67,12 +65,6 @@ app.all('/backend/*', (req, res) => {
       json: true,
       body: req.body,
       headers: { 'Cookie': serializedCookies }
-    },
-    function (error, response, body) {
-      // body is the decompressed response body
-      console.log('error', error);
-      console.log('server encoded the data as: ' + (response.headers['content-encoding'] || 'identity'))
-      console.log('the decoded data is: ' + body)
     })
     .pipe(res);
 });
@@ -85,7 +77,6 @@ app.get('*', (req, res) => {
       res
     },
     (err, html) => {
-      //console.log(`GET: ${req.originalUrl}`);
       if (!!err) { throw err; }
       res.send(html);
     }
