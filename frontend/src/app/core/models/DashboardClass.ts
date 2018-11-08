@@ -1,4 +1,4 @@
-import { VisitClass } from "./VisitClass";
+import { VisitClass } from './VisitClass';
 
 export class DashboardClass {
     newVisits: VisitClass[];

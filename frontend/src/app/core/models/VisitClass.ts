@@ -59,11 +59,10 @@ export class VisitClass {
     }
 
     constructor(obj?: any) {
-        for (let key in obj) {
+        for (const key in obj) {
             if (key === 'visiteDate' || key === 'creationDate') {
                 this[key] = new Date(obj[key]);
-            }
-            else {
+            } else {
                 this[key] = obj[key];
             }
         }

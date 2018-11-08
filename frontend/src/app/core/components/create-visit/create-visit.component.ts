@@ -285,7 +285,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
       this.completeVisitCreation(false);
     }
     if (event.selectedStep === this.paymentStep) {
-      //Second event to skip the previous value and get the fresh one
+      // Second event to skip the previous value and get the fresh one
       this.completeVisitCreation(true);
     }
   }

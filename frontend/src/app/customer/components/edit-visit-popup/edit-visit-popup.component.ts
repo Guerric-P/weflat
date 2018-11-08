@@ -36,8 +36,8 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
   };
 
   get currentTimeIndex() {
-    let hours = this.visit.visiteDate.getHours();
-    let minutes = this.visit.visiteDate.getMinutes();
+    const hours = this.visit.visiteDate.getHours();
+    const minutes = this.visit.visiteDate.getMinutes();
     return this.times.indexOf(this.times.find(x => x.hour === hours && x.minute === minutes));
   }
 
@@ -79,22 +79,25 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
     this.mutationObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
 
-        let target = <HTMLElement>mutation.target;
-        let oldTop = mutation.oldValue && mutation.oldValue.split(';').map(x => x.split(':').map(y => y.trim())).find(z => z[0] === 'top');
-        let oldTopValue = oldTop && oldTop[1];
+        const target = <HTMLElement>mutation.target;
+        const oldTop = mutation.oldValue
+          && mutation.oldValue.split(';')
+          .map(x => x.split(':')
+          .map(y => y.trim()))
+          .find(z => z[0] === 'top');
+        const oldTopValue = oldTop && oldTop[1];
 
         if (target.classList.contains('pac-container')
           && target.style.top
           && !target.classList.contains('weflat-touched')
-          && target.style.top != oldTopValue) {
+          && target.style.top !== oldTopValue) {
           this.fixAutocompletePosition(target);
-        }
-        else {
+        } else {
           target.classList.remove('weflat-touched');
         }
       });
     });
-    this.mutationObserver.observe(document, { subtree: true, attributes: true, attributeFilter: ["style"], attributeOldValue: true });
+    this.mutationObserver.observe(document, { subtree: true, attributes: true, attributeFilter: ['style'], attributeOldValue: true });
   }
 
   ngOnDestroy(): void {
@@ -103,13 +106,13 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
 
 
   fixAutocompletePosition(element: HTMLElement) {
-    let extractOffsetRegex = /^([-\d]*)px$/;
+    const extractOffsetRegex = /^([-\d]*)px$/;
 
-    let pacContainerOffsetString = element.style.top;
+    const pacContainerOffsetString = element.style.top;
     let pacContainerOffset = +extractOffsetRegex.exec(pacContainerOffsetString)[1];
-    let htmlOffsetString = document.documentElement.style.top;
-    if (!htmlOffsetString) return;
-    let htmlOffset = +extractOffsetRegex.exec(htmlOffsetString)[1];
+    const htmlOffsetString = document.documentElement.style.top;
+    if (!htmlOffsetString) { return; }
+    const htmlOffset = +extractOffsetRegex.exec(htmlOffsetString)[1];
     pacContainerOffset -= htmlOffset;
     element.style.top = pacContainerOffset + 'px';
     element.classList.add('weflat-touched');
@@ -121,11 +124,10 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
         if (res[0].active !== false) {
           this.loadVisit();
 
-          this.visitService.patch(this.visit, this.visit.id).subscribe(res => {
-            this.onUpdate.emit(res);
+          this.visitService.patch(this.visit, this.visit.id).subscribe(visit => {
+            this.onUpdate.emit(visit);
           });
-        }
-        else {
+        } else {
           this.visitForm.controls['addressInput'].setErrors({ inactiveZipCode: true });
         }
       });
