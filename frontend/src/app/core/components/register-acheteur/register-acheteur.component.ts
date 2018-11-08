@@ -68,8 +68,7 @@ export class RegisterAcheteurComponent implements OnInit {
           this.notificationsService.error('Erreur', 'Une erreur est survenue, un compte lié à cette addresse e-mail existe-t-il déjà ?');
           this.submitButtonDisabled = false;
         });
-    }
-    else {
+    } else {
       this.notificationsService.error('Erreur', 'Il y a une ou plusieurs erreur(s) dans le formulaire d\'inscription, vérifiez votre saisie');
     }
   }

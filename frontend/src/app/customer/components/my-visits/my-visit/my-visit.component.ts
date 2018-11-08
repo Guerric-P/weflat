@@ -24,7 +24,7 @@ export class MyVisitComponent implements OnInit {
   @ViewChild('cancelModal') cancelModalTemplate: TemplateRef<any>;
   cancelModal: MatDialogRef<any>;
   VisitStatusEnum = VisitStatusEnum;
-  cancelButtonDisabled: boolean = false;
+  cancelButtonDisabled = false;
 
   constructor(
     public authService: AuthenticationService,
@@ -64,7 +64,7 @@ export class MyVisitComponent implements OnInit {
   }
 
   editClick() {
-    let dialog = this.dialog.open(EditVisitPopupComponent,
+    const dialog = this.dialog.open(EditVisitPopupComponent,
       // calc is a workaround for https://github.com/angular/material2/blob/master/src/cdk/overlay/position/global-position-strategy.ts
       // it allows width: 100% and maxWidth: fixed amount of pixels
       { data: { visit: this.visit }, width: 'calc(100%)', maxWidth: '500px', scrollStrategy: this.overlay.scrollStrategies.block() });

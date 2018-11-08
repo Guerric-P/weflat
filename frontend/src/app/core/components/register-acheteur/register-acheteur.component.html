@@ -7,19 +7,19 @@
       <div class="row-container">
         <div class="mat-control">
           <mat-form-field>
-            <input matInput [(ngModel)]="data.firstName" required class="form-control name" formControlName="firstName" placeholder="Prénom">
+            <input matInput [(ngModel)]="data.firstName" required class="name" formControlName="firstName" placeholder="Prénom">
           </mat-form-field>
         </div>
         <div class="mat-control">
           <mat-form-field>
-            <input matInput [(ngModel)]="data.lastName" required class="form-control name" formControlName="lastName" placeholder="Nom">
+            <input matInput [(ngModel)]="data.lastName" required class="name" formControlName="lastName" placeholder="Nom">
           </mat-form-field>
         </div>
       </div>
       <div class="row-container">
         <div class="mat-control">
           <mat-form-field>
-            <input type="email" matInput [(ngModel)]="data.email" required class="form-control" formControlName="email" placeholder="E-mail">
+            <input type="email" matInput [(ngModel)]="data.email" required formControlName="email" placeholder="E-mail">
             <mat-error *ngIf="registerForm.controls.email.hasError('pattern')">
               Veuillez entrer une adresse e-mail valide.
             </mat-error>
@@ -33,7 +33,7 @@
       <div class="row-container">
         <div class="mat-control">
           <mat-form-field>
-            <input matInput [(ngModel)]="data.password" required class="form-control" type="password" formControlName="password" placeholder="Mot de passe">
+            <input matInput [(ngModel)]="data.password" required type="password" formControlName="password" placeholder="Mot de passe">
             <mat-error *ngIf="registerForm.controls.password.hasError('minlength')">
               Veuillez saisir 6 caractères
             </mat-error>
@@ -41,7 +41,7 @@
         </div>
         <div class="mat-control">
           <mat-form-field>
-            <input matInput required class="form-control" type="password" formControlName="verifyPassword" placeholder="Mot de passe">
+            <input matInput required type="password" formControlName="verifyPassword" placeholder="Mot de passe">
             <mat-error *ngIf="registerForm.controls.verifyPassword.hasError('verifyPasswordFailed')">
               Le mot de passe ne correspond pas.
             </mat-error>

@@ -116,7 +116,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
 
   get serializableZipCodes() {
     return this.zipCodes.map(x => {
-      let sanitizedZipCode = Object.assign({}, x);
+      const sanitizedZipCode = Object.assign({}, x);
       delete sanitizedZipCode.marker;
       return sanitizedZipCode;
     })
@@ -260,7 +260,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   }*/
 
   placeZipCodes() {
-    for (let zipCode of this.zipCodes) {
+    for (const zipCode of this.zipCodes) {
       this.placeMarker(zipCode);
     }
 
@@ -270,7 +270,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   loadZipCode(number: string) {
     this.zipCodeService.getZipCodesdetails([new ZipCodeClass({ number })]).subscribe(res => {
 
-      let zipCode = res[0];
+      const zipCode = res[0];
       this.zipCodes.push(zipCode);
       this.placeMarker(zipCode);
       this.map.fitBounds(this.bounds);
@@ -281,7 +281,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
     this.zipCodeService.searchZipCodes(number).subscribe(res => {
       const filteredZipCodes = res.filter(x => !this.zipCodes.find(y => y.number === x.number));
 
-      for (let zipCode of filteredZipCodes) {
+      for (const zipCode of filteredZipCodes) {
         this.zipCodes.push(zipCode);
         this.placeMarker(zipCode);
       }
@@ -366,8 +366,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
                 },
                 description: 'Département ' + event.target.value
               });
-            }
-            else if (event.target.value.match(/^[0-9]{3,4}$/)) {
+            } else if (event.target.value.match(/^[0-9]{3,4}$/)) {
               this.autocompletePredictions.unshift({
                 structured_formatting: {
                   main_text: event.target.value
@@ -375,14 +374,12 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
                 description: 'Commence par ' + event.target.value
               });
             }
-          }
-          else {
+          } else {
             this.autocompletePredictions = [];
           }
         });
       });
-    }
-    else {
+    } else {
       this.autocompletePredictions = [];
     }
   }
@@ -392,9 +389,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
     // zip code
     if (event.option.value.length === 5 && !this.zipCodes.find(x => x.number === event.option.value)) {
       this.loadZipCode(event.option.value);
-    }
-    // county
-    else if (event.option.value.length >= 2) {
+    } else if (event.option.value.length >= 2) {
       this.loadMultipleZipCodes(event.option.value);
     }
 

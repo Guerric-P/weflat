@@ -12,7 +12,7 @@ export class VisitService {
     private partialRefundAmountSubjectReady: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient) {
-        //Cache price and partial refund amount
+        // Cache price and partial refund amount
         this.refreshPrice();
         this.refreshPartialRefundAmount();
     }
