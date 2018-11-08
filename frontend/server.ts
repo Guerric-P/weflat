@@ -49,8 +49,8 @@ app.get('*.*', express.static(DIST_FOLDER, {
 }));
 
 app.all('/backend/*', (req, res) => {
-  const newurl = 'http://localhost' + req.path;
-  console.log(req.body);
+  const newurl = 'http://' + req.hostname + req.path;
+  console.log(req.hostname);
   const cookies = [];
   for (const name in req.cookies) {
     if (req.cookies.hasOwnProperty(name)) {
