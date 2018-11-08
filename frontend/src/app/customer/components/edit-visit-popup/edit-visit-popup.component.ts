@@ -9,7 +9,7 @@ import { VisitService } from '../../../shared/services/visit.service';
 import { ZipCodeService } from '../../../shared/services/zip-code.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { GoogleService } from '../../../core/services/google.service';
-declare var moment;
+import * as moment from 'moment';
 declare var google;
 
 @Component({

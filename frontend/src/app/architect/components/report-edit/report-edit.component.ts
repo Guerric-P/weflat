@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, SimpleChanges, TemplateRef, ViewChild } f
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
-declare var moment;
+import * as moment from 'moment';
 import { Location } from '@angular/common';
 import { ReportService } from '../../../shared/services/report.service';
 import { ReportClass } from '../../../core/models/ReportClass';
