@@ -23,8 +23,6 @@ export class AuthenticationService {
         @Optional() @Inject(REQUEST) private request: Request,
         @Optional() @Inject(RESPONSE) private response: Response
     ) {
-        //console.log(request);
-        //console.log(response);
         this.isBrowser = isPlatformBrowser(platformId);
         this.loadTokenFromCookie();
     }
