@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
-declare var moment;
+import * as moment from 'moment';
 import { AcheteurService } from '../../../shared/services/acheteur.service';
 import { UserService } from '../../../shared/services/user.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
