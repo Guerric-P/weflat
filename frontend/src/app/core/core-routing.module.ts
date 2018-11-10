@@ -23,14 +23,70 @@ import { ForgottenPasswordComponent } from './components/forgotten-password/forg
 const routes: Routes = [
   {
     path: '', component: PublicLayoutComponent, children: [
-      { path: '', component: HomeComponent },
-      { path: 'register/architecte', component: RegisterArchitecteComponent },
-      { path: 'register/acheteur', component: RegisterAcheteurComponent },
-      { path: 'create-visit', canActivate: [CreateVisitGuard], component: CreateVisitComponent },
-      { path: 'eula', component: EndUserLicenseAgreementComponent },
-      { path: 'faq', component: FrequentlyAskedQuestionsComponent },
-      { path: 'architect-onboarding', component: ArchitectOnBoardingComponent },
-      { path: 'forgotten-password', component: ForgottenPasswordComponent },
+      {
+        path: '',
+        component: HomeComponent,
+        data: {
+          description: `Faire appel à weflat, c'est connaitre la qualité et le potentiel d'un bien immobilier avant d'acheter. Simple, rapide et accessible.`
+        }
+      },
+      {
+        path: 'register/architecte',
+        component: RegisterArchitecteComponent,
+        data: {
+          title: 'Inscription architecte',
+          description: `S'inscrire sur la plateforme en tant qu'architecte`
+        }
+      },
+      {
+        path: 'register/acheteur',
+        component: RegisterAcheteurComponent,
+        data: {
+          title: 'Inscription acheteur',
+          description: `S'inscrire sur la plateforme en tant qu'acheteur`
+        }
+      },
+      {
+        path: 'create-visit',
+        canActivate: [CreateVisitGuard],
+        component: CreateVisitComponent,
+        data: {
+          title: 'Création de visite',
+          description: `Formulaire de création de visite et de paiement`
+        }
+      },
+      {
+        path: 'eula',
+        component: EndUserLicenseAgreementComponent,
+        data: {
+          title: `Conditions d'utilisation`,
+          description: `Contrat de licence utilisateur final`
+        }
+      },
+      {
+        path: 'faq',
+        component: FrequentlyAskedQuestionsComponent,
+        data: {
+          title: 'Foire aux questions',
+          description: 'Questions fréquemment posées'
+        }
+      },
+      {
+        path: 'architect-onboarding',
+        component: ArchitectOnBoardingComponent,
+        data: {
+          title: 'Je suis architecte',
+          description: 'Rejoignez notre communauté pour compléter vos revenus et développer votre réseau'
+        }
+      },
+      {
+        path: 'forgotten-password',
+        component: ForgottenPasswordComponent,
+        data: {
+          title: 'Mot de passe oublié',
+          description: 'Page de réinitialisation de mot de passe'
+        }
+      },
       { path: 'architectes', redirectTo: 'architect-onboarding' }
     ]
   }, {

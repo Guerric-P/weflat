@@ -77,7 +77,7 @@ app.get('*', (req, res) => {
       res
     },
     (err, html) => {
-      if (!!err) { throw err; }
+      if (err) { console.error(err); }
       res.send(html);
     }
   );
