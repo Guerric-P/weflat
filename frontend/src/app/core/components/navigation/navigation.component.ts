@@ -1,5 +1,5 @@
-import { Component, OnInit, TemplateRef, ViewChild, OnDestroy, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute, RoutesRecognized, GuardsCheckEnd } from '@angular/router';
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute, RoutesRecognized, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ShowSigninPopupService } from '../../services/show-signin-popup.service';
@@ -27,8 +27,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router, private route: ActivatedRoute,
-    private showSigninPopupService: ShowSigninPopupService,
+    private router: Router, private showSigninPopupService: ShowSigninPopupService,
     private dialog: MatDialog
   ) { }
 
@@ -44,9 +43,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
         if (this.signinModal) { this.signinModal.close(); }
         if (this.signupModal) { this.signupModal.close(); }
       }
+      if (data instanceof NavigationEnd) {
+        this.expandingFooter.close();
+      }
     });
 
-    this.showSigninPopupSubscription = this.showSigninPopupService.showSigninPopupObservable$.subscribe(x => {
+    this.showSigninPopupSubscription = this.showSigninPopupService.showSigninPopupObservable$.subscribe(() => {
       this.openSignin();
     });
   }
