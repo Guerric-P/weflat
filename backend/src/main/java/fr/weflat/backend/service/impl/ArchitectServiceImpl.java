@@ -24,6 +24,7 @@ import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.enums.ArchitectStatusEnum;
 import fr.weflat.backend.service.ArchitectService;
 import fr.weflat.backend.service.MailService;
+import fr.weflat.backend.service.SlackService;
 
 @Service
 @Transactional
@@ -37,6 +38,9 @@ public class ArchitectServiceImpl implements ArchitectService {
 	
 	@Autowired
 	private MailService mailService;
+	
+	@Autowired
+	private SlackService slackService;
 
 	@Override
 	public Architect findById(long id) {
@@ -47,6 +51,7 @@ public class ArchitectServiceImpl implements ArchitectService {
 	public Architect save(Architect architect) {
 		if(isProfileComplete(architect) && architect.getStatus() == ArchitectStatusEnum.CREATED.ordinal()) {
 			architect.setStatus(ArchitectStatusEnum.APPROVING.ordinal());
+			slackService.sendNewPendingArchitectMessage(architect.getFirstName(), architect.getLastName());
 		}
 		if(!isProfileComplete(architect) && architect.getStatus() == ArchitectStatusEnum.APPROVING.ordinal()) {
 			architect.setStatus(ArchitectStatusEnum.CREATED.ordinal());

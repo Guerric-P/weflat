@@ -22,6 +22,7 @@ import fr.weflat.backend.domaine.Visit;
 import fr.weflat.backend.enums.VisitStatusEnum;
 import fr.weflat.backend.service.MailService;
 import fr.weflat.backend.service.ReportService;
+import fr.weflat.backend.service.SlackService;
 import fr.weflat.backend.service.UserService;
 import fr.weflat.backend.service.VisitService;
 import fr.weflat.backend.web.dto.ReportDto;
@@ -47,6 +48,9 @@ public class VisitController {
 	
 	@Autowired
 	MailService mailService;
+	
+	@Autowired
+	SlackService slackService;
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.POST)
@@ -299,6 +303,14 @@ public class VisitController {
 						visit.getCustomer().getEmail(),
 						visit.getArchitect().getFirstName(),
 						visit.getCustomer().getFirstName()
+						);
+				slackService.sendReportSubmitted(
+						visit.getCustomer().getFirstName(),
+						visit.getCustomer().getLastName(),
+						visit.getArchitect().getFirstName(),
+						visit.getArchitect().getLastName(),
+						visit.formattedAddress(),
+						visit.getVisiteDate()
 						);
 			}
 			else {

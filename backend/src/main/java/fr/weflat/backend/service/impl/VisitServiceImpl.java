@@ -32,6 +32,7 @@ import fr.weflat.backend.enums.VisitStatusEnum;
 import fr.weflat.backend.service.ArchitectService;
 import fr.weflat.backend.service.CustomerService;
 import fr.weflat.backend.service.MailService;
+import fr.weflat.backend.service.SlackService;
 import fr.weflat.backend.service.VisitService;
 import fr.weflat.backend.service.ZipCodeService;
 import ma.glasnost.orika.MapperFacade;
@@ -59,6 +60,9 @@ public class VisitServiceImpl implements VisitService {
 
 	@Autowired
 	MapperFacade orikaMapperFacade;
+	
+	@Autowired
+	SlackService slackService;
 
 	@PersistenceContext
 	private EntityManager em;
@@ -93,25 +97,7 @@ public class VisitServiceImpl implements VisitService {
 				visit.setNearbyArchitects(null);
 				visit.setStatus(VisitStatusEnum.IN_PROGRESS.ordinal());
 				visiteDao.save(visit);
-
-				/*StringBuilder messageBuilder = new StringBuilder();
-				messageBuilder.append(architect.getFirstName());
-				messageBuilder.append(" ");
-				messageBuilder.append(architect.getLastName());
-				messageBuilder.append(" a accepté de vous accompagner lors de votre visite du ");
-				messageBuilder.append(visit.getVisiteDate());
-				messageBuilder.append(" au ");
-				messageBuilder.append(visit.getStreetNumber());
-				messageBuilder.append(", ");
-				messageBuilder.append(visit.getRoute());
-				messageBuilder.append(" - ");
-				messageBuilder.append(visit.getZipCode().getNumber());
-				messageBuilder.append(" ");
-				messageBuilder.append(visit.getCity());
-
-				mailService.sendSimpleMail(visit.getCustomer().getEmail(),
-						"Un architecte a accepté votre visite !",
-						messageBuilder.toString());*/
+				slackService.sendArchitectAcceptedVisit(visit.getCustomer().getFirstName(), visit.getCustomer().getLastName(), architect.getFirstName(), architect.getLastName(), visit.formattedAddress(), visit.getVisiteDate());
 			}
 			else {
 				throw new Exception("Architect is already assigned");
@@ -270,6 +256,8 @@ public class VisitServiceImpl implements VisitService {
 			visit.setCustomerPaidAmount(visitPrice);
 
 			save(visit);
+			
+			slackService.sendNewVisit(visit.getCustomer().getFirstName(), visit.getCustomer().getLastName(), visit.formattedAddress(), visit.getVisiteDate());
 
 		}
 		catch(Exception e) {

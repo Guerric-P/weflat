@@ -13,10 +13,11 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -37,6 +38,8 @@ import fr.weflat.backend.service.MailService;
 
 @Service
 public class MailServiceImpl implements MailService {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -95,10 +98,13 @@ public class MailServiceImpl implements MailService {
 
 			javaMailSender.send((MimeMessage)message);
 			
+			logger.debug("Mail successfully sent to address:" + email + " with subject " + subject + " and message " + text);
+			
 			return CompletableFuture.completedFuture(null);
 
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+		} catch (Exception e) {
+			logger.error("Error while sending mail :", e);
+			throw e;
 		}
 	}
 

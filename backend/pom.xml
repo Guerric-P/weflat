@@ -98,6 +98,11 @@
 	      	<artifactId>jasypt</artifactId>
 	      	<version>1.9.2</version>
     	</dependency>
+    	<dependency>
+    		<groupId>com.github.seratch</groupId>
+			<artifactId>jslack</artifactId>
+			<version>1.1.6</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -112,6 +117,26 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<profiles>
+		<profile>
+			<id>bundle</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>weflat.properties</exclude>
+							<exclude>logback.xml</exclude>
+						</excludes>
+						<filtering>false</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
 	<build>
 		<plugins>
 			<plugin>
