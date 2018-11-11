@@ -1,0 +1,11 @@
+<div class="d-flex flex-row justify-content-between">
+  <h5>Qui êtes-vous ?</h5>
+  <button type="button" class="close" (click)="close()">
+    <span>&times;</span>
+  </button>
+</div>
+
+<div class="modal-body d-flex flex-row justify-content-around">
+  <button mat-raised-button color="primary" type="button" class="mr-2" [mat-dialog-close]="'acheteur'">Un acheteur</button>
+  <button mat-raised-button color="primary" type="button" class="ml-2" [mat-dialog-close]="'architecte'">Un architecte</button>
+</div>

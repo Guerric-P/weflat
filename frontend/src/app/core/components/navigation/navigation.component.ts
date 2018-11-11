@@ -2,10 +2,11 @@ import { Component, OnInit, TemplateRef, ViewChild, OnDestroy, ElementRef } from
 import { Router, ActivatedRoute, RoutesRecognized, GuardsCheckEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
-import { AuthGuard } from '../../guards/auth.guard';
 import { ShowSigninPopupService } from '../../services/show-signin-popup.service';
 import { Constantes } from '../../../shared/common/Constantes';
 import { MatDialog, MatDialogRef, MatExpansionPanel } from '@angular/material';
+import { SigninModalComponent } from '../common/signin-modal/signin-modal.component';
+import { SignupModalComponent } from '../common/signup-modal/signup-modal.component';
 
 @Component({
   selector: 'app-navigation',
@@ -15,14 +16,10 @@ import { MatDialog, MatDialogRef, MatExpansionPanel } from '@angular/material';
 export class NavigationComponent implements OnInit, OnDestroy {
 
   private routeData;
-  model: any = {};
   returnUrl: string;
   disabled: boolean;
-  errorMessage: string;
   routerEventsSubscription: Subscription;
   showSigninPopupSubscription: Subscription;
-  @ViewChild('signinModal') signinModalTemplate: TemplateRef<any>;
-  @ViewChild('signupModal') signupModalemplate: TemplateRef<any>;
   @ViewChild('expandingFooter') expandingFooter: MatExpansionPanel;
   @ViewChild('footerBody') footerBody: ElementRef;
   signinModal: MatDialogRef<any>;
@@ -31,10 +28,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthenticationService,
     private router: Router, private route: ActivatedRoute,
-    private authGuard: AuthGuard,
     private showSigninPopupService: ShowSigninPopupService,
     private dialog: MatDialog
-    ) { }
+  ) { }
 
   ngOnInit() {
 
@@ -48,18 +44,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
         if (this.signinModal) { this.signinModal.close(); }
         if (this.signupModal) { this.signupModal.close(); }
       }
-      if (data instanceof GuardsCheckEnd) {
-        if (!data.shouldActivate) {
-          this.errorMessage = 'Vous n\'avez pas accès à cette fonctionnalité, veuillez vous connecter avec un compte approprié';
-          this.displaySigninPopup();
-        } else {
-          this.expandingFooter.close();
-        }
-      }
     });
 
     this.showSigninPopupSubscription = this.showSigninPopupService.showSigninPopupObservable$.subscribe(x => {
-      this.openSignin(this.signinModalTemplate);
+      this.openSignin();
     });
   }
 
@@ -69,7 +57,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   displaySigninPopup() {
-    setTimeout(() => this.openSignin(this.signinModalTemplate));
+    setTimeout(() => this.openSignin());
   }
 
   get isLoggedIn() {
@@ -84,53 +72,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
     return this.expandingFooter.expanded ? -this.footerBody.nativeElement.parentElement.getBoundingClientRect().height + 'px' : '0px';
   }
 
-  openSignup(content) {
-    this.signupModal = this.dialog.open(content);
-
-    this.signupModal.afterClosed().subscribe((result) => {
-      if (result) {
-        this.router.navigate([`/register/${result}`]);
-      }
-    }, (reason) => {
-
-    });
+  openSignup() {
+    this.signupModal = this.dialog.open(SignupModalComponent);
   }
 
-  openSignin(content) {
-    this.signinModal = this.dialog.open(content);
-
-    this.signinModal.afterClosed().subscribe(() => {
-      this.errorMessage = null;
-      this.authService.returnUrl = null;
-    }, () => {
-      this.errorMessage = null;
-      this.authService.returnUrl = null;
-    });
-  }
-
-  closeSignin() {
-    this.signinModal.close();
-  }
-
-  closeSignup() {
-    this.signupModal.close();
-  }
-
-  login() {
-    this.disabled = true;
-    this.authService.login(this.model.username, this.model.password)
-      .subscribe(
-        () => {
-          this.signinModal.close();
-          if (this.authService.returnUrl) {
-            this.router.navigate([this.authService.returnUrl]);
-            this.authService.returnUrl = null;
-          }
-        },
-        () => {
-          this.errorMessage = 'Erreur lors de l\'authentification';
-          this.disabled = false;
-        });
+  openSignin() {
+    this.signinModal = this.dialog.open(SigninModalComponent);
   }
 
   redirectToPersonal() {
@@ -150,21 +97,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-
     this.authService.logout().subscribe(() => {
       this.redirectIfAuthRequired();
     }, () => {
       this.redirectIfAuthRequired();
     });
-
   }
 
   redirectIfAuthRequired() {
     if (this.routeData && this.routeData.authRequired) {
-      this.authGuard.canActivate(
-        this.route.snapshot,
-        this.router.routerState.snapshot
-      )
+      this.router.navigate(['/']);
     }
   }
 
