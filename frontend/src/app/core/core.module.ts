@@ -101,7 +101,8 @@ import { SignupModalComponent } from './components/common/signup-modal/signup-mo
     SessionStorageService,
     ShowSigninPopupService,
     LoaderService,
-    VisiteCounterService
+    VisiteCounterService,
+    SEOService
   ],
   declarations: [
     PublicLayoutComponent,

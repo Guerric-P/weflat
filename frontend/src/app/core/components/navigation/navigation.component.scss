@@ -51,7 +51,7 @@ a {
     position: absolute;
     width: 50%;
     transform-origin: left bottom;
-    height: 10%;
+    height: 3px;
     background-color: #2E313C;
     transition: transform 0.3s, top 0.3s;
 }
@@ -63,7 +63,7 @@ a {
     top: 16.67%;
     width: 50%;
     transform-origin: right bottom;
-    height: 10%;
+    height: 3px;
     background-color: #2E313C;
     transition: transform 0.3s, top 0.3s;
 }
@@ -73,7 +73,7 @@ a {
     width: 100%;
     top: 50%;
     left: 50%;
-    height: 10%;
+    height: 3px;
     background-color: #2E313C;
     transform: translate(-50%, -50%);
     transition: transform 0.3s 0.3s, width 0.3s 0.6s;
@@ -86,7 +86,7 @@ a {
     left: 0;
     width: 50%;
     transform-origin: left top;
-    height: 10%;
+    height: 3px;
     background-color: #2E313C;
     transition: transform 0.3s, bottom 0.3s;
 }
@@ -98,7 +98,7 @@ a {
     right: 0;
     width: 50%;
     transform-origin: right top;
-    height: 10%;
+    height: 3px;
     background-color: #2E313C;
     transition: transform 0.3s, bottom 0.3s;
 }
@@ -122,7 +122,7 @@ a {
 }
 
 .menu.open .bit-2 {
-    width: 10%;
+    width: 3px;
     transform: translate(-50%, -50%) rotate(45deg);
     background-color: #FFFFFF;
     transition: transform 0.3s 0.3s, width 0.3s;
