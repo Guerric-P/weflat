@@ -8,7 +8,6 @@ import { RegisterAcheteurComponent } from './components/register-acheteur/regist
 import { CreateVisitGuard } from './guards/create-visit.guard';
 import { CreateVisitComponent } from './components/create-visit/create-visit.component';
 import { ArchitecteLayoutComponent } from './layout/architecte-layout/architecte-layout.component';
-import { AuthGuard } from './guards/auth.guard';
 import { ArchitecteGuard } from './guards/architecte.guard';
 import { AcheteurLayoutComponent } from './layout/acheteur-layout/acheteur-layout.component';
 import { AcheteurGuard } from './guards/acheteur.guard';
@@ -36,19 +35,19 @@ const routes: Routes = [
   }, {
     path: 'architecte',
     component: ArchitecteLayoutComponent,
-    canActivate: [AuthGuard, ArchitecteGuard],
+    canActivate: [ArchitecteGuard],
     data: { authRequired: true },
     loadChildren: '../architect/architect.module#ArchitectModule'
   }, {
     path: 'acheteur',
     component: AcheteurLayoutComponent,
-    canActivate: [AuthGuard, AcheteurGuard],
+    canActivate: [AcheteurGuard],
     data: { authRequired: true },
     loadChildren: '../customer/customer.module#CustomerModule'
   }, {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AdminGuard],
     data: { authRequired: true },
     loadChildren: '../admin/admin.module#AdminModule'
   },
