@@ -2,7 +2,6 @@
 server/
 backend/src/main/resources/weflat.properties
 frontend/proxy.config.json
-migration/users.json
-migration/users.old.json
 migration/config.json
-migration/users.json.old
+migration/users*
+logs/

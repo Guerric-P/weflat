@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
+import { RoutesRecognized } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { BaseBackendLayoutComponent } from '../base-backend-layout/base-backend-layout.component';
