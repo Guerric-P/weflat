@@ -18,6 +18,6 @@ export class SEOService {
   }
 
   updateDescription(desc: string) {
-    this.meta.updateTag({ name: 'description', content: desc })
+    this.meta.updateTag({ name: 'description', content: desc });
   }
 }

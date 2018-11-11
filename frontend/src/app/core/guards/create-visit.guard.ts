@@ -2,11 +2,17 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
+import { MatDialog } from '@angular/material';
+import { SigninModalComponent } from '../components/common/signin-modal/signin-modal.component';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CreateVisitGuard implements CanActivate {
 
-  constructor(private router: Router, private authService: AuthenticationService) { }
+  constructor(
+    private authService: AuthenticationService,
+    private dialog: MatDialog
+  ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -16,9 +22,17 @@ export class CreateVisitGuard implements CanActivate {
       // logged in so return true
       return true;
     }
-    // not logged in so redirect to login page with the return url
-    // this.authService.returnUrl = state.url;
-    this.router.navigate(['/']);
-    return false;
+
+    const dialog = this.dialog.open(SigninModalComponent, {
+      data: {
+        errorMessage: 'Vous n\'avez pas accès à cette page, connectez-vous avec un compte approprié'
+      }
+    });
+
+    return dialog.afterClosed().pipe(
+      map(() => {
+        return this.authService.isCustomer;
+      })
+    );
   }
 }
