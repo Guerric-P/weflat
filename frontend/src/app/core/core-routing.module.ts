@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
 import { HomeComponent } from './components/home/home.component';
@@ -11,7 +10,6 @@ import { ArchitecteLayoutComponent } from './layout/architecte-layout/architecte
 import { ArchitecteGuard } from './guards/architecte.guard';
 import { AcheteurLayoutComponent } from './layout/acheteur-layout/acheteur-layout.component';
 import { AcheteurGuard } from './guards/acheteur.guard';
-import { ErrorComponent } from './components/error/error.component';
 import { EndUserLicenseAgreementComponent } from './components/end-user-license-agreement/end-user-license-agreement.component';
 import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked-questions/frequently-asked-questions.component';
 import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
