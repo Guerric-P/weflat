@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/authentication.service';
-import { AuthGuard } from '../../../core/guards/auth.guard';
 import { VisitService } from '../../../shared/services/visit.service';
 import { VisiteCounterService } from '../../services/visite-counter.service';
 
@@ -18,7 +17,6 @@ export class BaseBackendLayoutComponent implements OnInit {
 
   constructor(protected authService: AuthenticationService,
     protected router: Router, protected route: ActivatedRoute,
-    protected authGuard: AuthGuard,
     protected visiteService: VisitService,
     protected visiteCounterService: VisiteCounterService) {
   }
@@ -50,17 +48,14 @@ export class BaseBackendLayoutComponent implements OnInit {
     this.authService.logout().subscribe(() => {
       this.redirectIfAuthRequired();
     }, () => {
-        this.redirectIfAuthRequired();
-      });
+      this.redirectIfAuthRequired();
+    });
 
   }
 
   redirectIfAuthRequired() {
     if (this.authRequired) {
-      this.authGuard.canActivate(
-        this.route.snapshot,
-        this.router.routerState.snapshot
-      )
+      this.router.navigate(['/']);
     }
   }
 

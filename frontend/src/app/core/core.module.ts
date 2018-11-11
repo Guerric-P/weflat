@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterArchitecteComponent } from './components/register-architecte/register-architecte.component';
 import { RegisterAcheteurComponent } from './components/register-acheteur/register-acheteur.component';
 import { CreateVisitGuard } from './guards/create-visit.guard';
 import { CreateVisitComponent } from './components/create-visit/create-visit.component';
-import { AuthGuard } from './guards/auth.guard';
 import { ArchitecteGuard } from './guards/architecte.guard';
 import { AcheteurGuard } from './guards/acheteur.guard';
 import { ErrorComponent } from './components/error/error.component';
@@ -58,6 +57,8 @@ import { AdminGuard } from './guards/admin.guard';
 import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
 import { filter, map, mergeMap } from 'rxjs/operators';
 import { SEOService } from './services/seo.service';
+import { SigninModalComponent } from './components/common/signin-modal/signin-modal.component';
+import { SignupModalComponent } from './components/common/signup-modal/signup-modal.component';
 
 @NgModule({
   imports: [
@@ -88,7 +89,6 @@ import { SEOService } from './services/seo.service';
   ],
   providers: [
     AuthenticationService,
-    AuthGuard,
     ArchitecteGuard,
     AcheteurGuard,
     AdminGuard,
@@ -122,7 +122,13 @@ import { SEOService } from './services/seo.service';
     FrequentlyAskedQuestionsComponent,
     ArchitectOnBoardingComponent,
     AdminLayoutComponent,
-    ForgottenPasswordComponent
+    ForgottenPasswordComponent,
+    SigninModalComponent,
+    SignupModalComponent
+  ],
+  entryComponents: [
+    SigninModalComponent,
+    SignupModalComponent
   ],
   exports: [
     LoaderComponent,
@@ -147,7 +153,7 @@ export class CoreModule {
     )
       .subscribe((event) => {
         this.seoService.updateTitle(event['title']);
-        //Updating Description tag dynamically with title
+        // Updating Description tag dynamically with title
         this.seoService.updateDescription(event['description']);
       });
   }
