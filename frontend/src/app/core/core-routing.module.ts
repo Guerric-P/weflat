@@ -104,8 +104,11 @@ const routes: Routes = [
     canActivate: [AdminGuard],
     data: { authRequired: true },
     loadChildren: '../admin/admin.module#AdminModule'
+  }, {
+    path: 'not-found',
+    loadChildren: '../server-errors/server-errors.module#ServerErrorsModule'
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'not-found' }
 ];
 
 @NgModule({
