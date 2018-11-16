@@ -3,7 +3,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { RouterModule } from '@angular/router';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -16,6 +16,7 @@ registerLocaleData(localeFr);
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
+    BrowserTransferStateModule
   ],
   declarations: [
     AppComponent

@@ -16,6 +16,7 @@ import { ArchitectOnBoardingComponent } from './components/architect-on-boarding
 import { AdminGuard } from './guards/admin.guard';
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
+import { Constantes } from '../shared/common/Constantes'
 
 const routes: Routes = [
   {
@@ -105,7 +106,7 @@ const routes: Routes = [
     data: { authRequired: true },
     loadChildren: '../admin/admin.module#AdminModule'
   }, {
-    path: 'not-found',
+    path: Constantes.NOT_FOUND_URL,
     loadChildren: '../server-errors/server-errors.module#ServerErrorsModule'
   },
   { path: '**', redirectTo: 'not-found' }
