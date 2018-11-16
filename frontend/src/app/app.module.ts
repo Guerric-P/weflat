@@ -2,7 +2,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -18,7 +18,8 @@ registerLocaleData(localeFr);
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     TransferHttpCacheModule,
-    InterceptorsModule
+    InterceptorsModule,
+    BrowserTransferStateModule
   ],
   declarations: [
     AppComponent
