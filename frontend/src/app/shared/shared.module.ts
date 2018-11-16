@@ -16,30 +16,36 @@ import { PositionResolver } from './resolvers/position.resolver';
 import { PositionService } from './services/position.service';
 import { ShowSigninPopupService } from '../core/services/show-signin-popup.service';
 import { AcheteurResolver } from './resolvers/acheteur.resolver';
-import { LoaderService } from '../core/services/loader.service';
 import { PaymentDirective } from './directives/payment.directive';
 import { ReportConsultationComponent } from './components/report/report-consultation/report-consultation.component';
 import { ZipCodeService } from './services/zip-code.service';
-import { MatTooltipModule, MatButtonModule } from '@angular/material';
+import { MatTooltipModule, MatButtonModule, MatProgressSpinnerModule } from '@angular/material';
 import { PaymentTypeService } from './services/payment-type.service';
 import { PaymentTypeResolver } from './resolvers/payment-type.resolver';
 import { KeysPipe } from './pipes/keys.pipe';
+import { LoaderComponent } from './components/loader/loader.component';
+import { LoaderService } from './services/loader.service';
 
 @NgModule({
   imports: [
     CommonModule,
     MatTooltipModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     PaymentDirective,
     ReportConsultationComponent,
-    KeysPipe
+    KeysPipe,
+    LoaderComponent
   ],
   exports: [
     PaymentDirective,
     ReportConsultationComponent,
     KeysPipe
+  ],
+  entryComponents: [
+    LoaderComponent
   ]
 })
 export class SharedModule {
