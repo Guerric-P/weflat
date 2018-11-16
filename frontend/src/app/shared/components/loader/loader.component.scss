@@ -8,8 +8,8 @@
     height: 60px;
     display: flex;
     flex-direction: row;
-    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
     border-radius: 2px;
     align-items: center;
 }
@@ -19,6 +19,5 @@
 }
 
 ::ng-deep .cdk-overlay-container {
-
     z-index: 10000;
 }

@@ -2,9 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { VisitService } from '../../../../shared/services/visit.service';
-import { LoaderService } from '../../../../core/services/loader.service';
 import { VisitClass } from '../../../../core/models/VisitClass';
 import { VisiteCounterService } from '../../../../core/services/visite-counter.service';
+import { LoaderService } from 'app/shared/services/loader.service';
 
 @Component({
   selector: 'app-visit',

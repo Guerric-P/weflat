@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute, NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterArchitecteComponent } from './components/register-architecte/register-architecte.component';
 import { RegisterAcheteurComponent } from './components/register-acheteur/register-acheteur.component';
@@ -13,7 +13,6 @@ import { ErrorComponent } from './components/error/error.component';
 import { AuthenticationService } from './services/authentication.service';
 import { ErrorInterceptor } from './services/http-interceptor.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoaderService } from './services/loader.service';
 import { SessionStorageService } from './services/session-storage.service';
 import { ShowSigninPopupService } from './services/show-signin-popup.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -41,7 +40,6 @@ import {
 
 import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { SharedModule } from '../shared/shared.module';
-import { LoaderComponent } from './components/common/loader/loader.component';
 import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
 import { ArchitecteLayoutComponent } from './layout/architecte-layout/architecte-layout.component';
 import { AcheteurLayoutComponent } from './layout/acheteur-layout/acheteur-layout.component';
@@ -59,6 +57,7 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 import { SEOService } from './services/seo.service';
 import { SigninModalComponent } from './components/common/signin-modal/signin-modal.component';
 import { SignupModalComponent } from './components/common/signup-modal/signup-modal.component';
+import { LoaderService } from 'app/shared/services/loader.service';
 
 @NgModule({
   imports: [
@@ -73,7 +72,6 @@ import { SignupModalComponent } from './components/common/signup-modal/signup-mo
     MatFormFieldModule,
     MatDividerModule,
     MatStepperModule,
-    MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
@@ -100,7 +98,6 @@ import { SignupModalComponent } from './components/common/signup-modal/signup-mo
     },
     SessionStorageService,
     ShowSigninPopupService,
-    LoaderService,
     VisiteCounterService,
     SEOService
   ],
@@ -117,7 +114,6 @@ import { SignupModalComponent } from './components/common/signup-modal/signup-mo
     NavigationComponent,
     AddressFieldComponent,
     DisabledZipCodePopupComponent,
-    LoaderComponent,
     EndUserLicenseAgreementComponent,
     FrequentlyAskedQuestionsComponent,
     ArchitectOnBoardingComponent,
@@ -131,7 +127,6 @@ import { SignupModalComponent } from './components/common/signup-modal/signup-mo
     SignupModalComponent
   ],
   exports: [
-    LoaderComponent,
     RouterModule
   ]
 })
@@ -139,9 +134,24 @@ export class CoreModule {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private seoService: SEOService
-    ) {
-    this.router.events.pipe(
+    private seoService: SEOService,
+    @Optional() @SkipSelf() parentModule: CoreModule,
+    loaderService: LoaderService
+  ) {
+    if (parentModule) {
+      throw new Error(
+        'CoreModule is already loaded. Import it in the AppModule only');
+    }
+
+    router.events.pipe(
+      filter(x => x instanceof NavigationStart)
+    ).subscribe(() => loaderService.show());
+
+    router.events.pipe(
+      filter(x => x instanceof NavigationEnd || x instanceof NavigationCancel || x instanceof NavigationError)
+    ).subscribe(() => loaderService.hide());
+
+    router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map(() => this.activatedRoute),
       map((route) => {
