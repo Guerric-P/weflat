@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 
 registerLocaleData(localeFr);
 
@@ -15,6 +16,7 @@ registerLocaleData(localeFr);
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
+    TransferHttpCacheModule
   ],
   declarations: [
     AppComponent

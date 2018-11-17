@@ -10,7 +10,7 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { Request } from 'express';
 
 @Injectable()
-export class ErrorInterceptor implements HttpInterceptor {
+export class WeflatInterceptor implements HttpInterceptor {
 
   constructor(
     private router: Router,
