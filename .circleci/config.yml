@@ -1,8 +1,7 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: circleci/build-image:latest
+    machine: true
       
     branches:
         only:
@@ -12,8 +11,6 @@ jobs:
     
     steps:
       - checkout
-      - setup_remote_docker:   
-          docker_layer_caching: true
       - run: |
           docker build -t http:latest http
           docker build -t frontend:latest frontend
