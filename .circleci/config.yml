@@ -13,12 +13,12 @@ jobs:
     steps:
       - checkout
       - run: |
-          docker build -t http:latest http
-          docker build -t frontend:latest frontend
-          docker build -t backend:latest backend
-          docker build -t database:latest database
+          docker build -t http_latest http
+          docker build -t frontend_latest frontend
+          docker build -t backend_latest backend
+          docker build -t database_latest database
           docker login -u $DOCKER_USER -p $DOCKER_PASS
-          docker push gphalippou/weflat:http:latest
-          docker push gphalippou/weflat:frontend:latest
-          docker push gphalippou/weflat:backend:latest
-          docker push gphalippou/weflat:database:latest
+          docker push gphalippou/weflat:http_latest
+          docker push gphalippou/weflat:frontend_latest
+          docker push gphalippou/weflat:backend_latest
+          docker push gphalippou/weflat:database_latest
