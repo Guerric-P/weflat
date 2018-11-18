@@ -22,10 +22,3 @@ jobs:
           docker push frontend
           docker push backend
           docker push database
-
-workflows:
-  version: 2
-  weflat-workflow:
-    jobs:
-      - build:
-          context: Weflat
