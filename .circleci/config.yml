@@ -15,10 +15,10 @@ jobs:
       - setup_remote_docker:   
           docker_layer_caching: true
       - run: |
-          docker build -t http:latest -f http/Dockerfile .
-          docker build -t frontend:latest -f frontend/Dockerfile .
-          docker build -t backend:latest -f backend/Dockerfile .
-          docker build -t database:latest -f database/Dockerfile .
+          docker build -t http:latest -f http
+          docker build -t frontend:latest -f frontend
+          docker build -t backend:latest -f backend
+          docker build -t database:latest -f database
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push http
           docker push frontend
