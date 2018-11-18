@@ -1,0 +1,58 @@
+version: "3.2"
+services:
+  http:
+    build: http
+    hostname: apache
+    ports:
+      - 8080:8080
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - client
+    volumes:
+      - type: volume
+        source: vfrontend
+        target: /var/www/html
+        volume:
+          nocopy: true
+
+  client:
+    build: frontend
+    hostname: client
+    networks:
+      - backend
+    depends_on:
+      - server
+    volumes:
+      - vfrontend:/app/dist/browser
+
+  server:
+    build: backend
+    hostname: server
+    volumes:
+      - /var/logs/backend:/var/log/tomcat8
+    networks:
+      - backend
+    depends_on:
+      - database
+
+  database:
+    build: database
+    hostname: database
+    environment: 
+     PGUSER: consent
+     PGPORT: 5432
+     PGPASSWORD: consent
+     PGDATA: /var/lib/postgresql/data
+    volumes:
+      - /data/postgresql:/var/lib/postgresql/data
+    networks:
+      - backend
+
+networks:
+    frontend:
+    backend:
+
+volumes:
+  vfrontend:

@@ -1,6 +1,6 @@
 .DS_Store
 server/
-backend/src/main/resources/weflat.properties
+#backend/src/main/resources/weflat.properties
 frontend/proxy.config.json
 migration/config.json
 migration/users*
