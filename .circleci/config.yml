@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     machine: 
-      docker_layer_caching: true    # default - false
+      docker_layer_caching: true
       
     branches:
         only:
@@ -13,10 +13,10 @@ jobs:
     steps:
       - checkout
       - run: |
-          docker build -t http_latest http
-          docker build -t frontend_latest frontend
-          docker build -t backend_latest backend
-          docker build -t database_latest database
+          docker build -t gphalippou/weflat:http_latest http
+          docker build -t gphalippou/weflat:frontend_latest frontend
+          docker build -t gphalippou/weflat:backend_latest backend
+          docker build -t gphalippou/weflat:database_latest database
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push gphalippou/weflat:http_latest
           docker push gphalippou/weflat:frontend_latest
