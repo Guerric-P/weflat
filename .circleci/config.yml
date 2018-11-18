@@ -12,6 +12,8 @@ jobs:
     
     steps:
       - checkout
+      - setup_remote_docker:   
+          docker_layer_caching: true
       - run: |
           docker build -t http:latest -f http/Dockerfile .
           docker build -t frontend:latest -f frontend/Dockerfile .
