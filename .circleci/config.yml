@@ -1,16 +1,24 @@
 version: 2
 jobs:
   build:
+    docker:
+      - image: circleci/<language>:<version TAG>
+      
+    branches:
+        only:
+          - docker
+          
+    working_directory: ~/repo
+    
     steps:
       - checkout
-      - run: docker-compose --project-name weflat build
-  deploy:
-    steps:
-      - checkout
-      - run: docker-compose --project-name weflat up -d
-workflows:
-  version: 2
-  build_and_deploy:
-    jobs:
-      - build
-      - deploy
+      - run: |
+          docker build -t http:latest -f http/Dockerfile
+          docker build -t frontend:latest -f frontend/Dockerfile
+          docker build -t backend:latest -f backend/Dockerfile
+          docker build -t database:latest -f database/Dockerfile
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker push http
+          docker push frontend
+          docker push backend
+          docker push database
