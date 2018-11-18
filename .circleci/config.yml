@@ -3,7 +3,6 @@ jobs:
   build:
     machine: 
       docker_layer_caching: true    # default - false
-    context: Weflat
       
     branches:
         only:
@@ -23,3 +22,10 @@ jobs:
           docker push frontend
           docker push backend
           docker push database
+
+workflows:
+  version: 2
+  weflat-workflow:
+    jobs:
+      - build:
+          context: Weflat
