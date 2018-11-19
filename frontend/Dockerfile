@@ -10,7 +10,11 @@ FROM node:10.13.0-stretch
 COPY --from=build-stage /app/dist/ /app/
 RUN npm install -g pm2
 
-ENTRYPOINT ["pm2","start","/app/server.js"]
-
 # Expose port
 EXPOSE 4000
+
+COPY ./common.sh /
+COPY ./docker-entrypoint.sh /
+RUN chmod 755 /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
