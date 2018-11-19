@@ -9,4 +9,5 @@ FROM node:10.13.0-stretch
 
 COPY --from=build-stage /app/dist/ /app/
 RUN npm install -g pm2
-RUN pm2 start /app/server.js
+
+ENTRYPOINT ["pm2","start","/app/server.js"]
