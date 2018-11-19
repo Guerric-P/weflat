@@ -3,5 +3,6 @@ FROM httpd:2.4.37
 # Add application files
 COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
 
-#Expose the port
-EXPOSE 8080
+CMD [“/usr/sbin/httpd”, “-D”, “FOREGROUND”]
+
+EXPOSE 80
