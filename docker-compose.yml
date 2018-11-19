@@ -4,7 +4,7 @@ services:
     build: http
     hostname: apache
     ports:
-      - 8080:8080
+      - 8080:80
     networks:
       - frontend
       - backend
