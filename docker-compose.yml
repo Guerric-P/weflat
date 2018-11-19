@@ -46,7 +46,7 @@ services:
      PGPASSWORD: consent
      PGDATA: /var/lib/postgresql/data
     volumes:
-      - /data/postgresql:/var/lib/postgresql/data
+      - /data/postgresql:/var/lib/pgsql92/data
     networks:
       - backend
 
