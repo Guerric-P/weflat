@@ -26,12 +26,14 @@ services:
       - server
     volumes:
       - vfrontend:/app/browser
+      - /srv/weflat/frontend/log:/app/log
 
   server:
     image: gphalippou/weflat:backend_latest
     hostname: server
     volumes:
-      - /var/logs/backend:/var/log/tomcat8
+      - /srv/weflat/backend/log:/app/log
+      - /srv/weflat/backend/conf:/app/config
     networks:
       - backend
     depends_on:
