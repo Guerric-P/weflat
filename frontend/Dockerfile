@@ -17,4 +17,4 @@ COPY ./common.sh /
 COPY ./docker-entrypoint.sh /
 RUN chmod 755 /docker-entrypoint.sh
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["sh","/docker-entrypoint.sh"]
