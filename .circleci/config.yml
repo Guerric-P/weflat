@@ -22,3 +22,6 @@ jobs:
           docker push gphalippou/weflat:frontend_latest
           docker push gphalippou/weflat:backend_latest
           docker push gphalippou/weflat:database_latest
+    environment:
+      MAVEN_PROFILE: eval "echo $"${CIRCLE_BRANCH}"_MAVEN_PROFILE"
+      ANGULAR_ENVIRONMENT: eval "echo $"${CIRCLE_BRANCH}"_ANGULAR_ENVIRONMENT"

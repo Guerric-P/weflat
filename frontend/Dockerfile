@@ -2,8 +2,7 @@ FROM node:10.13.0-stretch as build-stage
 WORKDIR /app
 COPY ./ /app/
 RUN npm install
-RUN npm run build:ssr:test
-ARG configuration=production
+RUN npm run build:ssr:${ANGULAR_ENVIRONMENT}
 
 FROM node:10.13.0-alpine
 
