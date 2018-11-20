@@ -13,15 +13,14 @@ jobs:
     steps:
       - checkout
       - run: |
+          export ANGULAR_ENVIRONMENT=eval "echo $"${CIRCLE_BRANCH}"_USERNAME"
+          export MAVEN_PROFILE=eval "echo $"${CIRCLE_BRANCH}"_MAVEN_PROFILE"
           docker build -t gphalippou/weflat:http_latest http
-          docker build -t gphalippou/weflat:frontend_latest frontend
-          docker build -t gphalippou/weflat:backend_latest backend
+          docker build -t gphalippou/weflat:frontend_latest --build-arg environment=$ANGULAR_ENVIRONMENT frontend
+          docker build -t gphalippou/weflat:backend_latest --build-arg profile=$MAVEN_PROFILE backend
           docker build -t gphalippou/weflat:database_latest database
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push gphalippou/weflat:http_latest
           docker push gphalippou/weflat:frontend_latest
           docker push gphalippou/weflat:backend_latest
           docker push gphalippou/weflat:database_latest
-    environment:
-      MAVEN_PROFILE: eval "echo $"${CIRCLE_BRANCH}"_MAVEN_PROFILE"
-      ANGULAR_ENVIRONMENT: eval "echo $"${CIRCLE_BRANCH}"_ANGULAR_ENVIRONMENT"

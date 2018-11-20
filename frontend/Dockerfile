@@ -1,8 +1,9 @@
 FROM node:10.13.0-stretch as build-stage
 WORKDIR /app
 COPY ./ /app/
+ARG environment
 RUN npm install
-RUN npm run build:ssr:${ANGULAR_ENVIRONMENT}
+RUN npm run build:ssr:$environment
 
 FROM node:10.13.0-alpine
 
