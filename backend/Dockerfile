@@ -1,7 +1,8 @@
 FROM maven:3.6.0-jdk-8 as build-stage
 WORKDIR /app
 COPY ./ /app/
-RUN mvn clean install spring-boot:repackage -Dmaven.test.skip=true -P ${MAVEN_PROFILE}
+ARG profile
+RUN mvn clean install spring-boot:repackage -Dmaven.test.skip=true -P $profile
 
 FROM openjdk:8-jdk-alpine
 
