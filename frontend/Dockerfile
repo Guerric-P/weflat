@@ -5,7 +5,7 @@ RUN npm install
 RUN npm run build:ssr:test
 ARG configuration=production
 
-FROM node:10.13.0-stretch
+FROM node:10.13.0-alpine
 
 COPY --from=build-stage /app/dist/ /app/dist/
 RUN npm install -g pm2
