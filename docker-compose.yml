@@ -1,7 +1,7 @@
 version: "3.2"
 services:
   http:
-    build: http
+    image: gphalippou/weflat:http_latest
     hostname: apache
     ports:
       - 8080:80
@@ -18,17 +18,17 @@ services:
           nocopy: true
 
   client:
-    build: frontend
+    image: gphalippou/weflat:frontend_latest
     hostname: client
     networks:
       - backend
     depends_on:
       - server
     volumes:
-      - vfrontend:/app/dist/browser
+      - vfrontend:/app/browser
 
   server:
-    build: backend
+    image: gphalippou/weflat:backend_latest
     hostname: server
     volumes:
       - /var/logs/backend:/var/log/tomcat8
@@ -38,15 +38,15 @@ services:
       - database
 
   database:
-    build: database
+    image: gphalippou/weflat:database_latest
     hostname: database
-    environment: 
-     PGUSER: consent
+    environment:
+     PGUSER: sa
      PGPORT: 5432
-     PGPASSWORD: consent
+     PGPASSWORD: weflat123$$
      PGDATA: /var/lib/postgresql/data
     volumes:
-      - /data/postgresql:/var/lib/pgsql92/data
+      - /var/lib/pgsql9/data:/var/lib/postgresql/data
     networks:
       - backend
 
