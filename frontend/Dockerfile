@@ -7,7 +7,7 @@ ARG configuration=production
 
 FROM node:10.13.0-stretch
 
-COPY --from=build-stage /app/dist/ /app/
+COPY --from=build-stage /app/ /app/
 RUN npm install -g pm2
 
 # Expose port
