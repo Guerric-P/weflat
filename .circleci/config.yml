@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - run: |
-          export ANGULAR_ENVIRONMENT=`eval "echo $"${CIRCLE_BRANCH}"_USERNAME"`
+          export ANGULAR_ENVIRONMENT=`eval "echo $"${CIRCLE_BRANCH}"_ANGULAR_ENVIRONMENT"`
           export MAVEN_PROFILE=`eval "echo $"${CIRCLE_BRANCH}"_MAVEN_PROFILE"`
           docker build -t gphalippou/weflat:http_latest http
           docker build -t gphalippou/weflat:frontend_latest --build-arg environment=$ANGULAR_ENVIRONMENT frontend
