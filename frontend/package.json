@@ -14,7 +14,7 @@
     "build:ssr:production": "npm run build:client-and-server-bundles:production && npm run compile:server",
     "build:client-and-server-bundles:production": "ng build --prod && ng run weflat:server:production",
     "build:ssr:test": "npm run build:client-and-server-bundles:test && npm run compile:server",
-    "build:client-and-server-bundles:test": "ng run weflat:build:test && ng run weflat:server:production"
+    "build:client-and-server-bundles:test": "ng run weflat:build:test && ng run weflat:server:test"
   },
   "private": true,
   "dependencies": {
