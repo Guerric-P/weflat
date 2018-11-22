@@ -83,8 +83,7 @@ const routes: Routes = [
           title: 'Mot de passe oublié',
           description: 'Page de réinitialisation de mot de passe'
         }
-      },
-      { path: 'architectes', redirectTo: 'architect-onboarding' }
+      }
     ]
   }, {
     path: 'architecte',
