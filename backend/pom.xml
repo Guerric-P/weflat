@@ -6,7 +6,6 @@
 	<groupId>fr.weflat</groupId>
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 
 	<name>backend</name>
 	<description>Demo project for Spring Boot</description>
@@ -119,7 +118,25 @@
 
 	<profiles>
 		<profile>
-			<id>bundle</id>
+			<id>test</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<excludes>
+							<exclude>weflat.properties</exclude>
+							<exclude>logback.xml</exclude>
+						</excludes>
+						<filtering>false</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+		<profile>
+			<id>production</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>

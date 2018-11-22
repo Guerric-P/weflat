@@ -1,6 +1,8 @@
 package fr.weflat.backend.service.impl;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -31,6 +33,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.IOUtils;
 
 import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.ZipCode;
@@ -68,13 +71,16 @@ public class MailServiceImpl implements MailService {
 		if(creds == null) {
 			final HttpTransport TRANSPORT = new NetHttpTransport();
 		    final JsonFactory JSON_FACTORY = new JacksonFactory();
-		    final URL URL = Thread.currentThread().getContextClassLoader().getResource("Weflat-d8a5d9785c54.p12");
+		    final InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Weflat-d8a5d9785c54.p12");
+		    File file = new File("Weflat-d8a5d9785c54.p12");
+		    FileOutputStream fos= new FileOutputStream(file);
+		    IOUtils.copy(stream, fos);
 		    
 			creds = new GoogleCredential.Builder()
 			    .setTransport(TRANSPORT)
 			    .setJsonFactory(JSON_FACTORY)
 			    .setServiceAccountId(serviceAccount)
-			    .setServiceAccountPrivateKeyFromP12File(new File(URL.getFile()))
+			    .setServiceAccountPrivateKeyFromP12File(file)
 			    .setServiceAccountScopes(Collections.singleton(scope))
 			    .setServiceAccountUser(((JavaMailSenderImpl)javaMailSender).getUsername())
 			    .build();
