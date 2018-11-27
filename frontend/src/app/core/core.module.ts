@@ -11,7 +11,6 @@ import { ArchitecteGuard } from './guards/architecte.guard';
 import { AcheteurGuard } from './guards/acheteur.guard';
 import { ErrorComponent } from './components/error/error.component';
 import { AuthenticationService } from './services/authentication.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SessionStorageService } from './services/session-storage.service';
 import { ShowSigninPopupService } from './services/show-signin-popup.service';
 import { NavigationComponent } from './components/navigation/navigation.component';
