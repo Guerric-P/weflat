@@ -3,11 +3,11 @@ import { Observable, throwError } from 'rxjs';
 
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AuthenticationService } from './authentication.service';
 import { environment } from 'environments/environment';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { Request } from 'express';
+import { AuthenticationService } from 'app/core/services/authentication.service';
 
 @Injectable()
 export class WeflatInterceptor implements HttpInterceptor {
