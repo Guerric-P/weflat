@@ -71,7 +71,7 @@ public class MailServiceImpl implements MailService {
 		if(creds == null) {
 			final HttpTransport TRANSPORT = new NetHttpTransport();
 		    final JsonFactory JSON_FACTORY = new JacksonFactory();
-		    final InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Weflat-d8a5d9785c54.p12");
+		    final InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("config/Weflat-d8a5d9785c54.p12");
 		    File file = new File("Weflat-d8a5d9785c54.p12");
 		    FileOutputStream fos= new FileOutputStream(file);
 		    IOUtils.copy(stream, fos);
