@@ -28,6 +28,5 @@ jobs:
           docker push gphalippou/weflat:backend_${TAG_NAME}_latest
           docker push gphalippou/weflat:database_${TAG_NAME}_latest
           if ! [[ -z "${WEB_HOOK}" ]]; then
-            echo test
             curl -X GET $WEB_HOOK
           fi
