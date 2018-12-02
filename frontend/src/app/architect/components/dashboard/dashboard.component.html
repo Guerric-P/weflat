@@ -24,16 +24,16 @@
     <div class="card-body">
       <div class="container mt-5">
         <div class="row justify-content-around">
-          <mat-card>
+          <mat-card class="col-md-3 offset-md-1">
             {{dashboard.doneVisitsCount}} visite(s) effectuée(s)
             <mat-card-actions>
               <button mat-button routerLink="/architecte/visits">VOIR</button>
             </mat-card-actions>
           </mat-card>
-          <mat-card>
+          <mat-card class="col-md-3 offset-md-1 mt-2 mt-md-0">
             {{dashboard.amountEarned}} € générés
           </mat-card>
-          <mat-card class="cursor-not-allowed" matTooltip="Bientôt disponible">
+          <mat-card class="col-md-3 offset-md-1 mt-2 mt-md-0 cursor-not-allowed" matTooltip="Bientôt disponible">
             - / - notation
           </mat-card>
         </div>

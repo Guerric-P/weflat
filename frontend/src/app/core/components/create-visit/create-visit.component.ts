@@ -20,7 +20,6 @@ import { DatePipe } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { values } from '../../../shared/common/TimeDropDownValues';
 import { GoogleService } from '../../services/google.service';
-import { bufferCount, map } from 'rxjs/operators';
 declare var google;
 
 @Component({
