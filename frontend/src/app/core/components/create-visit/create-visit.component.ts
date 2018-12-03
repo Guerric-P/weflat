@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DateAdapter, MatHorizontalStepper } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
@@ -20,6 +20,7 @@ import { DatePipe } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { values } from '../../../shared/common/TimeDropDownValues';
 import { GoogleService } from '../../services/google.service';
+import { Subscription } from 'rxjs';
 declare var google;
 
 @Component({
@@ -27,7 +28,7 @@ declare var google;
   templateUrl: './create-visit.component.html',
   styleUrls: ['./create-visit.component.scss']
 })
-export class CreateVisitComponent implements OnInit, AfterViewInit {
+export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isLinear = true;
   dateFormGroup: FormGroup;
@@ -46,6 +47,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
   visit: VisitClass = new VisitClass();
   place: any;
   price: number;
+  loggedInSubscription: Subscription;
 
   times = values;
 
@@ -92,7 +94,7 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
 
     this.displaySignupStep = !this.authService.isLoggedIn;
 
-    this.authService.userLoggedIn.subscribe(res => {
+    this.loggedInSubscription = this.authService.userLoggedIn.subscribe(res => {
       this.createVisitGuard.canActivate(this.route.snapshot, this.router.routerState.snapshot);
       this.displaySignupStep = false;
     });
@@ -167,6 +169,10 @@ export class CreateVisitComponent implements OnInit, AfterViewInit {
     });
 
     this.adapter.setLocale('fr');
+  }
+
+  ngOnDestroy(): void {
+    this.loggedInSubscription.unsubscribe();
   }
 
   get formattedVisitDate() {
