@@ -6,43 +6,43 @@
   <div class="card-body">
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Statut</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{visit.statusText}}
         <ng-container *ngIf="visit.status === VisitStatusEnum.REPORT_AVAILABLE">
             <a mat-raised-button color="primary" routerLink="/admin/visits/{{visit.id}}/report">Rapport</a>
             <button class="ml-2" mat-raised-button color="primary" (click)="architectPaidClick()">Architecte payé</button>
         </ng-container>
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Adresse</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{visit.formattedAddress}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Date de création</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{visit.creationDate | date:'medium'}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Date de visite</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{visit.visiteDate | date:'medium'}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">URL de l'annonce</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{visit.announcementUrl}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Paiement Stripe</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{visit.chargeId}}
-      </div>
+      </label>
     </div>
     <div *ngIf="visit.status === VisitStatusEnum.BEING_ASSIGNED" class="form-group row">
       <button mat-raised-button color="primary" (click)="cancelClick()">Annuler</button>
