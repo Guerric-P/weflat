@@ -1,6 +1,5 @@
 import { Injectable, Injector, Optional, Inject } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
@@ -20,7 +19,7 @@ export class WeflatInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authService = this.injector.get(AuthenticationService);
-    const url = `${this.request ? this.request.protocol + '://' + this.request.get('host') : ''}${environment.baseBackendUrl}${req.url}`
+    const url = `${this.request ? environment.backendUrl : ''}${environment.baseBackendUrl}${req.url}`
 
     let headers = new HttpHeaders();
 
