@@ -32,27 +32,27 @@
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Nom</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{architect.lastName}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Date de naissance</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{architect.birthDate | date:'medium'}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">E-mail</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{architect.email}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Portable</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{architect.telephone}}
-      </div>
+      </label>
     </div>
   </div>
 </div>
@@ -82,57 +82,51 @@
   <div class="card-body">
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Architecte</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{architect.type?.label}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Situation</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{architect.situation?.label}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Expérience</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{architect.practicingSince | date:'medium'}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Site internet</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{architect.webSite}}
-      </div>
-    </div>
-    <div class="form-group row">
-      <label class="col-sm-2 col-form-label">Book</label>
-      <div class="col-sm-10">
-        <input type="file" class="form-control-file" disabled="disabled">
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Ordre des architectes</label>
-      <div class="col-sm-9">
+      <label class="col-sm-9 col-form-label">
         {{architect.architectsOrder ? 'Oui' : 'Non'}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">CFAI</label>
-      <div class="col-sm-9">
+      <label class="col-sm-9 col-form-label">
         {{architect.cfai ? 'Oui' : 'Non'}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Responsabilité civile professionnelle</label>
-      <div class="col-sm-9">
+      <label class="col-sm-9 col-form-label">
         {{architect.professionalResponsibility ? 'Oui' : 'Non'}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-3 col-form-label">Assurance décennale</label>
-      <div class="col-sm-9">
+      <label class="col-sm-9 col-form-label">
         {{architect.decennialInsurance ? 'Oui' : 'Non'}}
-      </div>
+      </label>
     </div>
   </div>
 </div>
@@ -143,21 +137,21 @@
   <div class="card-body">
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Motivation</label>
-      <div class="col-md-10">
+      <label class="col-md-10 col-form-label">
         <textarea disabled="disabled">{{architect.motivation}}</textarea>
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Paiement</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{architect.paymentType?.label}}
-      </div>
+      </label>
     </div>
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">IBAN</label>
-      <div class="col-sm-10">
+      <label class="col-sm-10 col-form-label">
         {{formattedIBAN}}
-      </div>
+      </label>
     </div>
   </div>
 </div>
