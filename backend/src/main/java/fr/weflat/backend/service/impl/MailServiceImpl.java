@@ -149,7 +149,7 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append("<p>Félicitations! La visite de ");
 		messageBuilder.append(customerFirstName);
 		messageBuilder.append(" vous a été attribuée.</p>");
-		messageBuilder.append("<p>Pour rappel, la visite a lieu le </p>");
+		messageBuilder.append("<p>Pour rappel, la visite a lieu le ");
 		messageBuilder.append(sdf.format(date));
 		messageBuilder.append(" à l’adresse suivante : ");
 		messageBuilder.append(address);
