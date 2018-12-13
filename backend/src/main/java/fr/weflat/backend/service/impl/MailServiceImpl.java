@@ -154,7 +154,9 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(" à l’adresse suivante : ");
 		messageBuilder.append(address);
 		messageBuilder.append(".</p>");
-		messageBuilder.append("<p>Voici les informations que Olivia Luche-Rocchia nous a communiquées à propos de la visite à venir :</p>");
+		messageBuilder.append("<p>Voici les informations que ");
+		messageBuilder.append(customerFirstName);
+		messageBuilder.append(" nous a communiquées à propos de la visite à venir :</p>");
 		messageBuilder.append("<blockquote>");
 		messageBuilder.append(formattedCustomerProject);
 		messageBuilder.append("</blockquote>");
