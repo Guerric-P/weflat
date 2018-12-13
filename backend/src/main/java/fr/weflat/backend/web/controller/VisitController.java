@@ -178,7 +178,9 @@ public class VisitController {
 				visit.getArchitect().getFirstName(),
 				visit.getCustomer().getFirstName(),
 				visit.formattedAddress(),
-				visit.getVisiteDate()
+				visit.getVisiteDate(),
+				visit.getAnnouncementUrl(),
+				visit.getCustomer().getProject()
 				);
 		
 		mailService.sendVisitAssignedMail(

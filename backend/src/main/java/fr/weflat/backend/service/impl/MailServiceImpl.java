@@ -139,7 +139,9 @@ public class MailServiceImpl implements MailService {
 
 	@Override
 	public void sendVisitAttributionMail(String email, String architectFirstName,
-			String customerFirstName, String address, Date date) throws Exception {
+			String customerFirstName, String address, Date date, String announcementUrl, String customerProject) throws Exception {
+		String formattedCustomerProject = customerProject.replaceAll("\\r?\\n", "<br>");
+		
 		StringBuilder messageBuilder = new StringBuilder();
 		messageBuilder.append("<p>Bonjour ");
 		messageBuilder.append(architectFirstName);
@@ -152,7 +154,18 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(" à l’adresse suivante : ");
 		messageBuilder.append(address);
 		messageBuilder.append(".</p>");
-		messageBuilder.append("<p>Les coordonnées de l’acheteur ainsi que son projet d’achat sont disponibles dans votre espace personnel > Mes visites >  Mes visites programmées. Vous avez jusqu'à 12 heures ouvrées après la visite pour soumettre le compte rendu digitalisé sur la plateforme Weflat.</p>");
+		messageBuilder.append("<p>Voici les informations que Olivia Luche-Rocchia nous a communiquées à propos de la visite à venir :</p>");
+		messageBuilder.append("<blockquote>");
+		messageBuilder.append(formattedCustomerProject);
+		messageBuilder.append("</blockquote>");
+		messageBuilder.append("<p>Le lien vers l'annonce est le suivant : <a href=\"");
+		messageBuilder.append(announcementUrl);
+		messageBuilder.append("\">");
+		messageBuilder.append(announcementUrl);
+		messageBuilder.append("</a><p>");
+		messageBuilder.append("<p>Tu trouveras nos conseils pour le déroulement de la visite en cliquant sur le bouton \"point d'interrogation\" de la page \"Mes visites\" de ton espace personnel.</p>");
+		messageBuilder.append("<p>La prestation doit se terminer par le remplissage d'un compte-rendu sur notre plateforme, détaillant, pour chaque poste de rénovation, l'état général ainsi qu'une estimation du coût.</p>");
+		messageBuilder.append("<p>Nous sommes disposés à répondre à toutes tes questions éventuelles.</p>");
 		messageBuilder.append("<p>Cordialement,</p>");
 		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
 		

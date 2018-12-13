@@ -14,7 +14,8 @@ public interface MailService {
 	
 	void sendArchitectSignupMail(String email, String firstName) throws Exception;
 	
-	void sendVisitAttributionMail(String email, String architectFirstName, String customerFirstName, String address, Date date) throws Exception;
+	void sendVisitAttributionMail(String email, String architectFirstName, String customerFirstName, String address,
+			Date date, String announcementUrl, String customerProject) throws Exception;
 	
 	void sendVisitAvailableMail(String email, String architectFirstName, String customerFirstName, String address, Date date) throws Exception;
 	
@@ -35,4 +36,5 @@ public interface MailService {
 	void sendWelcomeValidatedArchitectMail(String email, String firstName) throws Exception;
 
 	void sendZipCodeActivatedMail(Set<Architect> architects, Collection<ZipCode> mergedZipCodes) throws Exception;
+
 }
