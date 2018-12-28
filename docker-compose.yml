@@ -16,7 +16,6 @@ services:
         target: /var/www/html
         volume:
           nocopy: true
-    restart: always
 
   client:
     image: gphalippou/weflat:frontend_latest
