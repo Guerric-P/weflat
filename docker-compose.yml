@@ -28,7 +28,6 @@ services:
     volumes:
       - vfrontend:/app/browser
       - /srv/weflat/frontend/log:/app/log
-    restart: always
 
   server:
     image: gphalippou/weflat:backend_latest
@@ -40,7 +39,6 @@ services:
       - backend
     depends_on:
       - database
-    restart: always
 
   database:
     image: gphalippou/weflat:database_latest
@@ -54,7 +52,6 @@ services:
       - /var/lib/pgsql9/data:/var/lib/postgresql/data
     networks:
       - backend
-    restart: always
 
 networks:
     frontend:
