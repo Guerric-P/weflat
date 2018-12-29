@@ -65,4 +65,6 @@ public interface VisitService {
 	
 	Long getDoneVisitsCount(Long architectId);
 
+	Set<Visit> findRefundableVisits();
+
 }

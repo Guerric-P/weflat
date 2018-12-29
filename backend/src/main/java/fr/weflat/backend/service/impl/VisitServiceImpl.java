@@ -41,7 +41,7 @@ import ma.glasnost.orika.MapperFacade;
 @Transactional
 public class VisitServiceImpl implements VisitService {
 	@Autowired
-	private VisitDao visiteDao;
+	private VisitDao visitDao;
 
 	@Autowired
 	private ArchitectDao architecteDao;
@@ -83,12 +83,12 @@ public class VisitServiceImpl implements VisitService {
 
 	@Override
 	public Long save(Visit visit) {
-		return visiteDao.save(visit).getId();
+		return visitDao.save(visit).getId();
 	}
 
 	@Override
 	public void accept(Long visitId, Long architectId) throws Exception {
-		Visit visit = visiteDao.findOne(visitId);
+		Visit visit = visitDao.findOne(visitId);
 		Architect architect = architecteDao.findOne(architectId);
 
 		if(visit.getNearbyArchitects().stream().anyMatch(x -> x.getId().equals(architectId))) {
@@ -96,7 +96,7 @@ public class VisitServiceImpl implements VisitService {
 				visit.setArchitect(architect);
 				visit.setNearbyArchitects(null);
 				visit.setStatus(VisitStatusEnum.IN_PROGRESS.ordinal());
-				visiteDao.save(visit);
+				visitDao.save(visit);
 				slackService.sendArchitectAcceptedVisit(visit.getCustomer().getFirstName(), visit.getCustomer().getLastName(), architect.getFirstName(), architect.getLastName(), visit.formattedAddress(), visit.getVisiteDate());
 			}
 			else {
@@ -126,7 +126,7 @@ public class VisitServiceImpl implements VisitService {
 
 		Set<Visit> visits = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+		Iterable<Visit> result = visitDao.findAll(predicate);
 
 		for(Visit row : result) {
 			visits.add(row);
@@ -145,7 +145,7 @@ public class VisitServiceImpl implements VisitService {
 
 		Set<Visit> visits = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+		Iterable<Visit> result = visitDao.findAll(predicate);
 
 		for(Visit row : result) {
 			visits.add(row);
@@ -165,7 +165,7 @@ public class VisitServiceImpl implements VisitService {
 
 		Set<Visit> visites = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+		Iterable<Visit> result = visitDao.findAll(predicate);
 
 		for(Visit row : result) {
 			visites.add(row);
@@ -184,7 +184,7 @@ public class VisitServiceImpl implements VisitService {
 
 		Set<Visit> visites = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+		Iterable<Visit> result = visitDao.findAll(predicate);
 
 		for(Visit row : result) {
 			visites.add(row);
@@ -195,7 +195,7 @@ public class VisitServiceImpl implements VisitService {
 
 	@Override
 	public Visit findById(Long id) {
-		return visiteDao.findOne(id);
+		return visitDao.findOne(id);
 	}
 
 	@Override
@@ -313,7 +313,7 @@ public class VisitServiceImpl implements VisitService {
 
 		Set<Visit> visits = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+		Iterable<Visit> result = visitDao.findAll(predicate);
 
 		for(Visit row : result) {
 			visits.add(row);
@@ -331,7 +331,7 @@ public class VisitServiceImpl implements VisitService {
 
 		Set<Visit> visits = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+		Iterable<Visit> result = visitDao.findAll(predicate);
 
 		for(Visit row : result) {
 			visits.add(row);
@@ -350,7 +350,7 @@ public class VisitServiceImpl implements VisitService {
 
 				Set<Visit> visits = new HashSet<Visit>();
 
-				Iterable<Visit> result = visiteDao.findAll(predicate);
+				Iterable<Visit> result = visitDao.findAll(predicate);
 
 				for(Visit row : result) {
 					visits.add(row);
@@ -368,7 +368,7 @@ public class VisitServiceImpl implements VisitService {
 
 		Set<Visit> visits = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+		Iterable<Visit> result = visitDao.findAll(predicate);
 
 		for(Visit row : result) {
 			visits.add(row);
@@ -387,7 +387,7 @@ public class VisitServiceImpl implements VisitService {
 
 		Set<Visit> visits = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+		Iterable<Visit> result = visitDao.findAll(predicate);
 
 		for(Visit row : result) {
 			visits.add(row);
@@ -406,7 +406,7 @@ public class VisitServiceImpl implements VisitService {
 
 		Set<Visit> visits = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll(predicate);
+		Iterable<Visit> result = visitDao.findAll(predicate);
 
 		for(Visit row : result) {
 			visits.add(row);
@@ -472,7 +472,7 @@ public class VisitServiceImpl implements VisitService {
 	public Set<Visit> findAll() {
 		Set<Visit> visits = new HashSet<Visit>();
 
-		Iterable<Visit> result = visiteDao.findAll();
+		Iterable<Visit> result = visitDao.findAll();
 
 		for(Visit row : result) {
 			visits.add(row);
@@ -536,12 +536,12 @@ public class VisitServiceImpl implements VisitService {
 
 	@Override
 	public void delete(Visit visite) {
-		visiteDao.delete(visite);
+		visitDao.delete(visite);
 	}
 
 	@Override
 	public void delete(Long id) {
-		visiteDao.delete(id);
+		visitDao.delete(id);
 
 	}
 
@@ -561,7 +561,7 @@ public class VisitServiceImpl implements VisitService {
 
 		Predicate predicate = visit.architect.id.eq(architectId);
 		
-		Iterable<Visit> visits = visiteDao.findAll(predicate);
+		Iterable<Visit> visits = visitDao.findAll(predicate);
 		
 		return StreamSupport.stream(visits.spliterator(), false).mapToLong(x -> x.getArchitectPaidAmount() == null ? 0 : x.getArchitectPaidAmount()).sum();
 	}
@@ -577,8 +577,26 @@ public class VisitServiceImpl implements VisitService {
 						)
 						);
 		
-		Iterable<Visit> visits = visiteDao.findAll(predicate);
+		Iterable<Visit> visits = visitDao.findAll(predicate);
 		
 		return StreamSupport.stream(visits.spliterator(), false).count();
+	}
+	
+	@Override
+	public Set<Visit> findRefundableVisits() {
+		QVisit visit = QVisit.visit;
+
+		Predicate predicate = visit.status.eq(VisitStatusEnum.BEING_ASSIGNED.ordinal())
+				.and(visit.visiteDate.before(new Date()));
+
+		Set<Visit> visits = new HashSet<Visit>();
+		
+		Iterable<Visit> result = visitDao.findAll(predicate);
+
+		for(Visit row : result) {
+			visits.add(row);
+		}
+
+		return visits;
 	}
 }
