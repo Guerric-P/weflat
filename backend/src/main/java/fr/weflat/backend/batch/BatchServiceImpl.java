@@ -7,13 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.weflat.backend.domaine.Visit;
 import fr.weflat.backend.service.VisitService;
 
 @Service
-@Transactional
 public class BatchServiceImpl implements BatchService {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -22,6 +22,7 @@ public class BatchServiceImpl implements BatchService {
 	VisitService visitService;
 	
 	@Override
+	@Transactional
 	public void refundNotAssignedVisits() {
 		logger.info("Start automatic refund of past visits being assigned");
 		
@@ -32,7 +33,7 @@ public class BatchServiceImpl implements BatchService {
 			visits.forEach(x -> {
 				logger.info("Refunding visit with ID: " + x.getId());
 				try {
-					visitService.cancel(x);
+					refundVisit(x);
 					logger.info("Visit successfully refunded!");
 				}
 				catch(Exception e) {
@@ -45,5 +46,10 @@ public class BatchServiceImpl implements BatchService {
 		}
 		
 		logger.info("End of automatic refund");
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public void refundVisit(Visit visit) throws Exception {
+		visitService.cancel(visit);
 	}
 }
