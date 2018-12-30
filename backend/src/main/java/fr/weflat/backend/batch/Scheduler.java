@@ -13,7 +13,7 @@ public class Scheduler {
 	@Autowired
 	BatchService batchService;
 	
-	@Scheduled(cron = "0 */1 * ? * *")
+	@Scheduled(cron = "0 */5 * ? * *")
 	void tick() {
 		logger.info("Beginning of a batch tick");
 		batchService.refundNotAssignedVisits();
