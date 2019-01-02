@@ -5,5 +5,5 @@ import java.util.Set;
 import fr.weflat.backend.domaine.PaymentType;
 
 public interface PaymentTypeService {
-	Set<PaymentType> getAll();
+	Set<PaymentType> findAll();
 }

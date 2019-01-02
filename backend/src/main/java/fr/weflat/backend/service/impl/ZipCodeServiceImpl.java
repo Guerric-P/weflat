@@ -34,12 +34,14 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	private ArchitectService architectService;
 
 	@Override
+	@Transactional(readOnly=true)
 	public ZipCode findById(Long id) {
 		return zipCodeDao.findOne(id);
 	}
 
 	@Override
-	public ZipCode getByCode(String code) {
+	@Transactional(readOnly=true)
+	public ZipCode findByCode(String code) {
 		return zipCodeDao.findByNumber(code);
 	}
 
@@ -49,7 +51,8 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	}
 
 	@Override
-	public Set<ZipCode> getZipCodesByNumbers(Set<String> numbers) {
+	@Transactional(readOnly=true)
+	public Set<ZipCode> findZipCodesByNumbers(Set<String> numbers) {
 		QZipCode zipCode = QZipCode.zipCode;
 
 		Predicate predicate = zipCode.number.in(numbers);
@@ -74,7 +77,8 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	}
 
 	@Override
-	public Set<ZipCode> getZipCodesByNumbersStartingWith(String string) {	
+	@Transactional(readOnly=true)
+	public Set<ZipCode> findZipCodesByNumbersStartingWith(String string) {	
 		QZipCode zipCode = QZipCode.zipCode;
 
 		Predicate predicate = zipCode.number.startsWith(string);
@@ -97,7 +101,7 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	
 	@Override
 	public Set<ZipCode> bulkUpdate(Set<ZipCode> zipCodesToSave) throws Exception {
-		Set<ZipCode> zipCodesFromDatabase = getZipCodesByNumbers(zipCodesToSave.stream().map(x -> x.getNumber()).collect(Collectors.toSet()));
+		Set<ZipCode> zipCodesFromDatabase = findZipCodesByNumbers(zipCodesToSave.stream().map(x -> x.getNumber()).collect(Collectors.toSet()));
 		
 		Collection<ZipCode> mergedZipCodes = Stream.of(zipCodesFromDatabase, zipCodesToSave)
 				.flatMap(Set::stream)

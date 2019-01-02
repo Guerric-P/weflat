@@ -5,5 +5,5 @@ import fr.weflat.backend.domaine.Report;
 public interface ReportService {
 	Report findById(long id);
 	void save(Report report);
-	Report getByVisiteId(long visiteId);
+	Report findByVisitId(long visiteId);
 }

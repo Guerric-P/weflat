@@ -1,9 +1,8 @@
 package fr.weflat.backend.service.impl;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.types.Predicate;
 
@@ -20,6 +19,7 @@ public class ReportServiceImpl implements ReportService {
 	private ReportDao reportDao;
 	
 	@Override
+	@Transactional(readOnly=true)
 	public Report findById(long id) {
 		return reportDao.findOne(id);
 	}
@@ -30,7 +30,8 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public Report getByVisiteId(long visiteId) {
+	@Transactional(readOnly=true)
+	public Report findByVisitId(long visiteId) {
 		QReport report = QReport.report;
 		
 		Predicate predicate = report.visite.id.eq(visiteId);

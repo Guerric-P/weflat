@@ -26,6 +26,6 @@ public class ArchitectTypeController {
 	
 	@RequestMapping(method=RequestMethod.GET)
     public List<ArchitectTypeDto> getAll() {
-		return orikaMapperFacade.mapAsList(architectTypeService.getAll(), ArchitectTypeDto.class);
+		return orikaMapperFacade.mapAsList(architectTypeService.findAll(), ArchitectTypeDto.class);
 	}
 }

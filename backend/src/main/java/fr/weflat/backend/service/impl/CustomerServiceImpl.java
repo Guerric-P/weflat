@@ -25,11 +25,13 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Customer findById(Long id) {
 		return customerDao.findOne(id);
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Customer> findAll() {
 		Set<Customer> customer = new HashSet<Customer>();
 

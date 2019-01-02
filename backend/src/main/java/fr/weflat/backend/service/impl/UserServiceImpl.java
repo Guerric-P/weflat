@@ -33,11 +33,13 @@ public class UserServiceImpl implements UserService {
 	private String appUrl;
 
 	@Override
-	public 	User getByEmailAndPassword(String email, String password) {
+	@Transactional(readOnly=true)
+	public 	User findByEmailAndPassword(String email, String password) {
 		return userDao.findByEmailAndPassword(email, password);
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public User findById(long id) {
 		return userDao.findOne(id);
 	}
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public User findByEmail(String email) {
 		return userDao.findByEmail(email);
 	}

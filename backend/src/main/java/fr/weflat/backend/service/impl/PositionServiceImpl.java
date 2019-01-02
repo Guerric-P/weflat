@@ -18,7 +18,8 @@ public class PositionServiceImpl implements PositionService {
 	private PositionDao positionDao;
 	
 	@Override
-	public Set<Position> getAll() {
+	@Transactional(readOnly=true)
+	public Set<Position> findAll() {
 		Set<Position> positions = new HashSet<Position>();
 		
 		Iterable<Position> result = positionDao.findAll();

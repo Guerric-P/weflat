@@ -7,13 +7,13 @@ import fr.weflat.backend.domaine.ZipCode;
 public interface ZipCodeService {
 	ZipCode findById(Long id);
 	
-	ZipCode getByCode(String code);
+	ZipCode findByCode(String code);
 	
 	ZipCode save(ZipCode zipCode);
 	
-	Set<ZipCode> getZipCodesByNumbers(Set<String> numbers);
+	Set<ZipCode> findZipCodesByNumbers(Set<String> numbers);
 	
-	Set<ZipCode> getZipCodesByNumbersStartingWith(String string);
+	Set<ZipCode> findZipCodesByNumbersStartingWith(String string);
 	
 	void deleteById(long id);
 

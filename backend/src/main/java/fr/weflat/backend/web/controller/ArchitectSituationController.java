@@ -25,6 +25,6 @@ public class ArchitectSituationController {
 	
 	@RequestMapping(method=RequestMethod.GET)
     public List<ArchitectSituationDto> getAll() {
-		return orikaMapperFacade.mapAsList(architectSituationService.getAll(), ArchitectSituationDto.class);
+		return orikaMapperFacade.mapAsList(architectSituationService.findAll(), ArchitectSituationDto.class);
 	}
 }

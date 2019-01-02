@@ -3,6 +3,7 @@ package fr.weflat.backend.service.impl;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.StreamSupport;
@@ -15,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.stripe.Stripe;
 import com.stripe.model.Charge;
 
@@ -118,6 +121,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Visit> findAvailableVisitsByArchitectId(Long architectId) {
 		QVisit visit = QVisit.visit;
 
@@ -136,6 +140,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Visit> findPlannedVisitsByArchitectId(Long architectId) {
 		QVisit visit = QVisit.visit;
 
@@ -155,6 +160,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Visit> findReportPendingVisitsByArchitectId(Long architectId) {
 		QVisit visit = QVisit.visit;
 
@@ -175,6 +181,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Visit> findReportWrittenVisitsByArchitectId(Long architectId) {
 		QVisit visit = QVisit.visit;
 
@@ -194,6 +201,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Visit findById(Long id) {
 		return visitDao.findOne(id);
 	}
@@ -305,6 +313,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Visit> findWaitingForPaymentVisitsByAcheteurId(Long customerId) {
 		QVisit visit = QVisit.visit;
 
@@ -323,6 +332,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Visit> findBeingAssignedVisitsByAcheteurId(Long customerId) {
 		QVisit visit = QVisit.visit;
 
@@ -341,6 +351,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Visit> findInProgressVisitsByAcheteurId(Long customerId) {
 		QVisit visit = QVisit.visit;
 
@@ -360,6 +371,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Visit> findReportBeingWrittenVisitsByAcheteurId(Long customerId) {
 		QVisit visit = QVisit.visit;
 
@@ -378,6 +390,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Visit> findReportWrittenVisitsByAcheteurId(Long customerId) {
 		QVisit visit = QVisit.visit;
 
@@ -397,6 +410,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Visit> findPlannedVisitsByAcheteurId(Long customerId) {
 		QVisit visit = QVisit.visit;
 
@@ -435,6 +449,13 @@ public class VisitServiceImpl implements VisitService {
 		visit.setNearbyArchitects(null);
 		save(visit);
 		return visit;
+	}
+	
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW) //For batch canceling
+	public Visit cancel(Long idVisit) throws Exception {
+		Visit visit = findById(idVisit);
+		return cancel(visit);
 	}
 
 	@Override
@@ -556,6 +577,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Long getAmountEarned(Long architectId) {
 		QVisit visit = QVisit.visit;
 
@@ -567,6 +589,7 @@ public class VisitServiceImpl implements VisitService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Long getDoneVisitsCount(Long architectId) {
 		QVisit visit = QVisit.visit;
 
@@ -583,20 +606,17 @@ public class VisitServiceImpl implements VisitService {
 	}
 	
 	@Override
-	public Set<Visit> findRefundableVisits() {
+	@Transactional(readOnly=true)
+	public List<Long> findRefundableVisitsIds() {
+		
 		QVisit visit = QVisit.visit;
+		
+		JPAQueryFactory query = new JPAQueryFactory(em);
 
 		Predicate predicate = visit.status.eq(VisitStatusEnum.BEING_ASSIGNED.ordinal())
 				.and(visit.visiteDate.before(new Date()));
 
-		Set<Visit> visits = new HashSet<Visit>();
-		
-		Iterable<Visit> result = visitDao.findAll(predicate);
+		return query.select(visit.id).from(visit).where(predicate).fetch();
 
-		for(Visit row : result) {
-			visits.add(row);
-		}
-
-		return visits;
 	}
 }

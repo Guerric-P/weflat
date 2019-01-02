@@ -7,11 +7,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.types.Predicate;
 
@@ -43,6 +42,7 @@ public class ArchitectServiceImpl implements ArchitectService {
 	private SlackService slackService;
 
 	@Override
+	@Transactional(readOnly=true)
 	public Architect findById(long id) {
 		return architectDao.findOne(id);
 	}
@@ -92,6 +92,7 @@ public class ArchitectServiceImpl implements ArchitectService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Architect> findNearbyArchitectes(String code) {
 		QArchitect architect = QArchitect.architect;
 
@@ -112,6 +113,7 @@ public class ArchitectServiceImpl implements ArchitectService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Architect> findAll() {
 
 		Set<Architect> architects = new HashSet<Architect>();
@@ -172,6 +174,7 @@ public class ArchitectServiceImpl implements ArchitectService {
 	}
 	
 	@Override
+	@Transactional(readOnly=true)
 	public Set<Architect> findValidatedArchitectsHavingZipCodes(Set<ZipCode> inputZipCodes) {
 		QZipCode zipCode = QZipCode.zipCode;
 

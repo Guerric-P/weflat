@@ -1,9 +1,8 @@
 package fr.weflat.backend.service.impl;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.types.Predicate;
 
@@ -19,6 +18,7 @@ public class PasswordChangeRequestServiceImpl implements PasswordChangeRequestSe
 	private PasswordChangeRequestDao passwordChangeRequestDao;
 
 	@Override
+	@Transactional(readOnly=true)
 	public PasswordChangeRequest findByHash(String hash) {
 		QPasswordChangeRequest passwordChangeRequest = QPasswordChangeRequest.passwordChangeRequest;
 		

@@ -25,6 +25,6 @@ public class PaymentTypeController {
 	
 	@RequestMapping(method=RequestMethod.GET)
     public List<PaymentTypeDto> getAll() {
-		return orikaMapperFacade.mapAsList(paymentTypeService.getAll(), PaymentTypeDto.class);
+		return orikaMapperFacade.mapAsList(paymentTypeService.findAll(), PaymentTypeDto.class);
 	}
 }

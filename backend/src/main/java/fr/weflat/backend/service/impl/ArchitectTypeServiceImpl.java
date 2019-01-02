@@ -3,10 +3,9 @@ package fr.weflat.backend.service.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.weflat.backend.dao.ArchitectTypeDao;
 import fr.weflat.backend.domaine.ArchitectType;
@@ -20,7 +19,8 @@ public class ArchitectTypeServiceImpl implements ArchitectTypeService {
 	private ArchitectTypeDao architectTypeDao;
 
 	@Override
-	public Set<ArchitectType> getAll() {
+	@Transactional(readOnly=true)
+	public Set<ArchitectType> findAll() {
 		Set<ArchitectType> architectTypes = new HashSet<ArchitectType>();
 		
 		Iterable<ArchitectType> result = architectTypeDao.findAll();

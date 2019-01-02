@@ -209,7 +209,7 @@ public class VisitController {
 	@RequestMapping(path = "/{id}/report", method = RequestMethod.GET)
 	public ReportDto getReport(@PathVariable("id") long id, Authentication authentication) {
 
-		Report report =  reportService.getByVisiteId(id);
+		Report report =  reportService.findByVisitId(id);
 		ReportDto reportDto = null;
 
 		if(report == null) {
@@ -261,7 +261,7 @@ public class VisitController {
 	public ReportDto patchReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
-		Report report = reportService.getByVisiteId(id);
+		Report report = reportService.findByVisitId(id);
 
 		if(report.getVisite().getArchitect().getId().equals((Long) details.get("id"))) {
 			if(report.getVisite().getStatus() == VisitStatusEnum.REPORT_BEING_WRITTEN.ordinal()

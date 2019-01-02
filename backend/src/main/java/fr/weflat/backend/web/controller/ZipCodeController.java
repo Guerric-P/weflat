@@ -76,7 +76,7 @@ public class ZipCodeController {
 	public List<ZipCodeDto> checkZipCodesStatus(@RequestBody Set<ZipCodeDto> input) {
 		return orikaMapperFacade.mapAsList(
 				zipCodeService
-				.getZipCodesByNumbers(
+				.findZipCodesByNumbers(
 						input.stream()
 						.map(x -> x.getNumber())
 						.collect(Collectors.toSet())),
@@ -88,7 +88,7 @@ public class ZipCodeController {
 	public List<ZipCodeDto> search(@RequestParam() String query) {
 		return orikaMapperFacade.mapAsList(
 				zipCodeService
-				.getZipCodesByNumbersStartingWith(query),
+				.findZipCodesByNumbersStartingWith(query),
 				ZipCodeDto.class
 				);
 	}

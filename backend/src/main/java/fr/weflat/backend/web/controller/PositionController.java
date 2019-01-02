@@ -25,6 +25,6 @@ public class PositionController {
 	
 	@RequestMapping(method=RequestMethod.GET)
     public List<PositionDto> getAll() {
-		return orikaMapperFacade.mapAsList(positionService.getAll(), PositionDto.class);
+		return orikaMapperFacade.mapAsList(positionService.findAll(), PositionDto.class);
 	}
 }

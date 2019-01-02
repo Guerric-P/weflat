@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import fr.weflat.backend.service.BatchService;
+
 @Component
 public class Scheduler {
 	Logger logger = LoggerFactory.getLogger(this.getClass());

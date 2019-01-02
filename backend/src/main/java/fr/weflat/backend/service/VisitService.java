@@ -1,5 +1,6 @@
 package fr.weflat.backend.service;
 
+import java.util.List;
 import java.util.Set;
 
 import fr.weflat.backend.domaine.Visit;
@@ -45,6 +46,8 @@ public interface VisitService {
 	
 	Visit cancel(Visit visit) throws Exception;
 	
+	Visit cancel(Long idVisit) throws Exception;
+	
 	Visit changeStatusToArchitectWasPaid(Visit visit) throws Exception;
 	
 	void refund(Visit visit) throws Exception;
@@ -65,6 +68,6 @@ public interface VisitService {
 	
 	Long getDoneVisitsCount(Long architectId);
 
-	Set<Visit> findRefundableVisits();
+	List<Long> findRefundableVisitsIds();
 
 }

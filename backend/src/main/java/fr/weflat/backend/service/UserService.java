@@ -6,7 +6,7 @@ public interface UserService {
 	
 	User findById(long id);
 	
-	User getByEmailAndPassword(String email, String password);
+	User findByEmailAndPassword(String email, String password);
 	
 	User findByEmail(String email);
 	

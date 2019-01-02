@@ -3,7 +3,6 @@ package fr.weflat.backend.service.impl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
@@ -71,7 +70,7 @@ public class MailServiceImpl implements MailService {
 		if(creds == null) {
 			final HttpTransport TRANSPORT = new NetHttpTransport();
 		    final JsonFactory JSON_FACTORY = new JacksonFactory();
-		    final InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("file:config/Weflat-d8a5d9785c54.p12");
+		    final InputStream stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("Weflat-d8a5d9785c54.p12");
 		    File file = new File("Weflat-d8a5d9785c54.p12");
 		    FileOutputStream fos = new FileOutputStream(file);
 		    IOUtils.copy(stream, fos);
