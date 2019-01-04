@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SEOService {
   private readonly baseTitle = 'Weflat';
+  private readonly testWarning = '[TEST] ';
 
   constructor(private title: Title, private meta: Meta) { }
 
   updateTitle(title: string) {
-    if (!title) {
-      this.title.setTitle(this.baseTitle);
-    } else {
-      this.title.setTitle(`${title} - ${this.baseTitle}`);
-    }
+    const fullTitle = this.generateTitle(title);
+    this.title.setTitle(fullTitle);
+  }
+
+  generateTitle(title: string): string {
+    let fullTitle = title ? `${title} - ${this.baseTitle}` : this.baseTitle;
+    fullTitle = (environment.displayTestWarning ? this.testWarning : '') + fullTitle;
+    return fullTitle;
   }
 
   updateDescription(desc: string) {
