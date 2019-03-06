@@ -44,8 +44,8 @@
         {{visit.chargeId}}
       </label>
     </div>
-    <div *ngIf="visit.status === VisitStatusEnum.BEING_ASSIGNED" class="form-group row">
-      <button mat-raised-button color="primary" (click)="cancelClick()">Annuler</button>
+    <div *ngIf="visit.status === VisitStatusEnum.BEING_ASSIGNED || visit.status === VisitStatusEnum.IN_PROGRESS" class="form-group row">
+      <button mat-raised-button color="primary" (click)="cancelClick()">Annuler la visite</button>
     </div>
   </div>
 </div>
