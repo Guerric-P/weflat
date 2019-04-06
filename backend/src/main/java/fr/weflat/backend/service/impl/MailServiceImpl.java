@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -57,11 +58,12 @@ public class MailServiceImpl implements MailService {
 	
 	private Credential creds;
 	
+	ZoneId zoneId = ZoneId.of("Z");
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy à HH:mm");
 
 	@PostConstruct
 	public void initializeSdf(){
-		sdf.setTimeZone(TimeZone.getTimeZone("GMT+1:00"));
+		sdf.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
 	}
 
 	@Async
