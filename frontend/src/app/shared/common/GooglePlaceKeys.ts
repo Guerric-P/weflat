@@ -1,4 +1,4 @@
-export let GooglePlaceKeys = {
+export const GooglePlaceKeys = {
     streetNumber: 'street_number',
     route: 'route',
     zipCode: 'postal_code',

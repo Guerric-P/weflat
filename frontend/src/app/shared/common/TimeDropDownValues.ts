@@ -1,4 +1,4 @@
-export let values = [
+export const values = [
     { hour: 8, minute: 0, displayTime: '8:00' },
     { hour: 8, minute: 30, displayTime: '8:30' },
     { hour: 9, minute: 0, displayTime: '9:00' },
