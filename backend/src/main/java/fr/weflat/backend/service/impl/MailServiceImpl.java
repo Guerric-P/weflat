@@ -189,6 +189,10 @@ public class MailServiceImpl implements MailService {
 		messageBuilder.append(" souhaite visiter un bien immobilier dans votre zone d’action le ");
 		messageBuilder.append(sdf.format(date));
 		messageBuilder.append(". Connectez-vous à votre compte personnel weflat pour accompagner cet acheteur.</p>");
+		messageBuilder.append("<a class=\"btn\" style=\"position: relative; display: block; margin: 30px auto; padding: 0; overflow: hidden; border-width: 0; outline: none; border-radius: 2px; box-shadow: 0 1px 4px rgba(0, 0, 0, .6); background-color: #3f51b5; color: #fff;\" href=\"");
+		messageBuilder.append(appUrl);
+		messageBuilder.append("/architecte/visits");
+		messageBuilder.append("\"><span style=\"position: relative; display: block; padding: 12px 24px;\">Mes visites</span></a>");
 		messageBuilder.append("<p>Cordialement,</p>");
 		messageBuilder.append("<p>L'équipe Weflat &hearts;</p>");
 		
