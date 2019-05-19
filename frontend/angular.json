@@ -34,7 +34,10 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "assets": ["src/robots.txt"],
+              "assets": [
+                "src/assets",
+                "src/robots.txt"
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
