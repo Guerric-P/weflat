@@ -1,6 +1,6 @@
-import { NgModule, Optional, SkipSelf, Inject } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HttpInterceptor } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router, ActivatedRoute, NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterArchitecteComponent } from './components/register-architecte/register-architecte.component';
@@ -50,7 +50,7 @@ import { ArchitectOnBoardingComponent } from './components/architect-on-boarding
 import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 import { AdminGuard } from './guards/admin.guard';
 import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
-import { filter, map, mergeMap } from 'rxjs/operators';
+import { filter, map, mergeMap, debounceTime } from 'rxjs/operators';
 import { SEOService } from './services/seo.service';
 import { SigninModalComponent } from './components/common/signin-modal/signin-modal.component';
 import { SignupModalComponent } from './components/common/signup-modal/signup-modal.component';
@@ -123,8 +123,11 @@ import { LoaderService } from 'app/shared/services/loader.service';
   ]
 })
 export class CoreModule {
+
+  counter = 0;
+
   constructor(
-    private router: Router,
+    router: Router,
     private activatedRoute: ActivatedRoute,
     private seoService: SEOService,
     @Optional() @SkipSelf() parentModule: CoreModule,
@@ -136,12 +139,25 @@ export class CoreModule {
     }
 
     router.events.pipe(
-      filter(x => x instanceof NavigationStart)
-    ).subscribe(() => loaderService.show());
+      filter(x => x instanceof NavigationStart),
+      debounceTime(200),
+    ).subscribe(() => {
+      /*
+      If this condition is true, then the event corresponding to the end of this NavigationStart
+      has not passed yet so we show the loader
+      */
+      if (this.counter === 0) {
+        loaderService.show();
+      }
+      this.counter++;
+    });
 
     router.events.pipe(
       filter(x => x instanceof NavigationEnd || x instanceof NavigationCancel || x instanceof NavigationError)
-    ).subscribe(() => loaderService.hide());
+    ).subscribe(() => {
+      this.counter--;
+      loaderService.hide();
+    });
 
     router.events.pipe(
       filter(event => event instanceof NavigationEnd),
