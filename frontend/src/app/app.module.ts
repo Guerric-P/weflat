@@ -8,6 +8,8 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { InterceptorsModule } from './interceptors/interceptors.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 registerLocaleData(localeFr);
 
@@ -18,7 +20,8 @@ registerLocaleData(localeFr);
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     TransferHttpCacheModule,
-    InterceptorsModule
+    InterceptorsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   declarations: [
     AppComponent
