@@ -16,6 +16,7 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+            "serviceWorker": true,
             "assets": [
               "src/assets",
               "src/manifest.webmanifest"
@@ -69,8 +70,7 @@
                   "replace": "src/index.html",
                   "with": "src/index.prod.html"
                 }
-              ],
-              "serviceWorker": true
+              ]
             }
           }
         },
