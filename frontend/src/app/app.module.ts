@@ -24,7 +24,7 @@ registerLocaleData(localeFr);
     InterceptorsModule,
     HttpClientModule,
     HttpClientXsrfModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: true })
   ],
   declarations: [
     AppComponent
