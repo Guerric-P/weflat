@@ -42,7 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/visits/price").permitAll()
 				.antMatchers("/visits/partial-refund-amount").permitAll()
 				.antMatchers("/positions").permitAll()
-				.antMatchers("/csrf-token").permitAll()
 				.anyRequest().hasAuthority("admin")
 				.and()
 			.logout()
