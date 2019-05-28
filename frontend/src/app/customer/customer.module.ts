@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AcheteurProfileComponent } from './components/acheteur-profile/acheteur-profile.component';
-import { AcheteurResolver } from '../shared/resolvers/acheteur.resolver';
 import { PurchaseProjectComponent } from './components/purchase-project/purchase-project.component';
 import { MyVisitsComponent } from './components/my-visits/my-visits.component';
-import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -30,7 +27,6 @@ import { EditVisitPopupComponent } from './components/edit-visit-popup/edit-visi
     CustomerRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     MatButtonModule,
     MatCheckboxModule,
     MatCardModule,

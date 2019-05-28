@@ -8,6 +8,7 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { InterceptorsModule } from './interceptors/interceptors.module';
+import { HttpClientXsrfModule, HttpClientModule } from '@angular/common/http';
 
 registerLocaleData(localeFr);
 
@@ -18,7 +19,9 @@ registerLocaleData(localeFr);
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     TransferHttpCacheModule,
-    InterceptorsModule
+    InterceptorsModule,
+    HttpClientModule,
+    HttpClientXsrfModule,
   ],
   declarations: [
     AppComponent

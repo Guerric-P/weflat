@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 
 import fr.weflat.backend.security.JWTAuthenticationFilter;
 import fr.weflat.backend.security.JWTLoginFilter;
@@ -21,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
+		http.csrf().csrfTokenRepository(getCsrfTokenRepository()).and()
 			.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/architects", "/customers", "/visits").permitAll()// Signup and anonymous visit creation
 				.antMatchers(HttpMethod.PATCH, "/visits").permitAll()// Anonymous visit creation
@@ -40,6 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/visits/price").permitAll()
 				.antMatchers("/visits/partial-refund-amount").permitAll()
 				.antMatchers("/positions").permitAll()
+				.antMatchers("/csrf-token").permitAll()
 				.anyRequest().hasAuthority("admin")
 				.and()
 			.logout()
@@ -55,5 +58,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(weflatAuthenticationProvider);
+	}
+	
+	private CsrfTokenRepository getCsrfTokenRepository() {
+	    CookieCsrfTokenRepository tokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+	    tokenRepository.setCookiePath("/");
+	    return tokenRepository;
 	}
 }
