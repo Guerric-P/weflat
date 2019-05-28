@@ -42,7 +42,7 @@ export class AuthenticationService {
 
     logout() {
         // remove user from local storage to log user out
-        return this.http.get('/logout').pipe(
+        return this.http.post('/logout', null).pipe(
             timeout(1000),
             catchError(() => of(undefined)),
             tap(() => {

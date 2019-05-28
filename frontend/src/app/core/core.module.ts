@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { RouterModule, Router, ActivatedRoute, NavigationEnd, NavigationStart, NavigationCancel, NavigationError } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterArchitecteComponent } from './components/register-architecte/register-architecte.component';
@@ -75,7 +75,6 @@ import { LoaderService } from 'app/shared/services/loader.service';
     MatMenuModule,
     MatExpansionModule,
     MatSelectModule,
-    HttpClientModule,
     MatIconModule,
     MatTooltipModule,
     MatTabsModule,

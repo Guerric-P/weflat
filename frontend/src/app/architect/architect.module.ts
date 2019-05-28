@@ -6,7 +6,6 @@ import { VisitsComponent } from './components/visits/visits.component';
 import { ReportEditComponent } from './components/report-edit/report-edit.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import {
   MatCardModule,
   MatButtonModule,
@@ -32,7 +31,6 @@ import { HelpHowToVisitModalComponent } from './components/help-how-to-visit-mod
     ArchitectRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     MatCardModule,
     MatButtonModule,
     MatCheckboxModule,

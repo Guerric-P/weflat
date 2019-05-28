@@ -21,7 +21,7 @@ export class WeflatInterceptor implements HttpInterceptor {
     const authService = this.injector.get(AuthenticationService);
     const url = `${this.request ? environment.backendUrl : ''}${environment.baseBackendUrl}${req.url}`
 
-    let headers = new HttpHeaders();
+    let headers = req.headers;
 
     if (this.request) {
       // Server side: forward the cookies
