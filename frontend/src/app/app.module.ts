@@ -22,9 +22,7 @@ registerLocaleData(localeFr);
     SimpleNotificationsModule.forRoot(),
     TransferHttpCacheModule,
     InterceptorsModule,
-    HttpClientModule,
-    HttpClientXsrfModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: true })
+    ServiceWorkerModule.register('ngsw-worker.js')
   ],
   declarations: [
     AppComponent
