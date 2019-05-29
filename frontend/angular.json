@@ -38,7 +38,8 @@
               "buildOptimizer": true,
               "assets": [
                 "src/assets",
-                "src/robots.txt"
+                "src/robots.txt",
+                "src/manifest.webmanifest"
               ],
               "fileReplacements": [
                 {
