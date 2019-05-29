@@ -10,7 +10,6 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
 import { InterceptorsModule } from './interceptors/interceptors.module';
 import { HttpClientXsrfModule, HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 
 registerLocaleData(localeFr);
 
@@ -22,7 +21,9 @@ registerLocaleData(localeFr);
     SimpleNotificationsModule.forRoot(),
     TransferHttpCacheModule,
     InterceptorsModule,
-    ServiceWorkerModule.register('ngsw-worker.js')
+    HttpClientModule,
+    HttpClientXsrfModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: true })
   ],
   declarations: [
     AppComponent
