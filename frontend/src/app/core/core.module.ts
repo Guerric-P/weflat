@@ -32,7 +32,8 @@ import {
   MatIconModule,
   MatTabsModule,
   MatSelectModule,
-  MatCardModule
+  MatCardModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { DisabledZipCodePopupComponent } from './components/disabled-zip-code-popup/disabled-zip-code-popup.component';
@@ -55,6 +56,7 @@ import { SEOService } from './services/seo.service';
 import { SigninModalComponent } from './components/common/signin-modal/signin-modal.component';
 import { SignupModalComponent } from './components/common/signup-modal/signup-modal.component';
 import { LoaderService } from 'app/shared/services/loader.service';
+import { UpdateService } from './services/update.service';
 
 @NgModule({
   imports: [
@@ -77,6 +79,7 @@ import { LoaderService } from 'app/shared/services/loader.service';
     MatSelectModule,
     MatIconModule,
     MatTooltipModule,
+    MatSnackBarModule,
     MatTabsModule,
     OverlayModule,
     SharedModule.forRoot()
@@ -90,7 +93,8 @@ import { LoaderService } from 'app/shared/services/loader.service';
     SessionStorageService,
     ShowSigninPopupService,
     VisiteCounterService,
-    SEOService
+    SEOService,
+    UpdateService
   ],
   declarations: [
     PublicLayoutComponent,
