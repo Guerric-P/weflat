@@ -21,6 +21,7 @@ export class UpdateService {
         snack
           .onAction()
           .subscribe(() => {
+            console.log('Reload');
             window.location.reload();
           });
 
