@@ -9,6 +9,7 @@ export class UpdateService {
 
   constructor(private swUpdate: SwUpdate, private snackbar: MatSnackBar) {
     this.swUpdate.available.subscribe(evt => {
+      console.log('Update available');
       const snack = this.snackbar.open('Update Available', 'Reload');
 
       snack
@@ -21,5 +22,10 @@ export class UpdateService {
         snack.dismiss();
       }, 6000);
     });
+
+    setInterval(() => {
+      console.log('Starting update check');
+      this.swUpdate.checkForUpdate().then(() => console.log('Update check done.'));
+    }, 5000);
   }
 }
