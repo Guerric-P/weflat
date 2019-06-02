@@ -134,7 +134,8 @@ export class CoreModule {
     private activatedRoute: ActivatedRoute,
     private seoService: SEOService,
     @Optional() @SkipSelf() parentModule: CoreModule,
-    loaderService: LoaderService
+    loaderService: LoaderService,
+    updateServiceDoNotRemove: UpdateService
   ) {
     if (parentModule) {
       throw new Error(
