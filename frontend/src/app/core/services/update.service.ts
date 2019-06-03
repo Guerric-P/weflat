@@ -2,7 +2,7 @@ import { Injectable, Inject, PLATFORM_ID, ApplicationRef } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { MatSnackBar } from '@angular/material';
 import { isPlatformBrowser } from '@angular/common';
-import { first, tap, switchMap } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
 import { interval } from 'rxjs';
 
 @Injectable({
@@ -18,28 +18,23 @@ export class UpdateService {
   ) {
     if (isPlatformBrowser(platformId)) {
       this.swUpdate.available.subscribe(() => {
-        console.log('Update available');
         const snack = this.snackbar.open('Nouvelle version disponible', 'Actualiser');
 
-        snack
-          .onAction()
-          .subscribe(() => {
-            console.log('Reload');
-            window.location.reload();
-          });
+        snack.onAction().subscribe(() => {
+          window.location.reload();
+        });
 
         setTimeout(() => {
           snack.dismiss();
         }, 6000);
       });
 
+      // Poll logic after isStable, otherwise isStable never fires
       appRef.isStable.pipe(
         first(stable => stable),
-        tap(() => console.log('App is stable now')),
-        switchMap(() => interval(5000))
+        switchMap(() => interval(6 * 60 * 60 * 1000)) // Every 6h
       ).subscribe(() => {
-        console.log('Starting update check');
-        this.swUpdate.checkForUpdate().then(() => console.log('Update check done.'));
+        this.swUpdate.checkForUpdate();
       });
     }
   }
