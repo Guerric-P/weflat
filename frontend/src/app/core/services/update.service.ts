@@ -35,7 +35,7 @@ export class UpdateService {
 
       appRef.isStable.pipe(
         first(stable => stable),
-        tap(stable => console.log('App is stable now')),
+        tap(() => console.log('App is stable now')),
         switchMap(() => interval(5000))
       ).subscribe(() => {
         console.log('Starting update check');
