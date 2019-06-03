@@ -14,9 +14,9 @@ export class UpdateService {
     @Inject(PLATFORM_ID) platformId: string
   ) {
     if (isPlatformBrowser(platformId)) {
-      this.swUpdate.available.subscribe(evt => {
+      this.swUpdate.available.subscribe(() => {
         console.log('Update available');
-        const snack = this.snackbar.open('Update Available', 'Reload');
+        const snack = this.snackbar.open('Nouvelle version disponible', 'Actualiser');
 
         snack
           .onAction()
@@ -30,10 +30,10 @@ export class UpdateService {
         }, 6000);
       });
 
-      setInterval(() => {
+      /*setInterval(() => {
         console.log('Starting update check');
         this.swUpdate.checkForUpdate().then(() => console.log('Update check done.'));
-      }, 5000);
+      }, 5000);*/
     }
   }
 }
