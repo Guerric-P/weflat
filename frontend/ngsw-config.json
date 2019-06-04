@@ -28,6 +28,7 @@
       "name": "serverSideRenderedPages",
       "resources": {
         "urls": [
+          "!/backend/**",
           "/**"
         ]
       }
