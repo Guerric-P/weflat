@@ -23,6 +23,22 @@
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
       }
+    },
+    {
+      "name": "backend",
+      "resources": {
+        "urls": [
+          "/backend/**"
+        ]
+      }
+    },
+    {
+      "name": "serverSideRenderedPages",
+      "resources": {
+        "urls": [
+          "/**"
+        ]
+      }
     }
   ],
   "navigationUrls": [
