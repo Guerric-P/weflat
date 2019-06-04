@@ -23,22 +23,20 @@
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
       }
-    },
+    }
+  ],
+  "dataGroups": [
     {
       "name": "backend",
-      "resources": {
-        "urls": [
-          "/backend/**"
-        ]
-      }
+      "urls": [
+        "/backend/**"
+      ]
     },
     {
       "name": "serverSideRenderedPages",
-      "resources": {
-        "urls": [
-          "/**"
-        ]
-      }
+      "urls": [
+        "/**"
+      ]
     }
   ],
   "navigationUrls": [
