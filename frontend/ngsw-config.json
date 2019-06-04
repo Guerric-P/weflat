@@ -23,6 +23,12 @@
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
       }
+    },
+    {
+      "name": "serverSideRenderedPages",
+      "urls": [
+        "/**"
+      ]
     }
   ],
   "dataGroups": [
@@ -30,13 +36,12 @@
       "name": "backend",
       "urls": [
         "/backend/**"
-      ]
-    },
-    {
-      "name": "serverSideRenderedPages",
-      "urls": [
-        "/**"
-      ]
+      ],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "3d",
+        "strategy": "freshness"
+      }
     }
   ],
   "navigationUrls": [
