@@ -26,9 +26,11 @@
     },
     {
       "name": "serverSideRenderedPages",
-      "urls": [
-        "/**"
-      ]
+      "resources": {
+        "urls": [
+          "/**"
+        ]
+      }
     }
   ],
   "dataGroups": [
