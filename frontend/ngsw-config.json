@@ -23,15 +23,6 @@
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
       }
-    },
-    {
-      "name": "serverSideRenderedPages",
-      "resources": {
-        "urls": [
-          "!/backend/**",
-          "/**"
-        ]
-      }
     }
   ],
   "dataGroups": [
@@ -39,6 +30,17 @@
       "name": "backend",
       "urls": [
         "/backend/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "3d",
+        "strategy": "freshness"
+      }
+    },
+    {
+      "name": "serverSideRenderedPages",
+      "urls": [
+        "/**"
       ],
       "cacheConfig": {
         "maxSize": 100,
