@@ -32,7 +32,7 @@ export class AcheteurGuard implements CanActivate {
 
     // Prevent the bug described here: https://stackoverflow.com/questions/54696147/how-to-deal-with-a-modal-shown-in-a-guard
     if (this.isBrowser) {
-      this.loaderService.hide();
+      this.loaderService.lock();
       const dialog = this.dialog.open(SigninModalComponent, {
         data: {
           errorMessage: this.authService.isLoggedIn ?
@@ -42,7 +42,7 @@ export class AcheteurGuard implements CanActivate {
       });
 
       return dialog.afterClosed().pipe(
-        tap(() => this.loaderService.show()),
+        tap(() => this.loaderService.unlock()),
         map(() => {
           return this.authService.isCustomer;
         })

@@ -12,6 +12,7 @@ export class LoaderService {
     componentFactory: ComponentFactory<LoaderComponent>;
     componentPortal: ComponentPortal<LoaderComponent>;
     componentRef: ComponentRef<LoaderComponent>;
+    private locked: boolean;
 
     constructor(
         private overlay: Overlay,
@@ -30,11 +31,21 @@ export class LoaderService {
     }
 
     show(message?: string) {
-        this.componentRef = this.overlayRef.attach<LoaderComponent>(this.componentPortal);
-        this.componentRef.instance.message = message;
+        if (!this.locked) {
+            this.componentRef = this.overlayRef.attach<LoaderComponent>(this.componentPortal);
+            this.componentRef.instance.message = message;
+        }
     }
 
     hide() {
         this.overlayRef.detach();
+    }
+
+    lock() {
+        this.locked = true;
+    }
+
+    unlock() {
+        this.locked = false;
     }
 }
