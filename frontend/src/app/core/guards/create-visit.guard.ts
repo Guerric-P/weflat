@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { MatDialog } from '@angular/material';
 import { SigninModalComponent } from '../components/common/signin-modal/signin-modal.component';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
+import { LoaderService } from 'app/shared/services/loader.service';
 
 @Injectable()
 export class CreateVisitGuard implements CanActivate {
@@ -15,6 +16,7 @@ export class CreateVisitGuard implements CanActivate {
     private authService: AuthenticationService,
     private dialog: MatDialog,
     @Inject(PLATFORM_ID) platformId: string,
+    private loaderService: LoaderService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -29,6 +31,7 @@ export class CreateVisitGuard implements CanActivate {
     }
     // Prevent the bug described here: https://stackoverflow.com/questions/54696147/how-to-deal-with-a-modal-shown-in-a-guard
     if (this.isBrowser) {
+      this.loaderService.hide();
       const dialog = this.dialog.open(SigninModalComponent, {
         data: {
           errorMessage: 'Vous n\'avez pas accès à cette page, connectez-vous avec un compte approprié'
@@ -36,6 +39,7 @@ export class CreateVisitGuard implements CanActivate {
       });
 
       return dialog.afterClosed().pipe(
+        tap(() => this.loaderService.show()),
         map(() => {
           return this.authService.isCustomer;
         })
