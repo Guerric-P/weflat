@@ -24,9 +24,7 @@
         ],
         "urls": [
           "https://platform.twitter.com/widgets.js",
-          "https://checkout.stripe.com/checkout.js",
           "https://fonts.googleapis.com/icon",
-          "https://www.googletagmanager.com/gtag/js"
         ]
       }
     }
