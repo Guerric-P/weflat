@@ -23,8 +23,12 @@
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ],
         "urls": [
-          "https://platform.twitter.com/widgets.js",
-          "https://fonts.googleapis.com/icon"
+          "https://platform.twitter.com/**",
+          "https://checkout.stripe.com/**",
+          "https://fonts.googleapis.com/**",
+          "https://www.googletagmanager.com/**",
+          "https://fonts.gstatic.com/**",
+          "https://maps.googleapis.com/**"
         ]
       }
     }
