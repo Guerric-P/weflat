@@ -36,20 +36,6 @@
         "maxAge": "3d",
         "strategy": "freshness"
       }
-    },
-    {
-      "name": "serverSideRenderedPages",
-      "urls": [
-        "/**"
-      ],
-      "cacheConfig": {
-        "maxSize": 100,
-        "maxAge": "3d",
-        "strategy": "freshness"
-      }
     }
-  ],
-  "navigationUrls": [
-    "!/**"
   ]
 }
