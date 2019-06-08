@@ -24,11 +24,8 @@
         ],
         "urls": [
           "https://platform.twitter.com/**",
-          "https://checkout.stripe.com/**",
           "https://fonts.googleapis.com/**",
-          "https://www.googletagmanager.com/**",
-          "https://fonts.gstatic.com/**",
-          "https://maps.googleapis.com/**"
+          "https://fonts.gstatic.com/**"
         ]
       }
     }
