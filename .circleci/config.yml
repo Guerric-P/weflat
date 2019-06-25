@@ -14,7 +14,6 @@ jobs:
     steps:
       - checkout
       - run: |
-          echo $DOCKER_PASS
           export ANGULAR_ENVIRONMENT=`eval "echo $"${CIRCLE_BRANCH^^}"_ANGULAR_ENVIRONMENT"`
           export MAVEN_PROFILE=`eval "echo $"${CIRCLE_BRANCH^^}"_MAVEN_PROFILE"`
           export TAG_NAME=`eval "echo $"${CIRCLE_BRANCH^^}"_TAG_NAME"`
