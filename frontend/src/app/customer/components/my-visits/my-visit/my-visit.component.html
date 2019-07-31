@@ -58,7 +58,7 @@
     </div>
   </mat-card-content>
 </mat-card>
-<mat-card *ngIf="visit.status === VisitStatusEnum.REPORT_AVAILABLE" class="card">
+<mat-card *ngIf="visit.status === VisitStatusEnum.REPORT_AVAILABLE || visit.status === VisitStatusEnum.ARCHITECT_PAID" class="card">
   <mat-card-content>
     Visite au {{ visit.formattedAddress }} planifiée le {{visit.visiteDate | date:'medium'}}
     <div class="progress" style="height: 20px;">
