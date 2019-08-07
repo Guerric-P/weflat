@@ -4,7 +4,8 @@ import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ShowSigninPopupService } from '../../services/show-signin-popup.service';
 import { Constantes } from '../../../shared/common/Constantes';
-import { MatDialog, MatDialogRef, MatExpansionPanel } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { SigninModalComponent } from '../common/signin-modal/signin-modal.component';
 import { SignupModalComponent } from '../common/signup-modal/signup-modal.component';
 
@@ -20,8 +21,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   disabled: boolean;
   routerEventsSubscription: Subscription;
   showSigninPopupSubscription: Subscription;
-  @ViewChild('expandingFooter') expandingFooter: MatExpansionPanel;
-  @ViewChild('footerBody') footerBody: ElementRef;
+  @ViewChild('expandingFooter', { static: true }) expandingFooter: MatExpansionPanel;
+  @ViewChild('footerBody', { static: true }) footerBody: ElementRef;
   signinModal: MatDialogRef<any>;
   signupModal: MatDialogRef<any>;
 

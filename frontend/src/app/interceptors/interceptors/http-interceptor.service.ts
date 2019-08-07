@@ -19,7 +19,7 @@ export class WeflatInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authService = this.injector.get(AuthenticationService);
-    const url = `${this.request ? environment.backendUrl : ''}${environment.baseBackendUrl}${req.url}`
+    const url = `${this.request ? environment.backendUrl : ''}${environment.baseBackendUrl}${req.url}`;
 
     let headers = new HttpHeaders();
 

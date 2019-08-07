@@ -3,7 +3,7 @@ import { VisitStatusEnum } from '../../../../shared/common/enums/VisitStatusEnum
 import { VisitClass } from '../../../../core/models/VisitClass';
 import { Router } from '@angular/router';
 import { VisitService } from '../../../../shared/services/visit.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NotificationsService } from 'angular2-notifications';
 import { AuthenticationService } from '../../../../core/services/authentication.service';
 import { EditVisitPopupComponent } from '../../edit-visit-popup/edit-visit-popup.component';
@@ -21,7 +21,7 @@ export class MyVisitComponent implements OnInit {
   @Input() price: number
   @Input() partialRefundAmount: number;
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('cancelModal') cancelModalTemplate: TemplateRef<any>;
+  @ViewChild('cancelModal', { static: true }) cancelModalTemplate: TemplateRef<any>;
   cancelModal: MatDialogRef<any>;
   VisitStatusEnum = VisitStatusEnum;
   cancelButtonDisabled = false;
