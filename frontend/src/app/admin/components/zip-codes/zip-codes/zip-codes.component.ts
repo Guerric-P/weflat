@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { ErrorStateMatcher, MatDialog, MatDialogRef } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ZipCodeClass } from '../../../../core/models/ZipCodeClass';
 import { ZipCodeService } from '../../../../shared/services/zip-code.service';
@@ -28,7 +29,7 @@ export class ZipCodesComponent implements OnInit {
   inputValue: string;
   changedZipCodes: { previous: ZipCodeClass, current: ZipCodeClass }[] = [];
   matcher: ErrorStateMatcher = new ZipCodeErrorStateMatcher();
-  @ViewChild('confirmModal') confirmModalTemplate: TemplateRef<any>;
+  @ViewChild('confirmModal', { static: true }) confirmModalTemplate: TemplateRef<any>;
   confirmModal: MatDialogRef<any>;
 
   get activatedZipCodesCount() {

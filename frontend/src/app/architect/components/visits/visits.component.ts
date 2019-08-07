@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VisitService } from '../../../shared/services/visit.service';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { VisitClass } from '../../../core/models/VisitClass';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { HelpHowToVisitModalComponent } from '../help-how-to-visit-modal/help-how-to-visit-modal.component';
 
 @Component({
