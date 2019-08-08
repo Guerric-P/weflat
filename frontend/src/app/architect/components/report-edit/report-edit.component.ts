@@ -8,7 +8,7 @@ import { ReportService } from '../../../shared/services/report.service';
 import { ReportClass } from '../../../core/models/ReportClass';
 import { PositionClass } from '../../../core/models/PositionClass';
 import { RenovationClass } from '../../../core/models/RenovationClass';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { HelpReportEditionModalComponent } from '../help-report-edition-modal/help-report-edition-modal.component';
 
@@ -28,7 +28,7 @@ export class ReportEditComponent implements OnInit {
   mandatoryPositionsIds: number[];
   submitConfirmModal: MatDialogRef<any>;
   helpModal: MatDialogRef<HelpReportEditionModalComponent>;
-  @ViewChild('submitConfirmModal') submitConfirmModalTemplate: TemplateRef<any>;
+  @ViewChild('submitConfirmModal', { static: true }) submitConfirmModalTemplate: TemplateRef<any>;
   renovations: FormArray;
 
   get displayArchitectContactButton() {

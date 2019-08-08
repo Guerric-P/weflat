@@ -90,22 +90,22 @@ const routes: Routes = [
     component: ArchitecteLayoutComponent,
     canActivate: [ArchitecteGuard],
     data: { authRequired: true },
-    loadChildren: '../architect/architect.module#ArchitectModule'
+    loadChildren: () => import('../architect/architect.module').then(m => m.ArchitectModule)
   }, {
     path: 'acheteur',
     component: AcheteurLayoutComponent,
     canActivate: [AcheteurGuard],
     data: { authRequired: true },
-    loadChildren: '../customer/customer.module#CustomerModule'
+    loadChildren: () => import('../customer/customer.module').then(m => m.CustomerModule)
   }, {
     path: 'admin',
     component: AdminLayoutComponent,
     canActivate: [AdminGuard],
     data: { authRequired: true },
-    loadChildren: '../admin/admin.module#AdminModule'
+    loadChildren: () => import('../admin/admin.module').then(m => m.AdminModule)
   }, {
     path: 'not-found',
-    loadChildren: '../server-errors/server-errors.module#ServerErrorsModule'
+    loadChildren: () => import('../server-errors/server-errors.module').then(m => m.ServerErrorsModule)
   },
   { path: '**', redirectTo: 'not-found' }
 ];

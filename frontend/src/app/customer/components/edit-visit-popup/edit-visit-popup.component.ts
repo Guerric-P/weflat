@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, EventEmitter, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { VisitClass } from '../../../core/models/VisitClass';
 import { GooglePlaceKeys } from '../../../shared/common/GooglePlaceKeys';
@@ -21,7 +21,7 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
 
   visitForm: FormGroup;
   visit: VisitClass;
-  @ViewChild('addressInput') addressInput: ElementRef;
+  @ViewChild('addressInput', { static: true }) addressInput: ElementRef;
   @Output() onUpdate = new EventEmitter<VisitClass>();
   mutationObserver: MutationObserver;
   minDate = moment().add(1, 'days').toDate();

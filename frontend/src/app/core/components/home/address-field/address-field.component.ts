@@ -17,8 +17,8 @@ declare var google;
 })
 export class AddressFieldComponent implements OnInit {
 
-  @ViewChild('input') input: ElementRef;
-  @ViewChild('popup') popup: DisabledZipCodePopupComponent;
+  @ViewChild('input', { static: true }) input: ElementRef;
+  @ViewChild('popup', { static: true }) popup: DisabledZipCodePopupComponent;
   visit: VisitClass = new VisitClass();
   place: any;
   isBrowser: boolean;

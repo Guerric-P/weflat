@@ -4,16 +4,14 @@ import { CustomersComponent } from './components/customers/customers.component';
 import { VisitsComponent } from './components/visits/visits/visits.component';
 import { ArchitectsComponent } from './components/architects/architects/architects.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import {
-  MatInputModule,
-  MatSlideToggleModule,
-  MatListModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatChipsModule,
-  MatButtonModule,
-  MatDialogModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ZipCodeComponent } from './components/zip-codes/zip-code/zip-code.component';
