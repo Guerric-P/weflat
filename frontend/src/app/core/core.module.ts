@@ -2,7 +2,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatBadgeModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatSelectModule, MatStepperModule, MatTabsModule, MatTooltipModule } from '@angular/material';
+import { MatBadgeModule, MatButtonModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatExpansionModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatSelectModule, MatSnackBarModule, MatStepperModule, MatTabsModule, MatTooltipModule } from '@angular/material';
 import { ActivatedRoute, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterModule } from '@angular/router';
 import { ArchitectOnBoardingComponent } from '@weflat/core/components/architect-on-boarding/architect-on-boarding.component';
 import { SigninModalComponent } from '@weflat/core/components/common/signin-modal/signin-modal.component';
@@ -32,6 +32,7 @@ import { AuthenticationService } from '@weflat/core/services/authentication.serv
 import { SEOService } from '@weflat/core/services/seo.service';
 import { SessionStorageService } from '@weflat/core/services/session-storage.service';
 import { ShowSigninPopupService } from '@weflat/core/services/show-signin-popup.service';
+import { UpdateService } from '@weflat/core/services/update.service';
 import { VisiteCounterService } from '@weflat/core/services/visite-counter.service';
 import { SharedModule } from '@weflat/shared/shared.module';
 import { LoaderService } from 'app/shared/services/loader.service';

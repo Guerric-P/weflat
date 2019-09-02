@@ -4,8 +4,9 @@ import { MatDialog } from '@angular/material';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
 import { SigninModalComponent } from '@weflat/core/components/common/signin-modal/signin-modal.component';
 import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { LoaderService } from '@weflat/shared/services/loader.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class AcheteurGuard implements CanActivate {

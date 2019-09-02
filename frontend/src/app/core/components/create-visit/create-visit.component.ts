@@ -18,8 +18,8 @@ import { values } from '@weflat/shared/common/TimeDropDownValues';
 import { AcheteurService } from '@weflat/shared/services/acheteur.service';
 import { VisitService } from '@weflat/shared/services/visit.service';
 import { NotificationsService } from 'angular2-notifications';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import moment = require('moment');
 
 declare var google;
 

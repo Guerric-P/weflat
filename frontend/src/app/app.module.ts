@@ -1,8 +1,10 @@
 import { registerLocaleData } from '@angular/common';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import localeFr from '@angular/common/locales/fr';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { TransferHttpCacheModule } from '@nguniversal/common';
 import { AppComponent } from '@weflat/app.component';
 import { CoreModule } from '@weflat/core/core.module';
