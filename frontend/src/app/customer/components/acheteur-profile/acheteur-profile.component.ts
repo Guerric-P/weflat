@@ -1,13 +1,13 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
+import { CustomerClass } from '@weflat/core/models/CustomerClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { AcheteurService } from '@weflat/shared/services/acheteur.service';
+import { UserService } from '@weflat/shared/services/user.service';
+import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
-import { AcheteurService } from '../../../shared/services/acheteur.service';
-import { UserService } from '../../../shared/services/user.service';
-import { AuthenticationService } from '../../../core/services/authentication.service';
-import { CustomerClass } from '../../../core/models/CustomerClass';
-import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-acheteur-profile',

@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
-import { VisitClass } from '../../core/models/VisitClass';
+import { Injectable } from '@angular/core';
+import { VisitClass } from '@weflat/core/models/VisitClass';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable()
 export class VisitService {

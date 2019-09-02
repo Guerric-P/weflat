@@ -1,8 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, TemplateRef } from '@angular/core';
-import { VisitClass } from '../../../../core/models/VisitClass';
-import { VisitStatusEnum } from '../../../../shared/common/enums/VisitStatusEnum';
-import { MatDialogRef, MatDialog } from '@angular/material';
-import { VisitService } from '../../../../shared/services/visit.service';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { VisitClass } from '@weflat/core/models/VisitClass';
+import { VisitStatusEnum } from '@weflat/shared/common/enums/VisitStatusEnum';
+import { VisitService } from '@weflat/shared/services/visit.service';
+
+
+
 
 @Component({
   selector: 'app-visit',
@@ -13,7 +16,7 @@ export class VisitComponent implements OnInit {
 
   @Input() visit: VisitClass;
   @Output() updated: EventEmitter<VisitClass> = new EventEmitter<VisitClass>();
-  @ViewChild('confirmModal') confirmModalTemplate: TemplateRef<any>;
+  @ViewChild('confirmModal', { static: false }) confirmModalTemplate: TemplateRef<any>;
   confirmModal: MatDialogRef<any>;
   public VisitStatusEnum = VisitStatusEnum;
 

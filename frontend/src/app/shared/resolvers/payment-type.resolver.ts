@@ -1,8 +1,8 @@
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { PaymentTypeClass } from '../../core/models/PaymentTypeClass';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { PaymentTypeClass } from '@weflat/core/models/PaymentTypeClass';
+import { PaymentTypeService } from '@weflat/shared/services/payment-type.service';
 import { Observable } from 'rxjs';
-import { PaymentTypeService } from '../services/payment-type.service';
 
 @Injectable()
 export class PaymentTypeResolver implements Resolve<PaymentTypeClass[]> {

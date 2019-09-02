@@ -1,5 +1,5 @@
-import { Routes, RouterModule } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from '@weflat/server-errors/not-found/not-found.component';
 
 const routes: Routes = [
   {

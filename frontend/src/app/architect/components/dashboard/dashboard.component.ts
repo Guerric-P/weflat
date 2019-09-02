@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ArchitectService } from '../../../shared/services/architecte.service';
-import { DashboardClass } from '../../../core/models/DashboardClass';
-import { AuthenticationService } from '../../../core/services/authentication.service';
+import { DashboardClass } from '@weflat/core/models/DashboardClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { ArchitectService } from '@weflat/shared/services/architecte.service';
 
 @Component({
   selector: 'app-dashboard',

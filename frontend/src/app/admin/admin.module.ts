@@ -1,30 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CustomersComponent } from './components/customers/customers.component';
-import { VisitsComponent } from './components/visits/visits/visits.component';
-import { ArchitectsComponent } from './components/architects/architects/architects.component';
-import { AdminRoutingModule } from './admin-routing.module';
-import {
-  MatInputModule,
-  MatSlideToggleModule,
-  MatListModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatChipsModule,
-  MatButtonModule,
-  MatDialogModule
-} from '@angular/material';
-import { SharedModule } from '../shared/shared.module';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ZipCodeComponent } from './components/zip-codes/zip-code/zip-code.component';
-import { ZipCodesComponent } from './components/zip-codes/zip-codes/zip-codes.component';
-import { ArchitectsListComponent } from './components/architects/architects-list/architects-list.component';
-import { VisitListItemComponent } from './components/visits/visit/visit-list-item.component';
-import { VisitsListComponent } from './components/visits/visits-list/visits-list.component';
-import { CustomerComponent } from './components/common/customer/customer.component';
-import { ArchitectListItemComponent } from './components/architects/architect/architect-list-item.component';
-import { ArchitectComponent } from './components/common/architect/architect.component';
-import { VisitComponent } from './components/common/visit/visit.component';
+import { MatButtonModule, MatChipsModule, MatDialogModule, MatDividerModule, MatExpansionModule, MatInputModule, MatListModule, MatSlideToggleModule } from '@angular/material';
+import { AdminRoutingModule } from '@weflat/admin/admin-routing.module';
+import { ArchitectListItemComponent } from '@weflat/admin/components/architects/architect/architect-list-item.component';
+import { ArchitectsListComponent } from '@weflat/admin/components/architects/architects-list/architects-list.component';
+import { ArchitectsComponent } from '@weflat/admin/components/architects/architects/architects.component';
+import { ArchitectComponent } from '@weflat/admin/components/common/architect/architect.component';
+import { CustomerComponent } from '@weflat/admin/components/common/customer/customer.component';
+import { VisitComponent } from '@weflat/admin/components/common/visit/visit.component';
+import { CustomersComponent } from '@weflat/admin/components/customers/customers.component';
+import { VisitListItemComponent } from '@weflat/admin/components/visits/visit/visit-list-item.component';
+import { VisitsListComponent } from '@weflat/admin/components/visits/visits-list/visits-list.component';
+import { VisitsComponent } from '@weflat/admin/components/visits/visits/visits.component';
+import { ZipCodeComponent } from '@weflat/admin/components/zip-codes/zip-code/zip-code.component';
+import { ZipCodesComponent } from '@weflat/admin/components/zip-codes/zip-codes/zip-codes.component';
+import { SharedModule } from '@weflat/shared/shared.module';
 
 @NgModule({
   imports: [

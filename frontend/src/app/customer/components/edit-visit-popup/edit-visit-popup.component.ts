@@ -1,15 +1,16 @@
-import { Component, OnInit, Inject, EventEmitter, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { VisitClass } from '../../../core/models/VisitClass';
-import { GooglePlaceKeys } from '../../../shared/common/GooglePlaceKeys';
-import { values } from '../../../shared/common/TimeDropDownValues';
-import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
-import { VisitService } from '../../../shared/services/visit.service';
-import { ZipCodeService } from '../../../shared/services/zip-code.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { GoogleService } from '../../../core/services/google.service';
+import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { VisitClass } from '@weflat/core/models/VisitClass';
+import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
+import { GoogleService } from '@weflat/core/services/google.service';
+import { GooglePlaceKeys } from '@weflat/shared/common/GooglePlaceKeys';
+import { values } from '@weflat/shared/common/TimeDropDownValues';
+import { VisitService } from '@weflat/shared/services/visit.service';
+import { ZipCodeService } from '@weflat/shared/services/zip-code.service';
 import * as moment from 'moment';
+
 declare var google;
 
 @Component({
@@ -21,7 +22,7 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
 
   visitForm: FormGroup;
   visit: VisitClass;
-  @ViewChild('addressInput') addressInput: ElementRef;
+  @ViewChild('addressInput', { static: true }) addressInput: ElementRef;
   @Output() onUpdate = new EventEmitter<VisitClass>();
   mutationObserver: MutationObserver;
   minDate = moment().add(1, 'days').toDate();
@@ -82,9 +83,9 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
         const target = <HTMLElement>mutation.target;
         const oldTop = mutation.oldValue
           && mutation.oldValue.split(';')
-          .map(x => x.split(':')
-          .map(y => y.trim()))
-          .find(z => z[0] === 'top');
+            .map(x => x.split(':')
+              .map(y => y.trim()))
+            .find(z => z[0] === 'top');
         const oldTopValue = oldTop && oldTop[1];
 
         if (target.classList.contains('pac-container')

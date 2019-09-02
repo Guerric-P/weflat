@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ArchitecteProfileComponent } from './components/architecte-profile/architecte-profile.component';
-import { ArchitecteResolver } from '../shared/resolvers/architecte.resolver';
-import { ArchitectTypeResolver } from '../shared/resolvers/architect-type.resolver';
-import { ArchitectSituationResolver } from '../shared/resolvers/architect-situation.resolver';
-import { VisitsComponent } from './components/visits/visits.component';
-import { ReportEditComponent } from './components/report-edit/report-edit.component';
-import { ReportResolver } from '../shared/resolvers/report.resolver';
-import { PositionResolver } from '../shared/resolvers/position.resolver';
-import { ZipCodesResolver } from '../shared/resolvers/zip-codes-resolver';
-import { MessagesComponent } from './components/messages/messages.component';
-import { ReportConsultationComponent } from '../shared/components/report/report-consultation/report-consultation.component';
-import { PaymentTypeResolver } from '../shared/resolvers/payment-type.resolver';
+import { RouterModule, Routes } from '@angular/router';
+import { VisitsComponent } from '@weflat/admin/components/visits/visits/visits.component';
+import { ArchitecteProfileComponent } from '@weflat/architect/components/architecte-profile/architecte-profile.component';
+import { DashboardComponent } from '@weflat/architect/components/dashboard/dashboard.component';
+import { MessagesComponent } from '@weflat/architect/components/messages/messages.component';
+import { ReportEditComponent } from '@weflat/architect/components/report-edit/report-edit.component';
+import { ReportConsultationComponent } from '@weflat/shared/components/report/report-consultation/report-consultation.component';
+import { ArchitectSituationResolver } from '@weflat/shared/resolvers/architect-situation.resolver';
+import { ArchitectTypeResolver } from '@weflat/shared/resolvers/architect-type.resolver';
+import { ArchitecteResolver } from '@weflat/shared/resolvers/architecte.resolver';
+import { PaymentTypeResolver } from '@weflat/shared/resolvers/payment-type.resolver';
+import { PositionResolver } from '@weflat/shared/resolvers/position.resolver';
+import { ReportResolver } from '@weflat/shared/resolvers/report.resolver';
+import { ZipCodesResolver } from '@weflat/shared/resolvers/zip-codes-resolver';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

@@ -1,13 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone, TemplateRef, PLATFORM_ID, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { SessionStorageService } from '../../../services/session-storage.service';
-import { VisitService } from '../../../../shared/services/visit.service';
-import { DisabledZipCodePopupComponent } from '../../disabled-zip-code-popup/disabled-zip-code-popup.component';
-import { GooglePlaceKeys } from '../../../../shared/common/GooglePlaceKeys';
-import { VisitClass } from '../../../models/VisitClass';
-import { ZipCodeClass } from '../../../models/ZipCodeClass';
-import { GoogleService } from '../../../services/google.service';
 import { isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, Inject, NgZone, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { DisabledZipCodePopupComponent } from '@weflat/core/components/disabled-zip-code-popup/disabled-zip-code-popup.component';
+import { VisitClass } from '@weflat/core/models/VisitClass';
+import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
+import { GoogleService } from '@weflat/core/services/google.service';
+import { SessionStorageService } from '@weflat/core/services/session-storage.service';
+import { GooglePlaceKeys } from '@weflat/shared/common/GooglePlaceKeys';
+import { VisitService } from '@weflat/shared/services/visit.service';
+
 declare var google;
 
 @Component({
@@ -17,8 +18,8 @@ declare var google;
 })
 export class AddressFieldComponent implements OnInit {
 
-  @ViewChild('input') input: ElementRef;
-  @ViewChild('popup') popup: DisabledZipCodePopupComponent;
+  @ViewChild('input', { static: true }) input: ElementRef;
+  @ViewChild('popup', { static: false }) popup: DisabledZipCodePopupComponent;
   visit: VisitClass = new VisitClass();
   place: any;
   isBrowser: boolean;

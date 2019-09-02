@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RoutesRecognized } from '@angular/router';
+import { BaseBackendLayoutComponent } from '@weflat/core/layout/base-backend-layout/base-backend-layout.component';
 import { Subscription } from 'rxjs';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { BaseBackendLayoutComponent } from '../base-backend-layout/base-backend-layout.component';
+
 
 @Component({
   selector: 'app-architecte-layout',

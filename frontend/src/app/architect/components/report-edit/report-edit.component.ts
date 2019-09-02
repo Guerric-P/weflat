@@ -1,16 +1,16 @@
-import { Component, OnInit, OnChanges, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { NotificationsService } from 'angular2-notifications';
-import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
 import { Location } from '@angular/common';
-import { ReportService } from '../../../shared/services/report.service';
-import { ReportClass } from '../../../core/models/ReportClass';
-import { PositionClass } from '../../../core/models/PositionClass';
-import { RenovationClass } from '../../../core/models/RenovationClass';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { AuthenticationService } from '../../../core/services/authentication.service';
-import { HelpReportEditionModalComponent } from '../help-report-edition-modal/help-report-edition-modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HelpReportEditionModalComponent } from '@weflat/architect/components/help-report-edition-modal/help-report-edition-modal.component';
+import { PositionClass } from '@weflat/core/models/PositionClass';
+import { RenovationClass } from '@weflat/core/models/RenovationClass';
+import { ReportClass } from '@weflat/core/models/ReportClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { ReportService } from '@weflat/shared/services/report.service';
+import { NotificationsService } from 'angular2-notifications';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-report-edit',
@@ -28,7 +28,7 @@ export class ReportEditComponent implements OnInit {
   mandatoryPositionsIds: number[];
   submitConfirmModal: MatDialogRef<any>;
   helpModal: MatDialogRef<HelpReportEditionModalComponent>;
-  @ViewChild('submitConfirmModal') submitConfirmModalTemplate: TemplateRef<any>;
+  @ViewChild('submitConfirmModal', { static: false }) submitConfirmModalTemplate: TemplateRef<any>;
   renovations: FormArray;
 
   get displayArchitectContactButton() {

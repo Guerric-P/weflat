@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ArchitectSituationClass } from '@weflat/core/models/ArchitectSituationClass';
 import { Observable } from 'rxjs';
-import { ArchitectSituationClass } from '../../core/models/ArchitectSituationClass';
 
 @Injectable()
 export class ArchitectSituationService {

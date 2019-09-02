@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ZipCodeClass } from '../../../../core/models/ZipCodeClass';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material';
+import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
+
 
 @Component({
   selector: 'app-zip-code',

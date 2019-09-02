@@ -1,7 +1,7 @@
-import { Injectable, ComponentFactoryResolver, ComponentFactory, ComponentRef } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { LoaderComponent } from '../components/loader/loader.component';
+import { ComponentFactory, ComponentFactoryResolver, ComponentRef, Injectable } from '@angular/core';
+import { LoaderComponent } from '@weflat/shared/components/loader/loader.component';
 
 @Injectable({
     providedIn: 'root'
