@@ -22,7 +22,7 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
 
   visitForm: FormGroup;
   visit: VisitClass;
-  @ViewChild('addressInput', { static: false }) addressInput: ElementRef;
+  @ViewChild('addressInput', { static: true }) addressInput: ElementRef;
   @Output() onUpdate = new EventEmitter<VisitClass>();
   mutationObserver: MutationObserver;
   minDate = moment().add(1, 'days').toDate();

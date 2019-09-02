@@ -11,8 +11,8 @@ declare var twttr: any;
 })
 export class HomeComponent implements OnInit {
   architectOnboardingButtonImgSrc;
-  @ViewChild('valentineTweet', { static: false }) valentineTweet: ElementRef<HTMLDivElement>;
-  @ViewChild('nesrineTweet', { static: false }) nesrineTweet: ElementRef<HTMLDivElement>;
+  @ViewChild('valentineTweet', { static: true }) valentineTweet: ElementRef<HTMLDivElement>;
+  @ViewChild('nesrineTweet', { static: true }) nesrineTweet: ElementRef<HTMLDivElement>;
   isBrowser: boolean;
 
   constructor(
