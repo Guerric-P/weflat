@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { VisitClass } from '../../../../core/models/VisitClass';
-import { VisitService } from '../../../../shared/services/visit.service';
-import * as ArrayUtils from '../../../../core/utils/arrayUtils';
+import { VisitClass } from '@weflat/core/models/VisitClass';
+import { findIndexById } from '@weflat/core/utils/arrayUtils';
+import { VisitService } from '@weflat/shared/services/visit.service';
 
 @Component({
   selector: 'app-visits',
@@ -26,7 +26,7 @@ export class VisitsComponent implements OnInit {
   }
 
   updated(event: VisitClass) {
-    this.visits.splice(ArrayUtils.findIndexById(this.visits)(event.id), 1);
+    this.visits.splice(findIndexById(this.visits)(event.id), 1);
     this.visits = this.visits.concat([event]);
   }
 

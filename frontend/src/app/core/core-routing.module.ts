@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
-import { HomeComponent } from './components/home/home.component';
-import { RegisterArchitecteComponent } from './components/register-architecte/register-architecte.component';
-import { RegisterAcheteurComponent } from './components/register-acheteur/register-acheteur.component';
-import { CreateVisitGuard } from './guards/create-visit.guard';
-import { CreateVisitComponent } from './components/create-visit/create-visit.component';
-import { ArchitecteLayoutComponent } from './layout/architecte-layout/architecte-layout.component';
-import { ArchitecteGuard } from './guards/architecte.guard';
-import { AcheteurLayoutComponent } from './layout/acheteur-layout/acheteur-layout.component';
-import { AcheteurGuard } from './guards/acheteur.guard';
-import { EndUserLicenseAgreementComponent } from './components/end-user-license-agreement/end-user-license-agreement.component';
-import { FrequentlyAskedQuestionsComponent } from './components/frequently-asked-questions/frequently-asked-questions.component';
-import { ArchitectOnBoardingComponent } from './components/architect-on-boarding/architect-on-boarding.component';
-import { AdminGuard } from './guards/admin.guard';
-import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
-import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ArchitectOnBoardingComponent } from '@weflat/core/components/architect-on-boarding/architect-on-boarding.component';
+import { CreateVisitComponent } from '@weflat/core/components/create-visit/create-visit.component';
+import { EndUserLicenseAgreementComponent } from '@weflat/core/components/end-user-license-agreement/end-user-license-agreement.component';
+import { ForgottenPasswordComponent } from '@weflat/core/components/forgotten-password/forgotten-password.component';
+import { FrequentlyAskedQuestionsComponent } from '@weflat/core/components/frequently-asked-questions/frequently-asked-questions.component';
+import { HomeComponent } from '@weflat/core/components/home/home.component';
+import { RegisterAcheteurComponent } from '@weflat/core/components/register-acheteur/register-acheteur.component';
+import { RegisterArchitecteComponent } from '@weflat/core/components/register-architecte/register-architecte.component';
+import { AcheteurGuard } from '@weflat/core/guards/acheteur.guard';
+import { AdminGuard } from '@weflat/core/guards/admin.guard';
+import { ArchitecteGuard } from '@weflat/core/guards/architecte.guard';
+import { CreateVisitGuard } from '@weflat/core/guards/create-visit.guard';
+import { AcheteurLayoutComponent } from '@weflat/core/layout/acheteur-layout/acheteur-layout.component';
+import { AdminLayoutComponent } from '@weflat/core/layout/admin-layout/admin-layout.component';
+import { ArchitecteLayoutComponent } from '@weflat/core/layout/architecte-layout/architecte-layout.component';
+import { PublicLayoutComponent } from '@weflat/core/layout/public-layout/public-layout.component';
 
 const routes: Routes = [
   {

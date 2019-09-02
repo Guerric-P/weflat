@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, TemplateRef, Input } from '@angular/core';
-import { VisitClass } from '../../models/VisitClass';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { VisitClass } from '@weflat/core/models/VisitClass';
+
 
 @Component({
   selector: 'app-disabled-zip-code-popup',
@@ -10,7 +11,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 export class DisabledZipCodePopupComponent implements OnInit {
 
   visit: VisitClass;
-  @ViewChild('noArchitectsModal', { static: true }) noArchitectsModalTemplate: TemplateRef<any>;
+  @ViewChild('noArchitectsModal', { static: false }) noArchitectsModalTemplate: TemplateRef<any>;
   noArchitectsModal: MatDialogRef<any>;
   @Input() OKFunction: Function;
   @Input() cancelFunction: Function;

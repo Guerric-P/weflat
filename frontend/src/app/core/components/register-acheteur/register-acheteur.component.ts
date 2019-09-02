@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AcheteurService } from '../../../shared/services/acheteur.service';
-import { AuthenticationService } from '../../services/authentication.service';
-import { ShowSigninPopupService } from '../../services/show-signin-popup.service';
-import { Constantes } from '../../../shared/common/Constantes';
-import { CustomerClass } from '../../models/CustomerClass';
+import { CustomerClass } from '@weflat/core/models/CustomerClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { ShowSigninPopupService } from '@weflat/core/services/show-signin-popup.service';
+import { Constantes } from '@weflat/shared/common/Constantes';
+import { AcheteurService } from '@weflat/shared/services/acheteur.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({

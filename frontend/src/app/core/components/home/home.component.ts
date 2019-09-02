@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, PLATFORM_ID, LOCALE_ID } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, Inject, LOCALE_ID, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 
 declare var twttr: any;
 
@@ -11,8 +11,8 @@ declare var twttr: any;
 })
 export class HomeComponent implements OnInit {
   architectOnboardingButtonImgSrc;
-  @ViewChild('valentineTweet', { static: true }) valentineTweet: ElementRef<HTMLDivElement>;
-  @ViewChild('nesrineTweet', { static: true }) nesrineTweet: ElementRef<HTMLDivElement>;
+  @ViewChild('valentineTweet', { static: false }) valentineTweet: ElementRef<HTMLDivElement>;
+  @ViewChild('nesrineTweet', { static: false }) nesrineTweet: ElementRef<HTMLDivElement>;
   isBrowser: boolean;
 
   constructor(

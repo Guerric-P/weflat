@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { CustomersComponent } from './components/customers/customers.component';
-import { VisitsComponent } from './components/visits/visits/visits.component';
-import { ArchitectsComponent } from './components/architects/architects/architects.component';
-import { ZipCodesComponent } from './components/zip-codes/zip-codes/zip-codes.component';
-import { ReportResolver } from '../shared/resolvers/report.resolver';
-import { ReportConsultationComponent } from '../shared/components/report/report-consultation/report-consultation.component';
+import { ArchitectsComponent } from '@weflat/admin/components/architects/architects/architects.component';
+import { CustomersComponent } from '@weflat/admin/components/customers/customers.component';
+import { VisitsComponent } from '@weflat/admin/components/visits/visits/visits.component';
+import { ZipCodesComponent } from '@weflat/admin/components/zip-codes/zip-codes/zip-codes.component';
+import { ReportConsultationComponent } from '@weflat/shared/components/report/report-consultation/report-consultation.component';
+import { ReportResolver } from '@weflat/shared/resolvers/report.resolver';
 
 const routes: Routes = [
   { path: '', redirectTo: 'customers', pathMatch: 'full' },

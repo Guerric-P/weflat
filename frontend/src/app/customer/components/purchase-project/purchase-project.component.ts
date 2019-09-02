@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CustomerClass } from '@weflat/core/models/CustomerClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { AcheteurService } from '@weflat/shared/services/acheteur.service';
 import { NotificationsService } from 'angular2-notifications';
-import { AcheteurService } from '../../../shared/services/acheteur.service';
-import { AuthenticationService } from '../../../core/services/authentication.service';
-import { CustomerClass } from '../../../core/models/CustomerClass';
 
 @Component({
   selector: 'app-purchase-project',

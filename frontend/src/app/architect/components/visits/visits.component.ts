@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { VisitService } from '../../../shared/services/visit.service';
-import { AuthenticationService } from '../../../core/services/authentication.service';
-import { VisitClass } from '../../../core/models/VisitClass';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { HelpHowToVisitModalComponent } from '../help-how-to-visit-modal/help-how-to-visit-modal.component';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { HelpHowToVisitModalComponent } from '@weflat/architect/components/help-how-to-visit-modal/help-how-to-visit-modal.component';
+import { VisitClass } from '@weflat/core/models/VisitClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { VisitService } from '@weflat/shared/services/visit.service';
 
 @Component({
   selector: 'app-visits',

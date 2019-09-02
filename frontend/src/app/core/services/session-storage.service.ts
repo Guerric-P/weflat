@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VisitClass } from '../models/VisitClass';
+import { VisitClass } from '@weflat/core/models/VisitClass';
 
 @Injectable()
 export class SessionStorageService {

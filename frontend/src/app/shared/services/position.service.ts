@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { PositionClass } from '@weflat/core/models/PositionClass';
 import { Observable } from 'rxjs';
-import { PositionClass } from '../../core/models/PositionClass';
 
 @Injectable()
 export class PositionService {

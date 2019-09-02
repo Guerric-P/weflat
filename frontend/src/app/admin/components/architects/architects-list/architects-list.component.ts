@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { ArchitectClass } from '../../../../core/models/ArchitectClass';
-import { ArchitectStatusEnum } from '../../../../shared/common/enums/ArchitectStatusEnum';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
+import { ArchitectStatusEnum } from '@weflat/shared/common/enums/ArchitectStatusEnum';
 
 @Component({
   selector: 'app-architects-list',

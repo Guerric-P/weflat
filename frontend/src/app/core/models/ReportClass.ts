@@ -1,5 +1,5 @@
-import { RenovationClass } from './RenovationClass';
-import { VisitClass } from './VisitClass';
+import { RenovationClass } from '@weflat/core/models/RenovationClass';
+import { VisitClass } from '@weflat/core/models/VisitClass';
 
 export class ReportClass {
     private _visite: VisitClass;

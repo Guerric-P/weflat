@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ZipCodeClass } from '../../core/models/ZipCodeClass';
+import { Injectable } from '@angular/core';
+import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 
 @Injectable()
 export class ZipCodeService {

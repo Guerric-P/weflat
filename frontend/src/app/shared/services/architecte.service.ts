@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
+import { DashboardClass } from '@weflat/core/models/DashboardClass';
+import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ArchitectClass } from '../../core/models/ArchitectClass';
-import { ZipCodeClass } from '../../core/models/ZipCodeClass';
-import { DashboardClass } from '../../core/models/DashboardClass';
 
 @Injectable()
 export class ArchitectService {

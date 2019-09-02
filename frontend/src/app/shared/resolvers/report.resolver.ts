@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ReportClass } from '@weflat/core/models/ReportClass';
+import { ReportService } from '@weflat/shared/services/report.service';
 import { Observable } from 'rxjs';
-import { ReportService } from '../services/report.service';
-import { ReportClass } from '../../core/models/ReportClass';
 
 @Injectable()
 export class ReportResolver implements Resolve<ReportClass> {

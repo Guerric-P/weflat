@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ReportClass } from '../../../../core/models/ReportClass';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../../../../core/services/authentication.service';
+import { ReportClass } from '@weflat/core/models/ReportClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
 
 @Component({
   selector: 'app-report-consultation',

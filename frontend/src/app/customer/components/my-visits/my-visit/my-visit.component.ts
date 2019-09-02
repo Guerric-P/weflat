@@ -1,13 +1,13 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild, TemplateRef } from '@angular/core';
-import { VisitStatusEnum } from '../../../../shared/common/enums/VisitStatusEnum';
-import { VisitClass } from '../../../../core/models/VisitClass';
-import { Router } from '@angular/router';
-import { VisitService } from '../../../../shared/services/visit.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { NotificationsService } from 'angular2-notifications';
-import { AuthenticationService } from '../../../../core/services/authentication.service';
-import { EditVisitPopupComponent } from '../../edit-visit-popup/edit-visit-popup.component';
 import { Overlay } from '@angular/cdk/overlay';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
+import { VisitClass } from '@weflat/core/models/VisitClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { EditVisitPopupComponent } from '@weflat/customer/components/edit-visit-popup/edit-visit-popup.component';
+import { VisitStatusEnum } from '@weflat/shared/common/enums/VisitStatusEnum';
+import { VisitService } from '@weflat/shared/services/visit.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-my-visit',
@@ -21,7 +21,7 @@ export class MyVisitComponent implements OnInit {
   @Input() price: number
   @Input() partialRefundAmount: number;
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('cancelModal', { static: true }) cancelModalTemplate: TemplateRef<any>;
+  @ViewChild('cancelModal', { static: false }) cancelModalTemplate: TemplateRef<any>;
   cancelModal: MatDialogRef<any>;
   VisitStatusEnum = VisitStatusEnum;
   cancelButtonDisabled = false;

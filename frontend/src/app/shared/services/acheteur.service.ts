@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { CustomerClass } from '@weflat/core/models/CustomerClass';
 import { Observable } from 'rxjs';
-import { CustomerClass } from '../../core/models/CustomerClass';
 
 @Injectable()
 export class AcheteurService {

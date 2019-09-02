@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
-import { BaseBackendLayoutComponent } from '../base-backend-layout/base-backend-layout.component';
+import { BaseBackendLayoutComponent } from '@weflat/core/layout/base-backend-layout/base-backend-layout.component';
 
 @Component({
   selector: 'app-acheteur-layout',
