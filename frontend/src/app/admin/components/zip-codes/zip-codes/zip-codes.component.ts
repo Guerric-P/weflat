@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
-import { ZipCodeClass } from '../../../../core/models/ZipCodeClass';
-import { ZipCodeService } from '../../../../shared/services/zip-code.service';
+import { ErrorStateMatcher, MatDialog, MatDialogRef } from '@angular/material';
+import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
+import { findIndexById } from '@weflat/core/utils/arrayUtils';
+import { ZipCodeService } from '@weflat/shared/services/zip-code.service';
 import { NotificationsService } from 'angular2-notifications';
-import * as ArrayUtils from '../../../../core/utils/arrayUtils';
 
 class ZipCodeErrorStateMatcher implements ErrorStateMatcher {
   zipCodeRegexp: RegExp = /^[0-9]{5}$/;
@@ -29,7 +28,7 @@ export class ZipCodesComponent implements OnInit {
   inputValue: string;
   changedZipCodes: { previous: ZipCodeClass, current: ZipCodeClass }[] = [];
   matcher: ErrorStateMatcher = new ZipCodeErrorStateMatcher();
-  @ViewChild('confirmModal', { static: true }) confirmModalTemplate: TemplateRef<any>;
+  @ViewChild('confirmModal', { static: false }) confirmModalTemplate: TemplateRef<any>;
   confirmModal: MatDialogRef<any>;
 
   get activatedZipCodesCount() {
@@ -97,7 +96,7 @@ export class ZipCodesComponent implements OnInit {
 
   zipCodeDeleted(zipCode: ZipCodeClass) {
     this.zipCodeService.deleteZipCode(zipCode.id).subscribe(() => {
-      this.results.splice(ArrayUtils.findIndexById(this.results)(zipCode.id), 1);
+      this.results.splice(findIndexById(this.results)(zipCode.id), 1);
       const changedZipCode = this.changedZipCodes.find(x => x.previous.id === zipCode.id);
       if (changedZipCode) {
         this.changedZipCodes.splice(this.changedZipCodes.indexOf(changedZipCode), 1);

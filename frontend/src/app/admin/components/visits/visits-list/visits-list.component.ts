@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
-import { VisitClass } from '../../../../core/models/VisitClass';
-import { VisitStatusEnum } from '../../../../shared/common/enums/VisitStatusEnum';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { VisitClass } from '@weflat/core/models/VisitClass';
+import { VisitStatusEnum } from '@weflat/shared/common/enums/VisitStatusEnum';
+
+
 
 @Component({
   selector: 'app-visits-list',

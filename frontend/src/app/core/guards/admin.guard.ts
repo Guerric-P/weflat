@@ -1,12 +1,12 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthenticationService } from '../services/authentication.service';
-import { MatDialog } from '@angular/material/dialog';
-import { SigninModalComponent } from '../components/common/signin-modal/signin-modal.component';
-import { map, tap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
-import { LoaderService } from 'app/shared/services/loader.service';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { SigninModalComponent } from '@weflat/core/components/common/signin-modal/signin-modal.component';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { LoaderService } from '@weflat/shared/services/loader.service';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class AdminGuard implements CanActivate {

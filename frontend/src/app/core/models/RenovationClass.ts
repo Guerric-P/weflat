@@ -1,4 +1,4 @@
-import { PositionClass } from './PositionClass';
+import { PositionClass } from '@weflat/core/models/PositionClass';
 
 export class RenovationClass {
     public id: number;

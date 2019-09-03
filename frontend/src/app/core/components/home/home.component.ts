@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject, PLATFORM_ID, LOCALE_ID } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, Inject, LOCALE_ID, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 
 declare var twttr: any;
 

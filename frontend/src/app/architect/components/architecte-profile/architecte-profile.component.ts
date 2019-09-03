@@ -1,35 +1,25 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, AfterViewInit, NgZone } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  AbstractControl,
-  ValidationErrors,
-  FormControl,
-  FormGroupDirective,
-  NgForm
-} from '@angular/forms';
-import { NotificationsService } from 'angular2-notifications';
-import { ActivatedRoute } from '@angular/router';
-import { ArchitectService } from '../../../shared/services/architecte.service';
-import { UserService } from '../../../shared/services/user.service';
-import { AuthenticationService } from '../../../core/services/authentication.service';
-import { ArchitectStatusEnum } from '../../../shared/common/enums/ArchitectStatusEnum';
-import { ArchitectTypeClass } from '../../../core/models/ArchitectTypeClass';
-import { ArchitectSituationClass } from '../../../core/models/ArchitectSituationClass';
-import { ArchitectClass } from '../../../core/models/ArchitectClass';
 import { ENTER } from '@angular/cdk/keycodes';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { ZipCodeClass } from '../../../core/models/ZipCodeClass';
-import * as IBAN from 'iban';
-import { PaymentTypeClass } from '../../../core/models/PaymentTypeClass';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { GoogleService } from '../../../core/services/google.service';
-import * as arrayUtils from '../../../core/utils/arrayUtils';
-import { ZipCodeService } from '../../../shared/services/zip-code.service';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
+import { ErrorStateMatcher, MatAutocompleteSelectedEvent, MatChipList } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
+import { ArchitectSituationClass } from '@weflat/core/models/ArchitectSituationClass';
+import { ArchitectTypeClass } from '@weflat/core/models/ArchitectTypeClass';
+import { PaymentTypeClass } from '@weflat/core/models/PaymentTypeClass';
+import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { GoogleService } from '@weflat/core/services/google.service';
+import { findIndexById } from '@weflat/core/utils/arrayUtils';
+import { ArchitectStatusEnum } from '@weflat/shared/common/enums/ArchitectStatusEnum';
+import { ArchitectService } from '@weflat/shared/services/architecte.service';
+import { UserService } from '@weflat/shared/services/user.service';
+import { ZipCodeService } from '@weflat/shared/services/zip-code.service';
+import { NotificationsService } from 'angular2-notifications';
+import * as IBAN from 'iban';
 import * as moment from 'moment';
+
 declare var google;
 
 @Component({
@@ -47,8 +37,8 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   paymentTypes: PaymentTypeClass[];
   architecte: ArchitectClass;
   dateNow = moment().format('YYYY-MM-DD');
-  @ViewChild('googleMap', { static: true }) googleMap: ElementRef;
-  @ViewChild('zipCodeInput', { static: true }) zipCodeInput: ElementRef;
+  @ViewChild('googleMap', { static: false }) googleMap: ElementRef;
+  @ViewChild('zipCodeInput', { static: false }) zipCodeInput: ElementRef;
   @ViewChild('zipCodesList', { static: false }) zipCodesList: MatChipList;
   index = 0;
   zipCodes: ZipCodeClass[] = [];
@@ -240,7 +230,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
 
   remove(zipCode: ZipCodeClass): void {
 
-    this.zipCodes[arrayUtils.findIndexById(this.zipCodes)(zipCode.id)].marker.setMap(null);
+    this.zipCodes[findIndexById(this.zipCodes)(zipCode.id)].marker.setMap(null);
 
     const index = this.zipCodes.indexOf(zipCode);
 

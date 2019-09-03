@@ -1,13 +1,12 @@
-import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute, RoutesRecognized, NavigationEnd } from '@angular/router';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef, MatExpansionPanel } from '@angular/material';
+import { NavigationEnd, Router, RoutesRecognized } from '@angular/router';
+import { SigninModalComponent } from '@weflat/core/components/common/signin-modal/signin-modal.component';
+import { SignupModalComponent } from '@weflat/core/components/common/signup-modal/signup-modal.component';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { ShowSigninPopupService } from '@weflat/core/services/show-signin-popup.service';
+import { Constantes } from '@weflat/shared/common/Constantes';
 import { Subscription } from 'rxjs';
-import { AuthenticationService } from '../../services/authentication.service';
-import { ShowSigninPopupService } from '../../services/show-signin-popup.service';
-import { Constantes } from '../../../shared/common/Constantes';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatExpansionPanel } from '@angular/material/expansion';
-import { SigninModalComponent } from '../common/signin-modal/signin-modal.component';
-import { SignupModalComponent } from '../common/signup-modal/signup-modal.component';
 
 @Component({
   selector: 'app-navigation',

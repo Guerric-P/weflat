@@ -1,11 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ArchitectService } from '../../../shared/services/architecte.service';
-import { AuthenticationService } from '../../services/authentication.service';
-import { Constantes } from '../../../shared/common/Constantes';
-import { ArchitectClass } from '../../models/ArchitectClass';
+import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { Constantes } from '@weflat/shared/common/Constantes';
+import { ArchitectService } from '@weflat/shared/services/architecte.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({

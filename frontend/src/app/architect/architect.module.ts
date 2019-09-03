@@ -1,28 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ArchitecteProfileComponent } from './components/architecte-profile/architecte-profile.component';
-import { VisitsComponent } from './components/visits/visits.component';
-import { ReportEditComponent } from './components/report-edit/report-edit.component';
-import { MessagesComponent } from './components/messages/messages.component';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { VisitComponent } from './components/visits/visit/visit.component';
-import { ArchitectRoutingModule } from './architect-routing.module';
-import { SharedModule } from '../shared/shared.module';
-import { HelpReportEditionModalComponent } from './components/help-report-edition-modal/help-report-edition-modal.component';
-import { HelpHowToVisitModalComponent } from './components/help-how-to-visit-modal/help-how-to-visit-modal.component';
+import { MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule, MatTooltipModule } from '@angular/material';
+import { ArchitectRoutingModule } from '@weflat/architect/architect-routing.module';
+import { ArchitecteProfileComponent } from '@weflat/architect/components/architecte-profile/architecte-profile.component';
+import { DashboardComponent } from '@weflat/architect/components/dashboard/dashboard.component';
+import { HelpHowToVisitModalComponent } from '@weflat/architect/components/help-how-to-visit-modal/help-how-to-visit-modal.component';
+import { HelpReportEditionModalComponent } from '@weflat/architect/components/help-report-edition-modal/help-report-edition-modal.component';
+import { MessagesComponent } from '@weflat/architect/components/messages/messages.component';
+import { ReportEditComponent } from '@weflat/architect/components/report-edit/report-edit.component';
+import { VisitComponent } from '@weflat/architect/components/visits/visit/visit.component';
+import { VisitsComponent } from '@weflat/architect/components/visits/visits.component';
+import { SharedModule } from '@weflat/shared/shared.module';
 
 @NgModule({
   imports: [

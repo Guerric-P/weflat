@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
+import { AuthenticationService } from '@weflat/core/services/authentication.service';
+import { ArchitectService } from '@weflat/shared/services/architecte.service';
 import { Observable } from 'rxjs';
-import { ArchitectService } from '../services/architecte.service';
-import { ArchitectClass } from '../../core/models/ArchitectClass';
-import { AuthenticationService } from '../../core/services/authentication.service';
 
 @Injectable()
 export class ArchitecteResolver implements Resolve<ArchitectClass> {

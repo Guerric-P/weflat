@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ArchitectSituationClass } from '@weflat/core/models/ArchitectSituationClass';
+import { ArchitectSituationService } from '@weflat/shared/services/architect-situation.service';
 import { Observable } from 'rxjs';
-import { ArchitectSituationService } from '../services/architect-situation.service';
-import { ArchitectSituationClass } from '../../core/models/ArchitectSituationClass';
 
 @Injectable()
 export class ArchitectSituationResolver implements Resolve<ArchitectSituationClass[]> {
