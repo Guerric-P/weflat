@@ -20,8 +20,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   disabled: boolean;
   routerEventsSubscription: Subscription;
   showSigninPopupSubscription: Subscription;
-  @ViewChild('expandingFooter', { static: false }) expandingFooter: MatExpansionPanel;
-  @ViewChild('footerBody', { static: false }) footerBody: ElementRef;
+  @ViewChild('expandingFooter', { static: true }) expandingFooter: MatExpansionPanel;
+  @ViewChild('footerBody', { static: true }) footerBody: ElementRef;
   signinModal: MatDialogRef<any>;
   signupModal: MatDialogRef<any>;
 
