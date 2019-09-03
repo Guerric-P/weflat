@@ -37,7 +37,7 @@ export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
   map: any;
   marker: any;
   @ViewChild('googleMap', { static: false }) googleMap: ElementRef;
-  @ViewChild('addressInput', { static: false }) addressInput: ElementRef;
+  @ViewChild('addressInput', { static: true }) addressInput: ElementRef;
   @ViewChild('stepper', { static: false }) stepper: MatHorizontalStepper;
   @ViewChild('projectStep', { static: false }) projectStep: CdkStep;
   @ViewChild('paymentStep', { static: false }) paymentStep: CdkStep;
