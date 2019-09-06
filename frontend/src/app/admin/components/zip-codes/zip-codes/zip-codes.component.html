@@ -5,7 +5,7 @@
   <button class="ml-1" type="button" [disabled]="!changedZipCodes || !changedZipCodes.length" mat-raised-button (click)="validateClick()">{{ validateButtonLabel }}</button>
   <button class="ml-1" type="button" [disabled]="!changedZipCodes || !changedZipCodes.length" mat-raised-button (click)="cancelClick()">Annuler</button>
   <mat-list>
-    <mat-list-item *ngFor="let result of results">
+    <mat-list-item *ngFor="let result of results; trackBy: trackByFn">
       <app-zip-code [zipCode]="result" (deleted)="zipCodeDeleted($event)" (changed)="zipCodeChanged($event)"></app-zip-code>
       <mat-divider></mat-divider>
     </mat-list-item>
