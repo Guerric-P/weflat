@@ -6,6 +6,10 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
+
+//Bootstrap override
+$zindex-sticky: 998;
+
 // Bootstrap Optional
 @import "~bootstrap/scss/alert";
 @import "~bootstrap/scss/badge";
@@ -27,8 +31,6 @@
 @import "~bootstrap/scss/utilities";
 /*$fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";*/
-
-$zindex-sticky: 998;
 
 html {
     overflow-y: scroll;
