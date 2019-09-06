@@ -154,4 +154,8 @@ export class ZipCodesComponent implements OnInit {
   trackByFn(index: number, item: ZipCodeClass) {
     return item.id;
   }
+
+  closeCancelModal() {
+    this.confirmModal.close();
+  }
 }
