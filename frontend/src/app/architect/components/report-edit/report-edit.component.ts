@@ -28,7 +28,7 @@ export class ReportEditComponent implements OnInit {
   mandatoryPositionsIds: number[];
   submitConfirmModal: MatDialogRef<any>;
   helpModal: MatDialogRef<HelpReportEditionModalComponent>;
-  @ViewChild('submitConfirmModal', { static: false }) submitConfirmModalTemplate: TemplateRef<any>;
+  @ViewChild('submitConfirmModal') submitConfirmModalTemplate: TemplateRef<any>;
   renovations: FormArray;
 
   get displayArchitectContactButton() {

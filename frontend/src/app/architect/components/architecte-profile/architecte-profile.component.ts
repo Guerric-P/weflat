@@ -37,9 +37,9 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   paymentTypes: PaymentTypeClass[];
   architecte: ArchitectClass;
   dateNow = moment().format('YYYY-MM-DD');
-  @ViewChild('googleMap', { static: false }) googleMap: ElementRef;
-  @ViewChild('zipCodeInput', { static: false }) zipCodeInput: ElementRef;
-  @ViewChild('zipCodesList', { static: false }) zipCodesList: MatChipList;
+  @ViewChild('googleMap') googleMap: ElementRef;
+  @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
+  @ViewChild('zipCodesList') zipCodesList: MatChipList;
   index = 0;
   zipCodes: ZipCodeClass[] = [];
   visible = true;

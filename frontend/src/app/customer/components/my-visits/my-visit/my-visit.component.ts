@@ -21,7 +21,7 @@ export class MyVisitComponent implements OnInit {
   @Input() price: number
   @Input() partialRefundAmount: number;
   @Output() change: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('cancelModal', { static: false }) cancelModalTemplate: TemplateRef<any>;
+  @ViewChild('cancelModal') cancelModalTemplate: TemplateRef<any>;
   cancelModal: MatDialogRef<any>;
   VisitStatusEnum = VisitStatusEnum;
   cancelButtonDisabled = false;

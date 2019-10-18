@@ -16,7 +16,7 @@ export class VisitComponent implements OnInit {
 
   @Input() visit: VisitClass;
   @Output() updated: EventEmitter<VisitClass> = new EventEmitter<VisitClass>();
-  @ViewChild('confirmModal', { static: false }) confirmModalTemplate: TemplateRef<any>;
+  @ViewChild('confirmModal') confirmModalTemplate: TemplateRef<any>;
   confirmModal: MatDialogRef<any>;
   public VisitStatusEnum = VisitStatusEnum;
 

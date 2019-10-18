@@ -28,7 +28,7 @@ export class ZipCodesComponent implements OnInit {
   inputValue: string;
   changedZipCodes: { previous: ZipCodeClass, current: ZipCodeClass }[] = [];
   matcher: ErrorStateMatcher = new ZipCodeErrorStateMatcher();
-  @ViewChild('confirmModal', { static: false }) confirmModalTemplate: TemplateRef<any>;
+  @ViewChild('confirmModal') confirmModalTemplate: TemplateRef<any>;
   confirmModal: MatDialogRef<any>;
 
   get activatedZipCodesCount() {

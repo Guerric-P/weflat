@@ -11,7 +11,7 @@ import { VisitClass } from '@weflat/core/models/VisitClass';
 export class DisabledZipCodePopupComponent implements OnInit {
 
   visit: VisitClass;
-  @ViewChild('noArchitectsModal', { static: false }) noArchitectsModalTemplate: TemplateRef<any>;
+  @ViewChild('noArchitectsModal') noArchitectsModalTemplate: TemplateRef<any>;
   noArchitectsModal: MatDialogRef<any>;
   @Input() OKFunction: Function;
   @Input() cancelFunction: Function;
