@@ -1,85 +1,57 @@
 import 'zone.js/dist/zone-node';
-import 'reflect-metadata';
-import { enableProdMode } from '@angular/core';
 
+import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
 import { join } from 'path';
 
-// Faster server renders w/ Prod mode (dev mode never needed)
-enableProdMode();
+import { AppServerModule } from './src/main.server';
+import { APP_BASE_HREF } from '@angular/common';
 
-import * as cookieparser from 'cookie-parser';
-import * as request from 'request';
+// The Express app is exported so that it can be used by serverless Functions.
+export function app() {
+  const server = express();
+  const distFolder = join(process.cwd(), 'dist/browser');
 
-const app = express();
-app.use(bodyParser.json());
-app.use(cookieparser());
+  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
+  server.engine('html', ngExpressEngine({
+    bootstrap: AppServerModule,
+  }));
 
-// https://github.com/angular/angular/issues/15730
-import * as xhr2 from 'xhr2';
-xhr2.prototype._restrictedHeaders.cookie = false;
+  server.set('view engine', 'html');
+  server.set('views', distFolder);
 
-const PORT = process.env.PORT || 4000;
-const DIST_FOLDER = join(process.cwd(), 'dist/browser');
+  // Example Express Rest API endpoints
+  // app.get('/api/**', (req, res) => { });
+  // Serve static files from /browser
+  server.get('*.*', express.static(distFolder, {
+    maxAge: '1y'
+  }));
 
-// * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const { AppServerModuleNgFactory, LAZY_MODULE_MAP, ngExpressEngine, provideModuleMap } = require('./dist/server/main');
+  // All regular routes use the Universal engine
+  server.get('*', (req, res) => {
+    res.render('index', { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+  });
 
-// Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-app.engine('html', ngExpressEngine({
-  bootstrap: AppServerModuleNgFactory,
-  providers: [
-    provideModuleMap(LAZY_MODULE_MAP)
-  ]
-}));
+  return server;
+}
 
-app.set('view engine', 'html');
-app.set('views', DIST_FOLDER);
+function run() {
+  const port = process.env.PORT || 4000;
 
-// Example Express Rest API endpoints
-// app.get('/api/**', (req, res) => { });
-// Server static files from /browser
-app.get('*.*', express.static(DIST_FOLDER, {
-  maxAge: '1y'
-}));
+  // Start up the Node server
+  const server = app();
+  server.listen(port, () => {
+    console.log(`Node Express server listening on http://localhost:${port}`);
+  });
+}
 
-app.all('/backend/*', (req, res) => {
-  const newurl = 'http://' + req.hostname + req.path;
-  const cookies = [];
-  for (const name in req.cookies) {
-    if (req.cookies.hasOwnProperty(name)) {
-      cookies.push(`${name}=${req.cookies[name]}`);
-    }
-  }
-  const serializedCookies = cookies.join('; ');
+// Webpack will replace 'require' with '__webpack_require__'
+// '__non_webpack_require__' is a proxy to Node 'require'
+// The below code is to ensure that the server is run only when not requiring the bundle.
+declare const __non_webpack_require__: NodeRequire;
+const mainModule = __non_webpack_require__.main;
+if (mainModule && mainModule.filename === __filename) {
+  run();
+}
 
-  request(
-    {
-      method: req.method,
-      uri: newurl,
-      json: true,
-      body: req.body,
-      headers: { 'Cookie': serializedCookies }
-    })
-    .pipe(res);
-});
-
-// All regular routes use the Universal engine
-app.get('*', (req, res) => {
-  res.render(
-    'index', {
-      req,
-      res
-    },
-    (err, html) => {
-      if (err) { console.error(err); }
-      res.send(html);
-    }
-  );
-});
-
-// Start up the Node server
-app.listen(PORT, () => {
-  console.log(`Node Express server listening on http://localhost:${PORT}`);
-});
+export * from './src/main.server';
