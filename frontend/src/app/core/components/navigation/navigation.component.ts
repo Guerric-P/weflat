@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef, MatExpansionPanel } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { SigninModalComponent } from '@weflat/core/components/common/signin-modal/signin-modal.component';
 import { SignupModalComponent } from '@weflat/core/components/common/signup-modal/signup-modal.component';

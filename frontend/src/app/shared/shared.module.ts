@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { MatButtonModule, MatProgressSpinnerModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ShowSigninPopupService } from '@weflat/core/services/show-signin-popup.service';
 import { LoaderComponent } from '@weflat/shared/components/loader/loader.component';
 import { ReportConsultationComponent } from '@weflat/shared/components/report/report-consultation/report-consultation.component';

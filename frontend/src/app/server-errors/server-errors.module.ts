@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatIconModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { NotFoundComponent } from '@weflat/server-errors/not-found/not-found.component';
 import { ServerErrorsRoutingModule } from '@weflat/server-errors/server-errors-routing.module';
 

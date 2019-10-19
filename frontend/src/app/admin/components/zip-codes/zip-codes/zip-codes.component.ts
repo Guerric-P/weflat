@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
-import { ErrorStateMatcher, MatDialog, MatDialogRef } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
 import { findIndexById } from '@weflat/core/utils/arrayUtils';
 import { ZipCodeService } from '@weflat/shared/services/zip-code.service';

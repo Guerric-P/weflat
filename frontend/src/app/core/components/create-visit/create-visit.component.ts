@@ -3,7 +3,8 @@ import { CdkStep, StepperSelectionEvent } from '@angular/cdk/stepper';
 import { DatePipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DateAdapter, MatHorizontalStepper } from '@angular/material';
+import { DateAdapter } from '@angular/material/core';
+import { MatHorizontalStepper } from '@angular/material/stepper';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DisabledZipCodePopupComponent } from '@weflat/core/components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { CreateVisitGuard } from '@weflat/core/guards/create-visit.guard';
@@ -20,6 +21,7 @@ import { VisitService } from '@weflat/shared/services/visit.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
+
 
 declare var google;
 
