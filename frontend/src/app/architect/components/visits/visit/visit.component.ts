@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { VisitClass } from '@weflat/core/models/VisitClass';
 import { VisiteCounterService } from '@weflat/core/services/visite-counter.service';
 import { VisitService } from '@weflat/shared/services/visit.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular9-notifications';
 import { LoaderService } from 'app/shared/services/loader.service';
 
 @Component({

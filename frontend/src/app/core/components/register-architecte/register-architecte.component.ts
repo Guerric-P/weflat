@@ -5,7 +5,7 @@ import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
 import { AuthenticationService } from '@weflat/core/services/authentication.service';
 import { Constantes } from '@weflat/shared/common/Constantes';
 import { ArchitectService } from '@weflat/shared/services/architecte.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular9-notifications';
 
 @Component({
   selector: 'app-register-architecte',

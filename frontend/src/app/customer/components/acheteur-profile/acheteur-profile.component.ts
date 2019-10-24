@@ -6,7 +6,7 @@ import { CustomerClass } from '@weflat/core/models/CustomerClass';
 import { AuthenticationService } from '@weflat/core/services/authentication.service';
 import { AcheteurService } from '@weflat/shared/services/acheteur.service';
 import { UserService } from '@weflat/shared/services/user.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular9-notifications';
 import * as moment from 'moment';
 
 @Component({

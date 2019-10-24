@@ -7,7 +7,7 @@ import { AuthenticationService } from '@weflat/core/services/authentication.serv
 import { EditVisitPopupComponent } from '@weflat/customer/components/edit-visit-popup/edit-visit-popup.component';
 import { VisitStatusEnum } from '@weflat/shared/common/enums/VisitStatusEnum';
 import { VisitService } from '@weflat/shared/services/visit.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular9-notifications';
 
 @Component({
   selector: 'app-my-visit',

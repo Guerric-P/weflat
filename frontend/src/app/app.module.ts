@@ -9,7 +9,7 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
 import { AppComponent } from '@weflat/app.component';
 import { CoreModule } from '@weflat/core/core.module';
 import { InterceptorsModule } from '@weflat/interceptors/interceptors.module';
-import { SimpleNotificationsModule } from 'angular2-notifications';
+import { SimpleNotificationsModule } from 'angular9-notifications';
 
 registerLocaleData(localeFr);
 

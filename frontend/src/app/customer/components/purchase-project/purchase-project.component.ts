@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CustomerClass } from '@weflat/core/models/CustomerClass';
 import { AuthenticationService } from '@weflat/core/services/authentication.service';
 import { AcheteurService } from '@weflat/shared/services/acheteur.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular9-notifications';
 
 @Component({
   selector: 'app-purchase-project',

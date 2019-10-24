@@ -6,7 +6,7 @@ import { AuthenticationService } from '@weflat/core/services/authentication.serv
 import { ShowSigninPopupService } from '@weflat/core/services/show-signin-popup.service';
 import { Constantes } from '@weflat/shared/common/Constantes';
 import { AcheteurService } from '@weflat/shared/services/acheteur.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular9-notifications';
 
 @Component({
   selector: 'app-register-acheteur',

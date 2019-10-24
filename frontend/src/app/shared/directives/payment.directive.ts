@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { LoaderService } from '@weflat/shared/services/loader.service';
 import { VisitService } from '@weflat/shared/services/visit.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular9-notifications';
 import { environment } from 'environments/environment';
 
 @Directive({

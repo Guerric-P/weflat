@@ -18,7 +18,7 @@ import { ArchitectStatusEnum } from '@weflat/shared/common/enums/ArchitectStatus
 import { ArchitectService } from '@weflat/shared/services/architecte.service';
 import { UserService } from '@weflat/shared/services/user.service';
 import { ZipCodeService } from '@weflat/shared/services/zip-code.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular9-notifications';
 import * as IBAN from 'iban';
 import * as moment from 'moment';
 
