@@ -35,7 +35,7 @@
     "@angular/service-worker": "~9.0.0-next.12",
     "@nguniversal/common": "~9.0.0-next.5",
     "@nguniversal/express-engine": "~9.0.0-next.5",
-    "angular9-notifications": "^1.0.0",
+    "angular2-notifications": "^3.0.0",
     "bootstrap": "^4.1.3",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.5.4",
