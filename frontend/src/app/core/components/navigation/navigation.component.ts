@@ -2,11 +2,11 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { NavigationEnd, Router, RoutesRecognized } from '@angular/router';
-import { SigninModalComponent } from '@weflat/core/components/common/signin-modal/signin-modal.component';
-import { SignupModalComponent } from '@weflat/core/components/common/signup-modal/signup-modal.component';
-import { AuthenticationService } from '@weflat/core/services/authentication.service';
-import { ShowSigninPopupService } from '@weflat/core/services/show-signin-popup.service';
-import { Constantes } from '@weflat/shared/common/Constantes';
+import { SigninModalComponent } from '@weflat/app/core/components/common/signin-modal/signin-modal.component';
+import { SignupModalComponent } from '@weflat/app/core/components/common/signup-modal/signup-modal.component';
+import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
+import { ShowSigninPopupService } from '@weflat/app/core/services/show-signin-popup.service';
+import { Constantes } from '@weflat/app/shared/common/Constantes';
 import { Subscription } from 'rxjs';
 
 @Component({

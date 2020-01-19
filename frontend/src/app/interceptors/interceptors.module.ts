@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { CsrfInterceptor } from '@weflat/interceptors/interceptors/csrf-interceptor.service';
-import { WeflatInterceptor } from '@weflat/interceptors/interceptors/http-interceptor.service';
+import { CsrfInterceptor } from '@weflat/app/interceptors/interceptors/csrf-interceptor.service';
+import { WeflatInterceptor } from '@weflat/app/interceptors/interceptors/http-interceptor.service';
 
 @NgModule({
   declarations: [],

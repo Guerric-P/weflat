@@ -1,4 +1,4 @@
-import { UserClass } from '@weflat/core/models/UserClass';
+import { UserClass } from '@weflat/app/core/models/UserClass';
 
 export class CustomerClass extends UserClass {
     public project: string;

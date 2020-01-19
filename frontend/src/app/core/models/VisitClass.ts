@@ -1,7 +1,7 @@
-import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
-import { CustomerClass } from '@weflat/core/models/CustomerClass';
-import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
-import { VisitStatusEnum } from '@weflat/shared/common/enums/VisitStatusEnum';
+import { ArchitectClass } from '@weflat/app/core/models/ArchitectClass';
+import { CustomerClass } from '@weflat/app/core/models/CustomerClass';
+import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
+import { VisitStatusEnum } from '@weflat/app/shared/common/enums/VisitStatusEnum';
 
 export class VisitClass {
     public id: number;

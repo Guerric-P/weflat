@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
-import { AuthenticationService } from '@weflat/core/services/authentication.service';
-import { Constantes } from '@weflat/shared/common/Constantes';
-import { ArchitectService } from '@weflat/shared/services/architecte.service';
+import { ArchitectClass } from '@weflat/app/core/models/ArchitectClass';
+import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
+import { Constantes } from '@weflat/app/shared/common/Constantes';
+import { ArchitectService } from '@weflat/app/shared/services/architecte.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({

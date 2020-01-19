@@ -1,13 +1,13 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, Inject, NgZone, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { DisabledZipCodePopupComponent } from '@weflat/core/components/disabled-zip-code-popup/disabled-zip-code-popup.component';
-import { VisitClass } from '@weflat/core/models/VisitClass';
-import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
-import { GoogleService } from '@weflat/core/services/google.service';
-import { SessionStorageService } from '@weflat/core/services/session-storage.service';
-import { GooglePlaceKeys } from '@weflat/shared/common/GooglePlaceKeys';
-import { VisitService } from '@weflat/shared/services/visit.service';
+import { DisabledZipCodePopupComponent } from '@weflat/app/core/components/disabled-zip-code-popup/disabled-zip-code-popup.component';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
+import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
+import { GoogleService } from '@weflat/app/core/services/google.service';
+import { SessionStorageService } from '@weflat/app/core/services/session-storage.service';
+import { GooglePlaceKeys } from '@weflat/app/shared/common/GooglePlaceKeys';
+import { VisitService } from '@weflat/app/shared/services/visit.service';
 
 declare var google;
 

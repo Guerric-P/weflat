@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { VisitClass } from '@weflat/core/models/VisitClass';
-import { AuthenticationService } from '@weflat/core/services/authentication.service';
-import { VisitService } from '@weflat/shared/services/visit.service';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
+import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
+import { VisitService } from '@weflat/app/shared/services/visit.service';
 
 @Component({
   selector: 'app-my-visits',

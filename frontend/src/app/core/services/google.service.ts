@@ -1,8 +1,8 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { environment } from 'environments/environment';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { environment } from '@weflat/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'

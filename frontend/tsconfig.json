@@ -4,7 +4,7 @@
     "downlevelIteration": true,
     "module": "esnext",
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
+    "baseUrl": "./",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -19,7 +19,7 @@
       "dom"
     ],
     "paths": {
-      "@weflat/*": ["app/*"]
+      "@weflat/*": ["src/*"]
     }
   }
 }

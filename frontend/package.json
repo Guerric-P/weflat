@@ -10,8 +10,6 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:ssr:production": "npm run build:client-and-server-bundles:production && npm run compile:server",
-    "build:client-and-server-bundles:production": "ng build --prod && ng run weflat:server:production --bundleDependencies all",
     "build:ssr:test": "npm run build:client-and-server-bundles:test && npm run compile:server",
     "build:client-and-server-bundles:test": "ng run weflat:build:test && ng run weflat:server:test --bundleDependencies all",
     "serve:ssr": "node dist/server/main.js",

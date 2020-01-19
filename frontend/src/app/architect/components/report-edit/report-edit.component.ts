@@ -3,12 +3,12 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HelpReportEditionModalComponent } from '@weflat/architect/components/help-report-edition-modal/help-report-edition-modal.component';
-import { PositionClass } from '@weflat/core/models/PositionClass';
-import { RenovationClass } from '@weflat/core/models/RenovationClass';
-import { ReportClass } from '@weflat/core/models/ReportClass';
-import { AuthenticationService } from '@weflat/core/services/authentication.service';
-import { ReportService } from '@weflat/shared/services/report.service';
+import { HelpReportEditionModalComponent } from '@weflat/app/architect/components/help-report-edition-modal/help-report-edition-modal.component';
+import { PositionClass } from '@weflat/app/core/models/PositionClass';
+import { RenovationClass } from '@weflat/app/core/models/RenovationClass';
+import { ReportClass } from '@weflat/app/core/models/ReportClass';
+import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
+import { ReportService } from '@weflat/app/shared/services/report.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
 

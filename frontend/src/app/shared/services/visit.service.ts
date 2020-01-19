@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { VisitClass } from '@weflat/core/models/VisitClass';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 

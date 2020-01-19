@@ -6,9 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TransferHttpCacheModule } from '@nguniversal/common';
-import { AppComponent } from '@weflat/app.component';
-import { CoreModule } from '@weflat/core/core.module';
-import { InterceptorsModule } from '@weflat/interceptors/interceptors.module';
+import { AppComponent } from '@weflat/app/app.component';
+import { CoreModule } from '@weflat/app/core/core.module';
+import { InterceptorsModule } from '@weflat/app/interceptors/interceptors.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 registerLocaleData(localeFr);

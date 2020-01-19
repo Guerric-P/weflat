@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
-import { ArchitectService } from '@weflat/shared/services/architecte.service';
-import { AuthenticationService } from 'app/core/services/authentication.service';
+import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
+import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
+import { ArchitectService } from '@weflat/app/shared/services/architecte.service';
 import { Observable } from 'rxjs';
 
 @Injectable()

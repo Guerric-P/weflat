@@ -1,8 +1,8 @@
 import { Directive, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { LoaderService } from '@weflat/shared/services/loader.service';
-import { VisitService } from '@weflat/shared/services/visit.service';
+import { LoaderService } from '@weflat/app/shared/services/loader.service';
+import { VisitService } from '@weflat/app/shared/services/visit.service';
+import { environment } from '@weflat/environments/environment';
 import { NotificationsService } from 'angular2-notifications';
-import { environment } from 'environments/environment';
 
 @Directive({
   selector: 'button[appPayment]'

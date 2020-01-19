@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { PositionClass } from '@weflat/core/models/PositionClass';
-import { PositionService } from '@weflat/shared/services/position.service';
+import { PositionClass } from '@weflat/app/core/models/PositionClass';
+import { PositionService } from '@weflat/app/shared/services/position.service';
 import { Observable } from 'rxjs';
 
 @Injectable()

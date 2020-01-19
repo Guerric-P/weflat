@@ -1,4 +1,4 @@
-import { VisitClass } from '@weflat/core/models/VisitClass';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
 
 export class DashboardClass {
     newVisits: VisitClass[];

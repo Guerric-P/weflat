@@ -2,11 +2,11 @@ import { Overlay } from '@angular/cdk/overlay';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { VisitClass } from '@weflat/core/models/VisitClass';
-import { AuthenticationService } from '@weflat/core/services/authentication.service';
-import { EditVisitPopupComponent } from '@weflat/customer/components/edit-visit-popup/edit-visit-popup.component';
-import { VisitStatusEnum } from '@weflat/shared/common/enums/VisitStatusEnum';
-import { VisitService } from '@weflat/shared/services/visit.service';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
+import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
+import { EditVisitPopupComponent } from '@weflat/app/customer/components/edit-visit-popup/edit-visit-popup.component';
+import { VisitStatusEnum } from '@weflat/app/shared/common/enums/VisitStatusEnum';
+import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({

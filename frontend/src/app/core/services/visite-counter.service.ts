@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VisitService } from '@weflat/shared/services/visit.service';
+import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 

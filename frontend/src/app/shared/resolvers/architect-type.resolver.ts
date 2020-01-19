@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { ArchitectTypeClass } from '@weflat/core/models/ArchitectTypeClass';
-import { ArchitectTypeService } from '@weflat/shared/services/architect-type.service';
+import { ArchitectTypeClass } from '@weflat/app/core/models/ArchitectTypeClass';
+import { ArchitectTypeService } from '@weflat/app/shared/services/architect-type.service';
 import { Observable } from 'rxjs';
 
 @Injectable()

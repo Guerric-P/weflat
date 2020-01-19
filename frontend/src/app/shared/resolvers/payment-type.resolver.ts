@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { PaymentTypeClass } from '@weflat/core/models/PaymentTypeClass';
-import { PaymentTypeService } from '@weflat/shared/services/payment-type.service';
+import { PaymentTypeClass } from '@weflat/app/core/models/PaymentTypeClass';
+import { PaymentTypeService } from '@weflat/app/shared/services/payment-type.service';
 import { Observable } from 'rxjs';
 
 @Injectable()

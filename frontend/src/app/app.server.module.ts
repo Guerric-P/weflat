@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
-import { AppComponent } from '@weflat/app.component';
-import { AppModule } from '@weflat/app.module';
+import { AppComponent } from '@weflat/app/app.component';
+import { AppModule } from '@weflat/app/app.module';
 
 @NgModule({
   imports: [

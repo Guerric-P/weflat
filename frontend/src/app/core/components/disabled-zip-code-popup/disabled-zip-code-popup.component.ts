@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { VisitClass } from '@weflat/core/models/VisitClass';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
 
 
 @Component({
