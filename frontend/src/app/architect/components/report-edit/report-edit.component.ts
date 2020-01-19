@@ -9,7 +9,7 @@ import { RenovationClass } from '@weflat/core/models/RenovationClass';
 import { ReportClass } from '@weflat/core/models/ReportClass';
 import { AuthenticationService } from '@weflat/core/services/authentication.service';
 import { ReportService } from '@weflat/shared/services/report.service';
-import { NotificationsService } from 'angular9-notifications';
+import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
 
 @Component({
