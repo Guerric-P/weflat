@@ -1,10 +1,10 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
-import { SigninModalComponent } from '@weflat/core/components/common/signin-modal/signin-modal.component';
-import { AuthenticationService } from '@weflat/core/services/authentication.service';
-import { LoaderService } from '@weflat/shared/services/loader.service';
+import { SigninModalComponent } from '@weflat/app/core/components/common/signin-modal/signin-modal.component';
+import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
+import { LoaderService } from '@weflat/app/shared/services/loader.service';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { VisitClass } from '@weflat/core/models/VisitClass';
-import { findIndexById } from '@weflat/core/utils/arrayUtils';
-import { VisitService } from '@weflat/shared/services/visit.service';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
+import { findIndexById } from '@weflat/app/core/utils/arrayUtils';
+import { VisitService } from '@weflat/app/shared/services/visit.service';
 
 @Component({
   selector: 'app-visits',

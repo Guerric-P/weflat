@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ReportClass } from '@weflat/core/models/ReportClass';
+import { ReportClass } from '@weflat/app/core/models/ReportClass';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

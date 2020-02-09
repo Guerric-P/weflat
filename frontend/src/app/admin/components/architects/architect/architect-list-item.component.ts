@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
+import { ArchitectClass } from '@weflat/app/core/models/ArchitectClass';
 
 @Component({
   selector: 'app-architect-list-item',

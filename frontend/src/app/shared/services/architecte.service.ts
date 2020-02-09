@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
-import { DashboardClass } from '@weflat/core/models/DashboardClass';
-import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
+import { ArchitectClass } from '@weflat/app/core/models/ArchitectClass';
+import { DashboardClass } from '@weflat/app/core/models/DashboardClass';
+import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

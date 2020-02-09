@@ -1,14 +1,14 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material';
-import { VisitClass } from '@weflat/core/models/VisitClass';
-import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
-import { GoogleService } from '@weflat/core/services/google.service';
-import { GooglePlaceKeys } from '@weflat/shared/common/GooglePlaceKeys';
-import { values } from '@weflat/shared/common/TimeDropDownValues';
-import { VisitService } from '@weflat/shared/services/visit.service';
-import { ZipCodeService } from '@weflat/shared/services/zip-code.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
+import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
+import { GoogleService } from '@weflat/app/core/services/google.service';
+import { GooglePlaceKeys } from '@weflat/app/shared/common/GooglePlaceKeys';
+import { values } from '@weflat/app/shared/common/TimeDropDownValues';
+import { VisitService } from '@weflat/app/shared/services/visit.service';
+import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
 import * as moment from 'moment';
 
 declare var google;

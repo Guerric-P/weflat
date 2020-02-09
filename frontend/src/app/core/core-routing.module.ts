@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ArchitectOnBoardingComponent } from '@weflat/core/components/architect-on-boarding/architect-on-boarding.component';
-import { CreateVisitComponent } from '@weflat/core/components/create-visit/create-visit.component';
-import { EndUserLicenseAgreementComponent } from '@weflat/core/components/end-user-license-agreement/end-user-license-agreement.component';
-import { ForgottenPasswordComponent } from '@weflat/core/components/forgotten-password/forgotten-password.component';
-import { FrequentlyAskedQuestionsComponent } from '@weflat/core/components/frequently-asked-questions/frequently-asked-questions.component';
-import { HomeComponent } from '@weflat/core/components/home/home.component';
-import { RegisterAcheteurComponent } from '@weflat/core/components/register-acheteur/register-acheteur.component';
-import { RegisterArchitecteComponent } from '@weflat/core/components/register-architecte/register-architecte.component';
-import { AcheteurGuard } from '@weflat/core/guards/acheteur.guard';
-import { AdminGuard } from '@weflat/core/guards/admin.guard';
-import { ArchitecteGuard } from '@weflat/core/guards/architecte.guard';
-import { CreateVisitGuard } from '@weflat/core/guards/create-visit.guard';
-import { AcheteurLayoutComponent } from '@weflat/core/layout/acheteur-layout/acheteur-layout.component';
-import { AdminLayoutComponent } from '@weflat/core/layout/admin-layout/admin-layout.component';
-import { ArchitecteLayoutComponent } from '@weflat/core/layout/architecte-layout/architecte-layout.component';
-import { PublicLayoutComponent } from '@weflat/core/layout/public-layout/public-layout.component';
+import { ArchitectOnBoardingComponent } from '@weflat/app/core/components/architect-on-boarding/architect-on-boarding.component';
+import { CreateVisitComponent } from '@weflat/app/core/components/create-visit/create-visit.component';
+import { EndUserLicenseAgreementComponent } from '@weflat/app/core/components/end-user-license-agreement/end-user-license-agreement.component';
+import { ForgottenPasswordComponent } from '@weflat/app/core/components/forgotten-password/forgotten-password.component';
+import { FrequentlyAskedQuestionsComponent } from '@weflat/app/core/components/frequently-asked-questions/frequently-asked-questions.component';
+import { HomeComponent } from '@weflat/app/core/components/home/home.component';
+import { RegisterAcheteurComponent } from '@weflat/app/core/components/register-acheteur/register-acheteur.component';
+import { RegisterArchitecteComponent } from '@weflat/app/core/components/register-architecte/register-architecte.component';
+import { AcheteurGuard } from '@weflat/app/core/guards/acheteur.guard';
+import { AdminGuard } from '@weflat/app/core/guards/admin.guard';
+import { ArchitecteGuard } from '@weflat/app/core/guards/architecte.guard';
+import { CreateVisitGuard } from '@weflat/app/core/guards/create-visit.guard';
+import { AcheteurLayoutComponent } from '@weflat/app/core/layout/acheteur-layout/acheteur-layout.component';
+import { AdminLayoutComponent } from '@weflat/app/core/layout/admin-layout/admin-layout.component';
+import { ArchitecteLayoutComponent } from '@weflat/app/core/layout/architecte-layout/architecte-layout.component';
+import { PublicLayoutComponent } from '@weflat/app/core/layout/public-layout/public-layout.component';
 
 const routes: Routes = [
   {

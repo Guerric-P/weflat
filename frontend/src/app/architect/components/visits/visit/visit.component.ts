@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { VisitClass } from '@weflat/core/models/VisitClass';
-import { VisiteCounterService } from '@weflat/core/services/visite-counter.service';
-import { VisitService } from '@weflat/shared/services/visit.service';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
+import { VisiteCounterService } from '@weflat/app/core/services/visite-counter.service';
+import { LoaderService } from '@weflat/app/shared/services/loader.service';
+import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { NotificationsService } from 'angular2-notifications';
-import { LoaderService } from 'app/shared/services/loader.service';
 
 @Component({
   selector: 'app-visit',

@@ -1,9 +1,9 @@
-import { ArchitectSituationClass } from '@weflat/core/models/ArchitectSituationClass';
-import { ArchitectTypeClass } from '@weflat/core/models/ArchitectTypeClass';
-import { PaymentTypeClass } from '@weflat/core/models/PaymentTypeClass';
-import { UserClass } from '@weflat/core/models/UserClass';
-import { VisitClass } from '@weflat/core/models/VisitClass';
-import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
+import { ArchitectSituationClass } from '@weflat/app/core/models/ArchitectSituationClass';
+import { ArchitectTypeClass } from '@weflat/app/core/models/ArchitectTypeClass';
+import { PaymentTypeClass } from '@weflat/app/core/models/PaymentTypeClass';
+import { UserClass } from '@weflat/app/core/models/UserClass';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
+import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
 
 export class ArchitectClass extends UserClass {
     public webSite: String;

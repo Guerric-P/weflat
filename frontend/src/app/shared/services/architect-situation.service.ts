@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ArchitectSituationClass } from '@weflat/core/models/ArchitectSituationClass';
+import { ArchitectSituationClass } from '@weflat/app/core/models/ArchitectSituationClass';
 import { Observable } from 'rxjs';
 
 @Injectable()

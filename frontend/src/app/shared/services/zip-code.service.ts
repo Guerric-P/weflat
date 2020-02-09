@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
+import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

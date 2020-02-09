@@ -4,13 +4,13 @@
     "downlevelIteration": true,
     "module": "esnext",
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
+    "baseUrl": "./",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2015",
+    "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -19,7 +19,7 @@
       "dom"
     ],
     "paths": {
-      "@weflat/*": ["app/*"]
+      "@weflat/*": ["src/*"]
     }
   }
 }

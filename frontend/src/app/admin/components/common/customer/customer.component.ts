@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CustomerClass } from '@weflat/core/models/CustomerClass';
+import { CustomerClass } from '@weflat/app/core/models/CustomerClass';
 
 @Component({
   selector: 'app-customer',

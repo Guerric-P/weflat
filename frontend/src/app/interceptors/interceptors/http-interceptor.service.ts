@@ -1,12 +1,12 @@
-import { Injectable, Injector, Optional, Inject } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Inject, Injectable, Injector, Optional } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'environments/environment';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
+import { environment } from '@weflat/environments/environment';
 import { Request } from 'express';
-import { AuthenticationService } from 'app/core/services/authentication.service';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable()
 export class WeflatInterceptor implements HttpInterceptor {

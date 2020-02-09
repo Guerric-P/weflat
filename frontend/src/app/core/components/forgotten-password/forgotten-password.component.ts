@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '@weflat/shared/services/user.service';
+import { UserService } from '@weflat/app/shared/services/user.service';
 
 @Component({
   selector: 'app-forgotten-password',

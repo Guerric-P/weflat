@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseBackendLayoutComponent } from '@weflat/core/layout/base-backend-layout/base-backend-layout.component';
+import { BaseBackendLayoutComponent } from '@weflat/app/core/layout/base-backend-layout/base-backend-layout.component';
 
 @Component({
   selector: 'app-acheteur-layout',

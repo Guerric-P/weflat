@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { VisitClass } from '@weflat/core/models/VisitClass';
-import { VisitStatusEnum } from '@weflat/shared/common/enums/VisitStatusEnum';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
+import { VisitStatusEnum } from '@weflat/app/shared/common/enums/VisitStatusEnum';
 
 
 

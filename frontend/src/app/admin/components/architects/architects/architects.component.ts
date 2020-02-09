@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
-import { findIndexById } from '@weflat/core/utils/arrayUtils';
-import { ArchitectService } from '@weflat/shared/services/architecte.service';
+import { ArchitectClass } from '@weflat/app/core/models/ArchitectClass';
+import { findIndexById } from '@weflat/app/core/utils/arrayUtils';
+import { ArchitectService } from '@weflat/app/shared/services/architecte.service';
 
 @Component({
   selector: 'app-architects',

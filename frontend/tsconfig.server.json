@@ -4,6 +4,9 @@
     "outDir": "../out-tsc/app-server",
     "baseUrl": "."
   },
+  "files": [
+    "./server.ts"
+  ],
   "angularCompilerOptions": {
     "entryModule": "app/app.server.module#AppServerModule"
   }

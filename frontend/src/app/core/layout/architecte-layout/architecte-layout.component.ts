@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RoutesRecognized } from '@angular/router';
-import { BaseBackendLayoutComponent } from '@weflat/core/layout/base-backend-layout/base-backend-layout.component';
+import { BaseBackendLayoutComponent } from '@weflat/app/core/layout/base-backend-layout/base-backend-layout.component';
 import { Subscription } from 'rxjs';
 
 @Component({

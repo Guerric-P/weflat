@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { VisitClass } from '@weflat/core/models/VisitClass';
+import { VisitClass } from '@weflat/app/core/models/VisitClass';
 
 @Component({
   selector: 'app-visit-list-item',

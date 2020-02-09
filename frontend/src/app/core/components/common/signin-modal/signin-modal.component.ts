@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { SignupModalComponent } from '@weflat/core/components/common/signup-modal/signup-modal.component';
-import { AuthenticationService } from 'app/core/services/authentication.service';
+import { SignupModalComponent } from '@weflat/app/core/components/common/signup-modal/signup-modal.component';
+import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-signin-modal',

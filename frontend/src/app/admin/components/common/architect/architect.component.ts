@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
-import { ArchitectStatusEnum } from '@weflat/shared/common/enums/ArchitectStatusEnum';
-import { ArchitectService } from '@weflat/shared/services/architecte.service';
+import { ArchitectClass } from '@weflat/app/core/models/ArchitectClass';
+import { ArchitectStatusEnum } from '@weflat/app/shared/common/enums/ArchitectStatusEnum';
+import { ArchitectService } from '@weflat/app/shared/services/architecte.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as IBAN from 'iban';
 

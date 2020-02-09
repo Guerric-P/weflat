@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
-import { AuthenticationService } from '@weflat/core/services/authentication.service';
-import { VisiteCounterService } from '@weflat/core/services/visite-counter.service';
-import { VisitService } from '@weflat/shared/services/visit.service';
+import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
+import { VisiteCounterService } from '@weflat/app/core/services/visite-counter.service';
+import { VisitService } from '@weflat/app/shared/services/visit.service';
 
 @Component({
   selector: 'app-base-backend-layout',
