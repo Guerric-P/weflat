@@ -163,7 +163,7 @@
                 },
                 {
                   "replace": "src/index.html",
-                  "with": "src/index.test.html"
+                  "with": "src/index.prod.html"
                 }
               ]
             }
