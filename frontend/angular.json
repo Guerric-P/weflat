@@ -41,6 +41,7 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
+              "index": "src/environments/test/index.html",
               "buildOptimizer": true,
               "assets": [
                 "src/assets",
@@ -50,11 +51,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.test.ts"
-                },
-                {
-                  "replace": "src/index.html",
-                  "with": "src/index.test.html"
+                  "with": "src/environments/test/environment.ts"
                 }
               ]
             },
@@ -73,15 +70,12 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
+              "index": "src/environments/prod/index.html",
               "buildOptimizer": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                },
-                {
-                  "replace": "src/index.html",
-                  "with": "src/index.prod.html"
+                  "with": "src/environments/prod/environment.ts"
                 }
               ]
             }
@@ -147,7 +141,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.test.ts"
+                  "with": "src/environments/test/environment.ts"
                 }
               ]
             },
@@ -155,7 +149,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/prod/environment.ts"
                 }
               ]
             }
@@ -196,5 +190,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": "a6edce87-433f-4a1a-9ade-1cfee34e58be"
   }
 }
