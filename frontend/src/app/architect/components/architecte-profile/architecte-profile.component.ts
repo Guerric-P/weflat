@@ -2,7 +2,6 @@ import { ENTER } from '@angular/cdk/keycodes';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
-import { ErrorStateMatcher, MatAutocompleteSelectedEvent, MatChipList } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { ArchitectClass } from '@weflat/core/models/ArchitectClass';
 import { ArchitectSituationClass } from '@weflat/core/models/ArchitectSituationClass';
@@ -19,6 +18,9 @@ import { ZipCodeService } from '@weflat/shared/services/zip-code.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as IBAN from 'iban';
 import * as moment from 'moment';
+import { MatChipList } from '@angular/material/chips';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 declare var google;
 

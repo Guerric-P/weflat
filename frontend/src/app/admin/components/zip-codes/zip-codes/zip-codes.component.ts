@@ -1,10 +1,11 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
-import { ErrorStateMatcher, MatDialog, MatDialogRef } from '@angular/material';
 import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
 import { findIndexById } from '@weflat/core/utils/arrayUtils';
 import { ZipCodeService } from '@weflat/shared/services/zip-code.service';
 import { NotificationsService } from 'angular2-notifications';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 class ZipCodeErrorStateMatcher implements ErrorStateMatcher {
   zipCodeRegexp: RegExp = /^[0-9]{5}$/;

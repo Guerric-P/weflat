@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID, ApplicationRef } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { isPlatformBrowser } from '@angular/common';
 import { first, switchMap } from 'rxjs/operators';
 import { interval } from 'rxjs';

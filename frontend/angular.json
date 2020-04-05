@@ -16,6 +16,7 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+            "preserveSymlinks": true,
             "serviceWorker": true,
             "assets": [
               "src/assets",
@@ -184,5 +185,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "analytics": "c8960c80-631e-499d-81b9-3bff1c903a1f"
   }
 }

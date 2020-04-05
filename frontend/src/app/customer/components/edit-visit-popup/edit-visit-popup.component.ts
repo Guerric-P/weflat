@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VisitClass } from '@weflat/core/models/VisitClass';
 import { ZipCodeClass } from '@weflat/core/models/ZipCodeClass';
 import { GoogleService } from '@weflat/core/services/google.service';

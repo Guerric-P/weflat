@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatChipsModule, MatDialogModule, MatDividerModule, MatExpansionModule, MatInputModule, MatListModule, MatSlideToggleModule } from '@angular/material';
 import { AdminRoutingModule } from '@weflat/admin/admin-routing.module';
 import { ArchitectListItemComponent } from '@weflat/admin/components/architects/architect/architect-list-item.component';
 import { ArchitectsListComponent } from '@weflat/admin/components/architects/architects-list/architects-list.component';
@@ -16,6 +15,14 @@ import { VisitsComponent } from '@weflat/admin/components/visits/visits/visits.c
 import { ZipCodeComponent } from '@weflat/admin/components/zip-codes/zip-code/zip-code.component';
 import { ZipCodesComponent } from '@weflat/admin/components/zip-codes/zip-codes/zip-codes.component';
 import { SharedModule } from '@weflat/shared/shared.module';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [

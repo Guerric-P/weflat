@@ -1,7 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HelpReportEditionModalComponent } from '@weflat/architect/components/help-report-edition-modal/help-report-edition-modal.component';
 import { PositionClass } from '@weflat/core/models/PositionClass';
@@ -11,6 +10,7 @@ import { AuthenticationService } from '@weflat/core/services/authentication.serv
 import { ReportService } from '@weflat/shared/services/report.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-report-edit',
