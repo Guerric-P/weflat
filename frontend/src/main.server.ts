@@ -7,6 +7,7 @@ if (environment.production) {
 
 // Express Engine
 export { ngExpressEngine } from '@nguniversal/express-engine';
+// Import module map for lazy loading
 export { AppServerModule } from './app/app.server.module';
 
 

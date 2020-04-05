@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { LoaderService } from '@weflat/app/shared/services/loader.service';
 import { VisitService } from '@weflat/app/shared/services/visit.service';
-import { environment } from '@weflat/environments/environment';
+import { environment } from '@weflat/app/environments/environment';
 import { NotificationsService } from 'angular2-notifications';
 
 @Directive({
