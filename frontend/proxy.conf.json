@@ -1,7 +1,8 @@
 {
     "/backend/*":{
-        "target": "http://localhost",
+        "target": "https://www.weflat.fr",
         "secure": false,
-        "logLevel": "debug"
+        "logLevel": "debug",
+        "changeOrigin": true
     }
 }

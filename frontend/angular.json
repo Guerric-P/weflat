@@ -16,6 +16,7 @@
             "main": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+            "preserveSymlinks": true,
             "serviceWorker": true,
             "assets": [
               "src/assets",
