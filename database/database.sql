@@ -6,7 +6,7 @@ CREATE USER weflat WITH
                 INHERIT
                 NOREPLICATION
                 CONNECTION LIMIT -1
-                PASSWORD 'dhainea;1337';
+                PASSWORD 'P@ssw0rd';
 
 
 
