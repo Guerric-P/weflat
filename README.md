@@ -5,7 +5,7 @@ Repository of the retired https://www.weflat.fr/ web application, that used to c
 It features:
  - PostgreSQL database
  - Java Spring Boot backend
- - Angular frontend (in french language, server-side rendered, and PWA)
+ - Angular frontend (PWA in french language and server-side rendered)
  - Apache reverse proxy
  - Docker Compose deployment mode
  
