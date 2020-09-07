@@ -2,4 +2,6 @@
 
 Repository of the retired https://www.weflat.fr/ web application, that used to connect buyers of real estate with architects.
 
+It is composed of a PostgreSQL database, a Java Spring Boot backend, an Angular frontend, and an Apache reverse proxy, and is deployable as Docker Compose.
+
 Feel free to do whatever you want with this!
