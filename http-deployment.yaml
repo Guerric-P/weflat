@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: http
+  name: http
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: http
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.network/backend: "true"
+        io.kompose.network/frontend: "true"
+        io.kompose.service: http
+    spec:
+      containers:
+      - image: gphalippou/weflat:http_production_latest
+        imagePullPolicy: Always
+        name: http
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/www/html
+          name: vfrontend
+      hostname: apache
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: vfrontend
+        persistentVolumeClaim:
+          claimName: vfrontend
+status: {}

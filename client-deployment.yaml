@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: client
+  name: client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: client
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.network/backend: "true"
+        io.kompose.service: client
+    spec:
+      containers:
+      - image: gphalippou/weflat:frontend_production_latest
+        imagePullPolicy: Always
+        name: client
+        resources: {}
+        volumeMounts:
+        - mountPath: /app/browser
+          name: vfrontend
+        - mountPath: /app/log
+          name: client-claim1
+      hostname: client
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: vfrontend
+        persistentVolumeClaim:
+          claimName: vfrontend
+      - name: client-claim1
+        persistentVolumeClaim:
+          claimName: client-claim1
+status: {}
