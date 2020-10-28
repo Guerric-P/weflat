@@ -6,10 +6,12 @@ metadata:
     io.kompose.service: client
   name: client-svc
 spec:
+  type: NodePort
   ports:
-  - port: 4000
+  - port: 80
+    nodePort: 30000
     protocol: TCP
   selector:
-    io.kompose.service: client
+    io.kompose.service: http
 status:
   loadBalancer: {}

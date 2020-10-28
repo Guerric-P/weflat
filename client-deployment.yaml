@@ -22,16 +22,37 @@ spec:
         io.kompose.network/backend: "true"
         io.kompose.service: client
     spec:
+      volumes:
+      - name: vfrontend
+        emptyDir: {}
       containers:
       - image: gphalippou/weflat:frontend_production_latest
         imagePullPolicy: Always
         name: client
+        ports:
+        - containerPort: 4000
         resources: {}
         volumeMounts:
-        - mountPath: /app/browser
+        - mountPath: /app/dist/browser
           name: vfrontend
         - mountPath: /app/log
           name: client-claim1
+      - image: gphalippou/weflat:http_production_latest
+        imagePullPolicy: Always
+        name: http
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/www/html
+          name: vfrontend
+      hostname: apache
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: vfrontend
+        persistentVolumeClaim:
+          claimName: vfrontend
       hostname: client
       restartPolicy: Always
       serviceAccountName: ""
@@ -42,4 +63,5 @@ spec:
       - name: client-claim1
         persistentVolumeClaim:
           claimName: client-claim1
+      
 status: {}
