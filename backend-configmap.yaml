@@ -1,0 +1,97 @@
+apiVersion: v1
+binaryData:
+  Weflat-d8a5d9785c54.p12: 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
+data:
+  logback.xml: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<configuration scan=\"true\"
+    scanPeriod=\"15 seconds\">\r\n \r\n    <property name=\"LOGS\" value=\"./log\"
+    />\r\n \r\n    <appender name=\"Console\"\r\n        class=\"ch.qos.logback.core.ConsoleAppender\">\r\n
+    \       <layout class=\"ch.qos.logback.classic.PatternLayout\">\r\n            <Pattern>\r\n
+    \               %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}):
+    %msg%n%throwable\r\n            </Pattern>\r\n        </layout>\r\n    </appender>\r\n
+    \r\n    <appender name=\"WebApplicationFile\"\r\n        class=\"ch.qos.logback.core.rolling.RollingFileAppender\">\r\n
+    \       <file>${LOGS}/web-application.log</file>\r\n        <encoder\r\n            class=\"ch.qos.logback.classic.encoder.PatternLayoutEncoder\">\r\n
+    \           <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>\r\n        </encoder>\r\n
+    \r\n        <rollingPolicy\r\n            class=\"ch.qos.logback.core.rolling.TimeBasedRollingPolicy\">\r\n
+    \           <!-- rollover daily and when the file reaches 10 MegaBytes -->\r\n
+    \           <fileNamePattern>${LOGS}/archived/web-application-%d{yyyy-MM-dd}.%i.log\r\n
+    \           </fileNamePattern>\r\n            <timeBasedFileNamingAndTriggeringPolicy\r\n
+    \               class=\"ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP\">\r\n
+    \               <maxFileSize>10MB</maxFileSize>\r\n            </timeBasedFileNamingAndTriggeringPolicy>\r\n
+    \       </rollingPolicy>\r\n    </appender>\r\n    \r\n    <appender name=\"BatchFile\"\r\n
+    \       class=\"ch.qos.logback.core.rolling.RollingFileAppender\">\r\n        <file>${LOGS}/batch.log</file>\r\n
+    \       <encoder\r\n            class=\"ch.qos.logback.classic.encoder.PatternLayoutEncoder\">\r\n
+    \           <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>\r\n        </encoder>\r\n
+    \r\n        <rollingPolicy\r\n            class=\"ch.qos.logback.core.rolling.TimeBasedRollingPolicy\">\r\n
+    \           <!-- rollover daily and when the file reaches 10 MegaBytes -->\r\n
+    \           <fileNamePattern>${LOGS}/archived/batch-%d{yyyy-MM-dd}.%i.log\r\n
+    \           </fileNamePattern>\r\n            <timeBasedFileNamingAndTriggeringPolicy\r\n
+    \               class=\"ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP\">\r\n
+    \               <maxFileSize>10MB</maxFileSize>\r\n            </timeBasedFileNamingAndTriggeringPolicy>\r\n
+    \       </rollingPolicy>\r\n    </appender>\r\n    \r\n    <appender name=\"BusinessFile\"\r\n
+    \       class=\"ch.qos.logback.core.rolling.RollingFileAppender\">\r\n        <file>${LOGS}/business.log</file>\r\n
+    \       <encoder\r\n            class=\"ch.qos.logback.classic.encoder.PatternLayoutEncoder\">\r\n
+    \           <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>\r\n        </encoder>\r\n
+    \r\n        <rollingPolicy\r\n            class=\"ch.qos.logback.core.rolling.TimeBasedRollingPolicy\">\r\n
+    \           <!-- rollover daily and when the file reaches 10 MegaBytes -->\r\n
+    \           <fileNamePattern>${LOGS}/archived/business-%d{yyyy-MM-dd}.%i.log\r\n
+    \           </fileNamePattern>\r\n            <timeBasedFileNamingAndTriggeringPolicy\r\n
+    \               class=\"ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP\">\r\n
+    \               <maxFileSize>10MB</maxFileSize>\r\n            </timeBasedFileNamingAndTriggeringPolicy>\r\n
+    \       </rollingPolicy>\r\n    </appender>\r\n    \r\n    <appender name=\"CommonFile\"\r\n
+    \       class=\"ch.qos.logback.core.rolling.RollingFileAppender\">\r\n        <file>${LOGS}/common.log</file>\r\n
+    \       <encoder\r\n            class=\"ch.qos.logback.classic.encoder.PatternLayoutEncoder\">\r\n
+    \           <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>\r\n        </encoder>\r\n
+    \r\n        <rollingPolicy\r\n            class=\"ch.qos.logback.core.rolling.TimeBasedRollingPolicy\">\r\n
+    \           <!-- rollover daily and when the file reaches 10 MegaBytes -->\r\n
+    \           <fileNamePattern>${LOGS}/archived/common-%d{yyyy-MM-dd}.%i.log\r\n
+    \           </fileNamePattern>\r\n            <timeBasedFileNamingAndTriggeringPolicy\r\n
+    \               class=\"ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP\">\r\n
+    \               <maxFileSize>10MB</maxFileSize>\r\n            </timeBasedFileNamingAndTriggeringPolicy>\r\n
+    \       </rollingPolicy>\r\n    </appender>\r\n     \r\n    <!-- LOG everything
+    at INFO level -->\r\n    <root level=\"info\">\r\n        <appender-ref ref=\"CommonFile\"
+    />\r\n        <appender-ref ref=\"Console\" />\r\n    </root>\r\n \r\n    <logger
+    name=\"fr.weflat\" level=\"info\" additivity=\"false\">\r\n        <appender-ref
+    ref=\"BusinessFile\" />\r\n        <appender-ref ref=\"Console\" />\r\n    </logger>\r\n
+    \   \r\n    <logger name=\"fr.weflat.backend.web.controller\" level=\"info\" additivity=\"false\">\r\n
+    \       <appender-ref ref=\"WebApplicationFile\" />\r\n        <appender-ref ref=\"Console\"
+    />\r\n    </logger>\r\n        \r\n    <logger name=\"fr.weflat.backend.batch\"
+    level=\"info\" additivity=\"false\">\r\n        <appender-ref ref=\"BatchFile\"
+    />\r\n        <appender-ref ref=\"Console\" />\r\n    </logger>\r\n    \r\n    <logger
+    name=\"fr.weflat.backend.service.impl.BatchServiceImpl\" level=\"info\" additivity=\"false\">\r\n
+    \       <appender-ref ref=\"BatchFile\" />\r\n        <appender-ref ref=\"Console\"
+    />\r\n    </logger>\r\n    \r\n    <logger name=\"org.springframework\" level=\"info\"
+    additivity=\"false\">\r\n        <appender-ref ref=\"CommonFile\" />\r\n        <appender-ref
+    ref=\"Console\" />\r\n    </logger>\r\n    \r\n    <logger name=\"org.hibernate\"
+    level=\"info\" additivity=\"false\">\r\n        <appender-ref ref=\"CommonFile\"
+    />\r\n        <appender-ref ref=\"Console\" />\r\n    </logger>\r\n    \r\n    <logger
+    name=\"ma.glasnost.orika\" level=\"info\" additivity=\"false\">\r\n        <appender-ref
+    ref=\"CommonFile\" />\r\n        <appender-ref ref=\"Console\" />\r\n    </logger>\r\n
+    \   \r\n    <logger name=\"javax.mail\" level=\"info\" additivity=\"false\">\r\n
+    \       <appender-ref ref=\"CommonFile\" />\r\n        <appender-ref ref=\"Console\"
+    />\r\n    </logger>\r\n \r\n</configuration>"
+  weflat.properties: "spring.jpa.properties.hibernate.default_schema=weflat\r\nspring.datasource.url
+    = jdbc:postgresql://database-svc:5432/weflat\r\n#spring.datasource.url = jdbc:postgresql://ec2-18-217-96-165.us-east-2.compute.amazonaws.com:5432/weflat\r\nspring.datasource.driver-class-name
+    = org.postgresql.Driver\r\nspring.datasource.username=weflat\r\nspring.datasource.password=P@ssw0rd\r\nspring.resources.add-mappings=false\r\nspring.mvc.throw-exception-if-no-handler-found=true\r\nserver.contextPath=/backend\r\nserver.port
+    = 80\r\nfr.weflat.email.host=smtp.gmail.com\r\nfr.weflat.email.port=587\r\nfr.weflat.email.username=contact_test@weflat.fr\r\nfr.weflat.email.service-account=weflat-service@weflat-185909.iam.gserviceaccount.com\r\nfr.weflat.email.scope=https://mail.google.com/\r\nfr.weflat.stripe.private-key=sk_test_ex3BOWKtQexdJh4zKFOTo36m\r\nfr.weflat.stripe.price=15000\r\nfr.weflat.stripe.partial-refund=13000\r\nfr.weflat.architect-remuneration=8000\r\nfr.weflat.app-url=http://localhost:4200\r\nfr.weflat.slack.url=https://hooks.slack.com/services/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\r\nfr.weflat.slack.user-name=Weflat_test\r\nmail.transport.protocol=smtp\r\nmail.smtp.auth=true\r\nmail.smtp.auth.mechanisms=XOAUTH2\r\nmail.smtp.starttls.enable=true\r\nmail.debug=false\r\norika.mapNulls=false"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2020-10-29T21:41:35Z"
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:binaryData:
+        .: {}
+        f:Weflat-d8a5d9785c54.p12: {}
+      f:data:
+        .: {}
+        f:logback.xml: {}
+        f:weflat.properties: {}
+    manager: kubectl-create
+    operation: Update
+    time: "2020-10-29T21:41:35Z"
+  name: backend
+  namespace: default
+  resourceVersion: "47710"
+  selfLink: /api/v1/namespaces/default/configmaps/backend
+  uid: 00c7e9ca-5825-4b18-a8ea-24a75438d5ff

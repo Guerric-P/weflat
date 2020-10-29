@@ -35,6 +35,6 @@ spec:
         persistentVolumeClaim:
           claimName: server-claim0
       - name: server-claim1
-        persistentVolumeClaim:
-          claimName: server-claim1
+        configMap:
+          name: backend
 status: {}
