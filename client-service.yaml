@@ -12,6 +12,6 @@ spec:
     nodePort: 30000
     protocol: TCP
   selector:
-    io.kompose.service: http
+    io.kompose.service: client
 status:
   loadBalancer: {}

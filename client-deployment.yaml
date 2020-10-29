@@ -22,9 +22,13 @@ spec:
         io.kompose.network/backend: "true"
         io.kompose.service: client
     spec:
-      volumes:
-      - name: vfrontend
-        emptyDir: {}
+      initContainers:
+      - name: init
+        image: gphalippou/weflat:frontend_production_latest
+        command: ["cp", "-a", "/app/dist/browser/.", "/init/"]
+        volumeMounts:
+        - mountPath: /init
+          name: vfrontend
       containers:
       - image: gphalippou/weflat:frontend_production_latest
         imagePullPolicy: Always
@@ -49,19 +53,12 @@ spec:
       hostname: apache
       restartPolicy: Always
       serviceAccountName: ""
-      volumes:
-      - name: vfrontend
-        persistentVolumeClaim:
-          claimName: vfrontend
       hostname: client
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
       - name: vfrontend
-        persistentVolumeClaim:
-          claimName: vfrontend
       - name: client-claim1
         persistentVolumeClaim:
           claimName: client-claim1
-      
 status: {}

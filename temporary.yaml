@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temporary
+spec:
+  volumes:
+    - name: server-claim0
+      persistentVolumeClaim:
+        claimName: server-claim0
+    - name: server-claim1
+      persistentVolumeClaim:
+        claimName: server-claim1
+  containers:
+    - name: temporary
+      image: node
+      volumeMounts:
+        - mountPath: /app/log
+          name: server-claim0
+        - mountPath: /app/config
+          name: server-claim1
+      ports:
+        - containerPort: 80
+          name: "http-server"
