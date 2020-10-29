@@ -15,7 +15,7 @@ SET client_min_messages = warning;
 CREATE SCHEMA weflat;
 
 
-ALTER SCHEMA weflat OWNER TO postgres;
+ALTER SCHEMA weflat OWNER TO sa;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
@@ -45,7 +45,7 @@ CREATE SEQUENCE user_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.user_id_seq OWNER TO postgres;
+ALTER TABLE weflat.user_id_seq OWNER TO sa;
 
 SET default_tablespace = '';
 
@@ -66,7 +66,7 @@ CREATE TABLE "user" (
 );
 
 
-ALTER TABLE weflat."user" OWNER TO postgres;
+ALTER TABLE weflat."user" OWNER TO sa;
 
 --
 -- Name: admin; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -77,7 +77,7 @@ CREATE TABLE admin (
 INHERITS ("user");
 
 
-ALTER TABLE weflat.admin OWNER TO postgres;
+ALTER TABLE weflat.admin OWNER TO sa;
 
 --
 -- Name: architect; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -101,7 +101,7 @@ CREATE TABLE architect (
 INHERITS ("user");
 
 
-ALTER TABLE weflat.architect OWNER TO postgres;
+ALTER TABLE weflat.architect OWNER TO sa;
 
 --
 -- Name: architect_situation; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -113,7 +113,7 @@ CREATE TABLE architect_situation (
 );
 
 
-ALTER TABLE weflat.architect_situation OWNER TO postgres;
+ALTER TABLE weflat.architect_situation OWNER TO sa;
 
 --
 -- Name: architect_type; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -125,7 +125,7 @@ CREATE TABLE architect_type (
 );
 
 
-ALTER TABLE weflat.architect_type OWNER TO postgres;
+ALTER TABLE weflat.architect_type OWNER TO sa;
 
 --
 -- Name: architect_visit; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -137,7 +137,7 @@ CREATE TABLE architect_visit (
 );
 
 
-ALTER TABLE weflat.architect_visit OWNER TO postgres;
+ALTER TABLE weflat.architect_visit OWNER TO sa;
 
 --
 -- Name: architect_zip_code; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -149,7 +149,7 @@ CREATE TABLE architect_zip_code (
 );
 
 
-ALTER TABLE weflat.architect_zip_code OWNER TO postgres;
+ALTER TABLE weflat.architect_zip_code OWNER TO sa;
 
 --
 -- Name: customer; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -161,7 +161,7 @@ CREATE TABLE customer (
 INHERITS ("user");
 
 
-ALTER TABLE weflat.customer OWNER TO postgres;
+ALTER TABLE weflat.customer OWNER TO sa;
 
 --
 -- Name: password_change_request_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
@@ -175,7 +175,7 @@ CREATE SEQUENCE password_change_request_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.password_change_request_id_seq OWNER TO postgres;
+ALTER TABLE weflat.password_change_request_id_seq OWNER TO sa;
 
 --
 -- Name: password_change_request; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -189,7 +189,7 @@ CREATE TABLE password_change_request (
 );
 
 
-ALTER TABLE weflat.password_change_request OWNER TO postgres;
+ALTER TABLE weflat.password_change_request OWNER TO sa;
 
 --
 -- Name: payment_type; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -201,7 +201,7 @@ CREATE TABLE payment_type (
 );
 
 
-ALTER TABLE weflat.payment_type OWNER TO postgres;
+ALTER TABLE weflat.payment_type OWNER TO sa;
 
 --
 -- Name: position; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -214,7 +214,7 @@ CREATE TABLE "position" (
 );
 
 
-ALTER TABLE weflat."position" OWNER TO postgres;
+ALTER TABLE weflat."position" OWNER TO sa;
 
 --
 -- Name: renovation_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
@@ -228,7 +228,7 @@ CREATE SEQUENCE renovation_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.renovation_id_seq OWNER TO postgres;
+ALTER TABLE weflat.renovation_id_seq OWNER TO sa;
 
 --
 -- Name: renovation; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -244,7 +244,7 @@ CREATE TABLE renovation (
 );
 
 
-ALTER TABLE weflat.renovation OWNER TO postgres;
+ALTER TABLE weflat.renovation OWNER TO sa;
 
 --
 -- Name: report_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
@@ -258,7 +258,7 @@ CREATE SEQUENCE report_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.report_id_seq OWNER TO postgres;
+ALTER TABLE weflat.report_id_seq OWNER TO sa;
 
 --
 -- Name: report; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -277,7 +277,7 @@ CREATE TABLE report (
 );
 
 
-ALTER TABLE weflat.report OWNER TO postgres;
+ALTER TABLE weflat.report OWNER TO sa;
 
 --
 -- Name: visit; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -303,7 +303,7 @@ CREATE TABLE visit (
 );
 
 
-ALTER TABLE weflat.visit OWNER TO postgres;
+ALTER TABLE weflat.visit OWNER TO sa;
 
 --
 -- Name: visit_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
@@ -317,7 +317,7 @@ CREATE SEQUENCE visit_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.visit_id_seq OWNER TO postgres;
+ALTER TABLE weflat.visit_id_seq OWNER TO sa;
 
 --
 -- Name: zip_code; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
@@ -334,7 +334,7 @@ CREATE TABLE zip_code (
 );
 
 
-ALTER TABLE weflat.zip_code OWNER TO postgres;
+ALTER TABLE weflat.zip_code OWNER TO sa;
 
 --
 -- Name: zip_code_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
@@ -348,7 +348,7 @@ CREATE SEQUENCE zip_code_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.zip_code_id_seq OWNER TO postgres;
+ALTER TABLE weflat.zip_code_id_seq OWNER TO sa;
 
 --
 -- Name: id; Type: DEFAULT; Schema: weflat; Owner: postgres
@@ -6879,7 +6879,7 @@ ALTER TABLE ONLY visit
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
 REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO sa;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
