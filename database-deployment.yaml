@@ -28,7 +28,7 @@ spec:
         - name: PGPORT
           value: "5432"
         - name: PGUSER
-          value: sa
+          value: weflat
         image: gphalippou/weflat:database_production_latest
         imagePullPolicy: Always
         name: database
