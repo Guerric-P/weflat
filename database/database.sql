@@ -12,6 +12,7 @@ CREATE USER weflat WITH
 
 GRANT ALL PRIVILEGES ON DATABASE weflat TO weflat;
 
+\connect weflat;
 --
 -- PostgreSQL database dump
 --
