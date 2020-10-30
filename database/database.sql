@@ -1,3 +1,13 @@
+CREATE USER weflat WITH
+                LOGIN
+                NOSUPERUSER
+                NOCREATEDB
+                NOCREATEROLE
+                INHERIT
+                NOREPLICATION
+                CONNECTION LIMIT -1
+                PASSWORD 'P@ssw0rd';
+
 --
 -- PostgreSQL database dump
 --
