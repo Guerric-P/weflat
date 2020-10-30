@@ -392,6 +392,44 @@ ALTER TABLE ONLY customer ALTER COLUMN id SET DEFAULT nextval('user_id_seq'::reg
 
 INSERT INTO admin (id, last_name, first_name, birth_date, telephone, email, password) VALUES (1, 'Weflat', 'Admin', NULL, NULL, 'contact@weflat.fr', 'yqsyJZHV4HqFhOceoHyA62+VZIoVl8MjXtHK2sZtqSceR0smfjoLSpUpJS0XO6DE');
 
+--
+-- Data for Name: architect_situation; Type: TABLE DATA; Schema: weflat; Owner: postgres
+--
+
+INSERT INTO architect_situation (id, label) VALUES (2, 'Libéral HMONP/DPLG');
+INSERT INTO architect_situation (id, label) VALUES (1, 'Salarié');
+INSERT INTO architect_situation (id, label) VALUES (3, 'Architecte d''intérieur indépendant');
+
+
+--
+-- Data for Name: architect_type; Type: TABLE DATA; Schema: weflat; Owner: postgres
+--
+
+INSERT INTO architect_type (id, label) VALUES (2, 'Architecte d''intérieur');
+INSERT INTO architect_type (id, label) VALUES (1, 'Architecte diplômé d''État');
+
+--
+-- Data for Name: payment_type; Type: TABLE DATA; Schema: weflat; Owner: postgres
+--
+
+INSERT INTO payment_type (id, label) VALUES (1, 'Lydia');
+INSERT INTO payment_type (id, label) VALUES (2, 'Transfert bancaire');
+
+
+--
+-- Data for Name: position; Type: TABLE DATA; Schema: weflat; Owner: postgres
+--
+
+INSERT INTO "position" (id, label, mandatory) VALUES (2, 'Sol', true);
+INSERT INTO "position" (id, label, mandatory) VALUES (1, 'Mur', true);
+INSERT INTO "position" (id, label, mandatory) VALUES (4, 'Plomberie', true);
+INSERT INTO "position" (id, label, mandatory) VALUES (3, 'Electricité', true);
+INSERT INTO "position" (id, label, mandatory) VALUES (6, 'Sanitaires', true);
+INSERT INTO "position" (id, label, mandatory) VALUES (5, 'Menuiserie', true);
+INSERT INTO "position" (id, label, mandatory) VALUES (8, 'Plafond', true);
+INSERT INTO "position" (id, label, mandatory) VALUES (7, 'Cuisine', true);
+INSERT INTO "position" (id, label, mandatory) VALUES (9, 'Platerie', true);
+
 
 --
 -- Data for Name: zip_code; Type: TABLE DATA; Schema: weflat; Owner: postgres
