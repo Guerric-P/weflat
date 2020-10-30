@@ -1,3 +1,5 @@
+CREATE DATABASE weflat;
+
 CREATE USER weflat WITH
                 LOGIN
                 NOSUPERUSER
@@ -6,7 +8,9 @@ CREATE USER weflat WITH
                 INHERIT
                 NOREPLICATION
                 CONNECTION LIMIT -1
-                PASSWORD 'P@ssw0rd';
+                ENCRYPTED PASSWORD 'P@ssw0rd';
+
+GRANT ALL PRIVILEGES ON DATABASE weflat TO weflat;
 
 --
 -- PostgreSQL database dump
