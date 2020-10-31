@@ -3,8 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: client-claim1
-  name: client-claim1
+    io.kompose.service: server-logs
+  name: server-logs
 spec:
   accessModes:
   - ReadWriteOnce

@@ -40,7 +40,7 @@ spec:
         - mountPath: /app/dist/browser
           name: vfrontend
         - mountPath: /app/log
-          name: client-claim1
+          name: client-logs
       - image: gphalippou/weflat:http_production_latest
         imagePullPolicy: Always
         name: http
@@ -58,7 +58,7 @@ spec:
       serviceAccountName: ""
       volumes:
       - name: vfrontend
-      - name: client-claim1
+      - name: client-logs
         persistentVolumeClaim:
-          claimName: client-claim1
+          claimName: client-logs
 status: {}

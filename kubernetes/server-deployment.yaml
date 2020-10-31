@@ -24,17 +24,17 @@ spec:
         resources: {}
         volumeMounts:
         - mountPath: /app/log
-          name: server-claim0
+          name: server-logs
         - mountPath: /app/config
-          name: server-claim1
+          name: server-config
       hostname: server
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
-      - name: server-claim0
+      - name: server-logs
         persistentVolumeClaim:
-          claimName: server-claim0
-      - name: server-claim1
+          claimName: server-logs
+      - name: server-config
         configMap:
           name: backend
 status: {}

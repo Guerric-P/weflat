@@ -35,12 +35,12 @@ spec:
         resources: {}
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
-          name: database-claim0
+          name: database-data
       hostname: database
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
-      - name: database-claim0
+      - name: database-data
         persistentVolumeClaim:
-          claimName: database-claim0
+          claimName: database-data
 status: {}
