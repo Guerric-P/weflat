@@ -1,4 +1,4 @@
-FROM node:10.13.0-stretch as build-stage
+FROM node:14-stretch as build-stage
 WORKDIR /app
 COPY ./ /app/
 ARG environment
