@@ -1,4 +1,4 @@
-<mat-horizontal-stepper #stepper [linear]="isLinear" (selectionChange)="selectionChanged($event)">
+<mat-stepper #stepper [linear]="isLinear" (selectionChange)="selectionChanged($event)">
   <mat-step [stepControl]="dateFormGroup">
     <div class="container">
       <div class="col">
@@ -118,4 +118,4 @@
       </div>
     </div>
   </mat-step>
-</mat-horizontal-stepper>
+</mat-stepper>

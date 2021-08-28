@@ -19,7 +19,7 @@ import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { MatHorizontalStepper } from '@angular/material/stepper';
+import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
 import { DateAdapter } from '@angular/material/core';
 
 
@@ -40,7 +40,7 @@ export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
   marker: any;
   @ViewChild('googleMap') googleMap: ElementRef;
   @ViewChild('addressInput', { static: true }) addressInput: ElementRef;
-  @ViewChild('stepper') stepper: MatHorizontalStepper;
+  @ViewChild('stepper') stepper: MatStepper;
   @ViewChild('projectStep') projectStep: CdkStep;
   @ViewChild('paymentStep') paymentStep: CdkStep;
   @ViewChild('locationStep') locationStep: CdkStep;
@@ -247,8 +247,8 @@ export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
     this.visit.visiteDate = date ? new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute) : null;
   }
 
-  async postNewVisit(enablePopup: boolean) {
-    return new Promise((resolve, reject) => {
+  postNewVisit(enablePopup: boolean) {
+    return new Promise<void>((resolve, reject) => {
       this.loadVisit();
       if (this.isVisitFilled) {
         this.visiteService.post(this.visit).subscribe(res => {
