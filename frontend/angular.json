@@ -24,7 +24,14 @@
             ],
             "styles": [
               "src/styles.scss"
-            ]
+            ],
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "test": {
@@ -37,7 +44,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -66,7 +72,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -80,7 +85,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -135,7 +141,7 @@
             "outputPath": "dist/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
-            "sourceMap": false
+            "optimization": false
           },
           "configurations": {
             "test": {
@@ -154,7 +160,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         }
       }
     },
