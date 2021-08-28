@@ -6,7 +6,7 @@ metadata:
     io.kompose.service: server
   name: server
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       io.kompose.service: server
