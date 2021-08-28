@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DisabledZipCodePopupComponent } from './disabled-zip-code-popup.component';
 
@@ -6,7 +6,7 @@ describe('DisabledZipCodePopupComponent', () => {
   let component: DisabledZipCodePopupComponent;
   let fixture: ComponentFixture<DisabledZipCodePopupComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DisabledZipCodePopupComponent ]
     })
