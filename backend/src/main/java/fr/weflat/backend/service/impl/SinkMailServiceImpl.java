@@ -38,7 +38,7 @@ public class SinkMailServiceImpl extends MailServiceImpl {
 
             mailSender.setDefaultEncoding("UTF-8");
             Message message = new MimeMessage(mailSender.getSession());
-            message.setFrom(new InternetAddress(mailSender.getUsername()));
+            message.setFrom(new InternetAddress("contact@weflat.fr"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             message.setSubject(subject);
 
