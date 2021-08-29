@@ -1,7 +1,6 @@
 <div>
   {{zipCode.number}} - {{zipCode.county}} - {{zipCode.town}}
-  <mat-slide-toggle class="ms-5" [checked]="zipCode.active" (change)="onValueChanged($event)">{{zipCode.active ? 'Activé' : 'Désactivé'}}</mat-slide-toggle>
-  <button type="button" class="close float-end" (click)="onDeleteClick()">
-    <span aria-hidden="true">&times;</span>
-  </button>
+  <mat-slide-toggle class="ms-5" [checked]="zipCode.active" (change)="onValueChanged($event)">{{zipCode.active ?
+    'Activé' : 'Désactivé'}}</mat-slide-toggle>
+  <button type="button" class="btn-close float-end" (click)="onDeleteClick()"> </button>
 </div>
