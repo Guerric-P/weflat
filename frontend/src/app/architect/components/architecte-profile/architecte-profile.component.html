@@ -7,17 +7,17 @@
       <div class="card-body" [class.emphasis]="statusEmphasis">
         <p class="card-text">
           <span *ngIf="architecte.status === ArchitectStatusEnum.CREATED">
-            <span class="badge badge-info">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat
+            <span class="badge bg-info text-dark">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat
             et moi") afin qu'il soit étudié par nos équipes
           </span>
           <span *ngIf="architecte.status === ArchitectStatusEnum.APPROVING">
-            <span class="badge badge-warning">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
+            <span class="badge bg-warning text-dark">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
           </span>
           <span *ngIf="architecte.status === ArchitectStatusEnum.VALIDATED">
-            <span class="badge badge-success">Validé</span> Vous recevez les demandes de visite dans votre zone d'action.
+            <span class="badge bg-success">Validé</span> Vous recevez les demandes de visite dans votre zone d'action.
           </span>
           <span *ngIf="architecte.status === ArchitectStatusEnum.REFUSED">
-            <span class="badge badge-danger">Refusé</span> Votre candidature n'a pas été retenue.
+            <span class="badge bg-danger">Refusé</span> Votre candidature n'a pas été retenue.
           </span>
         </p>
       </div>
