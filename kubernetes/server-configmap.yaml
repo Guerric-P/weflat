@@ -71,7 +71,7 @@ data:
     />\r\n    </logger>\r\n \r\n</configuration>"
   weflat.properties: "spring.jpa.properties.hibernate.default_schema=weflat\r\nspring.datasource.url
     = jdbc:postgresql://database-svc:5432/weflat\r\n#spring.datasource.url = jdbc:postgresql://ec2-18-217-96-165.us-east-2.compute.amazonaws.com:5432/weflat\r\nspring.datasource.driver-class-name
-    = org.postgresql.Driver\r\nspring.datasource.username=weflat\r\nspring.datasource.password=P@ssw0rd\r\nspring.resources.add-mappings=false\r\nspring.mvc.throw-exception-if-no-handler-found=true\r\nserver.contextPath=/backend\r\nserver.port
+    = org.postgresql.Driver\r\nspring.datasource.username=weflat\r\nspring.datasource.password=P@ssw0rd\r\nspring.resources.add-mappings=false\r\nspring.mvc.throw-exception-if-no-handler-found=true\r\nserver.port
     = 80\r\nfr.weflat.email.host=smtp.gmail.com\r\nfr.weflat.email.port=587\r\nfr.weflat.email.username=contact_test@weflat.fr\r\nfr.weflat.email.service-account=weflat-service@weflat-185909.iam.gserviceaccount.com\r\nfr.weflat.email.scope=https://mail.google.com/\r\nfr.weflat.stripe.private-key=sk_test_ex3BOWKtQexdJh4zKFOTo36m\r\nfr.weflat.stripe.price=15000\r\nfr.weflat.stripe.partial-refund=13000\r\nfr.weflat.architect-remuneration=8000\r\nfr.weflat.app-url=http://localhost:4200\r\nfr.weflat.slack.url=https://hooks.slack.com/services/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\r\nfr.weflat.slack.user-name=Weflat_test\r\nmail.transport.protocol=smtp\r\nmail.smtp.auth=true\r\nmail.smtp.auth.mechanisms=XOAUTH2\r\nmail.smtp.starttls.enable=true\r\nmail.debug=false\r\norika.mapNulls=false"
 kind: ConfigMap
 metadata:

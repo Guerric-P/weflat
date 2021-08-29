@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rest-smtp-sink
+  labels:
+    weflat-service: rest-smtp-sink
+spec:
+  containers:
+    - image: weave/rest-smtp-sink
+      name: rest-smtp-sink
