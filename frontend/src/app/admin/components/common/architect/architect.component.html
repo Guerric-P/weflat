@@ -24,31 +24,31 @@
     Informations personnelles
   </div>
   <div class="card-body">
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Prénom</label>
       <label class="col-sm-10 col-form-label">
         {{architect.firstName}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Nom</label>
       <label class="col-sm-10 col-form-label">
         {{architect.lastName}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Date de naissance</label>
       <label class="col-sm-10 col-form-label">
         {{architect.birthDate | date:'medium'}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">E-mail</label>
       <label class="col-sm-10 col-form-label">
         {{architect.email}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Portable</label>
       <label class="col-sm-10 col-form-label">
         {{architect.telephone}}
@@ -80,49 +80,49 @@
     Mon métier d'architecte
   </div>
   <div class="card-body">
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Architecte</label>
       <label class="col-sm-10 col-form-label">
         {{architect.type?.label}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Situation</label>
       <label class="col-sm-10 col-form-label">
         {{architect.situation?.label}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Expérience</label>
       <label class="col-sm-10 col-form-label">
         {{architect.practicingSince | date:'medium'}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Site internet</label>
       <label class="col-sm-10 col-form-label">
         {{architect.webSite}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-3 col-form-label">Ordre des architectes</label>
       <label class="col-sm-9 col-form-label">
         {{architect.architectsOrder ? 'Oui' : 'Non'}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-3 col-form-label">CFAI</label>
       <label class="col-sm-9 col-form-label">
         {{architect.cfai ? 'Oui' : 'Non'}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-3 col-form-label">Responsabilité civile professionnelle</label>
       <label class="col-sm-9 col-form-label">
         {{architect.professionalResponsibility ? 'Oui' : 'Non'}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-3 col-form-label">Assurance décennale</label>
       <label class="col-sm-9 col-form-label">
         {{architect.decennialInsurance ? 'Oui' : 'Non'}}
@@ -135,19 +135,19 @@
     Weflat et moi
   </div>
   <div class="card-body">
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Motivation</label>
       <label class="col-md-10 col-form-label">
         <textarea disabled="disabled">{{architect.motivation}}</textarea>
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">Paiement</label>
       <label class="col-sm-10 col-form-label">
         {{architect.paymentType?.label}}
       </label>
     </div>
-    <div class="mb-2 row">
+    <div class="mb-3 row">
       <label class="col-sm-2 col-form-label">IBAN</label>
       <label class="col-sm-10 col-form-label">
         {{formattedIBAN}}
