@@ -55,8 +55,8 @@
         </div>
         <div class="row justify-content-center align-items-center">
           <div class="d-flex justify-content-center mt-5">
-            <button mat-raised-button matStepperPrevious class="mr-1">Précédent</button>
-            <button mat-raised-button color="primary" matStepperNext class="ml-1">Suivant</button>
+            <button mat-raised-button matStepperPrevious class="me-1">Précédent</button>
+            <button mat-raised-button color="primary" matStepperNext class="ms-1">Suivant</button>
           </div>
         </div>
       </form>
@@ -93,8 +93,8 @@
             </div>
           </div>
           <div class="d-flex justify-content-center mt-5">
-            <button mat-raised-button matStepperPrevious class="mr-1">Précédent</button>
-            <button mat-raised-button color="primary" class="ml-1" matStepperNext [disabled]="!(visitCreationComplete && architectsAvailable)">Suivant</button>
+            <button mat-raised-button matStepperPrevious class="me-1">Précédent</button>
+            <button mat-raised-button color="primary" class="ms-1" matStepperNext [disabled]="!(visitCreationComplete && architectsAvailable)">Suivant</button>
           </div>
         </div>
       </div>
@@ -111,8 +111,8 @@
           Vous allez visiter un bien immobilier situé au {{visit.formattedAddress}}, le {{formattedVisitDate}}
         </div>
         <div class="row justify-content-center align-items-center mt-4">
-          <button mat-raised-button matStepperPrevious class="mr-1">Précédent</button>
-          <button mat-raised-button color="primary" class="ml-1" appPayment [visitId]="visit.id" [price]="price" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)"
+          <button mat-raised-button matStepperPrevious class="me-1">Précédent</button>
+          <button mat-raised-button color="primary" class="ms-1" appPayment [visitId]="visit.id" [price]="price" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)"
             (paymentDone)="paymentDone()">Payer</button>
         </div>
       </div>

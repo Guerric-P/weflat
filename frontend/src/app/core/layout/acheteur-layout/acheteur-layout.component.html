@@ -13,19 +13,21 @@
 
   <!--Navbar-->
   <nav class="navbar sticky-top navbar-right">
-    <button mat-icon-button type="button" (click)="showLeftMenu()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <a routerLink="/">
-      <img src="assets/weflat_noir.png" class="weflat-logo">
-    </a>
-    <div placement="bottom-right" class="ml-auto">
-      <button mat-button type="button" class="dropdown-button" [matMenuTriggerFor]="personalMenu">
-        {{displayName}}
+    <div class="container-fluid">
+      <button mat-icon-button type="button" (click)="showLeftMenu()">
+        <mat-icon>menu</mat-icon>
       </button>
-      <mat-menu #personalMenu="matMenu" overlapTrigger="false" xPosition="before">
-        <button mat-menu-item (click)="logout()">Se déconnecter</button>
-      </mat-menu>
+      <a routerLink="/">
+        <img src="assets/weflat_noir.png" class="weflat-logo">
+      </a>
+      <div placement="bottom-right" class="ms-auto">
+        <button mat-button type="button" class="dropdown-button" [matMenuTriggerFor]="personalMenu">
+          {{displayName}}
+        </button>
+        <mat-menu #personalMenu="matMenu" overlapTrigger="false" xPosition="before">
+          <button mat-menu-item (click)="logout()">Se déconnecter</button>
+        </mat-menu>
+      </div>
     </div>
   </nav>
 
@@ -34,7 +36,7 @@
     <!-- Footer -->
     <footer class="text-muted">
       <div class="container">
-        <p class="float-right">
+        <p class="float-end">
           <a (click)="scrollToTop()">Haut de la page</a>
         </p>
         <p>&copy; Weflat 2018</p>

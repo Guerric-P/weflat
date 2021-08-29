@@ -27,7 +27,7 @@
         <h2>Mes informations personnelles</h2>
       </div>
       <div class="card-body">
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">
             <span class="mandatory-field">Prénom</span>
           </label>
@@ -36,7 +36,7 @@
               [class.is-valid]="!form.controls.firstName.invalid && form.controls.firstName.touched" placeholder="Prénom" formControlName="firstName">
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">
             <span class="mandatory-field">Nom</span>
           </label>
@@ -45,7 +45,7 @@
               [class.is-valid]="!form.controls.lastName.invalid && form.controls.lastName.touched" placeholder="Nom" formControlName="lastName">
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">
             <span class="mandatory-field">Date de naissance</span>
           </label>
@@ -61,7 +61,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">
             <span class="mandatory-field">E-mail</span>
           </label>
@@ -70,7 +70,7 @@
               [class.is-valid]="!form.controls.email.invalid && form.controls.email.touched" placeholder="Email" formControlName="email">
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">
             <span class="mandatory-field">Portable</span>
           </label>
@@ -80,7 +80,7 @@
               formControlName="telephone">
           </div>
         </div>
-        <div class="form-group row" [formGroup]="passwordForm">
+        <div class="mb-2 row" [formGroup]="passwordForm">
           <label class="col-lg-2 col-form-label">Mot de passe</label>
           <div class="col-lg-6">
             <input type="password" class="form-control" [class.is-invalid]="passwordForm.controls.password.invalid && passwordForm.controls.password.touched"
@@ -163,7 +163,7 @@
         <h2>Mon métier d'architecte</h2>
       </div>
       <div class="card-body">
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">
             <span class="mandatory-field">Architecte</span>
           </label>
@@ -174,7 +174,7 @@
             </select>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">
             <span class="mandatory-field">Situation</span>
           </label>
@@ -186,7 +186,7 @@
             </select>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">
             <span class="mandatory-field">Expérience</span>
           </label>
@@ -205,7 +205,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">Site internet</label>
           <div class="col-sm-10">
             <input type="url" class="form-control-file" class="form-control" [class.is-invalid]="form.controls.webSite.invalid && form.controls.webSite.touched"
@@ -215,7 +215,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-3 col-form-label">
             <span class="mandatory-field">Ordre des architectes</span>
           </label>
@@ -235,7 +235,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-3 col-form-label">
             <span class="mandatory-field">CFAI</span>
           </label>
@@ -255,7 +255,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-3 col-form-label">
             <span class="mandatory-field">Responsabilité civile professionnelle</span>
           </label>
@@ -275,7 +275,7 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-3 col-form-label">
             <span class="mandatory-field">Assurance décennale</span>
           </label>
@@ -302,7 +302,7 @@
         <h2>Weflat et moi</h2>
       </div>
       <div class="card-body">
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">
             <span class="mandatory-field">Motivation</span>
           </label>
@@ -312,7 +312,7 @@
               formControlName="motivation"></textarea>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">
             <span class="mandatory-field">Paiement</span>
           </label>
@@ -326,14 +326,14 @@
             </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-2 row">
           <label class="col-sm-2 col-form-label">IBAN</label>
           <div class="col-sm-10">
             <input type="text" [class.is-invalid]="form.controls.iban.invalid && form.controls.iban.touched" [class.is-valid]="!form.controls.iban.invalid && form.controls.iban.touched"
               formControlName="iban" class="form-control">
           </div>
         </div>
-        <div class="col-sm-12 form-group row">
+        <div class="col-sm-12 mb-2 row">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" formControlName="cgu" [class.is-invalid]="form.controls.cgu.invalid && form.controls.cgu.touched"
               [class.is-valid]="!form.controls.cgu.invalid && form.controls.cgu.touched">
@@ -343,15 +343,15 @@
         </div>
       </div>
     </div>
-    <div class="form-group row mt-3">
+    <div class="mb-2 row mt-3">
       <div class="col-sm-12">
         <p class="font-italic">* Champ obligatoire</p>
       </div>
     </div>
-    <div class="form-group row mt-3">
+    <div class="mb-2 row mt-3">
       <div class="col-sm-12">
         <button type="submit" mat-raised-button color="primary">{{architecte.status === ArchitectStatusEnum.CREATED ? 'Soumettre mon profil' : 'Enregistrer'}}</button>
-        <a class="ml-sm-2 mt-2" mat-raised-button href="mailto:contact@weflat.fr?subject=Demande%20de%20cl%C3%B4ture%20de%20compte&body=Bonjour%2C%0A%0AJe%20souhaite%20supprimer%20mon%20profil%20Weflat%20pour%20la%20raison%20suivante%20%3A">Je souhaite clôturer mon compte d'architecte</a>
+        <a class="ms-sm-2 mt-2" mat-raised-button href="mailto:contact@weflat.fr?subject=Demande%20de%20cl%C3%B4ture%20de%20compte&body=Bonjour%2C%0A%0AJe%20souhaite%20supprimer%20mon%20profil%20Weflat%20pour%20la%20raison%20suivante%20%3A">Je souhaite clôturer mon compte d'architecte</a>
       </div>
     </div>
   </form>

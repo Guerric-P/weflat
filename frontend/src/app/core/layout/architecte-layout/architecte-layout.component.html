@@ -9,26 +9,30 @@
     <a class="nav-link mt-5" routerLink="/architecte/dashboard" routerLinkActive="active">Mon tableau de bord</a>
     <a class="nav-link" routerLink="/architecte/profile" routerLinkActive="active">Mon profil</a>
     <a class="nav-link" routerLink="/architecte/visits" routerLinkActive="active">
-      <span matBadge="{{visiteCounter}}" matBadgeColor="warn" matBadgeOverlap="false" matBadgeHidden="!visiteCounter">Mes visites</span>
+      <span matBadge="{{visiteCounter}}" matBadgeColor="warn" matBadgeOverlap="false"
+        matBadgeHidden="!visiteCounter">Mes visites</span>
     </a>
-    <a href="javascript:;" matTooltip="Cette fonctionnalité sera bientôt disponible." class="nav-link cursor-not-allowed" routerLinkActive="active">Ma messagerie</a>
+    <a href="javascript:;" matTooltip="Cette fonctionnalité sera bientôt disponible."
+      class="nav-link cursor-not-allowed" routerLinkActive="active">Ma messagerie</a>
   </nav>
 
   <!--Navbar-->
   <nav class="navbar sticky-top navbar-right">
-    <button mat-icon-button type="button" (click)="showLeftMenu()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <a routerLink="/">
-      <img src="assets/weflat_noir.png" class="weflat-logo">
-    </a>
-    <div placement="bottom-right" class="ml-auto">
-      <button mat-button type="button" class="dropdown-button" [matMenuTriggerFor]="personalMenu">
-        {{displayName}}
+    <div class="container-fluid">
+      <button mat-icon-button type="button" (click)="showLeftMenu()">
+        <mat-icon>menu</mat-icon>
       </button>
-      <mat-menu #personalMenu="matMenu" overlapTrigger="false" xPosition="before">
-        <button mat-menu-item (click)="logout()">Se déconnecter</button>
-      </mat-menu>
+      <a routerLink="/">
+        <img src="assets/weflat_noir.png" class="weflat-logo">
+      </a>
+      <div placement="bottom-right" class="ms-auto">
+        <button mat-button type="button" class="dropdown-button" [matMenuTriggerFor]="personalMenu">
+          {{displayName}}
+        </button>
+        <mat-menu #personalMenu="matMenu" overlapTrigger="false" xPosition="before">
+          <button mat-menu-item (click)="logout()">Se déconnecter</button>
+        </mat-menu>
+      </div>
     </div>
   </nav>
 
@@ -37,7 +41,7 @@
     <!-- Footer -->
     <footer class="text-muted">
       <div class="container">
-        <p class="float-right">
+        <p class="float-end">
           <a (click)="scrollToTop()">Haut de la page</a>
         </p>
         <p>&copy; Weflat 2018</p>
