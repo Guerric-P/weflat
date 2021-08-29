@@ -6,7 +6,7 @@ import { AppComponent } from '@weflat/app/app.component';
 import { AppModule } from '@weflat/app/app.module';
 import * as xhr2 from 'xhr2';
 
-// activate cookie for server-side rendering
+// https://github.com/angular/angular/issues/15730
 @Injectable()
 export class ServerXhr implements XhrFactory {
   build(): XMLHttpRequest {
