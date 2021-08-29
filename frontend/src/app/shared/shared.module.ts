@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { ShowSigninPopupService } from '@weflat/app/core/services/show-signin-popup.service';
 import { LoaderComponent } from '@weflat/app/shared/components/loader/loader.component';
 import { ReportConsultationComponent } from '@weflat/app/shared/components/report/report-consultation/report-consultation.component';
@@ -27,6 +24,9 @@ import { ReportService } from '@weflat/app/shared/services/report.service';
 import { UserService } from '@weflat/app/shared/services/user.service';
 import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -51,7 +51,7 @@ import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
   ]
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
       providers: [

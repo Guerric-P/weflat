@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: server
+  name: server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      io.kompose.service: server
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.network/backend: "true"
+        io.kompose.service: server
+    spec:
+      containers:
+      - image: gphalippou/weflat:backend_test_latest
+        imagePullPolicy: Always
+        name: server
+        resources: {}
+        volumeMounts:
+        - mountPath: /app/log
+          name: server-logs
+        - mountPath: /app/config
+          name: server-config
+      hostname: server
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: server-logs
+        persistentVolumeClaim:
+          claimName: server-logs
+      - name: server-config
+        configMap:
+          name: backend
+status: {}

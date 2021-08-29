@@ -1,17 +1,17 @@
-<mat-horizontal-stepper #stepper [linear]="isLinear" (selectionChange)="selectionChanged($event)">
+<mat-stepper #stepper [orientation]="(stepperOrientation | async)!" [linear]="isLinear" (selectionChange)="selectionChanged($event)">
   <mat-step [stepControl]="dateFormGroup">
     <div class="container">
       <div class="col">
         <form [formGroup]="dateFormGroup">
           <ng-template matStepLabel>Date de visite</ng-template>
-          <div class="row justify-content-center align-items-center">
+          <div class="row row-cols-auto justify-content-center align-items-center">
             <h1>Quand a lieu votre visite ?</h1>
           </div>
           <div class="row-container justify-content-between align-items-center mt-3">
             <mat-form-field>
               <input matInput [matDatepicker]="picker" formControlName="datePicker" [min]="minDate" placeholder="Choisissez une date...">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker [touchUi]="isMobile" #picker></mat-datepicker>
+              <mat-datepicker [touchUi]="isMobile | async" #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field>
               <mat-select placeholder="Choisissez une heure..." formControlName="time">
@@ -21,7 +21,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="row justify-content-center align-items-center">
+          <div class="row row-cols-auto justify-content-center align-items-center">
             <button mat-raised-button color="primary" matStepperNext>Suivant</button>
           </div>
         </form>
@@ -36,7 +36,7 @@
     <ng-template matStepLabel>Projet d'achat</ng-template>
     <div class="col">
       <form [formGroup]="projectFormGroup">
-        <div class="row justify-content-center align-items-center">
+        <div class="row row-cols-auto justify-content-center align-items-center">
           <h1>Quel est votre projet d'achat ?</h1>
         </div>
         <div class="row justify-content-center align-items-center">
@@ -44,7 +44,7 @@
             <textarea matInput placeholder="Décrivez votre projet immobilier ainsi que vos attentes..." formControlName="project" required></textarea>
           </mat-form-field>
         </div>
-        <div class="row justify-content-center align-items-center">
+        <div class="row row-cols-auto justify-content-center align-items-center">
           <h1>Lien de l'annonce immobilière</h1>
         </div>
         <div class="row justify-content-center align-items-center">
@@ -55,8 +55,8 @@
         </div>
         <div class="row justify-content-center align-items-center">
           <div class="d-flex justify-content-center mt-5">
-            <button mat-raised-button matStepperPrevious class="mr-1">Précédent</button>
-            <button mat-raised-button color="primary" matStepperNext class="ml-1">Suivant</button>
+            <button mat-raised-button matStepperPrevious class="me-1">Précédent</button>
+            <button mat-raised-button color="primary" matStepperNext class="ms-1">Suivant</button>
           </div>
         </div>
       </form>
@@ -67,7 +67,7 @@
     <form [formGroup]="addressFormGroup">
       <div class="container">
         <div class="col">
-          <div class="row justify-content-center align-items-center">
+          <div class="row row-cols-auto justify-content-center align-items-center">
             <h1>Adresse du bien immobilier</h1>
           </div>
           <div class="row">
@@ -93,8 +93,8 @@
             </div>
           </div>
           <div class="d-flex justify-content-center mt-5">
-            <button mat-raised-button matStepperPrevious class="mr-1">Précédent</button>
-            <button mat-raised-button color="primary" class="ml-1" matStepperNext [disabled]="!(visitCreationComplete && architectsAvailable)">Suivant</button>
+            <button mat-raised-button matStepperPrevious class="me-1">Précédent</button>
+            <button mat-raised-button color="primary" class="ms-1" matStepperNext [disabled]="!(visitCreationComplete && architectsAvailable)">Suivant</button>
           </div>
         </div>
       </div>
@@ -104,18 +104,18 @@
     <ng-template matStepLabel>Paiement</ng-template>
     <div class="container">
       <div class="col">
-        <div class="row justify-content-center align-items-center">
+        <div class="row row-cols-auto justify-content-center align-items-center">
           <h1>Récapitulatif</h1>
         </div>
         <div class="row justify-content-center">
           Vous allez visiter un bien immobilier situé au {{visit.formattedAddress}}, le {{formattedVisitDate}}
         </div>
-        <div class="row justify-content-center align-items-center mt-4">
-          <button mat-raised-button matStepperPrevious class="mr-1">Précédent</button>
-          <button mat-raised-button color="primary" class="ml-1" appPayment [visitId]="visit.id" [price]="price" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)"
+        <div class="row row-cols-auto justify-content-center align-items-center mt-4">
+          <button mat-raised-button matStepperPrevious class="me-1">Précédent</button>
+          <button mat-raised-button color="primary" class="ms-1" appPayment [visitId]="visit.id" [price]="price" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)"
             (paymentDone)="paymentDone()">Payer</button>
         </div>
       </div>
     </div>
   </mat-step>
-</mat-horizontal-stepper>
+</mat-stepper>

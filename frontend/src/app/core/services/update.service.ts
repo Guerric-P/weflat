@@ -1,7 +1,7 @@
-import { isPlatformBrowser } from '@angular/common';
-import { ApplicationRef, Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Injectable, Inject, PLATFORM_ID, ApplicationRef } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { isPlatformBrowser } from '@angular/common';
 import { interval } from 'rxjs';
 import { first, switchMap } from 'rxjs/operators';
 

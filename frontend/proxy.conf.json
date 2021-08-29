@@ -1,6 +1,6 @@
 {
     "/backend/*":{
-        "target": "https://www.weflat.fr",
+        "target": "https://weflat.westeurope.cloudapp.azure.com/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true

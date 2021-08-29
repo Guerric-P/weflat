@@ -5,7 +5,7 @@ import * as cookieparser from 'cookie-parser';
 import * as express from 'express';
 import { join } from 'path';
 import * as request from 'request';
-import 'zone.js/dist/zone-node';
+import 'zone.js/node';
 import { AppServerModule } from './src/main.server';
 
 

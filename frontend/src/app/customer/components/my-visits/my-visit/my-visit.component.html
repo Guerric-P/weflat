@@ -6,9 +6,9 @@
     </div>
     <div class="d-flex flex-row-reverse mt-2">
       <button mat-raised-button (click)="cancelClick()">Annuler</button>
-      <button mat-raised-button (click)="editClick()" class="mr-2">Modifier</button>
+      <button mat-raised-button (click)="editClick()" class="me-2">Modifier</button>
       <button mat-raised-button color="primary" appPayment [visitId]="visit.id" [price]="price" [email]="authService.userEmail" (paymentDone)="visitPaid()"
-        class="mr-2">Payer</button>
+        class="me-2">Payer</button>
     </div>
   </mat-card-content>
 </mat-card>
@@ -20,7 +20,7 @@
     </div>
     <div class="d-flex flex-row-reverse mt-2">
       <button [disabled]="cancelButtonDisabled" mat-raised-button (click)="cancelClick()">Annuler</button>
-      <button mat-raised-button (click)="editClick()" class="mr-2">Modifier</button>
+      <button mat-raised-button (click)="editClick()" class="me-2">Modifier</button>
     </div>
   </mat-card-content>
 </mat-card>
@@ -32,7 +32,7 @@
     </div>
     <div class="d-flex flex-row-reverse mt-2">
       <button [disabled]="cancelButtonDisabled" mat-raised-button (click)="cancelClick()">Annuler</button>
-      <a mat-raised-button class="mr-2" href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
+      <a mat-raised-button class="me-2" href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
     </div>
   </mat-card-content>
 </mat-card>
@@ -66,7 +66,7 @@
     </div>
     <div class="d-flex flex-row-reverse mt-2">
       <a mat-raised-button href="mailto:{{visit.architect.email}}">Contacter l'architecte</a>
-      <button mat-raised-button color="primary" (click)="viewReport()" type="submit" class="mr-2">Ouvrir le compte rendu</button>
+      <button mat-raised-button color="primary" (click)="viewReport()" type="submit" class="me-2">Ouvrir le compte rendu</button>
     </div>
   </mat-card-content>
 </mat-card>
@@ -80,7 +80,7 @@
   <div *ngIf="visit.status !== VisitStatusEnum.IN_PROGRESS || datePassed" mat-dialog-content>Vous êtes sur le point d'annuler votre visite. Vous serez remboursé(e) intégralement.</div>
   <div *ngIf="visit.status === VisitStatusEnum.IN_PROGRESS && !datePassed" mat-dialog-content>Vous êtes sur le point d'annuler votre visite. Vous serez remboursé(e) d'un montant de {{ partialRefundAmount | currency:'EUR' }}.</div>
   <div mat-dialog-actions>
-    <button mat-raised-button color="primary" type="button" class="mr-2" [mat-dialog-close]="true">Continuer</button>
-    <button mat-raised-button type="button" class="ml-2" [mat-dialog-close]="false">Annuler</button>
+    <button mat-raised-button color="primary" type="button" class="me-2" [mat-dialog-close]="true">Continuer</button>
+    <button mat-raised-button type="button" class="ms-2" [mat-dialog-close]="false">Annuler</button>
   </div>
 </ng-template>

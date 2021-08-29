@@ -2,7 +2,7 @@
   <div class="container">
     <form [formGroup]="form" (ngSubmit)="saveForm()" novalidate>
       <button mat-raised-button type="button" (click)="backClick()">Retour</button>
-      <span class="float-right">
+      <span class="float-end">
         <button mat-raised-button matTooltip="Cette fonctionnalité sera bientôt disponible." color="primary" disabled="disabled"
           class="cursor-not-allowed" type="button">Télécharger
           au format pdf</button>
@@ -10,7 +10,7 @@
           <mat-icon>help_outline</mat-icon>
         </button>
       </span>
-      <a *ngIf="displayArchitectContactButton" mat-raised-button class="mr-2 float-right" href="mailto:{{report.visite.architect.email}}">Contacter
+      <a *ngIf="displayArchitectContactButton" mat-raised-button class="me-2 float-end" href="mailto:{{report.visite.architect.email}}">Contacter
         l'architecte</a>
       <h2 class="mt-3">Mon compte rendu</h2>
       <div class="card mt-2">
@@ -18,7 +18,7 @@
           L'acheteur
         </div>
         <div class="card-body">
-          <div class="form-group row">
+          <div class="mb-3 row">
             <label for="inputfirstname3" class="col-sm-2 col-form-label">Prénom</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" [class.is-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
@@ -26,7 +26,7 @@
                 placeholder="Prenom">
             </div>
           </div>
-          <div class="form-group row">
+          <div class="mb-3 row">
             <label for="inputlastname3" class="col-sm-2 col-form-label">Nom</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" [class.is-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
@@ -34,7 +34,7 @@
                 placeholder="Nom">
             </div>
           </div>
-          <div class="form-group row">
+          <div class="mb-3 row">
             <label for="inputlastname3" class="col-sm-2 col-form-label">Ses attentes</label>
             <div class="col-md-10">
               <textarea class="form-control" rows="3" [class.is-invalid]="form.controls.expectations.invalid && form.controls.expectations.touched"
@@ -50,7 +50,7 @@
           La visite
         </div>
         <div class="card-body">
-          <div class="form-group row">
+          <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">Date de visite</label>
             <div class="col-sm-10">
               <input type="date" class="form-control" [class.is-invalid]="form.controls.visitDate.invalid && form.controls.visitDate.touched"
@@ -58,7 +58,7 @@
                 placeholder="Date de visite">
             </div>
           </div>
-          <div class="form-group row">
+          <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">Adresse</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" [class.is-invalid]="form.controls.address.invalid && form.controls.address.touched"
@@ -66,7 +66,7 @@
                 placeholder="Adresse">
             </div>
           </div>
-          <div class="form-group row">
+          <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">Superficie</label>
             <div class="col-sm-10">
               <input type="number" class="form-control" [class.is-invalid]="form.controls.surface.invalid && form.controls.surface.touched"
@@ -74,10 +74,10 @@
                 placeholder="Superficie">
             </div>
           </div>
-          <div class="form-group row">
+          <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">Pièces</label>
             <div class="col-sm-10">
-              <div class="form-group">
+              <div class="mb-3">
                 <select class="form-control" [class.is-invalid]="form.controls.rooms.invalid && form.controls.rooms.touched"
                   [class.is-valid]="!form.controls.rooms.invalid && form.controls.rooms.touched" formControlName="rooms">
                   <option value="1">1</option>
@@ -89,10 +89,10 @@
               </div>
             </div>
           </div>
-          <div class="form-group row">
+          <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">Etage</label>
             <div class="col-sm-10">
-              <div class="form-group">
+              <div class="mb-3">
                 <select class="form-control" [class.is-invalid]="form.controls.floor.invalid && form.controls.floor.touched"
                   [class.is-valid]="!form.controls.floor.invalid && form.controls.floor.touched" formControlName="floor">
                   <option value="1">1</option>
@@ -104,7 +104,7 @@
               </div>
             </div>
           </div>
-          <div class="form-group row">
+          <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">Orientation</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" [class.is-invalid]="form.controls.orientation.invalid && form.controls.orientation.touched"
@@ -225,7 +225,7 @@
           Le potentiel du bien immobilier
         </div>
         <div class="card-body">
-          <div class="form-group row">
+          <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">Remarques générales</label>
             <div class="col-md-10">
               <textarea class="form-control" rows="3" [class.is-invalid]="form.controls.generalRemarks.invalid && form.controls.generalRemarks.touched"
@@ -235,10 +235,10 @@
           </div>
         </div>
       </div>
-      <div class="form-group row mt-3">
+      <div class="mb-3 row mt-3">
         <div class="col-sm-12">
           <button type="submit" mat-raised-button color="primary">Sauvegarder</button>
-          <button type="button" class="ml-2" mat-raised-button color="primary" (click)="submitClick()">Soumettre</button>
+          <button type="button" class="ms-2" mat-raised-button color="primary" (click)="submitClick()">Soumettre</button>
         </div>
       </div>
     </form>

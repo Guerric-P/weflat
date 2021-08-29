@@ -1,10 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CdkStep, StepperSelectionEvent } from '@angular/cdk/stepper';
+import { CdkStep, StepperOrientation, StepperSelectionEvent } from '@angular/cdk/stepper';
 import { DatePipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DateAdapter } from '@angular/material/core';
-import { MatHorizontalStepper } from '@angular/material/stepper';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DisabledZipCodePopupComponent } from '@weflat/app/core/components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { CreateVisitGuard } from '@weflat/app/core/guards/create-visit.guard';
@@ -20,7 +18,10 @@ import { AcheteurService } from '@weflat/app/shared/services/acheteur.service';
 import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { MatStepper } from '@angular/material/stepper';
+import { DateAdapter } from '@angular/material/core';
+import { map } from 'rxjs/operators';
 
 
 declare var google;
@@ -40,7 +41,7 @@ export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
   marker: any;
   @ViewChild('googleMap') googleMap: ElementRef;
   @ViewChild('addressInput', { static: true }) addressInput: ElementRef;
-  @ViewChild('stepper') stepper: MatHorizontalStepper;
+  @ViewChild('stepper') stepper: MatStepper;
   @ViewChild('projectStep') projectStep: CdkStep;
   @ViewChild('paymentStep') paymentStep: CdkStep;
   @ViewChild('locationStep') locationStep: CdkStep;
@@ -50,6 +51,7 @@ export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
   place: any;
   price: number;
   loggedInSubscription: Subscription;
+  stepperOrientation: Observable<StepperOrientation> = this.isMobile.pipe(map(x => x ? 'vertical' : 'horizontal'));
 
   times = values;
 
@@ -80,7 +82,8 @@ export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
     private zone: NgZone) { }
 
   get isMobile() {
-    return this.breakpointObserver.isMatched('(max-width: 767px)');
+    return this.breakpointObserver.observe('(max-width: 767px)')
+      .pipe(map(({ matches }) => matches));
   }
 
   ngOnInit() {
@@ -247,8 +250,8 @@ export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
     this.visit.visiteDate = date ? new Date(date.getFullYear(), date.getMonth(), date.getDate(), hour, minute) : null;
   }
 
-  async postNewVisit(enablePopup: boolean) {
-    return new Promise((resolve, reject) => {
+  postNewVisit(enablePopup: boolean) {
+    return new Promise<void>((resolve, reject) => {
       this.loadVisit();
       if (this.isVisitFilled) {
         this.visiteService.post(this.visit).subscribe(res => {

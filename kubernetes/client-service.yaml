@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: client
+  name: client-svc
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    io.kompose.service: client
+status:
+  loadBalancer: {}
