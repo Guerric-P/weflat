@@ -4,7 +4,7 @@
       <div class="col">
         <form [formGroup]="dateFormGroup">
           <ng-template matStepLabel>Date de visite</ng-template>
-          <div class="row justify-content-center align-items-center">
+          <div class="row row-cols-auto justify-content-center align-items-center">
             <h1>Quand a lieu votre visite ?</h1>
           </div>
           <div class="row-container justify-content-between align-items-center mt-3">
@@ -21,7 +21,7 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="row justify-content-center align-items-center">
+          <div class="row row-cols-auto justify-content-center align-items-center">
             <button mat-raised-button color="primary" matStepperNext>Suivant</button>
           </div>
         </form>
@@ -36,7 +36,7 @@
     <ng-template matStepLabel>Projet d'achat</ng-template>
     <div class="col">
       <form [formGroup]="projectFormGroup">
-        <div class="row justify-content-center align-items-center">
+        <div class="row row-cols-auto justify-content-center align-items-center">
           <h1>Quel est votre projet d'achat ?</h1>
         </div>
         <div class="row justify-content-center align-items-center">
@@ -44,7 +44,7 @@
             <textarea matInput placeholder="Décrivez votre projet immobilier ainsi que vos attentes..." formControlName="project" required></textarea>
           </mat-form-field>
         </div>
-        <div class="row justify-content-center align-items-center">
+        <div class="row row-cols-auto justify-content-center align-items-center">
           <h1>Lien de l'annonce immobilière</h1>
         </div>
         <div class="row justify-content-center align-items-center">
@@ -67,7 +67,7 @@
     <form [formGroup]="addressFormGroup">
       <div class="container">
         <div class="col">
-          <div class="row justify-content-center align-items-center">
+          <div class="row row-cols-auto justify-content-center align-items-center">
             <h1>Adresse du bien immobilier</h1>
           </div>
           <div class="row">
@@ -104,13 +104,13 @@
     <ng-template matStepLabel>Paiement</ng-template>
     <div class="container">
       <div class="col">
-        <div class="row justify-content-center align-items-center">
+        <div class="row row-cols-auto justify-content-center align-items-center">
           <h1>Récapitulatif</h1>
         </div>
         <div class="row justify-content-center">
           Vous allez visiter un bien immobilier situé au {{visit.formattedAddress}}, le {{formattedVisitDate}}
         </div>
-        <div class="row justify-content-center align-items-center mt-4">
+        <div class="row row-cols-auto justify-content-center align-items-center mt-4">
           <button mat-raised-button matStepperPrevious class="me-1">Précédent</button>
           <button mat-raised-button color="primary" class="ms-1" appPayment [visitId]="visit.id" [price]="price" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)"
             (paymentDone)="paymentDone()">Payer</button>
