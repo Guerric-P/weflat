@@ -24,13 +24,13 @@ spec:
     spec:
       initContainers:
       - name: init
-        image: gphalippou/weflat:frontend_production_latest
+        image: gphalippou/weflat:frontend_test_latest
         command: ["cp", "-a", "/app/dist/browser/.", "/init/"]
         volumeMounts:
         - mountPath: /init
           name: vfrontend
       containers:
-      - image: gphalippou/weflat:frontend_production_latest
+      - image: gphalippou/weflat:frontend_test_latest
         imagePullPolicy: Always
         name: client
         ports:
@@ -41,7 +41,7 @@ spec:
           name: vfrontend
         - mountPath: /app/log
           name: client-logs
-      - image: gphalippou/weflat:http_production_latest
+      - image: gphalippou/weflat:http_test_latest
         imagePullPolicy: Always
         name: http
         ports:

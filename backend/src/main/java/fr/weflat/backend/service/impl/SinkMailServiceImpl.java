@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @Service
-@Profile({"test", "production"})
+@Profile("test")
 public class SinkMailServiceImpl extends MailServiceImpl {
 
     @Value("${fr.weflat.app-url}")
