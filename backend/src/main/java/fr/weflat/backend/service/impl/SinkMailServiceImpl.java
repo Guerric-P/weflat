@@ -53,6 +53,7 @@ public class SinkMailServiceImpl extends MailServiceImpl {
 
         } catch (Exception e) {
             logger.error("Error while sending mail :", e);
+            return CompletableFuture.completedFuture(null);
         }
     }
 }
