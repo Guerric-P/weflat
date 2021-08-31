@@ -26,7 +26,7 @@ export class WeflatInterceptor implements HttpInterceptor {
     if (this.request) {
       // Server side: forward the cookies
       const cookies = this.request.cookies;
-      const cookiesArray = Object.entries(cookies).map(([key, val]) => `${name}=${cookies[name]}`);
+      const cookiesArray = Object.entries(cookies).map(([key, val]) => `${key}=${val}`);
       headers = headers.append('Cookie', cookiesArray.join('; '));
     }
 
