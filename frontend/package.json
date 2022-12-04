@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:ssr:test": "ng run weflat:build:test && ng run weflat:server:test",
+    "build:ssr:dev": "ng run weflat:build:dev && ng run weflat:server:dev",
     "serve:ssr": "node dist/server/main.js",
     "build:ssr:production": "ng build --configuration production && ng run weflat:server:production"
   },

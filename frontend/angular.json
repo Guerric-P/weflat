@@ -34,7 +34,7 @@
             "namedChunks": true
           },
           "configurations": {
-            "test": {
+            "dev": {
               "budgets": [
                 {
                   "type": "anyComponentStyle",
@@ -134,7 +134,7 @@
             "optimization": false
           },
           "configurations": {
-            "test": {
+            "dev": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
