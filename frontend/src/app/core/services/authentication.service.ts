@@ -31,7 +31,7 @@ export class AuthenticationService {
         return this.http.post('/login', JSON.stringify({ username: username, password: password }), { observe: 'response' }).pipe(
             map((response: HttpResponse<any>) => {
                 // login successful if there's a jwt token in the response
-                this.userLoggedInSubject.next();
+                this.userLoggedInSubject.next(null);
                 return;
             }),
             catchError(x => {
@@ -47,7 +47,7 @@ export class AuthenticationService {
             catchError(() => of(undefined)),
             tap(() => {
                 this.reset();
-                this.userLoggedOutSubject.next();
+                this.userLoggedOutSubject.next(null);
             })
         );
     }

@@ -11,6 +11,6 @@ export class ShowSigninPopupService {
   constructor() { }
 
   showSigninPopup() {
-    this.showSigninPopupSubject.next();
+    this.showSigninPopupSubject.next(null);
   }
 }
