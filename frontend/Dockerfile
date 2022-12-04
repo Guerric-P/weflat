@@ -12,4 +12,4 @@ COPY --from=build-stage /app/dist/ /app/dist/
 # Expose port
 EXPOSE 4000
 
-ENTRYPOINT node dist/server/main.js
+ENTRYPOINT node /app/dist/server/main.js

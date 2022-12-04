@@ -29,7 +29,7 @@ spec:
           value: "5432"
         - name: PGUSER
           value: weflat
-        image: gphalippou/weflat:database_test_latest
+        image: gphalippou/weflat-database:dev_latest
         imagePullPolicy: Always
         name: database
         resources: {}
