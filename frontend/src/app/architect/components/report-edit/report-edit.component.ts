@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HelpReportEditionModalComponent } from '@weflat/app/architect/components/help-report-edition-modal/help-report-edition-modal.component';
 import { PositionClass } from '@weflat/app/core/models/PositionClass';
@@ -19,7 +19,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 })
 export class ReportEditComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   report: ReportClass;
   visitId: number;
   positions: PositionClass[];
@@ -29,14 +29,14 @@ export class ReportEditComponent implements OnInit {
   submitConfirmModal: MatDialogRef<any>;
   helpModal: MatDialogRef<HelpReportEditionModalComponent>;
   @ViewChild('submitConfirmModal') submitConfirmModalTemplate: TemplateRef<any>;
-  renovations: FormArray;
+  renovations: UntypedFormArray;
 
   get displayArchitectContactButton() {
     return !this.authenticationService.isArchitect;
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,
     private reportService: ReportService,
@@ -138,7 +138,7 @@ export class ReportEditComponent implements OnInit {
       globalCondition: [this.report.id ? this.report.globalCondition : '', [Validators.required]]
     });
 
-    this.renovations = <FormArray>this.form.controls['renovations'];
+    this.renovations = <UntypedFormArray>this.form.controls['renovations'];
 
     // Initialize sumAmounts
     this.formChanged();
@@ -235,10 +235,10 @@ export class ReportEditComponent implements OnInit {
     }.bind(this));
   }
 
-  touchAll(formGroup: FormGroup | FormArray, func = 'markAsTouched', opts = { onlySelf: false }): void {
+  touchAll(formGroup: UntypedFormGroup | UntypedFormArray, func = 'markAsTouched', opts = { onlySelf: false }): void {
     Object.keys(formGroup.controls).forEach(field => {
       const c = formGroup.get(field);
-      if (c instanceof FormGroup || c instanceof FormArray) {
+      if (c instanceof UntypedFormGroup || c instanceof UntypedFormArray) {
         this.touchAll(c, func, opts);
       } else {
         c[func](opts);

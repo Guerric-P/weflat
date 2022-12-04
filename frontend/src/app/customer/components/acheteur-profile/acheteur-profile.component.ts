@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerClass } from '@weflat/app/core/models/CustomerClass';
 import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
@@ -16,13 +16,13 @@ import * as moment from 'moment';
 })
 export class AcheteurProfileComponent implements OnInit {
 
-  form: FormGroup;
-  passwordForm: FormGroup;
+  form: UntypedFormGroup;
+  passwordForm: UntypedFormGroup;
   acheteur: CustomerClass;
   dateNow = moment().format('YYYY-MM-DD');
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private acheteurService: AcheteurService,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,

@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VisitClass } from '@weflat/app/core/models/VisitClass';
 import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
@@ -20,7 +20,7 @@ declare var google;
 })
 export class EditVisitPopupComponent implements OnInit, OnDestroy {
 
-  visitForm: FormGroup;
+  visitForm: UntypedFormGroup;
   visit: VisitClass;
   @ViewChild('addressInput', { static: true }) addressInput: ElementRef;
   @Output() onUpdate = new EventEmitter<VisitClass>();
@@ -47,7 +47,7 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) private data,
     private visitService: VisitService,
     private zipCodeService: ZipCodeService,

@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
 import { findIndexById } from '@weflat/app/core/utils/arrayUtils';
 import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
@@ -13,7 +13,7 @@ class ZipCodeErrorStateMatcher implements ErrorStateMatcher {
   constructor() {
   }
 
-  isErrorState(control: FormControl, form: FormGroupDirective | NgForm): boolean {
+  isErrorState(control: UntypedFormControl, form: FormGroupDirective | NgForm): boolean {
     return !this.zipCodeRegexp.test(control.value) && control.value;
   }
 }

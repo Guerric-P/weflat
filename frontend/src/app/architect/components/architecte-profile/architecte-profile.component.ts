@@ -1,7 +1,7 @@
 import { ENTER } from '@angular/cdk/keycodes';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ArchitectClass } from '@weflat/app/core/models/ArchitectClass';
 import { ArchitectSituationClass } from '@weflat/app/core/models/ArchitectSituationClass';
@@ -32,8 +32,8 @@ declare var google;
 export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
 
 
-  form: FormGroup;
-  passwordForm: FormGroup;
+  form: UntypedFormGroup;
+  passwordForm: UntypedFormGroup;
   architectTypes: ArchitectTypeClass[];
   architectSituations: ArchitectSituationClass[];
   paymentTypes: PaymentTypeClass[];
@@ -56,7 +56,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   statusEmphasis: boolean;
   zipCodeInputValue: string;
   zipCodeErrorStateMatcher: ErrorStateMatcher = {
-    isErrorState: (control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean =>
+    isErrorState: (control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean =>
       !this.zipCodes || !this.zipCodes.length
   }
   options: any = {
@@ -68,7 +68,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   public ArchitectStatusEnum = ArchitectStatusEnum;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private architecteService: ArchitectService,
     private notificationsService: NotificationsService,
     private googleService: GoogleService,
@@ -164,10 +164,10 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   }
 
   requiredIfPaymentTypeIsIBAN(otherControlName: string) {
-    let thisControl: FormControl;
-    let otherControl: FormControl;
+    let thisControl: UntypedFormControl;
+    let otherControl: UntypedFormControl;
 
-    return function (control: FormControl) {
+    return function (control: UntypedFormControl) {
       if (!control.parent) {
         return null;
       }
@@ -175,7 +175,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
       if (!thisControl) {
         thisControl = control;
         // Get the other control from the parent
-        otherControl = control.parent.get(otherControlName) as FormControl;
+        otherControl = control.parent.get(otherControlName) as UntypedFormControl;
         if (!otherControl) {
           throw new Error('matchOtherValidator(): other control is not found in parent group');
         }

@@ -24,37 +24,33 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ArchitectRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatChipsModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatTooltipModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatAutocompleteModule,
-    SharedModule
-  ],
-  declarations: [
-    DashboardComponent,
-    ArchitecteProfileComponent,
-    VisitsComponent,
-    VisitComponent,
-    ReportEditComponent,
-    MessagesComponent,
-    HelpReportEditionModalComponent,
-    HelpHowToVisitModalComponent
-  ],
-  entryComponents: [
-    HelpReportEditionModalComponent,
-    HelpHowToVisitModalComponent
-  ]
+    imports: [
+        CommonModule,
+        ArchitectRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatInputModule,
+        MatChipsModule,
+        MatIconModule,
+        MatExpansionModule,
+        MatTooltipModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatAutocompleteModule,
+        SharedModule
+    ],
+    declarations: [
+        DashboardComponent,
+        ArchitecteProfileComponent,
+        VisitsComponent,
+        VisitComponent,
+        ReportEditComponent,
+        MessagesComponent,
+        HelpReportEditionModalComponent,
+        HelpHowToVisitModalComponent
+    ]
 })
 export class ArchitectModule { }

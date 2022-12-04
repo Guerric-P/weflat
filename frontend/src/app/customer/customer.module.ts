@@ -20,32 +20,29 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CustomerRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-    MatStepperModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatSelectModule,
-    SharedModule
-  ],
-  declarations: [
-    AcheteurProfileComponent,
-    PurchaseProjectComponent,
-    MyVisitsComponent,
-    MyVisitComponent,
-    EditVisitPopupComponent
-  ],
-  entryComponents: [
-    EditVisitPopupComponent
-  ]
+    imports: [
+        CommonModule,
+        CustomerRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+        MatIconModule,
+        MatStepperModule,
+        MatDialogModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        SharedModule
+    ],
+    declarations: [
+        AcheteurProfileComponent,
+        PurchaseProjectComponent,
+        MyVisitsComponent,
+        MyVisitComponent,
+        EditVisitPopupComponent
+    ]
 })
 export class CustomerModule { }

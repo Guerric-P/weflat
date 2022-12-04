@@ -55,71 +55,67 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    MatBadgeModule,
-    MatFormFieldModule,
-    MatDividerModule,
-    MatStepperModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatDialogModule,
-    MatMenuModule,
-    MatExpansionModule,
-    MatSelectModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatSnackBarModule,
-    MatTabsModule,
-    OverlayModule,
-    SharedModule.forRoot()
-  ],
-  providers: [
-    AuthenticationService,
-    ArchitecteGuard,
-    AcheteurGuard,
-    AdminGuard,
-    CreateVisitGuard,
-    SessionStorageService,
-    ShowSigninPopupService,
-    VisiteCounterService,
-    SEOService,
-    UpdateService
-  ],
-  declarations: [
-    PublicLayoutComponent,
-    HomeComponent,
-    RegisterArchitecteComponent,
-    RegisterAcheteurComponent,
-    CreateVisitComponent,
-    BaseBackendLayoutComponent,
-    ArchitecteLayoutComponent,
-    AcheteurLayoutComponent,
-    ErrorComponent,
-    NavigationComponent,
-    AddressFieldComponent,
-    DisabledZipCodePopupComponent,
-    EndUserLicenseAgreementComponent,
-    FrequentlyAskedQuestionsComponent,
-    ArchitectOnBoardingComponent,
-    AdminLayoutComponent,
-    ForgottenPasswordComponent,
-    SigninModalComponent,
-    SignupModalComponent
-  ],
-  entryComponents: [
-    SigninModalComponent,
-    SignupModalComponent
-  ],
-  exports: [
-    RouterModule
-  ]
+    imports: [
+        CommonModule,
+        CoreRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatButtonModule,
+        MatInputModule,
+        MatBadgeModule,
+        MatFormFieldModule,
+        MatDividerModule,
+        MatStepperModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatDialogModule,
+        MatMenuModule,
+        MatExpansionModule,
+        MatSelectModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatSnackBarModule,
+        MatTabsModule,
+        OverlayModule,
+        SharedModule.forRoot()
+    ],
+    providers: [
+        AuthenticationService,
+        ArchitecteGuard,
+        AcheteurGuard,
+        AdminGuard,
+        CreateVisitGuard,
+        SessionStorageService,
+        ShowSigninPopupService,
+        VisiteCounterService,
+        SEOService,
+        UpdateService
+    ],
+    declarations: [
+        PublicLayoutComponent,
+        HomeComponent,
+        RegisterArchitecteComponent,
+        RegisterAcheteurComponent,
+        CreateVisitComponent,
+        BaseBackendLayoutComponent,
+        ArchitecteLayoutComponent,
+        AcheteurLayoutComponent,
+        ErrorComponent,
+        NavigationComponent,
+        AddressFieldComponent,
+        DisabledZipCodePopupComponent,
+        EndUserLicenseAgreementComponent,
+        FrequentlyAskedQuestionsComponent,
+        ArchitectOnBoardingComponent,
+        AdminLayoutComponent,
+        ForgottenPasswordComponent,
+        SigninModalComponent,
+        SignupModalComponent
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class CoreModule {
 

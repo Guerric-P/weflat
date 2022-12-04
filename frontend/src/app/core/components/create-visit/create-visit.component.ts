@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CdkStep, StepperOrientation, StepperSelectionEvent } from '@angular/cdk/stepper';
 import { DatePipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DisabledZipCodePopupComponent } from '@weflat/app/core/components/disabled-zip-code-popup/disabled-zip-code-popup.component';
 import { CreateVisitGuard } from '@weflat/app/core/guards/create-visit.guard';
@@ -34,9 +34,9 @@ declare var google;
 export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isLinear = true;
-  dateFormGroup: FormGroup;
-  addressFormGroup: FormGroup;
-  projectFormGroup: FormGroup;
+  dateFormGroup: UntypedFormGroup;
+  addressFormGroup: UntypedFormGroup;
+  projectFormGroup: UntypedFormGroup;
   map: any;
   marker: any;
   @ViewChild('googleMap') googleMap: ElementRef;
@@ -68,7 +68,7 @@ export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     public authService: AuthenticationService,
     private ref: ChangeDetectorRef,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private adapter: DateAdapter<any>,
     private sessionStorageService: SessionStorageService,
     private visiteService: VisitService,

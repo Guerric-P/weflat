@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '@weflat/app/shared/services/user.service';
 
@@ -17,13 +17,13 @@ export class ForgottenPasswordComponent implements OnInit {
   resetEmailSuccessful: boolean;
   resetEmailFailed: boolean;
   resetEmailButtonDisabled: boolean;
-  resetPasswordForm: FormGroup;
-  resetEmailForm: FormGroup;
+  resetPasswordForm: UntypedFormGroup;
+  resetEmailForm: UntypedFormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
   ) { }
 
   ngOnInit() {

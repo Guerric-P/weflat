@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CustomerClass } from '@weflat/app/core/models/CustomerClass';
 import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
@@ -16,12 +16,12 @@ import { NotificationsService } from 'angular2-notifications';
 export class RegisterAcheteurComponent implements OnInit {
 
   data: CustomerClass = new CustomerClass();
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
   @Input() isEmbedded = false;
   submitButtonDisabled = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private acheteurService: AcheteurService,
     private authenticationService: AuthenticationService,
     private router: Router,
@@ -35,12 +35,12 @@ export class RegisterAcheteurComponent implements OnInit {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: new FormControl('', [
+      email: new UntypedFormControl('', [
         Validators.required,
         Validators.pattern(Constantes.EMAIL_REGEX)
       ]),
       password: ['', [Validators.required, Validators.minLength(6)]],
-      verifyPassword: new FormControl('', [
+      verifyPassword: new UntypedFormControl('', [
         this.matchOtherValidator('password')
       ])
     });
@@ -74,10 +74,10 @@ export class RegisterAcheteurComponent implements OnInit {
   }
 
   matchOtherValidator(otherControlName: string) {
-    let thisControl: FormControl;
-    let otherControl: FormControl;
+    let thisControl: UntypedFormControl;
+    let otherControl: UntypedFormControl;
 
-    return function matchOther(control: FormControl) {
+    return function matchOther(control: UntypedFormControl) {
       if (!control.parent) {
         return null;
       }
@@ -85,7 +85,7 @@ export class RegisterAcheteurComponent implements OnInit {
       if (!thisControl) {
         thisControl = control;
         // Get the other control from the parent
-        otherControl = control.parent.get(otherControlName) as FormControl;
+        otherControl = control.parent.get(otherControlName) as UntypedFormControl;
         if (!otherControl) {
           throw new Error('matchOtherValidator(): other control is not found in parent group');
         }

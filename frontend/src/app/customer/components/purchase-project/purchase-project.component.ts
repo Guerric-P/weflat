@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerClass } from '@weflat/app/core/models/CustomerClass';
 import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
@@ -13,10 +13,10 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class PurchaseProjectComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   acheteur: CustomerClass;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private acheteurService: AcheteurService,
     private notificationsService: NotificationsService,
     private route: ActivatedRoute,

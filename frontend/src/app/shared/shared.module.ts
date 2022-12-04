@@ -29,26 +29,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatTooltipModule,
-    MatButtonModule,
-    MatProgressSpinnerModule
-  ],
-  declarations: [
-    PaymentDirective,
-    ReportConsultationComponent,
-    KeysPipe,
-    LoaderComponent
-  ],
-  exports: [
-    PaymentDirective,
-    ReportConsultationComponent,
-    KeysPipe
-  ],
-  entryComponents: [
-    LoaderComponent
-  ]
+    imports: [
+        CommonModule,
+        MatTooltipModule,
+        MatButtonModule,
+        MatProgressSpinnerModule
+    ],
+    declarations: [
+        PaymentDirective,
+        ReportConsultationComponent,
+        KeysPipe,
+        LoaderComponent
+    ],
+    exports: [
+        PaymentDirective,
+        ReportConsultationComponent,
+        KeysPipe
+    ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders<SharedModule> {
