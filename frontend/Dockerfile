@@ -13,6 +13,4 @@ RUN npm install -g pm2
 # Expose port
 EXPOSE 4000
 
-RUN node dist/server/main.js
-
-ENTRYPOINT ["sh","/docker-entrypoint.sh"]
+ENTRYPOINT node dist/server/main.js
