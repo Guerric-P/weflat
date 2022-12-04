@@ -5,7 +5,7 @@ import { findIndexById } from '@weflat/app/core/utils/arrayUtils';
 import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
 import { NotificationsService } from 'angular2-notifications';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 class ZipCodeErrorStateMatcher implements ErrorStateMatcher {
   zipCodeRegexp: RegExp = /^[0-9]{5}$/;

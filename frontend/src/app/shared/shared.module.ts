@@ -24,9 +24,9 @@ import { ReportService } from '@weflat/app/shared/services/report.service';
 import { UserService } from '@weflat/app/shared/services/user.service';
 import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 
 @NgModule({
     imports: [

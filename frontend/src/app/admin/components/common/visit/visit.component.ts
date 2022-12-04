@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { VisitClass } from '@weflat/app/core/models/VisitClass';
 import { VisitStatusEnum } from '@weflat/app/shared/common/enums/VisitStatusEnum';
 import { VisitService } from '@weflat/app/shared/services/visit.service';

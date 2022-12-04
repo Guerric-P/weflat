@@ -6,7 +6,7 @@ import { AuthenticationService } from '@weflat/app/core/services/authentication.
 import { LoaderService } from '@weflat/app/shared/services/loader.service';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 
 @Injectable()

@@ -18,9 +18,9 @@ import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as IBAN from 'iban';
 import * as moment from 'moment';
-import { MatChipList } from '@angular/material/chips';
+import { MatLegacyChipList as MatChipList } from '@angular/material/legacy-chips';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
 
 declare var google;
 
