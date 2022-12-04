@@ -17,12 +17,12 @@ jobs:
           export ANGULAR_ENVIRONMENT=`eval "echo $"${CIRCLE_BRANCH^^}"_ANGULAR_ENVIRONMENT"`
           export MAVEN_PROFILE=`eval "echo $"${CIRCLE_BRANCH^^}"_MAVEN_PROFILE"`
           export WEB_HOOK=`eval "echo $"${CIRCLE_BRANCH^^}"_WEB_HOOK"`
-          docker build -t gphalippou/weflat:http_${CIRCLE_BRANCH}_latest http
-          docker build -t gphalippou/weflat:frontend_${CIRCLE_BRANCH}_latest --build-arg environment=$ANGULAR_ENVIRONMENT frontend
-          docker build -t gphalippou/weflat:backend_${CIRCLE_BRANCH}_latest --build-arg profile=$MAVEN_PROFILE backend
-          docker build -t gphalippou/weflat:database_${CIRCLE_BRANCH}_latest database
+          docker build -t gphalippou/weflat-http:${CIRCLE_BRANCH}_latest http
+          docker build -t gphalippou/weflat-frontend:${CIRCLE_BRANCH}_latest --build-arg environment=$ANGULAR_ENVIRONMENT frontend
+          docker build -t gphalippou/weflat-backend:${CIRCLE_BRANCH}_latest --build-arg profile=$MAVEN_PROFILE backend
+          docker build -t gphalippou/weflat_database:${CIRCLE_BRANCH}_latest database
           docker login -u $DOCKER_USER -p $DOCKER_PASS
-          docker push gphalippou/weflat:http_${CIRCLE_BRANCH}_latest
-          docker push gphalippou/weflat:frontend_${CIRCLE_BRANCH}_latest
-          docker push gphalippou/weflat:backend_${CIRCLE_BRANCH}_latest
-          docker push gphalippou/weflat:database_${CIRCLE_BRANCH}_latest
+          docker push gphalippou/weflat-http:${CIRCLE_BRANCH}_latest
+          docker push gphalippou/weflat-frontend:${CIRCLE_BRANCH}_latest
+          docker push gphalippou/weflat-backend:${CIRCLE_BRANCH}_latest
+          docker push gphalippou/weflat-database:${CIRCLE_BRANCH}_latest
