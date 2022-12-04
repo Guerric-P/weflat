@@ -39,8 +39,6 @@ spec:
         volumeMounts:
         - mountPath: /app/dist/browser
           name: vfrontend
-        - mountPath: /app/log
-          name: client-logs
       - image: gphalippou/weflat:http_test_latest
         imagePullPolicy: Always
         name: http
@@ -58,7 +56,4 @@ spec:
       serviceAccountName: ""
       volumes:
       - name: vfrontend
-      - name: client-logs
-        persistentVolumeClaim:
-          claimName: client-logs
 status: {}

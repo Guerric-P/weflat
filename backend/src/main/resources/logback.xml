@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="15 seconds">
- 
-    <property name="LOGS" value="./log" />
- 
     <appender name="Console"
         class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -11,130 +8,41 @@
             </Pattern>
         </layout>
     </appender>
- 
-    <appender name="WebApplicationFile"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOGS}/web-application.log</file>
-        <encoder
-            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
-        </encoder>
- 
-        <rollingPolicy
-            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily and when the file reaches 10 MegaBytes -->
-            <fileNamePattern>${LOGS}/archived/web-application-%d{yyyy-MM-dd}.%i.log
-            </fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
-    
-    <appender name="BatchFile"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOGS}/batch.log</file>
-        <encoder
-            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
-        </encoder>
- 
-        <rollingPolicy
-            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily and when the file reaches 10 MegaBytes -->
-            <fileNamePattern>${LOGS}/archived/batch-%d{yyyy-MM-dd}.%i.log
-            </fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
-    
-    <appender name="BusinessFile"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOGS}/business.log</file>
-        <encoder
-            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
-        </encoder>
- 
-        <rollingPolicy
-            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily and when the file reaches 10 MegaBytes -->
-            <fileNamePattern>${LOGS}/archived/business-%d{yyyy-MM-dd}.%i.log
-            </fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
-    
-    <appender name="CommonFile"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOGS}/common.log</file>
-        <encoder
-            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
-        </encoder>
- 
-        <rollingPolicy
-            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- rollover daily and when the file reaches 10 MegaBytes -->
-            <fileNamePattern>${LOGS}/archived/common-%d{yyyy-MM-dd}.%i.log
-            </fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy
-                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>10MB</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
-        </rollingPolicy>
-    </appender>
      
     <!-- LOG everything at INFO level -->
     <root level="info">
-        <appender-ref ref="CommonFile" />
         <appender-ref ref="Console" />
     </root>
  
     <logger name="fr.weflat" level="info" additivity="false">
-        <appender-ref ref="BusinessFile" />
         <appender-ref ref="Console" />
     </logger>
     
     <logger name="fr.weflat.backend.web.controller" level="info" additivity="false">
-        <appender-ref ref="WebApplicationFile" />
         <appender-ref ref="Console" />
     </logger>
         
     <logger name="fr.weflat.backend.batch" level="info" additivity="false">
-        <appender-ref ref="BatchFile" />
         <appender-ref ref="Console" />
     </logger>
     
     <logger name="fr.weflat.backend.service.impl.BatchServiceImpl" level="info" additivity="false">
-        <appender-ref ref="BatchFile" />
         <appender-ref ref="Console" />
     </logger>
     
     <logger name="org.springframework" level="info" additivity="false">
-        <appender-ref ref="CommonFile" />
         <appender-ref ref="Console" />
     </logger>
     
     <logger name="org.hibernate" level="info" additivity="false">
-        <appender-ref ref="CommonFile" />
         <appender-ref ref="Console" />
     </logger>
     
     <logger name="ma.glasnost.orika" level="info" additivity="false">
-        <appender-ref ref="CommonFile" />
         <appender-ref ref="Console" />
     </logger>
     
     <logger name="javax.mail" level="info" additivity="false">
-        <appender-ref ref="CommonFile" />
         <appender-ref ref="Console" />
     </logger>
  
