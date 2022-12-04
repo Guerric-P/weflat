@@ -12,6 +12,6 @@
     "btoa": "^1.2.1",
     "googleapis": "^39.1.0",
     "password-generator": "^2.2.0",
-    "winston": "^3.0.0-rc5"
+    "winston": "^3.8.2"
   }
 }
