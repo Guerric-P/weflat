@@ -12,6 +12,4 @@ COPY --from=build-stage /app/dist/ /app/dist/
 # Expose port
 EXPOSE 4000
 
-RUN node dist/server/main.js
-
-ENTRYPOINT ["sh","/docker-entrypoint.sh"]
+ENTRYPOINT node dist/server/main.js
