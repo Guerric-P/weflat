@@ -8,7 +8,6 @@ RUN npm run build:ssr:$environment
 FROM node:14-alpine
 
 COPY --from=build-stage /app/dist/ /app/dist/
-RUN npm install -g pm2
 
 # Expose port
 EXPOSE 4000
