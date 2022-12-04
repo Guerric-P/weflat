@@ -6,7 +6,7 @@ jobs:
       
     branches:
         only:
-          - test
+          - dev
           - master
           
     working_directory: ~/repo
