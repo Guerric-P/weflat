@@ -13,8 +13,6 @@ RUN npm install -g pm2
 # Expose port
 EXPOSE 4000
 
-COPY ./common.sh /
-COPY ./docker-entrypoint.sh /
-RUN chmod 755 /docker-entrypoint.sh
+RUN node dist/server/main.js
 
 ENTRYPOINT ["sh","/docker-entrypoint.sh"]
