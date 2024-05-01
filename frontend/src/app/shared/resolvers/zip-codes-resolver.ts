@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
 import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
 import { ArchitectService } from '@weflat/app/shared/services/architecte.service';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class ZipCodesResolver implements Resolve<ZipCodeClass[]> {
+export class ZipCodesResolver  {
 
     constructor(
         private architecteService: ArchitectService,

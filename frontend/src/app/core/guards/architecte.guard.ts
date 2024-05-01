@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { SigninModalComponent } from '@weflat/app/core/components/common/signin-modal/signin-modal.component';
 import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
 import { LoaderService } from '@weflat/app/shared/services/loader.service';
@@ -10,7 +10,7 @@ import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 
 @Injectable()
-export class ArchitecteGuard implements CanActivate {
+export class ArchitecteGuard  {
   isBrowser: boolean;
 
   constructor(

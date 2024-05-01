@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { ReportClass } from '@weflat/app/core/models/ReportClass';
 import { ReportService } from '@weflat/app/shared/services/report.service';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class ReportResolver implements Resolve<ReportClass> {
+export class ReportResolver  {
 
 
     constructor(private reportService: ReportService) { }
