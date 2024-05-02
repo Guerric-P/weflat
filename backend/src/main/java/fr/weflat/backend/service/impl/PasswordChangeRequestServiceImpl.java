@@ -24,7 +24,7 @@ public class PasswordChangeRequestServiceImpl implements PasswordChangeRequestSe
 		
 		Predicate predicate = passwordChangeRequest.hash.eq(hash);
 		
-		return passwordChangeRequestDao.findOne(predicate);
+		return passwordChangeRequestDao.findOne(predicate).orElseThrow();
 		
 	}
 

@@ -17,7 +17,7 @@ import { values } from '@weflat/app/shared/common/TimeDropDownValues';
 import { AcheteurService } from '@weflat/app/shared/services/acheteur.service';
 import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { NotificationsService } from 'angular2-notifications';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Observable, Subscription } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
 import { DateAdapter } from '@angular/material/core';

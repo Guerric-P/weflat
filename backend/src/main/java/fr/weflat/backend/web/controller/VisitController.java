@@ -3,17 +3,12 @@ package fr.weflat.backend.web.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.ws.rs.Produces;
+import jakarta.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.Renovation;
@@ -53,7 +48,7 @@ public class VisitController {
 	SlackService slackService;
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	public VisiteDto postVisit(@RequestBody VisiteDto input, Authentication authentication) throws Exception {
 
 		Long customerId = null;
@@ -70,14 +65,14 @@ public class VisitController {
 
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public List<VisiteDto> getAll() {
 		return orikaMapperFacade.mapAsList(visitService.findAll(), VisiteDto.class);
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/{id}", method = RequestMethod.PATCH)
-	public VisiteDto patchVisit(@PathVariable("id") long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
+	@PatchMapping("/{id}")
+	public VisiteDto patchVisit(@PathVariable long id, @RequestBody VisiteDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
 		Visit visit = visitService.findById(id);
@@ -98,13 +93,13 @@ public class VisitController {
 		}
 	}
 	
-	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable("id") long id) {
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable long id) {
 		visitService.delete(id);
 	}
 
-	@RequestMapping(path = "/{id}/pay", method = RequestMethod.POST)
-	public VisiteDto payVisit(@PathVariable("id") long id, @RequestParam() String token) throws Exception {
+	@PostMapping("/{id}/pay")
+	public VisiteDto payVisit(@PathVariable long id, @RequestParam() String token) throws Exception {
 
 		Visit visit = visitService.findById(id);
 
@@ -136,8 +131,8 @@ public class VisitController {
 		}
 	}
 	
-	@RequestMapping(path = "/{id}/cancel", method = RequestMethod.POST)
-	public VisiteDto cancelVisit(@PathVariable("id") long id) throws Exception {
+	@PostMapping("/{id}/cancel")
+	public VisiteDto cancelVisit(@PathVariable long id) throws Exception {
 
 		Visit visit = visitService.findById(id);
 
@@ -152,8 +147,8 @@ public class VisitController {
 		}
 	}
 	
-	@RequestMapping(path = "/{id}/architect-was-paid", method = RequestMethod.POST)
-	public VisiteDto architectWasPaid(@PathVariable("id") long id) throws Exception {
+	@PostMapping("/{id}/architect-was-paid")
+	public VisiteDto architectWasPaid(@PathVariable long id) throws Exception {
 		
 		Visit visit = visitService.findById(id);
 		
@@ -166,8 +161,8 @@ public class VisitController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/{id}/accept", method = RequestMethod.POST)
-	public void acceptVisite(@PathVariable("id") long id, Authentication authentication) throws Exception {
+	@PostMapping("/{id}/accept")
+	public void acceptVisite(@PathVariable long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 		visitService.accept(id, (Long) details.get("id"));
 		
@@ -193,21 +188,21 @@ public class VisitController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/{id}/refuse", method = RequestMethod.POST)
-	public void refuseVisit(@PathVariable("id") long id, Authentication authentication) throws Exception {
+	@PostMapping("/{id}/refuse")
+	public void refuseVisit(@PathVariable long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 		visitService.refuse(id, (Long) details.get("id"));
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/count", method = RequestMethod.GET)
+	@GetMapping("/count")
 	public int getCount(Authentication authentication) {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 		return visitService.findAvailableVisitsByArchitectId((Long) details.get("id")).size();
 	}
 
-	@RequestMapping(path = "/{id}/report", method = RequestMethod.GET)
-	public ReportDto getReport(@PathVariable("id") long id, Authentication authentication) {
+	@GetMapping("/{id}/report")
+	public ReportDto getReport(@PathVariable long id, Authentication authentication) {
 
 		Report report =  reportService.findByVisitId(id);
 		ReportDto reportDto = null;
@@ -226,8 +221,8 @@ public class VisitController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/{id}/report", method = RequestMethod.POST)
-	public ReportDto postReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
+	@PostMapping("/{id}/report")
+	public ReportDto postReport(@PathVariable long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
 		Visit visit = visitService.findById(id);
@@ -257,8 +252,8 @@ public class VisitController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/{id}/report", method = RequestMethod.PATCH)
-	public ReportDto patchReport(@PathVariable("id") long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
+	@PatchMapping("/{id}/report")
+	public ReportDto patchReport(@PathVariable long id, @RequestBody ReportDto input, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
 		Report report = reportService.findByVisitId(id);
@@ -289,8 +284,8 @@ public class VisitController {
 	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(path = "/{id}/report/submit", method = RequestMethod.POST)
-	public void submitReport(@PathVariable("id") long id, Authentication authentication) throws Exception {
+	@PostMapping("/{id}/report/submit")
+	public void submitReport(@PathVariable long id, Authentication authentication) throws Exception {
 		Map<String, Object> details = (Map<String, Object>) authentication.getDetails();
 
 		Visit visit = visitService.findById(id);
@@ -325,12 +320,12 @@ public class VisitController {
 		}
 	}
 	
-	@RequestMapping(path = "/price", method = RequestMethod.GET)
+	@GetMapping("/price")
 	public Long getVisitPrice() {
 		return visitService.getVisitPrice();
 	}
 	
-	@RequestMapping(path = "/partial-refund-amount", method = RequestMethod.GET)
+	@GetMapping("/partial-refund-amount")
 	public Long getPartialRefundAmount() {
 		return visitService.getVisitPartialRefundAmount();
 	}

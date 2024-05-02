@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { VisitClass } from '@weflat/app/core/models/VisitClass';
 import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
 import { GoogleService } from '@weflat/app/core/services/google.service';
@@ -9,7 +9,7 @@ import { GooglePlaceKeys } from '@weflat/app/shared/common/GooglePlaceKeys';
 import { values } from '@weflat/app/shared/common/TimeDropDownValues';
 import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 declare var google;
 
@@ -25,7 +25,7 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
   @ViewChild('addressInput', { static: true }) addressInput: ElementRef;
   @Output() onUpdate = new EventEmitter<VisitClass>();
   mutationObserver: MutationObserver;
-  minDate = moment().add(1, 'days').toDate();
+  minDate = moment(1, 'days').toDate();
 
   times = values;
 

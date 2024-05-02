@@ -18,7 +18,7 @@ spec:
         io.kompose.service: server
     spec:
       containers:
-      - image: gphalippou/weflat:backend_test_latest
+      - image: gphalippou/weflat-backend:dev_latest
         imagePullPolicy: Always
         name: server
         resources: {}

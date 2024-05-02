@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: weflat
+    username: weflat
+    url: jdbc:postgresql://localhost:5432/weflat
+  web:
+    resources:
+      add-mappings: false
+  jpa:
+    properties:
+      hibernate:
+        default_schema: weflat
+  liquibase:
+    change-log: classpath:db/changelog/changelog.sql
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: contact_test@weflat.fr
+    password:
+    properties:
+      mail:
+        debug: false
+        smtp:
+          starttls:
+            enable: true
+          auth:
+            nodeValue: true
+            mechanisms: XOAUTH2
+        transport:
+          protocol: smtp
+orika:
+  mapNulls: false
+
+fr:
+  weflat:
+    stripe:
+      price: '15000'
+      partial-refund: '13000'
+      private-key: sk_test_ex3BOWKtQexdJh4zKFOTo36m
+    slack:
+      user-name: Weflat_test
+      url: https://hooks.slack.com/services/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
+    email:
+      scope: https://mail.google.com/
+      service-account: weflat-service@weflat-185909.iam.gserviceaccount.com
+    architect-remuneration: '8000'
+    app-url: http://localhost:4200
+
+server.error.include-message: always

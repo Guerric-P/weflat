@@ -7,7 +7,7 @@ import { AuthenticationService } from '@weflat/app/core/services/authentication.
 import { AcheteurService } from '@weflat/app/shared/services/acheteur.service';
 import { UserService } from '@weflat/app/shared/services/user.service';
 import { NotificationsService } from 'angular2-notifications';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-acheteur-profile',

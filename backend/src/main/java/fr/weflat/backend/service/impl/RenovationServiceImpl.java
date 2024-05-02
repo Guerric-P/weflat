@@ -18,7 +18,7 @@ public class RenovationServiceImpl implements RenovationService {
 	@Override
 	@Transactional(readOnly=true)
 	public Renovation findById(long id) {
-		return renovationDao.findOne(id);
+		return renovationDao.findById(id).orElseThrow();
 	}
 
 	@Override

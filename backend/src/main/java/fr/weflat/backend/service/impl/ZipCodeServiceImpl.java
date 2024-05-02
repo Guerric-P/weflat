@@ -36,7 +36,7 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 	@Override
 	@Transactional(readOnly=true)
 	public ZipCode findById(Long id) {
-		return zipCodeDao.findOne(id);
+		return zipCodeDao.findById(id).orElseThrow();
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 
 	@Override
 	public void deleteById(long id) {
-		zipCodeDao.delete(id);
+		zipCodeDao.deleteById(id);
 	}
 	
 	@Override
@@ -121,7 +121,7 @@ public class ZipCodeServiceImpl implements ZipCodeService {
 				}))
 				.values();
 		
-		Iterable<ZipCode> result = zipCodeDao.save(mergedZipCodes);
+		Iterable<ZipCode> result = zipCodeDao.saveAll(mergedZipCodes);
 		
 		Set<ZipCode> activatedZipCodes = mergedZipCodes.stream().filter(x -> x.isActive() == true).collect(Collectors.toSet());
 		

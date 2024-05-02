@@ -9,7 +9,7 @@
       "projectType": "application",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "outputPath": "dist/browser",
             "index": "src/index.html",
@@ -34,7 +34,7 @@
             "namedChunks": true
           },
           "configurations": {
-            "test": {
+            "dev": {
               "budgets": [
                 {
                   "type": "anyComponentStyle",
@@ -91,22 +91,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "weflat:build",
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.conf.json",
+            "buildTarget": "weflat:build"
           },
           "configurations": {
             "test": {
-              "browserTarget": "weflat:build:test"
+              "buildTarget": "weflat:build:test"
             },
             "production": {
-              "browserTarget": "weflat:build:production"
+              "buildTarget": "weflat:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "weflat:build"
+            "buildTarget": "weflat:build"
           }
         },
         "test": {
@@ -131,10 +131,11 @@
             "outputPath": "dist/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
-            "optimization": false
+            "optimization": false,
+            "buildOptimizer": false
           },
           "configurations": {
-            "test": {
+            "dev": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

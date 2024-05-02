@@ -1,57 +1,3 @@
-CREATE DATABASE weflat;
-
-CREATE USER weflat WITH
-                LOGIN
-                NOSUPERUSER
-                NOCREATEDB
-                NOCREATEROLE
-                INHERIT
-                NOREPLICATION
-                CONNECTION LIMIT -1
-                ENCRYPTED PASSWORD 'P@ssw0rd';
-
-GRANT ALL PRIVILEGES ON DATABASE weflat TO weflat;
-
-\connect weflat;
---
--- PostgreSQL database dump
---
-
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
---
--- Name: weflat; Type: SCHEMA; Schema: -; Owner: postgres
---
-
-CREATE SCHEMA weflat;
-
-
-ALTER SCHEMA weflat OWNER TO weflat;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
-SET search_path = weflat, pg_catalog;
-
---
--- Name: user_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
---
-
 CREATE SEQUENCE user_id_seq
     START WITH 1
     INCREMENT BY 1
@@ -60,123 +6,119 @@ CREATE SEQUENCE user_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.user_id_seq OWNER TO weflat;
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
+ALTER TABLE user_id_seq OWNER TO weflat;
 
 --
--- Name: user; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: user; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE "user" (
-    id integer DEFAULT nextval('user_id_seq'::regclass) NOT NULL,
-    last_name character varying(50),
-    first_name character varying(50),
-    birth_date date,
-    telephone character varying,
-    email character varying,
-    password character varying
+                        id integer DEFAULT nextval('user_id_seq'::regclass) NOT NULL,
+                        last_name character varying(50),
+                        first_name character varying(50),
+                        birth_date date,
+                        telephone character varying,
+                        email character varying,
+                        password character varying
 );
 
 
-ALTER TABLE weflat."user" OWNER TO weflat;
+ALTER TABLE "user" OWNER TO weflat;
 
 --
--- Name: admin; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: admin; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE admin (
 )
-INHERITS ("user");
+    INHERITS ("user");
 
 
-ALTER TABLE weflat.admin OWNER TO weflat;
+ALTER TABLE admin OWNER TO weflat;
 
 --
--- Name: architect; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE architect (
-    web_site character varying(255),
-    motivation text,
-    architect_situation_id integer,
-    architect_type_id integer,
-    practicing_since date,
-    architects_order boolean,
-    cfai boolean,
-    decennial_insurance boolean,
-    professional_responsibility boolean,
-    status integer,
-    cgu boolean,
-    iban character varying(28),
-    payment_type_id integer
+                           web_site character varying(255),
+                           motivation text,
+                           architect_situation_id integer,
+                           architect_type_id integer,
+                           practicing_since date,
+                           architects_order boolean,
+                           cfai boolean,
+                           decennial_insurance boolean,
+                           professional_responsibility boolean,
+                           status integer,
+                           cgu boolean,
+                           iban character varying(28),
+                           payment_type_id integer
 )
-INHERITS ("user");
+    INHERITS ("user");
 
 
-ALTER TABLE weflat.architect OWNER TO weflat;
+ALTER TABLE architect OWNER TO weflat;
 
 --
--- Name: architect_situation; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect_situation; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE architect_situation (
-    id integer NOT NULL,
-    label character varying(100)
+                                     id integer NOT NULL,
+                                     label character varying(100)
 );
 
 
-ALTER TABLE weflat.architect_situation OWNER TO weflat;
+ALTER TABLE architect_situation OWNER TO weflat;
 
 --
--- Name: architect_type; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect_type; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE architect_type (
-    id integer NOT NULL,
-    label character varying(100)
+                                id integer NOT NULL,
+                                label character varying(100)
 );
 
 
-ALTER TABLE weflat.architect_type OWNER TO weflat;
+ALTER TABLE architect_type OWNER TO weflat;
 
 --
--- Name: architect_visit; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect_visit; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE architect_visit (
-    architect_id integer NOT NULL,
-    visit_id integer NOT NULL
+                                 architect_id integer NOT NULL,
+                                 visit_id integer NOT NULL
 );
 
 
-ALTER TABLE weflat.architect_visit OWNER TO weflat;
+ALTER TABLE architect_visit OWNER TO weflat;
 
 --
--- Name: architect_zip_code; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect_zip_code; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE architect_zip_code (
-    architect_id integer NOT NULL,
-    zip_code_id integer NOT NULL
+                                    architect_id integer NOT NULL,
+                                    zip_code_id integer NOT NULL
 );
 
 
-ALTER TABLE weflat.architect_zip_code OWNER TO weflat;
+ALTER TABLE architect_zip_code OWNER TO weflat;
 
 --
--- Name: customer; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: customer; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE customer (
-    project text
+                          project text
 )
-INHERITS ("user");
+    INHERITS ("user");
 
 
-ALTER TABLE weflat.customer OWNER TO weflat;
+ALTER TABLE customer OWNER TO weflat;
 
 --
 -- Name: password_change_request_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
@@ -190,46 +132,46 @@ CREATE SEQUENCE password_change_request_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.password_change_request_id_seq OWNER TO weflat;
+ALTER TABLE password_change_request_id_seq OWNER TO weflat;
 
 --
--- Name: password_change_request; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: password_change_request; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE password_change_request (
-    id integer DEFAULT nextval('password_change_request_id_seq'::regclass) NOT NULL,
-    user_id integer NOT NULL,
-    hash character varying NOT NULL,
-    expiration_date timestamp without time zone
+                                         id integer DEFAULT nextval('password_change_request_id_seq'::regclass) NOT NULL,
+                                         user_id integer NOT NULL,
+                                         hash character varying NOT NULL,
+                                         expiration_date timestamp without time zone
 );
 
 
-ALTER TABLE weflat.password_change_request OWNER TO weflat;
+ALTER TABLE password_change_request OWNER TO weflat;
 
 --
--- Name: payment_type; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: payment_type; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE payment_type (
-    id integer NOT NULL,
-    label character varying(100)
+                              id integer NOT NULL,
+                              label character varying(100)
 );
 
 
-ALTER TABLE weflat.payment_type OWNER TO weflat;
+ALTER TABLE payment_type OWNER TO weflat;
 
 --
--- Name: position; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: position; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE "position" (
-    id integer NOT NULL,
-    label character varying(100) NOT NULL,
-    mandatory boolean
+                            id integer NOT NULL,
+                            label character varying(100) NOT NULL,
+                            mandatory boolean
 );
 
 
-ALTER TABLE weflat."position" OWNER TO weflat;
+ALTER TABLE "position" OWNER TO weflat;
 
 --
 -- Name: renovation_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
@@ -243,23 +185,23 @@ CREATE SEQUENCE renovation_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.renovation_id_seq OWNER TO weflat;
+ALTER TABLE renovation_id_seq OWNER TO weflat;
 
 --
--- Name: renovation; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: renovation; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE renovation (
-    id integer DEFAULT nextval('renovation_id_seq'::regclass) NOT NULL,
-    report_id integer,
-    position_id integer,
-    condition integer,
-    remarks text,
-    estimated_work integer
+                            id integer DEFAULT nextval('renovation_id_seq'::regclass) NOT NULL,
+                            report_id integer,
+                            position_id integer,
+                            condition integer,
+                            remarks text,
+                            estimated_work integer
 );
 
 
-ALTER TABLE weflat.renovation OWNER TO weflat;
+ALTER TABLE renovation OWNER TO weflat;
 
 --
 -- Name: report_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
@@ -273,52 +215,52 @@ CREATE SEQUENCE report_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.report_id_seq OWNER TO weflat;
+ALTER TABLE report_id_seq OWNER TO weflat;
 
 --
--- Name: report; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: report; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE report (
-    id integer DEFAULT nextval('report_id_seq'::regclass) NOT NULL,
-    surface integer,
-    floor integer,
-    rooms integer,
-    orientation character varying(100),
-    general_remarks text,
-    expectations text,
-    global_quality_remarks text,
-    global_condition integer
+                        id integer DEFAULT nextval('report_id_seq'::regclass) NOT NULL,
+                        surface integer,
+                        floor integer,
+                        rooms integer,
+                        orientation character varying(100),
+                        general_remarks text,
+                        expectations text,
+                        global_quality_remarks text,
+                        global_condition integer
 );
 
 
-ALTER TABLE weflat.report OWNER TO weflat;
+ALTER TABLE report OWNER TO weflat;
 
 --
--- Name: visit; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: visit; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE visit (
-    id integer NOT NULL,
-    customer_id integer,
-    city character varying(50) NOT NULL,
-    architect_id integer,
-    zip_code_id integer NOT NULL,
-    street_number character varying(10),
-    route character varying(100),
-    creation_date timestamp(6) with time zone NOT NULL,
-    visit_date timestamp(6) with time zone,
-    report_id integer,
-    status integer,
-    announcement_url character varying(2000),
-    charge_id character varying(50),
-    customer_paid_amount integer,
-    refunded_amount integer,
-    architect_paid_amount integer
+                       id integer NOT NULL,
+                       customer_id integer,
+                       city character varying(50) NOT NULL,
+                       architect_id integer,
+                       zip_code_id integer NOT NULL,
+                       street_number character varying(10),
+                       route character varying(100),
+                       creation_date timestamp(6) with time zone NOT NULL,
+                       visit_date timestamp(6) with time zone,
+                       report_id integer,
+                       status integer,
+                       announcement_url character varying(2000),
+                       charge_id character varying(50),
+                       customer_paid_amount integer,
+                       refunded_amount integer,
+                       architect_paid_amount integer
 );
 
 
-ALTER TABLE weflat.visit OWNER TO weflat;
+ALTER TABLE visit OWNER TO weflat;
 
 --
 -- Name: visit_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
@@ -332,24 +274,24 @@ CREATE SEQUENCE visit_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.visit_id_seq OWNER TO weflat;
+ALTER TABLE visit_id_seq OWNER TO weflat;
 
 --
--- Name: zip_code; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: zip_code; Type: TABLE; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE zip_code (
-    id integer NOT NULL,
-    number character(5) NOT NULL,
-    active boolean,
-    county character varying,
-    town character varying,
-    latitude double precision,
-    longitude double precision
+                          id integer NOT NULL,
+                          number character(5) NOT NULL,
+                          active boolean,
+                          county character varying,
+                          town character varying,
+                          latitude double precision,
+                          longitude double precision
 );
 
 
-ALTER TABLE weflat.zip_code OWNER TO weflat;
+ALTER TABLE zip_code OWNER TO weflat;
 
 --
 -- Name: zip_code_id_seq; Type: SEQUENCE; Schema: weflat; Owner: postgres
@@ -363,7 +305,7 @@ CREATE SEQUENCE zip_code_id_seq
     CACHE 1;
 
 
-ALTER TABLE weflat.zip_code_id_seq OWNER TO weflat;
+ALTER TABLE zip_code_id_seq OWNER TO weflat;
 
 --
 -- Name: id; Type: DEFAULT; Schema: weflat; Owner: postgres
@@ -6637,7 +6579,7 @@ SELECT pg_catalog.setval('zip_code_id_seq', 6225, true);
 
 
 --
--- Name: architect_id_key; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect_id_key; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY architect
@@ -6645,7 +6587,7 @@ ALTER TABLE ONLY architect
 
 
 --
--- Name: architect_situation_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect_situation_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY architect_situation
@@ -6653,7 +6595,7 @@ ALTER TABLE ONLY architect_situation
 
 
 --
--- Name: architect_type_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect_type_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY architect_type
@@ -6661,7 +6603,7 @@ ALTER TABLE ONLY architect_type
 
 
 --
--- Name: architect_visit_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect_visit_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY architect_visit
@@ -6669,7 +6611,7 @@ ALTER TABLE ONLY architect_visit
 
 
 --
--- Name: architect_zip_code_architect_id_zip_code_id_key; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect_zip_code_architect_id_zip_code_id_key; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY architect_zip_code
@@ -6677,7 +6619,7 @@ ALTER TABLE ONLY architect_zip_code
 
 
 --
--- Name: architect_zip_code_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: architect_zip_code_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY architect_zip_code
@@ -6685,7 +6627,7 @@ ALTER TABLE ONLY architect_zip_code
 
 
 --
--- Name: customer_id_key; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: customer_id_key; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY customer
@@ -6693,7 +6635,7 @@ ALTER TABLE ONLY customer
 
 
 --
--- Name: password_change_request_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: password_change_request_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY password_change_request
@@ -6701,7 +6643,7 @@ ALTER TABLE ONLY password_change_request
 
 
 --
--- Name: payment_type_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: payment_type_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY payment_type
@@ -6709,7 +6651,7 @@ ALTER TABLE ONLY payment_type
 
 
 --
--- Name: pk_visit; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: pk_visit; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY visit
@@ -6717,7 +6659,7 @@ ALTER TABLE ONLY visit
 
 
 --
--- Name: position_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: position_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY "position"
@@ -6725,7 +6667,7 @@ ALTER TABLE ONLY "position"
 
 
 --
--- Name: renovation_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: renovation_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY renovation
@@ -6733,7 +6675,7 @@ ALTER TABLE ONLY renovation
 
 
 --
--- Name: report_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: report_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY report
@@ -6741,7 +6683,7 @@ ALTER TABLE ONLY report
 
 
 --
--- Name: user_id_key; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: user_id_key; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY "user"
@@ -6749,7 +6691,7 @@ ALTER TABLE ONLY "user"
 
 
 --
--- Name: user_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: user_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY "user"
@@ -6757,7 +6699,7 @@ ALTER TABLE ONLY "user"
 
 
 --
--- Name: user_uq_email; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: user_uq_email; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY "user"
@@ -6765,7 +6707,7 @@ ALTER TABLE ONLY "user"
 
 
 --
--- Name: zip_code_number_key; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: zip_code_number_key; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY zip_code
@@ -6773,7 +6715,7 @@ ALTER TABLE ONLY zip_code
 
 
 --
--- Name: zip_code_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: zip_code_pkey; Type: CONSTRAINT; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY zip_code
@@ -6781,42 +6723,42 @@ ALTER TABLE ONLY zip_code
 
 
 --
--- Name: fki_fk_architect_architect_situation_id; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: fki_fk_architect_architect_situation_id; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX fki_fk_architect_architect_situation_id ON architect USING btree (architect_situation_id);
 
 
 --
--- Name: fki_fk_architect_architect_type_id; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: fki_fk_architect_architect_type_id; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX fki_fk_architect_architect_type_id ON architect USING btree (architect_type_id);
 
 
 --
--- Name: fki_fk_renovation_position_id; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: fki_fk_renovation_position_id; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX fki_fk_renovation_position_id ON renovation USING btree (position_id);
 
 
 --
--- Name: fki_fk_renovation_report_id; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: fki_fk_renovation_report_id; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX fki_fk_renovation_report_id ON renovation USING btree (report_id);
 
 
 --
--- Name: fki_fk_visit_report_id; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: fki_fk_visit_report_id; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX fki_fk_visit_report_id ON visit USING btree (report_id);
 
 
 --
--- Name: ix_zip_code_number; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace: 
+-- Name: ix_zip_code_number; Type: INDEX; Schema: weflat; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX ix_zip_code_number ON zip_code USING btree (number bpchar_pattern_ops);
@@ -6924,19 +6866,3 @@ ALTER TABLE ONLY visit
 
 ALTER TABLE ONLY visit
     ADD CONSTRAINT fk_visit_zip_code_id FOREIGN KEY (zip_code_id) REFERENCES zip_code(id);
-
-
---
--- Name: public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO weflat;
-GRANT ALL ON SCHEMA public TO PUBLIC;
-
-
---
--- PostgreSQL database dump complete
---
-

@@ -21,7 +21,7 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	@Transactional(readOnly=true)
 	public Report findById(long id) {
-		return reportDao.findOne(id);
+		return reportDao.findById(id).orElseThrow();
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class ReportServiceImpl implements ReportService {
 		
 		Predicate predicate = report.visite.id.eq(visiteId);
 		
-		return reportDao.findOne(predicate);
+		return reportDao.findOne(predicate).orElseThrow();
 	}
 
 }
