@@ -10,7 +10,7 @@ import { AuthenticationService } from '@weflat/app/core/services/authentication.
 import { ReportService } from '@weflat/app/shared/services/report.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
-import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-report-edit',

@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { SigninModalComponent } from '@weflat/app/core/components/common/signin-modal/signin-modal.component';
 import { AuthenticationService } from '@weflat/app/core/services/authentication.service';

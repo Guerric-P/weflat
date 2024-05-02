@@ -7,7 +7,7 @@ import { ShowSigninPopupService } from '@weflat/app/core/services/show-signin-po
 import { Constantes } from '@weflat/app/shared/common/Constantes';
 import { Subscription } from 'rxjs';
 import { MatExpansionPanel } from '@angular/material/expansion';
-import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-navigation',

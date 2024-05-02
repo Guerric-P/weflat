@@ -18,9 +18,9 @@ import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as IBAN from 'iban';
 import * as moment from 'moment';
-import { MatLegacyChipList as MatChipList } from '@angular/material/legacy-chips';
+import { MatChipListbox } from '@angular/material/chips';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 declare var google;
 
@@ -41,7 +41,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   dateNow = moment().format('YYYY-MM-DD');
   @ViewChild('googleMap') googleMap: ElementRef;
   @ViewChild('zipCodeInput') zipCodeInput: ElementRef;
-  @ViewChild('zipCodesList') zipCodesList: MatChipList;
+  @ViewChild('zipCodesList') zipCodesList: MatChipListbox;
   index = 0;
   zipCodes: ZipCodeClass[] = [];
   visible = true;
@@ -286,7 +286,7 @@ export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
   onSubmit() {
     const formModel = this.form.value;
 
-    if (!this.form.invalid && this.zipCodesList.chips && this.zipCodesList.chips.length) {
+    if (!this.form.invalid && this.zipCodesList.selected && this.zipCodesList.selected instanceof Array && this.zipCodesList.selected.length) {
 
       const architect = new ArchitectClass({
         firstName: formModel.firstName,

@@ -3,7 +3,7 @@ import { HelpHowToVisitModalComponent } from '@weflat/app/architect/components/h
 import { VisitClass } from '@weflat/app/core/models/VisitClass';
 import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
 import { VisitService } from '@weflat/app/shared/services/visit.service';
-import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-visits',
