@@ -5,6 +5,9 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+    
+env:
+  CR_PAT: ${{secrets.TOKEN}}
 
 jobs:
 
@@ -14,9 +17,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Docker login
+      run: echo $CR_PAT | docker login ghcr.io -u Guerric-P --password-stdin
     - name: Build the frontend
       working-directory: frontend
-      run: docker build . --file Dockerfile --tag frontend:dev
+      run: docker build . --file Dockerfile --tag ghcr.io/Guerric-P/frontend:dev && docker push ghcr.io/Guerric-P/frontend:dev
     - name: Build the backend
       working-directory: backend
-      run: docker build . --file Dockerfile --tag backend:dev
+      run: docker build . --file Dockerfile --tag ghcr.io/Guerric-P/backend:dev && docker push ghcr.io/Guerric-P/backend:dev
