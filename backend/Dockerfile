@@ -2,7 +2,7 @@ FROM maven:3.9.6 as build-stage
 WORKDIR /app
 COPY ./ /app/
 ARG profile
-RUN mvn clean install spring-boot:repackage -Dmaven.test.skip=true -P $profile
+RUN mvn clean install spring-boot:repackage -Dmaven.test.skip=true -P production
 
 FROM amazoncorretto:21
 
