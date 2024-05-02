@@ -3,7 +3,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { isPlatformBrowser } from '@angular/common';
 import { interval } from 'rxjs';
-import { first, switchMap } from 'rxjs/operators';
+import { filter, first, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,10 @@ export class UpdateService {
     appRef: ApplicationRef
   ) {
     if (isPlatformBrowser(platformId)) {
-      this.swUpdate.available.subscribe(() => {
+      this.swUpdate.versionUpdates.pipe(
+        filter(x => x.type === 'VERSION_READY')
+      )
+      .subscribe(() => {
         const snack = this.snackbar.open('Nouvelle version disponible', 'Actualiser');
 
         snack.onAction().subscribe(() => {

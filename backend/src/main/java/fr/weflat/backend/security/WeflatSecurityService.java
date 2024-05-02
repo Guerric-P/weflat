@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.weflat.backend.domaine.Visit;
 import fr.weflat.backend.service.UserService;
 import fr.weflat.backend.service.VisitService;
 
-@Component("weflatSecurityService")
+@Service
 @Transactional
 public class WeflatSecurityService {
 	

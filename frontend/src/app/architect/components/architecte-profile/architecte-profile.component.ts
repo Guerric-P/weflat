@@ -17,7 +17,7 @@ import { UserService } from '@weflat/app/shared/services/user.service';
 import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
 import { NotificationsService } from 'angular2-notifications';
 import * as IBAN from 'iban';
-import * as moment from 'moment';
+import moment from 'moment';
 import { MatChipListbox } from '@angular/material/chips';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';

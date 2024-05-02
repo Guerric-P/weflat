@@ -5,7 +5,7 @@ import { map, catchError, timeout, tap } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
 import { isPlatformBrowser } from '@angular/common';
 import { Request, Response } from 'express';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
+import { REQUEST, RESPONSE } from '../../../express.tokens';
 
 @Injectable()
 export class AuthenticationService {

@@ -9,7 +9,7 @@ import { ReportClass } from '@weflat/app/core/models/ReportClass';
 import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
 import { ReportService } from '@weflat/app/shared/services/report.service';
 import { NotificationsService } from 'angular2-notifications';
-import * as moment from 'moment';
+import moment from 'moment';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({

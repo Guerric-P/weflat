@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Optional, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RESPONSE, REQUEST } from '@nguniversal/express-engine/tokens';
+import { RESPONSE, REQUEST } from '../../../express.tokens';
 import { Response, Request } from 'express';
 
 @Component({

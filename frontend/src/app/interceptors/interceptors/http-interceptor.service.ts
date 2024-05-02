@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable, Injector, Optional } from '@angular/core';
 import { Router } from '@angular/router';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { REQUEST } from '../../../express.tokens';
 import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
 import { environment } from '@weflat/environments/environment';
 import { Request } from 'express';

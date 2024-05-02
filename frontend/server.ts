@@ -1,79 +1,59 @@
-import { APP_BASE_HREF } from '@angular/common';
-import { ngExpressEngine } from '@nguniversal/express-engine';
-import * as bodyParser from 'body-parser';
-import * as cookieparser from 'cookie-parser';
-import * as express from 'express';
-import { join } from 'path';
-import * as request from 'request';
+
 import 'zone.js/node';
-import { AppServerModule } from './src/main.server';
 
-
+import { APP_BASE_HREF } from '@angular/common';
+import { CommonEngine } from '@angular/ssr';
+import * as express from 'express';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import bootstrap from './src/main.server';
+import { REQUEST, RESPONSE } from './src/express.tokens';
 
 // The Express app is exported so that it can be used by serverless Functions.
-export function app() {
+export function app(): express.Express {
   const server = express();
-  server.use(bodyParser.json());
-  server.use(cookieparser());
-
   const distFolder = join(process.cwd(), 'dist/browser');
+  const indexHtml = existsSync(join(distFolder, 'index.original.html'))
+    ? join(distFolder, 'index.original.html')
+    : join(distFolder, 'index.html');
 
-  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-  server.engine('html', ngExpressEngine({
-    bootstrap: AppServerModule,
-  }));
+  const commonEngine = new CommonEngine();
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
   // Example Express Rest API endpoints
-  // app.get('/api/**', (req, res) => { });
+  // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
   server.get('*.*', express.static(distFolder, {
     maxAge: '1y'
   }));
 
-  server.all('/backend/*', (req, res) => {
-    const newurl = 'http://' + req.hostname + req.path;
-    const cookies = [];
-    for (const name in req.cookies) {
-      if (req.cookies.hasOwnProperty(name)) {
-        cookies.push(`${name}=${req.cookies[name]}`);
-      }
-    }
-    const serializedCookies = cookies.join('; ');
-  
-    request(
-      {
-        method: req.method,
-        uri: newurl,
-        json: true,
-        body: req.body,
-        headers: { 'Cookie': serializedCookies }
+  // All regular routes use the Angular engine
+  server.get('*', (req, res, next) => {
+    const { protocol, originalUrl, baseUrl, headers } = req;
+
+    commonEngine
+      .render({
+        bootstrap,
+        documentFilePath: indexHtml,
+        url: `${protocol}://${headers.host}${originalUrl}`,
+        publicPath: distFolder,
+        providers: [
+          { provide: APP_BASE_HREF, useValue: baseUrl },
+          { provide: RESPONSE, useValue: res },
+          { provide: REQUEST, useValue: req }
+],
       })
-      .pipe(res);
-  });
-  
-  // All regular routes use the Universal engine
-  server.get('*', (req, res) => {
-    res.render(
-      'index', {
-        req,
-        res,
-        providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }]
-      },
-      (err, html) => {
-        if (err) { console.error(err); }
-        res.send(html);
-      }
-    );
+      .then((html) => res.send(html))
+      .catch((err) => next(err));
   });
 
   return server;
 }
 
-function run() {
-  const port = process.env.PORT || 4000;
+function run(): void {
+  const port = process.env['PORT'] || 4000;
 
   // Start up the Node server
   const server = app();
@@ -87,9 +67,9 @@ function run() {
 // The below code is to ensure that the server is run only when not requiring the bundle.
 declare const __non_webpack_require__: NodeRequire;
 const mainModule = __non_webpack_require__.main;
-if (mainModule && mainModule.filename === __filename) {
+const moduleFilename = mainModule && mainModule.filename || '';
+if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
   run();
 }
 
-export * from './src/main.server';
-
+export default bootstrap;

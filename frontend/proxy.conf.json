@@ -1,8 +1,11 @@
 {
-    "/backend/*":{
-        "target": "https://weflat.westeurope.cloudapp.azure.com/",
+    "/backend/**":{
+        "target": "http://localhost:8080",
         "secure": false,
         "logLevel": "debug",
-        "changeOrigin": true
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/backend": ""
+         }
     }
 }

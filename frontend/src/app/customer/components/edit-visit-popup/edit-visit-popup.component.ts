@@ -9,7 +9,7 @@ import { GooglePlaceKeys } from '@weflat/app/shared/common/GooglePlaceKeys';
 import { values } from '@weflat/app/shared/common/TimeDropDownValues';
 import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { ZipCodeService } from '@weflat/app/shared/services/zip-code.service';
-import * as moment from 'moment';
+import moment from 'moment';
 
 declare var google;
 
@@ -25,7 +25,7 @@ export class EditVisitPopupComponent implements OnInit, OnDestroy {
   @ViewChild('addressInput', { static: true }) addressInput: ElementRef;
   @Output() onUpdate = new EventEmitter<VisitClass>();
   mutationObserver: MutationObserver;
-  minDate = moment().add(1, 'days').toDate();
+  minDate = moment(1, 'days').toDate();
 
   times = values;
 
