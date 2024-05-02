@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	@Transactional(readOnly=true)
 	public Customer findById(Long id) {
-		return customerDao.findOne(id);
+		return customerDao.findById(id).orElseThrow();
 	}
 
 	@Override

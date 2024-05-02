@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.StreamSupport;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,8 +91,8 @@ public class VisitServiceImpl implements VisitService {
 
 	@Override
 	public void accept(Long visitId, Long architectId) throws Exception {
-		Visit visit = visitDao.findOne(visitId);
-		Architect architect = architecteDao.findOne(architectId);
+		Visit visit = visitDao.findById(visitId).orElseThrow();
+		Architect architect = architecteDao.findById(architectId).orElseThrow();
 
 		if(visit.getNearbyArchitects().stream().anyMatch(x -> x.getId().equals(architectId))) {
 			if(visit.getArchitect() == null) {
@@ -113,7 +113,7 @@ public class VisitServiceImpl implements VisitService {
 
 	@Override
 	public void refuse(Long visitId, Long architectId) throws Exception  {
-		Architect architecte = architecteDao.findOne(architectId);
+		Architect architecte = architecteDao.findById(architectId).orElseThrow();
 
 		architecte.getPotentialVisits().removeIf(x -> x.getId().equals(visitId));
 
@@ -203,7 +203,7 @@ public class VisitServiceImpl implements VisitService {
 	@Override
 	@Transactional(readOnly=true)
 	public Visit findById(Long id) {
-		return visitDao.findOne(id);
+		return visitDao.findById(id).orElseThrow();
 	}
 
 	@Override
@@ -562,7 +562,7 @@ public class VisitServiceImpl implements VisitService {
 
 	@Override
 	public void delete(Long id) {
-		visitDao.delete(id);
+		visitDao.deleteById(id);
 
 	}
 

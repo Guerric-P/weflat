@@ -3,15 +3,10 @@ package fr.weflat.backend.web.controller;
 import java.util.List;
 import java.util.Set;
 
-import javax.ws.rs.Produces;
+import jakarta.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.weflat.backend.domaine.Architect;
 import fr.weflat.backend.domaine.User;
@@ -52,27 +47,27 @@ public class ArchitectController {
 	@Autowired
 	MailService mailService;
 
-	@RequestMapping(path="/{id}/zip-codes", method=RequestMethod.POST)
-	public void setZipCodes(@PathVariable("id") long id, @RequestBody Set<ZipCodeDto> input) {
+	@PostMapping("/{id}/zip-codes")
+	public void setZipCodes(@PathVariable long id, @RequestBody Set<ZipCodeDto> input) {
 		architectService.saveZipCodesForArchitecte(orikaMapperFacade.mapAsList(input, ZipCode.class), id);
 	}
 
-	@RequestMapping(path="/{id}/zip-codes", method=RequestMethod.GET)
-	public List<ZipCodeDto> getZipCodes(@PathVariable("id") long id) {	
+	@GetMapping("/{id}/zip-codes")
+	public List<ZipCodeDto> getZipCodes(@PathVariable long id) {	
 		return orikaMapperFacade.mapAsList(architectService.findById(id).getZipCodes(), ZipCodeDto.class);
 	}
 
-	@RequestMapping(path="/{id}", method=RequestMethod.GET)
-	public @ResponseBody ArchitectDto getArchitecte(@PathVariable("id") long id) {
+	@GetMapping("/{id}")
+	public @ResponseBody ArchitectDto getArchitecte(@PathVariable long id) {
 		return orikaMapperFacade.map(architectService.findById(id), ArchitectDto.class);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@GetMapping
 	public @ResponseBody List<ArchitectDto> getAll() {
 		return orikaMapperFacade.mapAsList(architectService.findAll(), ArchitectDto.class);
 	}
 
-	@RequestMapping(path="", method=RequestMethod.POST)
+	@PostMapping("")
 	public ArchitectDto postArchitecte(@RequestBody UserSignupDto input) throws Exception {
 		
 		User user = userService.findByEmail(input.getEmail());
@@ -99,8 +94,8 @@ public class ArchitectController {
 		
 	}
 
-	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
-	public ArchitectDto patchArchitecte(@PathVariable("id") long id, @RequestBody ArchitectDto input) {
+	@PatchMapping("/{id}")
+	public ArchitectDto patchArchitecte(@PathVariable long id, @RequestBody ArchitectDto input) {
 
 		Architect architect = architectService.findById(id);
 		orikaMapperFacade.map(input, architect);
@@ -108,46 +103,46 @@ public class ArchitectController {
 
 	}
 
-	@RequestMapping(path = "/{id}/visits/available", method = RequestMethod.GET)
-	public List<VisiteDto> getVisites(@PathVariable("id") long id) {
+	@GetMapping("/{id}/visits/available")
+	public List<VisiteDto> getVisites(@PathVariable long id) {
 		Set<Visit> visits = visitService.findAvailableVisitsByArchitectId(id);
 
 		return orikaMapperFacade.mapAsList(visits, VisiteDto.class);
 	}
 
-	@RequestMapping(path = "/{id}/visits/planned", method = RequestMethod.GET)
-	public List<VisiteDto> getPlannedVisites(@PathVariable("id") long id) {
+	@GetMapping("/{id}/visits/planned")
+	public List<VisiteDto> getPlannedVisites(@PathVariable long id) {
 		Set<Visit> visits = visitService.findPlannedVisitsByArchitectId(id);
 
 		return orikaMapperFacade.mapAsList(visits, VisiteDto.class);
 	}
 
-	@RequestMapping(path = "/{id}/visits/report-pending", method = RequestMethod.GET)
-	public List<VisiteDto> getReportPendingVisites(@PathVariable("id") long id) {
+	@GetMapping("/{id}/visits/report-pending")
+	public List<VisiteDto> getReportPendingVisites(@PathVariable long id) {
 		Set<Visit> visits = visitService.findReportPendingVisitsByArchitectId(id);
 
 		return orikaMapperFacade.mapAsList(visits, VisiteDto.class);
 	}
 
-	@RequestMapping(path = "/{id}/visits/report-written", method = RequestMethod.GET)
-	public List<VisiteDto> getReportWrittenVisites(@PathVariable("id") long id) {
+	@GetMapping("/{id}/visits/report-written")
+	public List<VisiteDto> getReportWrittenVisites(@PathVariable long id) {
 		Set<Visit> visits = visitService.findReportWrittenVisitsByArchitectId(id);
 
 		return orikaMapperFacade.mapAsList(visits, VisiteDto.class);
 	}
 	
-	@RequestMapping(path = "/{id}/accept", method= RequestMethod.POST)
-	public void acceptArchitect(@PathVariable("id") long id) throws Exception {
+	@PostMapping("/{id}/accept")
+	public void acceptArchitect(@PathVariable long id) throws Exception {
 		architectService.accept(id);
 	}
 	
-	@RequestMapping(path = "/{id}/refuse", method= RequestMethod.POST)
-	public void refuseArchitect(@PathVariable("id") long id) throws Exception {
+	@PostMapping("/{id}/refuse")
+	public void refuseArchitect(@PathVariable long id) throws Exception {
 		architectService.refuse(id);
 	}
 	
-	@RequestMapping(path = "/{id}/dashboard", method=RequestMethod.GET)
-	public DashboardDto getDashboard(@PathVariable("id") long id) {
+	@GetMapping("/{id}/dashboard")
+	public DashboardDto getDashboard(@PathVariable long id) {
 		
 		DashboardDto dto = new DashboardDto();
 		dto.setAmountEarned(visitService.getAmountEarned(id));

@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.hibernate.collection.internal.PersistentSet;
+import org.hibernate.collection.spi.PersistentSet;
 import org.springframework.stereotype.Component;
 
 import fr.weflat.backend.configuration.orika.OrikaMapperFactoryConfigurer;

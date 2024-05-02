@@ -1,14 +1,9 @@
 package fr.weflat.backend.web.controller;
 
-import javax.ws.rs.Produces;
+import jakarta.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.weflat.backend.service.UserService;
 import fr.weflat.backend.web.dto.PasswordDto;
@@ -41,7 +36,7 @@ public class UserController {
 		return orikaMapperFacade.map(utilisateurService.findById(id), UtilisateurDto.class);
 	}*/
 	
-	@RequestMapping(path= "/forgotten-password", method = RequestMethod.POST)
+	@PostMapping("/forgotten-password")
 	public void passwordForgotten(@RequestParam String email) throws Exception {
 		if(email == null || email.length() == 0) {
 			throw new Exception("Email parameter is required");
@@ -51,7 +46,7 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(path= "/reset-password", method = RequestMethod.POST)
+	@PostMapping("/reset-password")
 	public void resetPassword(@RequestParam String hash, @RequestParam String password) throws Exception {
 		if(hash == null || hash.length() == 0) {
 			throw new Exception("Hash parameter is required");
@@ -64,7 +59,7 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(path = "/{id}/password", method = RequestMethod.PUT)
+	@PutMapping("/{id}/password")
 	public void changePassword(@PathVariable long id, @RequestBody PasswordDto input) {
 		userService.changePassword(id, input.getPassword());
 	}

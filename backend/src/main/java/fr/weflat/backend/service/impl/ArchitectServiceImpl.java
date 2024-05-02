@@ -44,7 +44,7 @@ public class ArchitectServiceImpl implements ArchitectService {
 	@Override
 	@Transactional(readOnly=true)
 	public Architect findById(long id) {
-		return architectDao.findOne(id);
+		return architectDao.findById(id).orElseThrow();
 	}
 
 	@Override

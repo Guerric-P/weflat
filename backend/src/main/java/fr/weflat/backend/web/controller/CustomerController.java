@@ -3,14 +3,10 @@ package fr.weflat.backend.web.controller;
 import java.util.List;
 import java.util.Set;
 
-import javax.ws.rs.Produces;
+import jakarta.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.weflat.backend.domaine.Customer;
 import fr.weflat.backend.domaine.User;
@@ -43,7 +39,7 @@ public class CustomerController {
 	@Autowired
 	MailService mailService;
 
-	@RequestMapping(path="", method=RequestMethod.POST)
+	@PostMapping("")
 	public CustomerDto postAcheteur(@RequestBody UserSignupDto input) throws Exception {
 		
 		User user = userService.findByEmail(input.getEmail());
@@ -67,55 +63,55 @@ public class CustomerController {
 		}
 	}
 
-	@RequestMapping(path="/{id}", method= RequestMethod.GET)
-	public CustomerDto getAcheteur(@PathVariable("id") long id) {
+	@GetMapping("/{id}")
+	public CustomerDto getAcheteur(@PathVariable long id) {
 		return orikaMapperFacade.map(customerService.findById(id), CustomerDto.class);
 	}
 
-	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
-	public CustomerDto patchAcheteur(@PathVariable("id") long id, @RequestBody CustomerDto input) {
+	@PatchMapping("/{id}")
+	public CustomerDto patchAcheteur(@PathVariable long id, @RequestBody CustomerDto input) {
 		Customer acheteur = customerService.findById(id);
 		orikaMapperFacade.map(input, acheteur);
 		return orikaMapperFacade.map(customerService.save(acheteur), CustomerDto.class);
 	}
 	
-	@RequestMapping(path="/{id}/visits/waiting-for-payment", method= RequestMethod.GET)
-	public List<VisiteDto> getWaitingForPaymentVisits(@PathVariable("id") long id) {
+	@GetMapping("/{id}/visits/waiting-for-payment")
+	public List<VisiteDto> getWaitingForPaymentVisits(@PathVariable long id) {
 		Set<Visit> visites = visitService.findWaitingForPaymentVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 	
-	@RequestMapping(path="/{id}/visits/being-assigned", method= RequestMethod.GET)
-	public List<VisiteDto> getBeingAssignedVisits(@PathVariable("id") long id) {
+	@GetMapping("/{id}/visits/being-assigned")
+	public List<VisiteDto> getBeingAssignedVisits(@PathVariable long id) {
 		Set<Visit> visites = visitService.findBeingAssignedVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 	
-	@RequestMapping(path="/{id}/visits/in-progress", method= RequestMethod.GET)
-	public List<VisiteDto> getInProgressVisits(@PathVariable("id") long id) {
+	@GetMapping("/{id}/visits/in-progress")
+	public List<VisiteDto> getInProgressVisits(@PathVariable long id) {
 		Set<Visit> visites = visitService.findInProgressVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 	
-	@RequestMapping(path="/{id}/visits/report-being-written", method= RequestMethod.GET)
-	public List<VisiteDto> getReportBeingWrittenVisits(@PathVariable("id") long id) {
+	@GetMapping("/{id}/visits/report-being-written")
+	public List<VisiteDto> getReportBeingWrittenVisits(@PathVariable long id) {
 		Set<Visit> visites = visitService.findReportBeingWrittenVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 	
-	@RequestMapping(path="/{id}/visits/report-written", method= RequestMethod.GET)
-	public List<VisiteDto> getReportWrittenVisits(@PathVariable("id") long id) {
+	@GetMapping("/{id}/visits/report-written")
+	public List<VisiteDto> getReportWrittenVisits(@PathVariable long id) {
 		Set<Visit> visites = visitService.findReportWrittenVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);
 	}
 	
-	@RequestMapping(path="/{id}/visits/planned", method= RequestMethod.GET)
-	public List<VisiteDto> getPlannedVisits(@PathVariable("id") long id) {
+	@GetMapping("/{id}/visits/planned")
+	public List<VisiteDto> getPlannedVisits(@PathVariable long id) {
 		Set<Visit> visites = visitService.findPlannedVisitsByAcheteurId(id);
 
 		return orikaMapperFacade.mapAsList(visites, VisiteDto.class);

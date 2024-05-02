@@ -7,12 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.github.seratch.jslack.*;
 import com.github.seratch.jslack.api.webhook.*;
+import jakarta.annotation.PostConstruct;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-
-import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

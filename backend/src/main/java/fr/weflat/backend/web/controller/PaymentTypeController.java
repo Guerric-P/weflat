@@ -2,11 +2,11 @@ package fr.weflat.backend.web.controller;
 
 import java.util.List;
 
-import javax.ws.rs.Produces;
+import jakarta.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.weflat.backend.service.PaymentTypeService;
@@ -23,7 +23,7 @@ public class PaymentTypeController {
 	@Autowired
 	MapperFacade orikaMapperFacade;
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@GetMapping
     public List<PaymentTypeDto> getAll() {
 		return orikaMapperFacade.mapAsList(paymentTypeService.findAll(), PaymentTypeDto.class);
 	}

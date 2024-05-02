@@ -4,15 +4,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.ws.rs.Produces;
+import jakarta.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.weflat.backend.domaine.ZipCode;
 import fr.weflat.backend.service.ZipCodeService;
@@ -29,8 +24,8 @@ public class ZipCodeController {
 	@Autowired
 	ZipCodeService zipCodeService;
 	
-	@RequestMapping(path="/{id}", method=RequestMethod.PATCH)
-	public void patchZipCode(@PathVariable("id") long id, @RequestBody ZipCodeDto input) {
+	@PatchMapping("/{id}")
+	public void patchZipCode(@PathVariable long id, @RequestBody ZipCodeDto input) {
 		ZipCode zipCode = zipCodeService.findById(id);
 		if(zipCode == null) {
 			zipCode = new ZipCode();
@@ -42,17 +37,17 @@ public class ZipCodeController {
 		zipCodeService.save(zipCode);
 	}
 	
-	@RequestMapping(path="/{id}", method=RequestMethod.DELETE)
-	public void deleteZipCode(@PathVariable("id") long id) {
+	@DeleteMapping("/{id}")
+	public void deleteZipCode(@PathVariable long id) {
 		zipCodeService.deleteById(id);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, params="!bulk")
+	@PostMapping( params="!bulk")
 	public Object postZipCodeBulkParamNotPresent(@RequestBody ZipCodeDto input) {
 		return postZipCodeBulkParamFalse(input);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, params="bulk=false")
+	@PostMapping( params="bulk=false")
 	public Object postZipCodeBulkParamFalse(@RequestBody ZipCodeDto input) {
 
 		return orikaMapperFacade.map(
@@ -62,7 +57,7 @@ public class ZipCodeController {
 				);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, params="bulk=true")
+	@PostMapping( params="bulk=true")
 	public List<ZipCodeDto> bulkPostZipCodes(@RequestBody List<ZipCodeDto> input) throws Exception {
 
 		//Custom mapping to bypass the Orika mapping designed to prevent insertions from non-admin users
@@ -72,7 +67,7 @@ public class ZipCodeController {
 
 	}
 	
-	@RequestMapping(path="/details", method=RequestMethod.POST)
+	@PostMapping("/details")
 	public List<ZipCodeDto> checkZipCodesStatus(@RequestBody Set<ZipCodeDto> input) {
 		return orikaMapperFacade.mapAsList(
 				zipCodeService
@@ -84,7 +79,7 @@ public class ZipCodeController {
 				);
 	}
 	
-	@RequestMapping(path="/search", method=RequestMethod.GET)
+	@GetMapping("/search")
 	public List<ZipCodeDto> search(@RequestParam() String query) {
 		return orikaMapperFacade.mapAsList(
 				zipCodeService
