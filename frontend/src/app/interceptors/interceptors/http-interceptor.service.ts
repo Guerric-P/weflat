@@ -19,15 +19,19 @@ export class WeflatInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authService = this.injector.get(AuthenticationService);
-	const url = (this.request ? environment.backendUrl : environment.baseBackendUrl) + req.url;
+    const url = (this.request ? environment.backendUrl : environment.baseBackendUrl) + req.url;
 
     let headers = req.headers;
 
     if (this.request) {
       // Server side: forward the cookies
       const cookies = this.request.cookies;
-      const cookiesArray = Object.entries(cookies).map(([key, val]) => `${key}=${val}`);
-      headers = headers.append('Cookie', cookiesArray.join('; '));
+
+      if (cookies) {
+        const cookiesArray = Object.entries(cookies).map(([key, val]) => `${key}=${val}`);
+        headers = headers.append('Cookie', cookiesArray.join('; '));
+      }
+
     }
 
     headers = headers.append('Content-Type', 'application/json');

@@ -117,8 +117,7 @@ export class AuthenticationService {
                 return parts.pop().split(';').shift();
             }
         } else {
-            const cookie = this.request.cookies[name];
-            return cookie;
+            return this.request.cookies?.[name];
         }
     }
 

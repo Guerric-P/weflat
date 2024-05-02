@@ -3,7 +3,7 @@ WORKDIR /app
 COPY ./ /app/
 ARG environment
 RUN npm install
-RUN npm run build:ssr:$environment
+RUN npm run build:ssr:production
 
 FROM node:20-alpine
 
