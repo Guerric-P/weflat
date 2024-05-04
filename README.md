@@ -8,7 +8,6 @@ It features:
  - Angular 17 frontend (PWA in french language and server-side rendered)
  - Apache 2.4 reverse proxy
  - Kubernetes deployment mode
- - CircleCI continuous integration/delivery
  
 It uses Stripe as payment service, and GMail as mail provider (for user notifications).
 
