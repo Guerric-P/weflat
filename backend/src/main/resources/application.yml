@@ -4,6 +4,10 @@ spring:
     password: weflat
     username: weflat
     url: jdbc:postgresql://localhost:5432/weflat
+#    driver-class-name: org.postgresql.Driver
+#    password: tvM9#!)#Sq:l%_s21NpAM27ogOL3
+#    username: weflat
+#    url: jdbc:postgresql://database-1.crwc224geg3s.eu-west-3.rds.amazonaws.com:5432/postgres
   web:
     resources:
       add-mappings: false
@@ -46,5 +50,3 @@ fr:
       service-account: weflat-service@weflat-185909.iam.gserviceaccount.com
     architect-remuneration: '8000'
     app-url: http://localhost:4200
-
-server.error.include-message: always

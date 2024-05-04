@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import localeFr from '@angular/common/locales/fr';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
@@ -9,6 +9,7 @@ import { AppComponent } from '@weflat/app/app.component';
 import { CoreModule } from '@weflat/app/core/core.module';
 import { InterceptorsModule } from '@weflat/app/interceptors/interceptors.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { csrfInterceptor } from './interceptors/interceptors/csrf-interceptor.service';
 
 registerLocaleData(localeFr);
 
@@ -30,7 +31,7 @@ registerLocaleData(localeFr);
       useValue: 'fr'
     },
     provideClientHydration(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([csrfInterceptor]), withInterceptorsFromDi()),
   ],
   bootstrap: [AppComponent]
 })

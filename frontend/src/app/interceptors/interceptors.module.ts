@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { CsrfInterceptor } from '@weflat/app/interceptors/interceptors/csrf-interceptor.service';
 import { WeflatInterceptor } from '@weflat/app/interceptors/interceptors/http-interceptor.service';
 
 @NgModule({
@@ -10,11 +9,6 @@ import { WeflatInterceptor } from '@weflat/app/interceptors/interceptors/http-in
     CommonModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: CsrfInterceptor,
-      multi: true,
-    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: WeflatInterceptor,

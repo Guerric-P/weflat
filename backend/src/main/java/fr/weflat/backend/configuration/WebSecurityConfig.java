@@ -50,7 +50,6 @@ public class WebSecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, SecurityExpressionHandler<RequestAuthorizationContext> requestAuthorizationContextSecurityExpressionHandler) throws Exception {
-        CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
         WebExpressionAuthorizationManager userAuthorisationManager = new WebExpressionAuthorizationManager("@weflatSecurityService.hasAccessToUser(authentication,#userId)");
         WebExpressionAuthorizationManager architectAuthorisationManager = new WebExpressionAuthorizationManager("@weflatSecurityService.hasAccessToArchitect(authentication,#architectId)");
         WebExpressionAuthorizationManager customerAuthorisationManager = new WebExpressionAuthorizationManager("@weflatSecurityService.hasAccessToCustomer(authentication,#customerId)");
@@ -61,7 +60,7 @@ public class WebSecurityConfig {
         visitAuthorisationManager.setExpressionHandler(requestAuthorizationContextSecurityExpressionHandler);
 
         http.csrf((csrf) -> csrf
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .csrfTokenRepository(this.getCsrfTokenRepository())
                         .csrfTokenRequestHandler(new SpaCsrfTokenRequestHandler())
                 ).authorizeHttpRequests(requests -> requests
                         .requestMatchers(HttpMethod.POST, "/architects", "/customers", "/visits").permitAll()// Signup and anonymous visit creation
