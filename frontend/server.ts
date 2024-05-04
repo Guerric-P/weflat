@@ -43,7 +43,7 @@ export function app(): express.Express {
           { provide: APP_BASE_HREF, useValue: baseUrl },
           { provide: RESPONSE, useValue: res },
           { provide: REQUEST, useValue: req }
-],
+        ],
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));

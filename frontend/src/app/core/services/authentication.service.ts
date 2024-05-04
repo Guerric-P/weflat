@@ -109,15 +109,10 @@ export class AuthenticationService {
     }
 
     getCookie(name) {
-        let value;
-        if (this.isBrowser) {
-            value = '; ' + document.cookie;
-            const parts = value.split('; ' + name + '=');
-            if (parts.length === 2) {
-                return parts.pop().split(';').shift();
-            }
-        } else {
-            return this.request.cookies?.[name];
+        const value = '; ' + (this.isBrowser ? document.cookie : this.request.headers.cookie);
+        const parts = value.split('; ' + name + '=');
+        if (parts.length === 2) {
+            return parts.pop().split(';').shift();
         }
     }
 
