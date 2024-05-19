@@ -7,7 +7,7 @@ import express from 'express';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { REQUEST, RESPONSE } from './src/express.tokens';
-import { AppServerModule } from './src/app/app.server.module';
+import AppServerModule from './src/app/app.server.module';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -62,14 +62,7 @@ function run(): void {
   });
 }
 
-// Webpack will replace 'require' with '__webpack_require__'
-// '__non_webpack_require__' is a proxy to Node 'require'
-// The below code is to ensure that the server is run only when not requiring the bundle.
-declare const __non_webpack_require__: NodeRequire;
-const mainModule = __non_webpack_require__.main;
-const moduleFilename = mainModule && mainModule.filename || '';
-if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
-  run();
-}
+run();
+
 
 export default AppServerModule;

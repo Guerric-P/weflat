@@ -10,4 +10,4 @@ import { AppModule } from '@weflat/app/app.module';
 ],
   bootstrap: [AppComponent]
 })
-export class AppServerModule { }
+export default class AppServerModule { }
