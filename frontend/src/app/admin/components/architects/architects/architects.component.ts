@@ -4,9 +4,10 @@ import { findIndexById } from '@weflat/app/core/utils/arrayUtils';
 import { ArchitectService } from '@weflat/app/shared/services/architecte.service';
 
 @Component({
-  selector: 'app-architects',
-  templateUrl: './architects.component.html',
-  styleUrls: ['./architects.component.scss']
+    selector: 'app-architects',
+    templateUrl: './architects.component.html',
+    styleUrls: ['./architects.component.scss'],
+    standalone: false
 })
 export class ArchitectsComponent implements OnInit {
 

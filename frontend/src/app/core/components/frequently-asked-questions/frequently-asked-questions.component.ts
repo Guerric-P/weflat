@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-frequently-asked-questions',
-  templateUrl: './frequently-asked-questions.component.html',
-  styleUrls: ['./frequently-asked-questions.component.scss']
+    selector: 'app-frequently-asked-questions',
+    templateUrl: './frequently-asked-questions.component.html',
+    styleUrls: ['./frequently-asked-questions.component.scss'],
+    standalone: false
 })
 export class FrequentlyAskedQuestionsComponent implements OnInit {
 

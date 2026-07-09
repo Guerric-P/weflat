@@ -10,9 +10,10 @@ import { NotificationsService } from 'angular2-notifications';
 import moment from 'moment';
 
 @Component({
-  selector: 'app-acheteur-profile',
-  templateUrl: './acheteur-profile.component.html',
-  styleUrls: ['./acheteur-profile.component.scss']
+    selector: 'app-acheteur-profile',
+    templateUrl: './acheteur-profile.component.html',
+    styleUrls: ['./acheteur-profile.component.scss'],
+    standalone: false
 })
 export class AcheteurProfileComponent implements OnInit {
 

@@ -4,9 +4,10 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 
 @Component({
-  selector: 'app-disabled-zip-code-popup',
-  templateUrl: './disabled-zip-code-popup.component.html',
-  styleUrls: ['./disabled-zip-code-popup.component.scss']
+    selector: 'app-disabled-zip-code-popup',
+    templateUrl: './disabled-zip-code-popup.component.html',
+    styleUrls: ['./disabled-zip-code-popup.component.scss'],
+    standalone: false
 })
 export class DisabledZipCodePopupComponent implements OnInit {
 

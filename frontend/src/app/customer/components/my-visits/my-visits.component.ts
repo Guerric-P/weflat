@@ -4,9 +4,10 @@ import { AuthenticationService } from '@weflat/app/core/services/authentication.
 import { VisitService } from '@weflat/app/shared/services/visit.service';
 
 @Component({
-  selector: 'app-my-visits',
-  templateUrl: './my-visits.component.html',
-  styleUrls: ['./my-visits.component.scss']
+    selector: 'app-my-visits',
+    templateUrl: './my-visits.component.html',
+    styleUrls: ['./my-visits.component.scss'],
+    standalone: false
 })
 export class MyVisitsComponent implements OnInit {
 

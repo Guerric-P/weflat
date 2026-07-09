@@ -20,13 +20,17 @@
         <div class="mat-control">
           <mat-form-field>
             <input type="email" matInput [(ngModel)]="data.email" required formControlName="email" placeholder="E-mail">
-            <mat-error *ngIf="registerForm.controls.email.hasError('pattern')">
-              Veuillez entrer une adresse e-mail valide.
-            </mat-error>
-            <mat-error *ngIf="registerForm.controls.email.hasError('required')">
-              L'adresse e-mail est
-              <strong>requise</strong>
-            </mat-error>
+            @if (registerForm.controls.email.hasError('pattern')) {
+              <mat-error>
+                Veuillez entrer une adresse e-mail valide.
+              </mat-error>
+            }
+            @if (registerForm.controls.email.hasError('required')) {
+              <mat-error>
+                L'adresse e-mail est
+                <strong>requise</strong>
+              </mat-error>
+            }
           </mat-form-field>
         </div>
       </div>
@@ -34,17 +38,21 @@
         <div class="mat-control">
           <mat-form-field>
             <input matInput [(ngModel)]="data.password" required type="password" formControlName="password" placeholder="Mot de passe">
-            <mat-error *ngIf="registerForm.controls.password.hasError('minlength')">
-              Veuillez saisir 6 caractères
-            </mat-error>
+            @if (registerForm.controls.password.hasError('minlength')) {
+              <mat-error>
+                Veuillez saisir 6 caractères
+              </mat-error>
+            }
           </mat-form-field>
         </div>
         <div class="mat-control">
           <mat-form-field>
             <input matInput required type="password" formControlName="verifyPassword" placeholder="Mot de passe">
-            <mat-error *ngIf="registerForm.controls.verifyPassword.hasError('verifyPasswordFailed')">
-              Le mot de passe ne correspond pas.
-            </mat-error>
+            @if (registerForm.controls.verifyPassword.hasError('verifyPasswordFailed')) {
+              <mat-error>
+                Le mot de passe ne correspond pas.
+              </mat-error>
+            }
           </mat-form-field>
         </div>
       </div>

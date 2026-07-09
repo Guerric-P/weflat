@@ -5,10 +5,12 @@
   <button class="ms-1" type="button" [disabled]="!changedZipCodes || !changedZipCodes.length" mat-raised-button (click)="validateClick()">{{ validateButtonLabel }}</button>
   <button class="ms-1" type="button" [disabled]="!changedZipCodes || !changedZipCodes.length" mat-raised-button (click)="cancelClick()">Annuler</button>
   <mat-list>
-    <mat-list-item *ngFor="let result of results; trackBy: trackByFn">
-      <app-zip-code [zipCode]="result" (deleted)="zipCodeDeleted($event)" (changed)="zipCodeChanged($event)"></app-zip-code>
-      <mat-divider></mat-divider>
-    </mat-list-item>
+    @for (result of results; track trackByFn($index, result)) {
+      <mat-list-item>
+        <app-zip-code [zipCode]="result" (deleted)="zipCodeDeleted($event)" (changed)="zipCodeChanged($event)"></app-zip-code>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    }
   </mat-list>
 </div>
 
@@ -19,7 +21,7 @@
     </button>
   </h5>
   <div mat-dialog-content>
-    Valider {{confirmLabel}} ? 
+    Valider {{confirmLabel}} ?
     Un mail sera envoyé aux architectes validés ayant au moins un des codes postaux activés dans leur profil.
   </div>
   <div mat-dialog-actions>

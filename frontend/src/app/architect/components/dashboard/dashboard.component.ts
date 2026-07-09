@@ -4,9 +4,10 @@ import { AuthenticationService } from '@weflat/app/core/services/authentication.
 import { ArchitectService } from '@weflat/app/shared/services/architecte.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss'],
+    standalone: false
 })
 export class DashboardComponent implements OnInit {
 

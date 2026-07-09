@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-help-report-edition-modal',
-  templateUrl: './help-report-edition-modal.component.html',
-  styleUrls: ['./help-report-edition-modal.component.scss']
+    selector: 'app-help-report-edition-modal',
+    templateUrl: './help-report-edition-modal.component.html',
+    styleUrls: ['./help-report-edition-modal.component.scss'],
+    standalone: false
 })
 export class HelpReportEditionModalComponent implements OnInit {
 

@@ -19,9 +19,10 @@ class ZipCodeErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-zip-codes',
-  templateUrl: './zip-codes.component.html',
-  styleUrls: ['./zip-codes.component.scss']
+    selector: 'app-zip-codes',
+    templateUrl: './zip-codes.component.html',
+    styleUrls: ['./zip-codes.component.scss'],
+    standalone: false
 })
 export class ZipCodesComponent implements OnInit {
 

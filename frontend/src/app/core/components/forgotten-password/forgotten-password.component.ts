@@ -4,9 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '@weflat/app/shared/services/user.service';
 
 @Component({
-  selector: 'app-forgotten-password',
-  templateUrl: './forgotten-password.component.html',
-  styleUrls: ['./forgotten-password.component.scss']
+    selector: 'app-forgotten-password',
+    templateUrl: './forgotten-password.component.html',
+    styleUrls: ['./forgotten-password.component.scss'],
+    standalone: false
 })
 export class ForgottenPasswordComponent implements OnInit {
 

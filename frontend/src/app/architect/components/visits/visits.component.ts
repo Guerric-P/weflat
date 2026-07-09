@@ -6,9 +6,10 @@ import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-visits',
-  templateUrl: './visits.component.html',
-  styleUrls: ['./visits.component.scss']
+    selector: 'app-visits',
+    templateUrl: './visits.component.html',
+    styleUrls: ['./visits.component.scss'],
+    standalone: false
 })
 export class VisitsComponent implements OnInit {
 

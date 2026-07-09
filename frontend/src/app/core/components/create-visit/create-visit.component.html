@@ -15,9 +15,11 @@
             </mat-form-field>
             <mat-form-field>
               <mat-select placeholder="Choisissez une heure..." formControlName="time">
-                <mat-option *ngFor="let time of times; let i = index;" [value]="i">
-                  {{ time.displayTime }}
-                </mat-option>
+                @for (time of times; track time; let i = $index) {
+                  <mat-option [value]="i">
+                    {{ time.displayTime }}
+                  </mat-option>
+                }
               </mat-select>
             </mat-form-field>
           </div>
@@ -28,10 +30,12 @@
       </div>
     </div>
   </mat-step>
-  <mat-step [completed]="authService.isLoggedIn" [optional]="false" *ngIf="displaySignupStep">
-    <ng-template matStepLabel>Qui êtes-vous ?</ng-template>
-    <app-register-acheteur [isEmbedded]="true"></app-register-acheteur>
-  </mat-step>
+  @if (displaySignupStep) {
+    <mat-step [completed]="authService.isLoggedIn" [optional]="false">
+      <ng-template matStepLabel>Qui êtes-vous ?</ng-template>
+      <app-register-acheteur [isEmbedded]="true"></app-register-acheteur>
+    </mat-step>
+  }
   <mat-step [stepControl]="projectFormGroup" #projectStep>
     <ng-template matStepLabel>Projet d'achat</ng-template>
     <div class="col">
@@ -50,7 +54,9 @@
         <div class="row justify-content-center align-items-center">
           <mat-form-field id="url">
             <input type="url" matInput placeholder="URL de l'annonce du bien que vous allez visiter" formControlName="announcementUrl">
-            <mat-error *ngIf="projectFormGroup.get('announcementUrl').invalid">Merci de renseigner l'adresse complète (ex: http://... ou https://...)</mat-error>
+            @if (projectFormGroup.get('announcementUrl').invalid) {
+              <mat-error>Merci de renseigner l'adresse complète (ex: http://... ou https://...)</mat-error>
+            }
           </mat-form-field>
         </div>
         <div class="row justify-content-center align-items-center">
@@ -113,7 +119,7 @@
         <div class="row row-cols-auto justify-content-center align-items-center mt-4">
           <button mat-raised-button matStepperPrevious class="me-1">Précédent</button>
           <button mat-raised-button color="primary" class="ms-1" appPayment [visitId]="visit.id" [price]="price" [email]="authService.userEmail" [disabled]="!(visitCreationComplete && architectsAvailable)"
-            (paymentDone)="paymentDone()">Payer</button>
+          (paymentDone)="paymentDone()">Payer</button>
         </div>
       </div>
     </div>

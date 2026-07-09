@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-help-how-to-visit-modal',
-  templateUrl: './help-how-to-visit-modal.component.html',
-  styleUrls: ['./help-how-to-visit-modal.component.scss']
+    selector: 'app-help-how-to-visit-modal',
+    templateUrl: './help-how-to-visit-modal.component.html',
+    styleUrls: ['./help-how-to-visit-modal.component.scss'],
+    standalone: false
 })
 export class HelpHowToVisitModalComponent implements OnInit {
 

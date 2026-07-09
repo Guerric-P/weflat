@@ -3,9 +3,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signup-modal',
-  templateUrl: './signup-modal.component.html',
-  styleUrls: ['./signup-modal.component.scss']
+    selector: 'app-signup-modal',
+    templateUrl: './signup-modal.component.html',
+    styleUrls: ['./signup-modal.component.scss'],
+    standalone: false
 })
 export class SignupModalComponent implements OnInit {
 

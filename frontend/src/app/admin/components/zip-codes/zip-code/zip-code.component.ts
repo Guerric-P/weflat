@@ -4,9 +4,10 @@ import { ZipCodeClass } from '@weflat/app/core/models/ZipCodeClass';
 
 
 @Component({
-  selector: 'app-zip-code',
-  templateUrl: './zip-code.component.html',
-  styleUrls: ['./zip-code.component.scss']
+    selector: 'app-zip-code',
+    templateUrl: './zip-code.component.html',
+    styleUrls: ['./zip-code.component.scss'],
+    standalone: false
 })
 export class ZipCodeComponent implements OnInit {
 

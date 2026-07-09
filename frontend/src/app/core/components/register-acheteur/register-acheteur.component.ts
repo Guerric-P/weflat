@@ -9,9 +9,10 @@ import { AcheteurService } from '@weflat/app/shared/services/acheteur.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
-  selector: 'app-register-acheteur',
-  templateUrl: './register-acheteur.component.html',
-  styleUrls: ['./register-acheteur.component.scss']
+    selector: 'app-register-acheteur',
+    templateUrl: './register-acheteur.component.html',
+    styleUrls: ['./register-acheteur.component.scss'],
+    standalone: false
 })
 export class RegisterAcheteurComponent implements OnInit {
 

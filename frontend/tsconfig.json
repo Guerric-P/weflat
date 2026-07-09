@@ -7,16 +7,12 @@
     "baseUrl": "./",
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "experimentalDecorators": true,
     "target": "ES2022",
     "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types"
-    ],
-    "lib": [
-      "es2016",
-      "dom"
     ],
     "paths": {
       "@weflat/*": [

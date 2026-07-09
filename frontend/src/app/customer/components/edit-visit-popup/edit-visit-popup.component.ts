@@ -14,9 +14,10 @@ import moment from 'moment';
 declare var google;
 
 @Component({
-  selector: 'app-edit-visit-popup',
-  templateUrl: './edit-visit-popup.component.html',
-  styleUrls: ['./edit-visit-popup.component.scss']
+    selector: 'app-edit-visit-popup',
+    templateUrl: './edit-visit-popup.component.html',
+    styleUrls: ['./edit-visit-popup.component.scss'],
+    standalone: false
 })
 export class EditVisitPopupComponent implements OnInit, OnDestroy {
 

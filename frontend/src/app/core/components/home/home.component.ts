@@ -5,9 +5,10 @@ import { Component, ElementRef, Inject, LOCALE_ID, OnInit, PLATFORM_ID, ViewChil
 declare var twttr: any;
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    standalone: false
 })
 export class HomeComponent implements OnInit {
   architectOnboardingButtonImgSrc;

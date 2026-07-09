@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { VisitClass } from '@weflat/app/core/models/VisitClass';
 
 @Component({
-  selector: 'app-visit-list-item',
-  templateUrl: './visit-list-item.component.html',
-  styleUrls: ['./visit-list-item.component.scss']
+    selector: 'app-visit-list-item',
+    templateUrl: './visit-list-item.component.html',
+    styleUrls: ['./visit-list-item.component.scss'],
+    standalone: false
 })
 export class VisitListItemComponent implements OnInit {
 

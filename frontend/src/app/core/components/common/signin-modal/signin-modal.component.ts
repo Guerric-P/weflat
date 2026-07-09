@@ -5,9 +5,10 @@ import { AuthenticationService } from '@weflat/app/core/services/authentication.
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-signin-modal',
-  templateUrl: './signin-modal.component.html',
-  styleUrls: ['./signin-modal.component.scss']
+    selector: 'app-signin-modal',
+    templateUrl: './signin-modal.component.html',
+    styleUrls: ['./signin-modal.component.scss'],
+    standalone: false
 })
 export class SigninModalComponent implements OnInit {
   errorMessage: string;

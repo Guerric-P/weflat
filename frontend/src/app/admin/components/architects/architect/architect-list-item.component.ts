@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ArchitectClass } from '@weflat/app/core/models/ArchitectClass';
 
 @Component({
-  selector: 'app-architect-list-item',
-  templateUrl: './architect-list-item.component.html',
-  styleUrls: ['./architect-list-item.component.scss']
+    selector: 'app-architect-list-item',
+    templateUrl: './architect-list-item.component.html',
+    styleUrls: ['./architect-list-item.component.scss'],
+    standalone: false
 })
 export class ArchitectListItemComponent implements OnInit {
 

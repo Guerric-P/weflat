@@ -5,9 +5,10 @@ import { VisitStatusEnum } from '@weflat/app/shared/common/enums/VisitStatusEnum
 
 
 @Component({
-  selector: 'app-visits-list',
-  templateUrl: './visits-list.component.html',
-  styleUrls: ['./visits-list.component.scss']
+    selector: 'app-visits-list',
+    templateUrl: './visits-list.component.html',
+    styleUrls: ['./visits-list.component.scss'],
+    standalone: false
 })
 export class VisitsListComponent implements OnInit, OnChanges {
 

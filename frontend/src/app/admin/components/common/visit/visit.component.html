@@ -8,10 +8,14 @@
       <label class="col-sm-2 col-form-label">Statut</label>
       <label class="col-sm-10 col-form-label">
         {{visit.statusText}}
-        <a *ngIf="visit.status === VisitStatusEnum.REPORT_AVAILABLE || visit.status === VisitStatusEnum.ARCHITECT_PAID"
+        @if (visit.status === VisitStatusEnum.REPORT_AVAILABLE || visit.status === VisitStatusEnum.ARCHITECT_PAID) {
+          <a
           mat-raised-button color="primary" routerLink="/admin/visits/{{visit.id}}/report">Rapport</a>
-        <button *ngIf="visit.status === VisitStatusEnum.REPORT_AVAILABLE" class="ms-2" mat-raised-button color="primary"
+        }
+        @if (visit.status === VisitStatusEnum.REPORT_AVAILABLE) {
+          <button class="ms-2" mat-raised-button color="primary"
           (click)="architectPaidClick()">Architecte payé</button>
+        }
       </label>
     </div>
     <div class="mb-3 row">
@@ -44,10 +48,12 @@
         {{visit.chargeId}}
       </label>
     </div>
-    <div *ngIf="visit.status === VisitStatusEnum.BEING_ASSIGNED || visit.status === VisitStatusEnum.IN_PROGRESS"
-      class="mb-3 row">
-      <button mat-raised-button color="primary" (click)="cancelClick()">Annuler la visite</button>
-    </div>
+    @if (visit.status === VisitStatusEnum.BEING_ASSIGNED || visit.status === VisitStatusEnum.IN_PROGRESS) {
+      <div
+        class="mb-3 row">
+        <button mat-raised-button color="primary" (click)="cancelClick()">Annuler la visite</button>
+      </div>
+    }
   </div>
 </div>
 
@@ -63,6 +69,10 @@
   </div>
 </ng-template>
 
-<app-architect *ngIf="visit.architect" [architect]="visit.architect"></app-architect>
+@if (visit.architect) {
+  <app-architect [architect]="visit.architect"></app-architect>
+}
 
-<app-customer *ngIf="visit.customer" [customer]="visit.customer"></app-customer>
+@if (visit.customer) {
+  <app-customer [customer]="visit.customer"></app-customer>
+}

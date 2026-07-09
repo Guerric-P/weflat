@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-architect-on-boarding',
-  templateUrl: './architect-on-boarding.component.html',
-  styleUrls: ['./architect-on-boarding.component.scss']
+    selector: 'app-architect-on-boarding',
+    templateUrl: './architect-on-boarding.component.html',
+    styleUrls: ['./architect-on-boarding.component.scss'],
+    standalone: false
 })
 export class ArchitectOnBoardingComponent implements OnInit {
 

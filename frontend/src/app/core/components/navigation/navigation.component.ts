@@ -10,9 +10,10 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+    selector: 'app-navigation',
+    templateUrl: './navigation.component.html',
+    styleUrls: ['./navigation.component.scss'],
+    standalone: false
 })
 export class NavigationComponent implements OnInit, OnDestroy {
 

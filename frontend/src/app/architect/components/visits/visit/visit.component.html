@@ -3,14 +3,20 @@
     date:'medium'}}
     au {{visit.streetNumber}}, {{visit.route}} - {{visit.zipCode.number}} {{visit.city}}
   </div>
-  <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end" *ngIf="enableAcceptRefuseButtons">
-    <button mat-raised-button color="primary" (click)="accept()" [disabled]="acceptButtonDisabled">Accepter</button>
-    <button mat-raised-button (click)="refuse()" [disabled]="refuseButtonDisabled">Refuser</button>
-  </div>
-  <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end" *ngIf="enableReportEditButton">
-    <button mat-raised-button color="primary" (click)="editReport()" [disabled]="editButtonDisabled">Editer le rapport</button>
-  </div>
-  <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end" *ngIf="enableReportViewButton">
-    <button mat-raised-button color="primary" (click)="viewReport()" [disabled]="editButtonDisabled">Voir le rapport</button>
-  </div>
+  @if (enableAcceptRefuseButtons) {
+    <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end">
+      <button mat-raised-button color="primary" (click)="accept()" [disabled]="acceptButtonDisabled">Accepter</button>
+      <button mat-raised-button (click)="refuse()" [disabled]="refuseButtonDisabled">Refuser</button>
+    </div>
+  }
+  @if (enableReportEditButton) {
+    <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end">
+      <button mat-raised-button color="primary" (click)="editReport()" [disabled]="editButtonDisabled">Editer le rapport</button>
+    </div>
+  }
+  @if (enableReportViewButton) {
+    <div class="col-sm-6 col-lg-4 d-flex align-items-center justify-content-end">
+      <button mat-raised-button color="primary" (click)="viewReport()" [disabled]="editButtonDisabled">Voir le rapport</button>
+    </div>
+  }
 </div>

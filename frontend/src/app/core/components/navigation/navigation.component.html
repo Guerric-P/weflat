@@ -17,52 +17,56 @@
             <li>
               <p class="text-muted">82 rue truffaut
                 <br>75017 Paris</p>
-            </li>
-          </ul>
-        </div>
-        <div class="col-sm-4 py-4">
-          <p class="text-white">Informations</p>
-          <ul class="list-unstyled">
-            <li>
-              <a href="#" rel="nofollow" class="text-white">Blog</a>
-            </li>
-            <li>
-              <a routerLink="/faq" class="text-white">Questions fréquentes</a>
-            </li>
-            <li>
-              <a routerLink="/eula" class="text-white">Conditions générales d'utilisation</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </mat-expansion-panel>
-  <div class="navbar navbar-light bg-faded">
-    <div class="container d-flex justify-content-between">
-      <a class="weflat-logo" routerLink="/">
-        <img src="assets/logofinal.png" width="70" />
-      </a>
-      <div>
-        <div *ngIf="isLoggedIn" class="d-inline-block" placement="bottom-right">
-          <button mat-button type="button" class="dropdown-button" [matMenuTriggerFor]="personalMenu">
-            {{displayName}}
-          </button>
-          <mat-menu #personalMenu="matMenu" overlapTrigger="false" xPosition="before">
-            <button mat-menu-item (click)="redirectToPersonal()">Mon espace personnel</button>
-            <button mat-menu-item (click)="logout()">Déconnexion</button>
-          </mat-menu>
-        </div>
-        <button *ngIf="!isLoggedIn" type="button" (click)="openSignin(signinModal)" mat-button>
-          Se connecter
-        </button>
-        <button class="menu-button" [style.top]="menuButtonTopOffset" mat-icon-button type="button" (click)="toggleFooter()">
-          <div class="menu" [class.open]="this.expandingFooter.expanded">
-            <div class="bit-1"></div>
-            <div class="bit-2"></div>
-            <div class="bit-3"></div>
+              </li>
+            </ul>
           </div>
-        </button>
+          <div class="col-sm-4 py-4">
+            <p class="text-white">Informations</p>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#" rel="nofollow" class="text-white">Blog</a>
+              </li>
+              <li>
+                <a routerLink="/faq" class="text-white">Questions fréquentes</a>
+              </li>
+              <li>
+                <a routerLink="/eula" class="text-white">Conditions générales d'utilisation</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <div class="navbar navbar-light bg-faded">
+      <div class="container d-flex justify-content-between">
+        <a class="weflat-logo" routerLink="/">
+          <img src="assets/logofinal.png" width="70" />
+        </a>
+        <div>
+          @if (isLoggedIn) {
+            <div class="d-inline-block" placement="bottom-right">
+              <button mat-button type="button" class="dropdown-button" [matMenuTriggerFor]="personalMenu">
+                {{displayName}}
+              </button>
+              <mat-menu #personalMenu="matMenu" overlapTrigger="false" xPosition="before">
+                <button mat-menu-item (click)="redirectToPersonal()">Mon espace personnel</button>
+                <button mat-menu-item (click)="logout()">Déconnexion</button>
+              </mat-menu>
+            </div>
+          }
+          @if (!isLoggedIn) {
+            <button type="button" (click)="openSignin(signinModal)" mat-button>
+              Se connecter
+            </button>
+          }
+          <button class="menu-button" [style.top]="menuButtonTopOffset" mat-icon-button type="button" (click)="toggleFooter()">
+            <div class="menu" [class.open]="this.expandingFooter.expanded">
+              <div class="bit-1"></div>
+              <div class="bit-2"></div>
+              <div class="bit-3"></div>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>

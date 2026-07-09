@@ -5,7 +5,8 @@ import { environment } from '@weflat/environments/environment';
 import { NotificationsService } from 'angular2-notifications';
 
 @Directive({
-  selector: 'button[appPayment]'
+    selector: 'button[appPayment]',
+    standalone: false
 })
 export class PaymentDirective implements OnInit {
 

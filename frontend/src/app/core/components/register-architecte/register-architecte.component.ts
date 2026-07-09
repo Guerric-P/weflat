@@ -8,9 +8,10 @@ import { ArchitectService } from '@weflat/app/shared/services/architecte.service
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
-  selector: 'app-register-architecte',
-  templateUrl: './register-architecte.component.html',
-  styleUrls: ['./register-architecte.component.scss']
+    selector: 'app-register-architecte',
+    templateUrl: './register-architecte.component.html',
+    styleUrls: ['./register-architecte.component.scss'],
+    standalone: false
 })
 export class RegisterArchitecteComponent implements OnInit {
 

@@ -27,9 +27,10 @@ import { map } from 'rxjs/operators';
 declare var google;
 
 @Component({
-  selector: 'app-create-visit',
-  templateUrl: './create-visit.component.html',
-  styleUrls: ['./create-visit.component.scss']
+    selector: 'app-create-visit',
+    templateUrl: './create-visit.component.html',
+    styleUrls: ['./create-visit.component.scss'],
+    standalone: false
 })
 export class CreateVisitComponent implements OnInit, OnDestroy, AfterViewInit {
 

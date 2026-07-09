@@ -6,9 +6,11 @@
         <div class="mat-control">
           <mat-form-field>
             <input matInput placeholder="Adresse" formControlName="addressInput" #addressInput>
-            <mat-error *ngIf="visitForm.controls.addressInput.hasError('inactiveZipCode')">
-              Code postal non disponible
-            </mat-error>
+            @if (visitForm.controls.addressInput.hasError('inactiveZipCode')) {
+              <mat-error>
+                Code postal non disponible
+              </mat-error>
+            }
           </mat-form-field>
         </div>
         <div class="mat-control">
@@ -47,9 +49,11 @@
         <div class="mat-control">
           <mat-form-field>
             <mat-select placeholder="Choisissez une heure..." required formControlName="time">
-              <mat-option *ngFor="let time of times; let i = index;" [value]="i">
-                {{ time.displayTime }}
-              </mat-option>
+              @for (time of times; track time; let i = $index) {
+                <mat-option [value]="i">
+                  {{ time.displayTime }}
+                </mat-option>
+              }
             </mat-select>
           </mat-form-field>
         </div>

@@ -7,9 +7,10 @@ import { AcheteurService } from '@weflat/app/shared/services/acheteur.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
-  selector: 'app-purchase-project',
-  templateUrl: './purchase-project.component.html',
-  styleUrls: ['./purchase-project.component.scss']
+    selector: 'app-purchase-project',
+    templateUrl: './purchase-project.component.html',
+    styleUrls: ['./purchase-project.component.scss'],
+    standalone: false
 })
 export class PurchaseProjectComponent implements OnInit {
 

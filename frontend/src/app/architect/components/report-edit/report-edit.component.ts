@@ -13,9 +13,10 @@ import moment from 'moment';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-report-edit',
-  templateUrl: './report-edit.component.html',
-  styleUrls: ['./report-edit.component.scss']
+    selector: 'app-report-edit',
+    templateUrl: './report-edit.component.html',
+    styleUrls: ['./report-edit.component.scss'],
+    standalone: false
 })
 export class ReportEditComponent implements OnInit {
 

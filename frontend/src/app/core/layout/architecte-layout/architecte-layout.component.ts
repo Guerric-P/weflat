@@ -4,9 +4,10 @@ import { BaseBackendLayoutComponent } from '@weflat/app/core/layout/base-backend
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-architecte-layout',
-  templateUrl: './architecte-layout.component.html',
-  styleUrls: ['./architecte-layout.component.scss']
+    selector: 'app-architecte-layout',
+    templateUrl: './architecte-layout.component.html',
+    styleUrls: ['./architecte-layout.component.scss'],
+    standalone: false
 })
 export class ArchitecteLayoutComponent extends BaseBackendLayoutComponent implements OnInit, OnDestroy {
 

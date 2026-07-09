@@ -7,9 +7,10 @@ import { VisitService } from '@weflat/app/shared/services/visit.service';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
-  selector: 'app-visit',
-  templateUrl: './visit.component.html',
-  styleUrls: ['./visit.component.scss']
+    selector: 'app-visit',
+    templateUrl: './visit.component.html',
+    styleUrls: ['./visit.component.scss'],
+    standalone: false
 })
 export class VisitComponent implements OnInit {
 

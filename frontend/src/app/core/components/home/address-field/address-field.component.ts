@@ -12,9 +12,10 @@ import { VisitService } from '@weflat/app/shared/services/visit.service';
 declare var google;
 
 @Component({
-  selector: 'app-address-field',
-  templateUrl: './address-field.component.html',
-  styleUrls: ['./address-field.component.scss']
+    selector: 'app-address-field',
+    templateUrl: './address-field.component.html',
+    styleUrls: ['./address-field.component.scss'],
+    standalone: false
 })
 export class AddressFieldComponent implements OnInit {
 

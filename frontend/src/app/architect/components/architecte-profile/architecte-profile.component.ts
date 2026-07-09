@@ -25,9 +25,10 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 declare var google;
 
 @Component({
-  selector: 'app-architecte-profile',
-  templateUrl: './architecte-profile.component.html',
-  styleUrls: ['./architecte-profile.component.scss']
+    selector: 'app-architecte-profile',
+    templateUrl: './architecte-profile.component.html',
+    styleUrls: ['./architecte-profile.component.scss'],
+    standalone: false
 })
 export class ArchitecteProfileComponent implements OnInit, AfterViewInit {
 

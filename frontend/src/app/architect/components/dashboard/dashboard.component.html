@@ -6,38 +6,42 @@
       <h2>Mon fil d'actualité</h2>
     </div>
     <div class="card-body">
-      <mat-card *ngFor="let visit of dashboard.newVisits">{{visit.customer.firstName}} souhaite visiter un bien dans
-        votre zone d'action <button mat-button routerLink="/architecte/visits">VOIR</button></mat-card>
+      @for (visit of dashboard.newVisits; track visit) {
+        <mat-card>{{visit.customer.firstName}} souhaite visiter un bien dans
+          votre zone d'action <button mat-button routerLink="/architecte/visits">VOIR</button></mat-card>
+        }
 
-      <div *ngIf="!dashboard.newVisits || !dashboard.newVisits.length">Votre fil d'actualités est vide pour
-        l'instant...</div>
+        @if (!dashboard.newVisits || !dashboard.newVisits.length) {
+          <div>Votre fil d'actualités est vide pour
+          l'instant...</div>
+        }
+      </div>
     </div>
-  </div>
-  <!--<br>
-      <mat-card>Attention, vous n'avez plus que 3 heures pour soumettre le compte rendu de Juliette.</mat-card>
-      <br>-->
+    <!--<br>
+    <mat-card>Attention, vous n'avez plus que 3 heures pour soumettre le compte rendu de Juliette.</mat-card>
+    <br>-->
 
-  <div class="card">
-    <div class="card-header">
-      <h2>Mon activité</h2>
-    </div>
-    <div class="card-body">
-      <div class="container mt-5">
-        <div class="row justify-content-around">
-          <mat-card class="col-md-3 offset-md-1">
-            {{dashboard.doneVisitsCount}} visite(s) effectuée(s)
-            <mat-card-actions>
-              <button mat-button routerLink="/architecte/visits">VOIR</button>
-            </mat-card-actions>
-          </mat-card>
-          <mat-card class="col-md-3 offset-md-1 mt-2 mt-md-0">
-            {{dashboard.amountEarned}} € générés
-          </mat-card>
-          <mat-card class="col-md-3 offset-md-1 mt-2 mt-md-0 cursor-not-allowed" matTooltip="Bientôt disponible">
-            - / - notation
-          </mat-card>
+    <div class="card">
+      <div class="card-header">
+        <h2>Mon activité</h2>
+      </div>
+      <div class="card-body">
+        <div class="container mt-5">
+          <div class="row justify-content-around">
+            <mat-card class="col-md-3 offset-md-1">
+              {{dashboard.doneVisitsCount}} visite(s) effectuée(s)
+              <mat-card-actions>
+                <button mat-button routerLink="/architecte/visits">VOIR</button>
+              </mat-card-actions>
+            </mat-card>
+            <mat-card class="col-md-3 offset-md-1 mt-2 mt-md-0">
+              {{dashboard.amountEarned}} € générés
+            </mat-card>
+            <mat-card class="col-md-3 offset-md-1 mt-2 mt-md-0 cursor-not-allowed" matTooltip="Bientôt disponible">
+              - / - notation
+            </mat-card>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>

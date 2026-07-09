@@ -6,9 +6,10 @@ import { NotificationsService } from 'angular2-notifications';
 import * as IBAN from 'iban';
 
 @Component({
-  selector: 'app-architect',
-  templateUrl: './architect.component.html',
-  styleUrls: ['./architect.component.scss']
+    selector: 'app-architect',
+    templateUrl: './architect.component.html',
+    styleUrls: ['./architect.component.scss'],
+    standalone: false
 })
 export class ArchitectComponent implements OnInit {
 

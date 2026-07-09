@@ -2,7 +2,7 @@ import { Injectable, PLATFORM_ID, Inject, Optional } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, Subject, throwError, of } from 'rxjs';
 import { map, catchError, timeout, tap } from 'rxjs/operators';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode as jwt_decode } from 'jwt-decode';
 import { isPlatformBrowser } from '@angular/common';
 import { Request, Response } from 'express';
 import { REQUEST, RESPONSE } from '../../../express.tokens';

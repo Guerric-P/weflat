@@ -8,9 +8,10 @@ import { VisitService } from '@weflat/app/shared/services/visit.service';
 
 
 @Component({
-  selector: 'app-visit',
-  templateUrl: './visit.component.html',
-  styleUrls: ['./visit.component.scss']
+    selector: 'app-visit',
+    templateUrl: './visit.component.html',
+    styleUrls: ['./visit.component.scss'],
+    standalone: false
 })
 export class VisitComponent implements OnInit {
 

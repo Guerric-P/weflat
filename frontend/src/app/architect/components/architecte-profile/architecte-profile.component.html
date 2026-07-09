@@ -6,19 +6,27 @@
       </div>
       <div class="card-body" [class.emphasis]="statusEmphasis">
         <p class="card-text">
-          <span *ngIf="architecte.status === ArchitectStatusEnum.CREATED">
-            <span class="badge bg-info text-dark">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat
-            et moi") afin qu'il soit étudié par nos équipes
-          </span>
-          <span *ngIf="architecte.status === ArchitectStatusEnum.APPROVING">
-            <span class="badge bg-warning text-dark">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
-          </span>
-          <span *ngIf="architecte.status === ArchitectStatusEnum.VALIDATED">
-            <span class="badge bg-success">Validé</span> Vous recevez les demandes de visite dans votre zone d'action.
-          </span>
-          <span *ngIf="architecte.status === ArchitectStatusEnum.REFUSED">
-            <span class="badge bg-danger">Refusé</span> Votre candidature n'a pas été retenue.
-          </span>
+          @if (architecte.status === ArchitectStatusEnum.CREATED) {
+            <span>
+              <span class="badge bg-info text-dark">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat
+              et moi") afin qu'il soit étudié par nos équipes
+            </span>
+          }
+          @if (architecte.status === ArchitectStatusEnum.APPROVING) {
+            <span>
+              <span class="badge bg-warning text-dark">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
+            </span>
+          }
+          @if (architecte.status === ArchitectStatusEnum.VALIDATED) {
+            <span>
+              <span class="badge bg-success">Validé</span> Vous recevez les demandes de visite dans votre zone d'action.
+            </span>
+          }
+          @if (architecte.status === ArchitectStatusEnum.REFUSED) {
+            <span>
+              <span class="badge bg-danger">Refusé</span> Votre candidature n'a pas été retenue.
+            </span>
+          }
         </p>
       </div>
     </div>
@@ -34,325 +42,345 @@
           <div class="col-sm-10">
             <input type="text" class="form-control name" [class.is-invalid]="form.controls.firstName.invalid && form.controls.firstName.touched"
               [class.is-valid]="!form.controls.firstName.invalid && form.controls.firstName.touched" placeholder="Prénom" formControlName="firstName">
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">
-            <span class="mandatory-field">Nom</span>
-          </label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control name" [class.is-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
-              [class.is-valid]="!form.controls.lastName.invalid && form.controls.lastName.touched" placeholder="Nom" formControlName="lastName">
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">
-            <span class="mandatory-field">Date de naissance</span>
-          </label>
-          <div class="col-sm-10">
-            <div class="input-group">
-              <input [matDatepicker]="birthDatePicker" class="form-control" [class.is-invalid]="form.controls.birthDate.invalid && form.controls.birthDate.touched"
-                [class.is-valid]="!form.controls.birthDate.invalid && form.controls.birthDate.touched" placeholder="Date de naissance"
-                formControlName="birthDate" [max]="dateNow">
-              <div class="input-group-append">
-                <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
-                <mat-datepicker [touchUi]="isMobile" #birthDatePicker></mat-datepicker>
-              </div>
             </div>
           </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">
-            <span class="mandatory-field">E-mail</span>
-          </label>
-          <div class="col-sm-10">
-            <input type="email" class="form-control" [class.is-invalid]="form.controls.email.invalid && form.controls.email.touched"
-              [class.is-valid]="!form.controls.email.invalid && form.controls.email.touched" placeholder="Email" formControlName="email">
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">
-            <span class="mandatory-field">Portable</span>
-          </label>
-          <div class="col-sm-10">
-            <input type="tel" class="form-control" [class.is-invalid]="form.controls.telephone.invalid && form.controls.telephone.touched"
-              [class.is-valid]="!form.controls.telephone.invalid && form.controls.telephone.touched" placeholder="Numéro de téléphone portable"
-              formControlName="telephone">
-          </div>
-        </div>
-        <div class="mb-3 row" [formGroup]="passwordForm">
-          <label class="col-lg-2 col-form-label">Mot de passe</label>
-          <div class="col-lg-6">
-            <input type="password" class="form-control" [class.is-invalid]="passwordForm.controls.password.invalid && passwordForm.controls.password.touched"
-              [class.is-valid]="!passwordForm.controls.password.invalid && passwordForm.controls.password.touched" (keydown.enter)="changePassword(password.value, $event)"
-              placeholder="Nouveau mot de passe" #password formControlName="password">
-          </div>
-          <div class="col-lg-4 mt-2 mt-lg-0">
-            <button type="button" mat-raised-button color="primary" (click)="changePassword(password.value)">Changer le mot de passe</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mt-2">
-      <div class="card-header">
-        <h2>Ma zone d'action</h2>
-      </div>
-      <div class="card-body">
-        <div *ngIf="disabledZipCodes && disabledZipCodes.length" [ngSwitch]="true" class="alert alert-warning"
-          role="alert">
-          <ng-container *ngSwitchCase="disabledZipCodes.length >= 10">
-              Certains codes postaux n'ont pas été activés pour l'instant. Vous recevrez des demandes de visites pour
-              ces code postaux lorsqu'ils seront activés par l'équipe Weflat.
-            </ng-container>
-          <ng-container *ngSwitchCase="disabledZipCodes.length === 1">
-            Le code postal {{formattedDisabledZipCodes}} n'a pas été activé pour l'instant. Vous recevrez des demandes de visites pour
-            ce code postal lorsqu'il sera activé par l'équipe Weflat.
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            Les code postaux {{formattedDisabledZipCodes}} n'ont pas été activés pour l'instant. Vous recevrez des demandes de visites
-            pour ces codes postaux lorsqu'ils seront activés par l'équipe Weflat.
-          </ng-container>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 zip-codes-container">
-            <label>
-              <span class="mandatory-field">Saisissez les codes postaux correspondant à votre zone d'action</span>
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">
+              <span class="mandatory-field">Nom</span>
             </label>
-            <mat-accordion>
-              <mat-expansion-panel *ngFor="let county of sortedZipCodes | keys">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <button (click)="removeCountyClick($event, county)" mat-icon-button type="button">
-                      <mat-icon>close</mat-icon>
-                    </button>
-                    {{ sortedZipCodes[county][0].county }} ({{ sortedZipCodes[county][0].number.substring(0, 2) }})
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-chip-list [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
-                  <mat-chip *ngFor="let zipCode of sortedZipCodes[county]" [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable"
-                    [removable]="removable" (removed)="remove(zipCode)">
-                    {{zipCode.number}}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                  </mat-chip>
-                </mat-chip-list>
-              </mat-expansion-panel>
-            </mat-accordion>
-            <mat-form-field class="mt-3">
-              <input matInput #zipCodeInput placeholder="Nouveau code postal..." [matAutocomplete]="autoComplete" (input)="zipCodeInputChanged($event)"
-                (blur)="onZipCodeInputBlur($event)" />
-              <mat-autocomplete #autoComplete="matAutocomplete" (optionSelected)="zipCodeSelected($event)">
-                <mat-option *ngFor="let prediction of filteredAutoCompletePredictions" [value]="prediction.structured_formatting.main_text">
-                  <span>{{prediction.description}}</span>
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error *ngIf="true">
-                Saisissez au moins un code postal
-              </mat-error>
-            </mat-form-field>
-            <button type="button" mat-raised-button (click)="fitBounds()">Recentrer la carte</button>
-          </div>
-          <div class="col-lg-8 google-maps-container" #googleMap>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mt-2">
-      <div class="card-header">
-        <h2>Mon métier d'architecte</h2>
-      </div>
-      <div class="card-body">
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">
-            <span class="mandatory-field">Architecte</span>
-          </label>
-          <div class="col-sm-10">
-            <select class="form-control" [class.is-invalid]="form.controls.type.invalid && form.controls.type.touched" [class.is-valid]="!form.controls.type.invalid && form.controls.type.touched"
-              formControlName="type">
-              <option *ngFor="let architectType of architectTypes" [value]="architectType.id">{{architectType.label}}</option>
-            </select>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">
-            <span class="mandatory-field">Situation</span>
-          </label>
-          <div class="col-sm-10">
-            <select class="form-control" [class.is-invalid]="form.controls.situation.invalid && form.controls.situation.touched" [class.is-valid]="!form.controls.situation.invalid && form.controls.situation.touched"
-              formControlName="situation">
-              <option *ngFor="let architectSituation of architectSituations" [value]="architectSituation.id">{{architectSituation.label}}</option>
-              <!--choix possible si l'architecte est architecte d'interieur-->
-            </select>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">
-            <span class="mandatory-field">Expérience</span>
-          </label>
-          <div class="col-sm-10">
-            <div class="input-group">
-              <input [matDatepicker]="practicingSinceDatePicker" class="form-control" [class.is-invalid]="form.controls.practicingSince.invalid && form.controls.practicingSince.touched"
-                [class.is-valid]="!form.controls.practicingSince.invalid && form.controls.practicingSince.touched" placeholder="Expérience"
-                formControlName="practicingSince" [max]="dateNow">
-              <div class="input-group-append">
-                <mat-datepicker-toggle matSuffix [for]="practicingSinceDatePicker"></mat-datepicker-toggle>
-                <mat-datepicker [touchUi]="isMobile" #practicingSinceDatePicker></mat-datepicker>
+            <div class="col-sm-10">
+              <input type="text" class="form-control name" [class.is-invalid]="form.controls.lastName.invalid && form.controls.lastName.touched"
+                [class.is-valid]="!form.controls.lastName.invalid && form.controls.lastName.touched" placeholder="Nom" formControlName="lastName">
               </div>
             </div>
-            <div>
-              <p class="text-muted">Depuis quand exercez-vous le métier d'architecte ?</p>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">Site internet</label>
-          <div class="col-sm-10">
-            <input type="url" class="form-control-file" class="form-control" [class.is-invalid]="form.controls.webSite.invalid && form.controls.webSite.touched"
-              [class.is-valid]="!form.controls.webSite.invalid && form.controls.webSite.touched" formControlName="webSite">
-            <div>
-              <p class="text-muted">L'URL doit commencer par http:// ou https://</p>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">
-            <span class="mandatory-field">Ordre des architectes</span>
-          </label>
-          <div class="col-sm-9">
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="architectsOrder" [value]="true"> Oui
+            <div class="mb-3 row">
+              <label class="col-sm-2 col-form-label">
+                <span class="mandatory-field">Date de naissance</span>
               </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="architectsOrder" [value]="false"> Non
-              </label>
-            </div>
-            <div>
-              <p class="text-muted">Êtes vous inscrit à l'Ordre des architectes ?</p>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">
-            <span class="mandatory-field">CFAI</span>
-          </label>
-          <div class="col-sm-9">
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="cfai" [value]="true"> Oui
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="cfai" [value]="false"> Non
-              </label>
-            </div>
-            <div>
-              <p class="text-muted">Détenez-vous le certificat du Conseil Français des Architectes d'Intérieur (CFAI) ?</p>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">
-            <span class="mandatory-field">Responsabilité civile professionnelle</span>
-          </label>
-          <div class="col-sm-9">
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="professionalResponsibility" [value]="true"> Oui
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="professionalResponsibility" [value]="false"> Non
-              </label>
-            </div>
-            <div>
-              <p class="text-muted">Attestez-vous détenir une assurance responsabilité civile professionnelle ?</p>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-3 col-form-label">
-            <span class="mandatory-field">Assurance décennale</span>
-          </label>
-          <div class="col-sm-9">
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="decennialInsurance" [value]="true"> Oui
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="radio" formControlName="decennialInsurance" [value]="false"> Non
-              </label>
-            </div>
-            <div>
-              <p class="text-muted">Attestez-vous détenir assurance décennale?</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card mt-2">
-      <div class="card-header">
-        <h2>Weflat et moi</h2>
-      </div>
-      <div class="card-body">
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">
-            <span class="mandatory-field">Motivation</span>
-          </label>
-          <div class="col-md-10">
-            <textarea class="form-control" rows="3" class="form-control-file" class="form-control" [class.is-invalid]="form.controls.motivation.invalid && form.controls.motivation.touched"
-              [class.is-valid]="!form.controls.motivation.invalid && form.controls.motivation.touched" placeholder="Pourquoi avoir rejoint Weflat?"
-              formControlName="motivation"></textarea>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">
-            <span class="mandatory-field">Paiement</span>
-          </label>
-          <div class="col-sm-10">
-            <select class="form-control" [class.is-invalid]="form.controls.paymentType.invalid && form.controls.paymentType.touched"
-              [class.is-valid]="!form.controls.paymentType.invalid && form.controls.paymentType.touched" formControlName="paymentType">
-              <option *ngFor="let paymentType of paymentTypes" [value]="paymentType.id">{{paymentType.label}}</option>
-            </select>
-            <div>
-              <p class="text-muted">Choisissez la méthode de paiement pour le versement de vos prestations</p>
-            </div>
-          </div>
-        </div>
-        <div class="mb-3 row">
-          <label class="col-sm-2 col-form-label">IBAN</label>
-          <div class="col-sm-10">
-            <input type="text" [class.is-invalid]="form.controls.iban.invalid && form.controls.iban.touched" [class.is-valid]="!form.controls.iban.invalid && form.controls.iban.touched"
-              formControlName="iban" class="form-control">
-          </div>
-        </div>
-        <div class="col-sm-12 mb-3 row">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" formControlName="cgu" [class.is-invalid]="form.controls.cgu.invalid && form.controls.cgu.touched"
-              [class.is-valid]="!form.controls.cgu.invalid && form.controls.cgu.touched">
-            <label class="form-check-label">En cliquant sur cette case vous vous engagez à accepter et respecter les termes des CGU/CGV de weflat ainsi que
-              la charte de bonne conduite *</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="mb-3 row mt-3">
-      <div class="col-sm-12">
-        <p class="font-italic">* Champ obligatoire</p>
-      </div>
-    </div>
-    <div class="mb-3 row mt-3">
-      <div class="col-sm-12">
-        <button type="submit" mat-raised-button color="primary">{{architecte.status === ArchitectStatusEnum.CREATED ? 'Soumettre mon profil' : 'Enregistrer'}}</button>
-        <a class="ms-sm-2 mt-2" mat-raised-button href="mailto:contact@weflat.fr?subject=Demande%20de%20cl%C3%B4ture%20de%20compte&body=Bonjour%2C%0A%0AJe%20souhaite%20supprimer%20mon%20profil%20Weflat%20pour%20la%20raison%20suivante%20%3A">Je souhaite clôturer mon compte d'architecte</a>
-      </div>
-    </div>
-  </form>
-</div>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input [matDatepicker]="birthDatePicker" class="form-control" [class.is-invalid]="form.controls.birthDate.invalid && form.controls.birthDate.touched"
+                    [class.is-valid]="!form.controls.birthDate.invalid && form.controls.birthDate.touched" placeholder="Date de naissance"
+                    formControlName="birthDate" [max]="dateNow">
+                    <div class="input-group-append">
+                      <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker [touchUi]="isMobile" #birthDatePicker></mat-datepicker>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">
+                  <span class="mandatory-field">E-mail</span>
+                </label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" [class.is-invalid]="form.controls.email.invalid && form.controls.email.touched"
+                    [class.is-valid]="!form.controls.email.invalid && form.controls.email.touched" placeholder="Email" formControlName="email">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <label class="col-sm-2 col-form-label">
+                    <span class="mandatory-field">Portable</span>
+                  </label>
+                  <div class="col-sm-10">
+                    <input type="tel" class="form-control" [class.is-invalid]="form.controls.telephone.invalid && form.controls.telephone.touched"
+                      [class.is-valid]="!form.controls.telephone.invalid && form.controls.telephone.touched" placeholder="Numéro de téléphone portable"
+                      formControlName="telephone">
+                    </div>
+                  </div>
+                  <div class="mb-3 row" [formGroup]="passwordForm">
+                    <label class="col-lg-2 col-form-label">Mot de passe</label>
+                    <div class="col-lg-6">
+                      <input type="password" class="form-control" [class.is-invalid]="passwordForm.controls.password.invalid && passwordForm.controls.password.touched"
+                        [class.is-valid]="!passwordForm.controls.password.invalid && passwordForm.controls.password.touched" (keydown.enter)="changePassword(password.value, $event)"
+                        placeholder="Nouveau mot de passe" #password formControlName="password">
+                      </div>
+                      <div class="col-lg-4 mt-2 mt-lg-0">
+                        <button type="button" mat-raised-button color="primary" (click)="changePassword(password.value)">Changer le mot de passe</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mt-2">
+                  <div class="card-header">
+                    <h2>Ma zone d'action</h2>
+                  </div>
+                  <div class="card-body">
+                    @if (disabledZipCodes && disabledZipCodes.length) {
+                      <div class="alert alert-warning"
+                        role="alert">
+                      @switch (true) {
+                        @case (disabledZipCodes.length >= 10) {
+                          Certains codes postaux n'ont pas été activés pour l'instant. Vous recevrez des demandes de visites pour
+                          ces code postaux lorsqu'ils seront activés par l'équipe Weflat.
+                        }
+                        @case (disabledZipCodes.length === 1) {
+                          Le code postal {{formattedDisabledZipCodes}} n'a pas été activé pour l'instant. Vous recevrez des demandes de visites pour
+                          ce code postal lorsqu'il sera activé par l'équipe Weflat.
+                        }
+                        @default {
+                          Les code postaux {{formattedDisabledZipCodes}} n'ont pas été activés pour l'instant. Vous recevrez des demandes de visites
+                          pour ces codes postaux lorsqu'ils seront activés par l'équipe Weflat.
+                        }
+                      }
+                    </div>
+                  }
+                  <div class="row">
+                    <div class="col-lg-4 zip-codes-container">
+                      <label>
+                        <span class="mandatory-field">Saisissez les codes postaux correspondant à votre zone d'action</span>
+                      </label>
+                      <mat-accordion>
+                        @for (county of sortedZipCodes | keys; track county) {
+                          <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                <button (click)="removeCountyClick($event, county)" mat-icon-button type="button">
+                                  <mat-icon>close</mat-icon>
+                                </button>
+                                {{ sortedZipCodes[county][0].county }} ({{ sortedZipCodes[county][0].number.substring(0, 2) }})
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-chip-list [errorStateMatcher]="zipCodeErrorStateMatcher" #zipCodesList>
+                              @for (zipCode of sortedZipCodes[county]; track zipCode) {
+                                <mat-chip [class.warning-chip]="isChipWarning(zipCode)" [selectable]="selectable"
+                                  [removable]="removable" (removed)="remove(zipCode)">
+                                  {{zipCode.number}}
+                                  @if (removable) {
+                                    <mat-icon matChipRemove>cancel</mat-icon>
+                                  }
+                                </mat-chip>
+                              }
+                            </mat-chip-list>
+                          </mat-expansion-panel>
+                        }
+                      </mat-accordion>
+                      <mat-form-field class="mt-3">
+                        <input matInput #zipCodeInput placeholder="Nouveau code postal..." [matAutocomplete]="autoComplete" (input)="zipCodeInputChanged($event)"
+                          (blur)="onZipCodeInputBlur($event)" />
+                          <mat-autocomplete #autoComplete="matAutocomplete" (optionSelected)="zipCodeSelected($event)">
+                            @for (prediction of filteredAutoCompletePredictions; track prediction) {
+                              <mat-option [value]="prediction.structured_formatting.main_text">
+                                <span>{{prediction.description}}</span>
+                              </mat-option>
+                            }
+                          </mat-autocomplete>
+                          @if (true) {
+                            <mat-error>
+                              Saisissez au moins un code postal
+                            </mat-error>
+                          }
+                        </mat-form-field>
+                        <button type="button" mat-raised-button (click)="fitBounds()">Recentrer la carte</button>
+                      </div>
+                      <div class="col-lg-8 google-maps-container" #googleMap>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mt-2">
+                  <div class="card-header">
+                    <h2>Mon métier d'architecte</h2>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label">
+                        <span class="mandatory-field">Architecte</span>
+                      </label>
+                      <div class="col-sm-10">
+                        <select class="form-control" [class.is-invalid]="form.controls.type.invalid && form.controls.type.touched" [class.is-valid]="!form.controls.type.invalid && form.controls.type.touched"
+                          formControlName="type">
+                          @for (architectType of architectTypes; track architectType) {
+                            <option [value]="architectType.id">{{architectType.label}}</option>
+                          }
+                        </select>
+                      </div>
+                    </div>
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label">
+                        <span class="mandatory-field">Situation</span>
+                      </label>
+                      <div class="col-sm-10">
+                        <select class="form-control" [class.is-invalid]="form.controls.situation.invalid && form.controls.situation.touched" [class.is-valid]="!form.controls.situation.invalid && form.controls.situation.touched"
+                          formControlName="situation">
+                          @for (architectSituation of architectSituations; track architectSituation) {
+                            <option [value]="architectSituation.id">{{architectSituation.label}}</option>
+                          }
+                          <!--choix possible si l'architecte est architecte d'interieur-->
+                        </select>
+                      </div>
+                    </div>
+                    <div class="mb-3 row">
+                      <label class="col-sm-2 col-form-label">
+                        <span class="mandatory-field">Expérience</span>
+                      </label>
+                      <div class="col-sm-10">
+                        <div class="input-group">
+                          <input [matDatepicker]="practicingSinceDatePicker" class="form-control" [class.is-invalid]="form.controls.practicingSince.invalid && form.controls.practicingSince.touched"
+                            [class.is-valid]="!form.controls.practicingSince.invalid && form.controls.practicingSince.touched" placeholder="Expérience"
+                            formControlName="practicingSince" [max]="dateNow">
+                            <div class="input-group-append">
+                              <mat-datepicker-toggle matSuffix [for]="practicingSinceDatePicker"></mat-datepicker-toggle>
+                              <mat-datepicker [touchUi]="isMobile" #practicingSinceDatePicker></mat-datepicker>
+                            </div>
+                          </div>
+                          <div>
+                            <p class="text-muted">Depuis quand exercez-vous le métier d'architecte ?</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Site internet</label>
+                        <div class="col-sm-10">
+                          <input type="url" class="form-control-file" class="form-control" [class.is-invalid]="form.controls.webSite.invalid && form.controls.webSite.touched"
+                            [class.is-valid]="!form.controls.webSite.invalid && form.controls.webSite.touched" formControlName="webSite">
+                            <div>
+                              <p class="text-muted">L'URL doit commencer par http:// ou https://</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mb-3 row">
+                          <label class="col-sm-3 col-form-label">
+                            <span class="mandatory-field">Ordre des architectes</span>
+                          </label>
+                          <div class="col-sm-9">
+                            <div class="form-check-inline">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" formControlName="architectsOrder" [value]="true"> Oui
+                              </label>
+                            </div>
+                            <div class="form-check-inline">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" formControlName="architectsOrder" [value]="false"> Non
+                              </label>
+                            </div>
+                            <div>
+                              <p class="text-muted">Êtes vous inscrit à l'Ordre des architectes ?</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mb-3 row">
+                          <label class="col-sm-3 col-form-label">
+                            <span class="mandatory-field">CFAI</span>
+                          </label>
+                          <div class="col-sm-9">
+                            <div class="form-check-inline">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" formControlName="cfai" [value]="true"> Oui
+                              </label>
+                            </div>
+                            <div class="form-check-inline">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" formControlName="cfai" [value]="false"> Non
+                              </label>
+                            </div>
+                            <div>
+                              <p class="text-muted">Détenez-vous le certificat du Conseil Français des Architectes d'Intérieur (CFAI) ?</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mb-3 row">
+                          <label class="col-sm-3 col-form-label">
+                            <span class="mandatory-field">Responsabilité civile professionnelle</span>
+                          </label>
+                          <div class="col-sm-9">
+                            <div class="form-check-inline">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" formControlName="professionalResponsibility" [value]="true"> Oui
+                              </label>
+                            </div>
+                            <div class="form-check-inline">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" formControlName="professionalResponsibility" [value]="false"> Non
+                              </label>
+                            </div>
+                            <div>
+                              <p class="text-muted">Attestez-vous détenir une assurance responsabilité civile professionnelle ?</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mb-3 row">
+                          <label class="col-sm-3 col-form-label">
+                            <span class="mandatory-field">Assurance décennale</span>
+                          </label>
+                          <div class="col-sm-9">
+                            <div class="form-check-inline">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" formControlName="decennialInsurance" [value]="true"> Oui
+                              </label>
+                            </div>
+                            <div class="form-check-inline">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="radio" formControlName="decennialInsurance" [value]="false"> Non
+                              </label>
+                            </div>
+                            <div>
+                              <p class="text-muted">Attestez-vous détenir assurance décennale?</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card mt-2">
+                      <div class="card-header">
+                        <h2>Weflat et moi</h2>
+                      </div>
+                      <div class="card-body">
+                        <div class="mb-3 row">
+                          <label class="col-sm-2 col-form-label">
+                            <span class="mandatory-field">Motivation</span>
+                          </label>
+                          <div class="col-md-10">
+                            <textarea class="form-control" rows="3" class="form-control-file" class="form-control" [class.is-invalid]="form.controls.motivation.invalid && form.controls.motivation.touched"
+                              [class.is-valid]="!form.controls.motivation.invalid && form.controls.motivation.touched" placeholder="Pourquoi avoir rejoint Weflat?"
+                            formControlName="motivation"></textarea>
+                          </div>
+                        </div>
+                        <div class="mb-3 row">
+                          <label class="col-sm-2 col-form-label">
+                            <span class="mandatory-field">Paiement</span>
+                          </label>
+                          <div class="col-sm-10">
+                            <select class="form-control" [class.is-invalid]="form.controls.paymentType.invalid && form.controls.paymentType.touched"
+                              [class.is-valid]="!form.controls.paymentType.invalid && form.controls.paymentType.touched" formControlName="paymentType">
+                              @for (paymentType of paymentTypes; track paymentType) {
+                                <option [value]="paymentType.id">{{paymentType.label}}</option>
+                              }
+                            </select>
+                            <div>
+                              <p class="text-muted">Choisissez la méthode de paiement pour le versement de vos prestations</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mb-3 row">
+                          <label class="col-sm-2 col-form-label">IBAN</label>
+                          <div class="col-sm-10">
+                            <input type="text" [class.is-invalid]="form.controls.iban.invalid && form.controls.iban.touched" [class.is-valid]="!form.controls.iban.invalid && form.controls.iban.touched"
+                              formControlName="iban" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-sm-12 mb-3 row">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" formControlName="cgu" [class.is-invalid]="form.controls.cgu.invalid && form.controls.cgu.touched"
+                                [class.is-valid]="!form.controls.cgu.invalid && form.controls.cgu.touched">
+                                <label class="form-check-label">En cliquant sur cette case vous vous engagez à accepter et respecter les termes des CGU/CGV de weflat ainsi que
+                                la charte de bonne conduite *</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mb-3 row mt-3">
+                          <div class="col-sm-12">
+                            <p class="font-italic">* Champ obligatoire</p>
+                          </div>
+                        </div>
+                        <div class="mb-3 row mt-3">
+                          <div class="col-sm-12">
+                            <button type="submit" mat-raised-button color="primary">{{architecte.status === ArchitectStatusEnum.CREATED ? 'Soumettre mon profil' : 'Enregistrer'}}</button>
+                            <a class="ms-sm-2 mt-2" mat-raised-button href="mailto:contact@weflat.fr?subject=Demande%20de%20cl%C3%B4ture%20de%20compte&body=Bonjour%2C%0A%0AJe%20souhaite%20supprimer%20mon%20profil%20Weflat%20pour%20la%20raison%20suivante%20%3A">Je souhaite clôturer mon compte d'architecte</a>
+                          </div>
+                        </div>
+                      </form>
+                    </div>

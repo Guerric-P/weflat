@@ -3,13 +3,27 @@
   <div class="d-flex flex-row-reverse">
     <button mat-raised-button class="float-end" color="primary" routerLink="/create-visit">Planifier une visite</button>
   </div>
-  <div *ngIf="isVisitsEmpty" class="d-flex flex-row">
-    Vous n'avez encore aucune visite!
-  </div>
-  <app-my-visit *ngFor="let visit of waitingForPaymentVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
-  <app-my-visit *ngFor="let visit of beingAssignedVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
-  <app-my-visit *ngFor="let visit of plannedVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" [datePassed]="false" (change)="loadVisits()"></app-my-visit>
-  <app-my-visit *ngFor="let visit of inProgressVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" [datePassed]="true" (change)="loadVisits()"></app-my-visit>
-  <app-my-visit *ngFor="let visit of reportBeingWrittenVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
-  <app-my-visit *ngFor="let visit of reportWrittenVisits" [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
+  @if (isVisitsEmpty) {
+    <div class="d-flex flex-row">
+      Vous n'avez encore aucune visite!
+    </div>
+  }
+  @for (visit of waitingForPaymentVisits; track visit) {
+    <app-my-visit [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
+  }
+  @for (visit of beingAssignedVisits; track visit) {
+    <app-my-visit [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
+  }
+  @for (visit of plannedVisits; track visit) {
+    <app-my-visit [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" [datePassed]="false" (change)="loadVisits()"></app-my-visit>
+  }
+  @for (visit of inProgressVisits; track visit) {
+    <app-my-visit [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" [datePassed]="true" (change)="loadVisits()"></app-my-visit>
+  }
+  @for (visit of reportBeingWrittenVisits; track visit) {
+    <app-my-visit [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
+  }
+  @for (visit of reportWrittenVisits; track visit) {
+    <app-my-visit [visit]="visit" [price]="price" [partialRefundAmount]="partialRefundAmount" (change)="loadVisits()"></app-my-visit>
+  }
 </div>

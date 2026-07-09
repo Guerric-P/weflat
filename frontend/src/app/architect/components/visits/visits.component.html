@@ -6,8 +6,12 @@
           Demandes de visites
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div *ngIf="!potentialVisites || !potentialVisites.length">Vous n'avez aucune demande de visite pour l'instant...</div>
-      <app-visit *ngFor="let visite of potentialVisites" [visit]="visite" [enableAcceptRefuseButtons]="true" (updated)="loadAllVisites()"></app-visit>
+      @if (!potentialVisites || !potentialVisites.length) {
+        <div>Vous n'avez aucune demande de visite pour l'instant...</div>
+      }
+      @for (visite of potentialVisites; track visite) {
+        <app-visit [visit]="visite" [enableAcceptRefuseButtons]="true" (updated)="loadAllVisites()"></app-visit>
+      }
     </mat-expansion-panel>
     <mat-expansion-panel [expanded]="reportWrittenVisitesExpanded">
       <mat-expansion-panel-header>
@@ -15,8 +19,12 @@
           Mes visites passées
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div *ngIf="!reportWrittenVisites || !reportWrittenVisites.length">Vous n'avez aucune visite passée</div>
-      <app-visit *ngFor="let visite of reportWrittenVisites" [visit]="visite" [enableReportViewButton]="true" (updated)="loadAllVisites()"></app-visit>
+      @if (!reportWrittenVisites || !reportWrittenVisites.length) {
+        <div>Vous n'avez aucune visite passée</div>
+      }
+      @for (visite of reportWrittenVisites; track visite) {
+        <app-visit [visit]="visite" [enableReportViewButton]="true" (updated)="loadAllVisites()"></app-visit>
+      }
     </mat-expansion-panel>
     <mat-expansion-panel [expanded]="reportPendingVisitesExpanded">
       <mat-expansion-panel-header>
@@ -24,8 +32,12 @@
           Mes visites en cours
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div *ngIf="!reportPendingVisites || !reportPendingVisites.length">Vous n'avez aucune visite en cours</div>
-      <app-visit *ngFor="let visite of reportPendingVisites" [visit]="visite" [enableReportEditButton]="true" (updated)="loadAllVisites()"></app-visit>
+      @if (!reportPendingVisites || !reportPendingVisites.length) {
+        <div>Vous n'avez aucune visite en cours</div>
+      }
+      @for (visite of reportPendingVisites; track visite) {
+        <app-visit [visit]="visite" [enableReportEditButton]="true" (updated)="loadAllVisites()"></app-visit>
+      }
     </mat-expansion-panel>
     <mat-expansion-panel [expanded]="plannedVisitesExpanded">
       <mat-expansion-panel-header>
@@ -36,8 +48,12 @@
           </button>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <div *ngIf="!plannedVisites || !plannedVisites.length">Vous n'avez aucune visite programmée</div>
-      <app-visit *ngFor="let visite of plannedVisites" [visit]="visite" [enableHelpButton]="true" (updated)="loadAllVisites()"></app-visit>
+      @if (!plannedVisites || !plannedVisites.length) {
+        <div>Vous n'avez aucune visite programmée</div>
+      }
+      @for (visite of plannedVisites; track visite) {
+        <app-visit [visit]="visite" [enableHelpButton]="true" (updated)="loadAllVisites()"></app-visit>
+      }
     </mat-expansion-panel>
   </mat-accordion>
 </div>

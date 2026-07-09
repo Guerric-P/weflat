@@ -5,9 +5,10 @@ import { ReportClass } from '@weflat/app/core/models/ReportClass';
 import { AuthenticationService } from '@weflat/app/core/services/authentication.service';
 
 @Component({
-  selector: 'app-report-consultation',
-  templateUrl: './report-consultation.component.html',
-  styleUrls: ['./report-consultation.component.scss']
+    selector: 'app-report-consultation',
+    templateUrl: './report-consultation.component.html',
+    styleUrls: ['./report-consultation.component.scss'],
+    standalone: false
 })
 export class ReportConsultationComponent implements OnInit {
 

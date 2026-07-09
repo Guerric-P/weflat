@@ -5,17 +5,25 @@
   </div>
   <div class="card-body">
     <p class="card-text">
-      <span *ngIf="architect.status === ArchitectStatusEnum.CREATED">
-        <span class="badge bg-info text-dark">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat
-        et moi") afin qu'il soit étudié par nos équipes
-      </span>
-      <span *ngIf="architect.status === ArchitectStatusEnum.APPROVING">
-        <span class="badge bg-warning text-dark">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
-        <button mat-raised-button (click)="accept()">Accepter</button>
-        <button class="ms-2" mat-raised-button (click)="refuse()">Refuser</button>
-      </span>
-      <span *ngIf="architect.status === ArchitectStatusEnum.VALIDATED" class="badge bg-success">Validé</span>
-      <span *ngIf="architect.status === ArchitectStatusEnum.REFUSED" class="badge bg-danger">Refusé</span>
+      @if (architect.status === ArchitectStatusEnum.CREATED) {
+        <span>
+          <span class="badge bg-info text-dark">Créé</span> Remplissez votre profil (un code postal au minimum, section "Mon métier d'architecte", section "Weflat
+          et moi") afin qu'il soit étudié par nos équipes
+        </span>
+      }
+      @if (architect.status === ArchitectStatusEnum.APPROVING) {
+        <span>
+          <span class="badge bg-warning text-dark">En cours d'approbation</span> Votre demande est en cours de traitement par nos équipes.
+          <button mat-raised-button (click)="accept()">Accepter</button>
+          <button class="ms-2" mat-raised-button (click)="refuse()">Refuser</button>
+        </span>
+      }
+      @if (architect.status === ArchitectStatusEnum.VALIDATED) {
+        <span class="badge bg-success">Validé</span>
+      }
+      @if (architect.status === ArchitectStatusEnum.REFUSED) {
+        <span class="badge bg-danger">Refusé</span>
+      }
     </p>
   </div>
 </div>
@@ -66,9 +74,11 @@
       <div class="col-sm-4 zip-codes-container">
         <label>Codes postaux</label>
         <mat-chip-listbox>
-          <mat-chip *ngFor="let zipCode of architect.zipCodes">
-            {{zipCode.number}}
-          </mat-chip>
+          @for (zipCode of architect.zipCodes; track zipCode) {
+            <mat-chip>
+              {{zipCode.number}}
+            </mat-chip>
+          }
         </mat-chip-listbox>
       </div>
     </div>

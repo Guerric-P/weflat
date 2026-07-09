@@ -5,9 +5,10 @@ import { VisiteCounterService } from '@weflat/app/core/services/visite-counter.s
 import { VisitService } from '@weflat/app/shared/services/visit.service';
 
 @Component({
-  selector: 'app-base-backend-layout',
-  templateUrl: './base-backend-layout.component.html',
-  styleUrls: ['./base-backend-layout.component.scss']
+    selector: 'app-base-backend-layout',
+    templateUrl: './base-backend-layout.component.html',
+    styleUrls: ['./base-backend-layout.component.scss'],
+    standalone: false
 })
 export class BaseBackendLayoutComponent implements OnInit {
 

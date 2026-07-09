@@ -2,7 +2,9 @@
   <div class="container">
     <button mat-raised-button type="button" (click)="backClick()">Retour</button>
     <span class="float-end" matTooltip="Cette fonctionnalité sera bientôt disponible."><button mat-raised-button color="primary" disabled="disabled" class="cursor-not-allowed" type="button">Télécharger au format pdf</button></span>
-    <a *ngIf="displayArchitectContactButton" mat-raised-button class="me-2 float-end" href="mailto:{{report.visite.architect.email}}">Contacter l'architecte</a>
+    @if (displayArchitectContactButton) {
+      <a mat-raised-button class="me-2 float-end" href="mailto:{{report.visite.architect.email}}">Contacter l'architecte</a>
+    }
     <h1 class="mt-3" style="font-size:3.2em;">Mon compte rendu</h1>
     <div class="card mt-2">
       <div class="card-header">
@@ -91,24 +93,32 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let renovation of report.renovations">
-              <th class="d-inline-block col-2" scope="row">
-                {{renovation.position ? renovation.position.label : 'Autres'}}
-              </th>
-              <td class="d-inline-block col-2">
-                <ng-container [ngSwitch]="renovation.condition">
-                  <div *ngSwitchCase="0">Bon</div>
-                  <div *ngSwitchCase="1">Moyen</div>
-                  <div *ngSwitchCase="2">Mauvais</div>
-                </ng-container>
-              </td>
-              <td class="d-inline-block col-3">
-                {{ renovation.estimatedWork }}
-              </td>
-              <td class="d-inline-block col-4">
-                {{ renovation.remarks }}
-              </td>
-            </tr>
+            @for (renovation of report.renovations; track renovation) {
+              <tr>
+                <th class="d-inline-block col-2" scope="row">
+                  {{renovation.position ? renovation.position.label : 'Autres'}}
+                </th>
+                <td class="d-inline-block col-2">
+                  @switch (renovation.condition) {
+                    @case (0) {
+                      <div>Bon</div>
+                    }
+                    @case (1) {
+                      <div>Moyen</div>
+                    }
+                    @case (2) {
+                      <div>Mauvais</div>
+                    }
+                  }
+                </td>
+                <td class="d-inline-block col-3">
+                  {{ renovation.estimatedWork }}
+                </td>
+                <td class="d-inline-block col-4">
+                  {{ renovation.remarks }}
+                </td>
+              </tr>
+            }
           </tbody>
           <tbody>
             <tr>
@@ -116,11 +126,17 @@
                 Global
               </th>
               <td class="d-inline-block col-2">
-                <ng-container [ngSwitch]="report.globalCondition">
-                  <div *ngSwitchCase="0">Bon</div>
-                  <div *ngSwitchCase="1">Moyen</div>
-                  <div *ngSwitchCase="2">Mauvais</div>
-                </ng-container>
+                @switch (report.globalCondition) {
+                  @case ('0') {
+                    <div>Bon</div>
+                  }
+                  @case ('1') {
+                    <div>Moyen</div>
+                  }
+                  @case ('2') {
+                    <div>Mauvais</div>
+                  }
+                }
               </td>
               <td class="d-inline-block col-3">
                 {{ estimatedWorkSum }}

@@ -1,5 +1,5 @@
 import { registerLocaleData } from '@angular/common';
-import { provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import localeFr from '@angular/common/locales/fr';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withHttpTransferCacheOptions } from '@angular/platform-browser';
@@ -16,7 +16,7 @@ registerLocaleData(localeFr);
 @NgModule({
   imports: [
     CoreModule,
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule,
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: true })

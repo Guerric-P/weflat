@@ -3,9 +3,10 @@ import { ArchitectClass } from '@weflat/app/core/models/ArchitectClass';
 import { ArchitectStatusEnum } from '@weflat/app/shared/common/enums/ArchitectStatusEnum';
 
 @Component({
-  selector: 'app-architects-list',
-  templateUrl: './architects-list.component.html',
-  styleUrls: ['./architects-list.component.scss']
+    selector: 'app-architects-list',
+    templateUrl: './architects-list.component.html',
+    styleUrls: ['./architects-list.component.scss'],
+    standalone: false
 })
 export class ArchitectsListComponent implements OnInit, OnChanges {
 
