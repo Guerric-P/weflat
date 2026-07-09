@@ -1,4 +1,7 @@
 name: Docker Image CI
+
+on:
+  push: 
     
 env:
   CR_PAT: ${{secrets.TOKEN}}
